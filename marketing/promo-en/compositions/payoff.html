@@ -1,0 +1,46 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #ffffff; }
+    #po-hero { position: absolute; inset: 0; background: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    #po-label { font-size: 56px; font-weight: 600; color: #475569; }
+    #po-num { font-size: 330px; font-weight: 700; color: #0f766e; line-height: 1.05; direction: ltr; font-variant-numeric: tabular-nums; }
+    #po-sub { margin-top: 10px; font-size: 52px; font-weight: 600; color: #0b1220; }
+    #po-sub b { color: #0f766e; direction: ltr; unicode-bidi: isolate; }
+    #po-shot-wrap { position: absolute; inset: 0; overflow: hidden; background: #f1f5f9; }
+    #po-shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; }
+    #po-cap { position: absolute; right: 0; left: 0; bottom: 0; height: 170px; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 140px; }
+    #po-cap h3 { font-size: 64px; font-weight: 700; color: #0b1220; }
+    #po-cap p { font-size: 28px; color: #94a3b8; }
+  </style>
+  <div id="root" data-composition-id="payoff" data-width="1920" data-height="1080">
+    <div id="po-hero" class="clip" data-start="0" data-duration="3.0">
+      <div id="po-label">Collection rate, last 90 days</div>
+      <div id="po-num"><span id="po-val">0.0</span>%</div>
+      <div id="po-sub"><b>197,410 AED</b> collected after reminders this month</div>
+    </div>
+    <div id="po-shot-wrap" class="clip" data-start="3.0" data-duration="2.6">
+      <img id="po-shot" src="assets/screens/owner-dashboard.png" alt="لوحة المالك" />
+      <div id="po-cap"><h3>Owner dashboard: your full cash-flow picture</h3><p>* Figures from the demo dataset</p></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const v = { p: 0 };
+    tl.fromTo(v, { p: 0 }, { p: 91.2, duration: 1.4, ease: "power3.out", onUpdate: () => {
+      document.getElementById("po-val").textContent = v.p.toFixed(1);
+    } }, 0.15);
+    tl.fromTo("#po-num", { scale: 0.82 }, { scale: 1, duration: 1.4, ease: "power3.out" }, 0.15);
+    tl.fromTo("#po-label", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+    tl.fromTo("#po-sub", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 1.0);
+    // pull back into the real owner dashboard where that number lives
+    tl.fromTo("#po-shot", { scale: 1.9, x: 0, y: 0, transformOrigin: "1170px 290px" }, { scale: 1, duration: 1.0, ease: "expo.inOut" }, 3.0);
+    tl.fromTo("#po-cap", { yPercent: 100 }, { yPercent: 0, duration: 0.45, ease: "power3.out" }, 3.6);
+    window.__timelines["payoff"] = tl;
+  </script>
+</template>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-composition-variables='[{"id":"price","type":"string","label":"Price line","default":"From AED 99 / month"},{"id":"cta","type":"string","label":"Call to action","default":"Start your free 14-day trial"}]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+      @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+      @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+      :root {
+        --ground: #f1f5f9;
+        --ink: #0b1220;
+        --brand: #0f766e;
+        --accent: #14b8a6;
+        --font-display: "Plex Arabic";
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
+      #root { width: 100%; height: 100%; font-family: var(--font-display); direction: ltr; }
+      #bg { position: absolute; inset: 0; background: var(--ground); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="56.5" data-width="1920" data-height="1080">
+      <div id="bg" class="clip" data-start="0" data-duration="56.5" data-track-index="0"></div>
+
+      <div id="hook" data-composition-id="hook" data-composition-src="compositions/hook.html" data-start="0" data-duration="13.4" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="reveal" data-composition-id="reveal" data-composition-src="compositions/reveal.html" data-start="13.4" data-duration="4.0" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="upload" data-composition-id="upload" data-composition-src="compositions/upload.html" data-start="17.4" data-duration="6.0" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="schedule" data-composition-id="schedule" data-composition-src="compositions/schedule.html" data-start="23.4" data-duration="5.6" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="remind" data-composition-id="remind" data-composition-src="compositions/remind.html" data-start="29.0" data-duration="10.0" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="payoff" data-composition-id="payoff" data-composition-src="compositions/payoff.html" data-start="39.0" data-duration="5.6" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="roles" data-composition-id="roles" data-composition-src="compositions/roles.html" data-start="44.6" data-duration="4.4" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="endcard" data-composition-id="endcard" data-composition-src="compositions/endcard.html" data-start="49.0" data-duration="7.5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080" data-variable-values='{"price":"From AED 99 / month","cta":"Start your free 14-day trial"}'></div>
+
+      <!-- Voiceover: English (see VOICEOVER.md) -->
+      <audio id="vo1" class="clip" src="assets/voice/vo1.mp3" data-start="0.3" data-duration="3.4" data-track-index="3" data-volume="1"></audio>
+      <audio id="vo2" class="clip" src="assets/voice/vo2.mp3" data-start="4.3" data-duration="8.9" data-track-index="3" data-volume="1"></audio>
+      <audio id="vo3" class="clip" src="assets/voice/vo3.mp3" data-start="13.6" data-duration="3.3" data-track-index="3" data-volume="1"></audio>
+      <audio id="vo4" class="clip" src="assets/voice/vo4.mp3" data-start="17.6" data-duration="5.65" data-track-index="3" data-volume="1"></audio>
+      <audio id="vo5" class="clip" src="assets/voice/vo5.mp3" data-start="23.6" data-duration="5.3" data-track-index="3" data-volume="1"></audio>
+      <audio id="vo6" class="clip" src="assets/voice/vo6.mp3" data-start="29.2" data-duration="4.55" data-track-index="3" data-volume="1"></audio>
+      <audio id="vo7" class="clip" src="assets/voice/vo7.mp3" data-start="34.8" data-duration="3.65" data-track-index="3" data-volume="1"></audio>
+      <audio id="vo8" class="clip" src="assets/voice/vo8.mp3" data-start="39.2" data-duration="5.3" data-track-index="3" data-volume="1"></audio>
+      <audio id="vo9" class="clip" src="assets/voice/vo9.mp3" data-start="44.8" data-duration="3.95" data-track-index="3" data-volume="1"></audio>
+      <audio id="vo10" class="clip" src="assets/voice/vo10.mp3" data-start="49.2" data-duration="5.75" data-track-index="3" data-volume="1"></audio>
+
+      <!-- SFX on visible actions, sitting under the voice -->
+      <audio id="sfx-pop-1" class="clip" src="assets/sfx/pop.mp3" data-start="1.1" data-duration="0.72" data-track-index="5" data-volume="0.3"></audio>
+      <audio id="sfx-impact-1" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="6.9" data-duration="2.12" data-track-index="6" data-volume="0.35"></audio>
+      <audio id="sfx-whoosh-1" class="clip" src="assets/sfx/whoosh.mp3" data-start="13.35" data-duration="0.57" data-track-index="5" data-volume="0.4"></audio>
+      <audio id="sfx-whoosh-2" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="17.3" data-duration="0.57" data-track-index="6" data-volume="0.35"></audio>
+      <audio id="sfx-click-1" class="clip" src="assets/sfx/click.mp3" data-start="19.85" data-duration="0.37" data-track-index="5" data-volume="0.5"></audio>
+      <audio id="sfx-whoosh-3" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="23.3" data-duration="0.57" data-track-index="6" data-volume="0.3"></audio>
+      <audio id="sfx-whoosh-4" class="clip" src="assets/sfx/whoosh.mp3" data-start="28.9" data-duration="0.57" data-track-index="5" data-volume="0.3"></audio>
+      <audio id="sfx-click-2" class="clip" src="assets/sfx/click.mp3" data-start="33.35" data-duration="0.37" data-track-index="6" data-volume="0.5"></audio>
+      <audio id="sfx-click-3" class="clip" src="assets/sfx/click.mp3" data-start="36.45" data-duration="0.37" data-track-index="5" data-volume="0.5"></audio>
+      <audio id="sfx-pop-2" class="clip" src="assets/sfx/pop.mp3" data-start="36.6" data-duration="0.72" data-track-index="6" data-volume="0.35"></audio>
+      <audio id="sfx-whoosh-5" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="44.5" data-duration="0.57" data-track-index="5" data-volume="0.3"></audio>
+      <audio id="sfx-whoosh-6" class="clip" src="assets/sfx/whoosh.mp3" data-start="48.9" data-duration="0.57" data-track-index="6" data-volume="0.35"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

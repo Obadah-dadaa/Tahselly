@@ -1,0 +1,36 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; direction: rtl; font-family: "Plex Arabic"; background: #e2e8f0; }
+    #s1-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; transform-origin: 0 0; }
+    #s1-cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; }
+    .ring { position: absolute; border: 5px solid #14b8a6; border-radius: 20px; box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.32), 0 0 0 10px rgba(20, 184, 166, 0.25); opacity: 0; }
+    #s1-cap { position: absolute; right: 70px; bottom: 56px; display: flex; align-items: center; gap: 26px; padding: 22px 36px 22px 44px; background: #ffffff; border-radius: 28px; box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28); }
+    #s1-cap .n { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 22px; background: #0f766e; color: #fff; font-size: 44px; font-weight: 700; }
+    #s1-cap .k { font-size: 26px; font-weight: 600; color: #0f766e; }
+    #s1-cap .t { font-size: 50px; font-weight: 700; color: #0b1220; line-height: 1.2; }
+  </style>
+  <div id="root" data-composition-id="s1" data-width="1920" data-height="1080">
+    <div id="s1-stage" class="clip" data-start="0" data-duration="8.59" data-layout-allow-overflow data-layout-ignore>
+      <div id="s1-cam"><img src="assets/screens/login.png" alt="تسجيل الدخول" /><div id="s1-ring0" class="ring" style="left:1199.6px;top:437.6px;width:480.8px;height:327.2px"></div></div>
+    </div>
+    <div id="s1-cap" class="clip" data-start="0" data-duration="8.59">
+      <div class="n">1</div>
+      <div><div class="k">الخطوة 1 من 12</div><div class="t">تسجيل الدخول</div></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s1-cam", { x: 0, y: 0, scale: 1 }, { x: 0, y: 0, scale: 1, duration: 0.01 }, 0);
+    tl.fromTo("#s1-cap", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+    tl.to("#s1-cam", { x: -1536.0, y: -652.2, scale: 1.8, duration: 0.9, ease: "expo.inOut" }, 1.10);
+    tl.fromTo("#s1-ring0", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 1.85);
+    window.__timelines["s1"] = tl;
+  </script>
+</template>

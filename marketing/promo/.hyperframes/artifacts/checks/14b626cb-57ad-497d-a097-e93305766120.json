@@ -1,0 +1,3906 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": true,
+  "lint": {
+    "ok": false,
+    "errorCount": 8,
+    "warningCount": 231,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/pop.mp3 at 3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/impact-bass-1.mp3 at 6.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/whoosh.mp3 at 8.85-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/whoosh-short.mp3 at 12.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/click.mp3 at 14.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/pop.mp3 at 15.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/whoosh-short.mp3 at 17.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/key-press.mp3 at 18.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/key-press.mp3 at 19.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/key-press.mp3 at 20.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 1.1-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/impact-bass-1.mp3 at 6.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/whoosh.mp3 at 8.85-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/whoosh-short.mp3 at 12.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/click.mp3 at 14.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/pop.mp3 at 15.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/whoosh-short.mp3 at 17.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/key-press.mp3 at 18.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/key-press.mp3 at 19.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/key-press.mp3 at 20.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 3-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/whoosh.mp3 at 8.85-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/whoosh-short.mp3 at 12.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/click.mp3 at 14.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/pop.mp3 at 15.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/whoosh-short.mp3 at 17.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/key-press.mp3 at 18.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/key-press.mp3 at 19.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/key-press.mp3 at 20.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 6.6-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/whoosh-short.mp3 at 12.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/click.mp3 at 14.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/pop.mp3 at 15.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/whoosh-short.mp3 at 17.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/key-press.mp3 at 18.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/key-press.mp3 at 19.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/key-press.mp3 at 20.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 8.85-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/click.mp3 at 14.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/pop.mp3 at 15.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/whoosh-short.mp3 at 17.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/key-press.mp3 at 18.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/key-press.mp3 at 19.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/key-press.mp3 at 20.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 12.4-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/pop.mp3 at 15.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/whoosh-short.mp3 at 17.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/key-press.mp3 at 18.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/key-press.mp3 at 19.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/key-press.mp3 at 20.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 14.45-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/whoosh-short.mp3 at 17.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/key-press.mp3 at 18.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/key-press.mp3 at 19.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/key-press.mp3 at 20.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 15.6-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/key-press.mp3 at 18.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/key-press.mp3 at 19.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/key-press.mp3 at 20.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 17.4-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/key-press.mp3 at 19.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/key-press.mp3 at 20.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 18.66-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/key-press.mp3 at 20.66-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 19.66-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/whoosh.mp3 at 21.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/key-press.mp3 at 20.66-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 21.9-45s, assets/sfx/notification.mp3 at 24.4-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 21.9-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 21.9-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 21.9-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 21.9-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 21.9-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 21.9-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 21.9-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 21.9-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 21.9-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/notification.mp3 at 24.4-45s, assets/sfx/click.mp3 at 26.55-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/notification.mp3 at 24.4-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/notification.mp3 at 24.4-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/notification.mp3 at 24.4-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/notification.mp3 at 24.4-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/notification.mp3 at 24.4-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/notification.mp3 at 24.4-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/notification.mp3 at 24.4-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/notification.mp3 at 24.4-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 26.55-45s, assets/sfx/click.mp3 at 28.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 26.55-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 26.55-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 26.55-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 26.55-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 26.55-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 26.55-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 26.55-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 28.45-45s, assets/sfx/pop.mp3 at 28.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 28.45-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 28.45-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 28.45-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 28.45-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 28.45-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 28.45-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 28.6-45s, assets/sfx/riser.mp3 at 28.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 28.6-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 28.6-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 28.6-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 28.6-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/pop.mp3 at 28.6-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/riser.mp3 at 28.9-45s, assets/sfx/impact-bass-1.mp3 at 31.6-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/riser.mp3 at 28.9-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/riser.mp3 at 28.9-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/riser.mp3 at 28.9-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/riser.mp3 at 28.9-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 31.6-45s, assets/sfx/whoosh-short.mp3 at 36.45-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 31.6-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 31.6-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/impact-bass-1.mp3 at 31.6-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 36.45-45s, assets/sfx/whoosh.mp3 at 39.9-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 36.45-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh-short.mp3 at 36.45-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 39.9-45s, assets/sfx/click.mp3 at 40.95-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/whoosh.mp3 at 39.9-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 5 overlap (assets/sfx/click.mp3 at 40.95-45s, assets/sfx/impact-bass-1.mp3 at 41.3-45s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "font_family_without_font_face",
+        "severity": "error",
+        "message": "Font family used without @font-face declaration: plex arabic. These are not in the auto-resolved font list, so the renderer cannot supply them automatically. Text will fall back to a generic font, producing incorrect typography in the video.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\New folder\\tahseel-promo\\compositions\\endcard.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add @font-face { font-family: '...'; src: url('capture/assets/fonts/...woff2'); } for each font family, pointing to the captured .woff2 files. For an OS-bundled system font (e.g. Hiragino Sans, Microsoft YaHei) that has no downloadable file, use src: local('Exact Font Name') instead. The declaration alone satisfies this check without needing a font file."
+      },
+      {
+        "code": "font_family_without_font_face",
+        "severity": "error",
+        "message": "Font family used without @font-face declaration: plex arabic. These are not in the auto-resolved font list, so the renderer cannot supply them automatically. Text will fall back to a generic font, producing incorrect typography in the video.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\New folder\\tahseel-promo\\compositions\\hook.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add @font-face { font-family: '...'; src: url('capture/assets/fonts/...woff2'); } for each font family, pointing to the captured .woff2 files. For an OS-bundled system font (e.g. Hiragino Sans, Microsoft YaHei) that has no downloadable file, use src: local('Exact Font Name') instead. The declaration alone satisfies this check without needing a font file."
+      },
+      {
+        "code": "font_family_without_font_face",
+        "severity": "error",
+        "message": "Font family used without @font-face declaration: plex arabic. These are not in the auto-resolved font list, so the renderer cannot supply them automatically. Text will fall back to a generic font, producing incorrect typography in the video.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\New folder\\tahseel-promo\\compositions\\payoff.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add @font-face { font-family: '...'; src: url('capture/assets/fonts/...woff2'); } for each font family, pointing to the captured .woff2 files. For an OS-bundled system font (e.g. Hiragino Sans, Microsoft YaHei) that has no downloadable file, use src: local('Exact Font Name') instead. The declaration alone satisfies this check without needing a font file."
+      },
+      {
+        "code": "font_family_without_font_face",
+        "severity": "error",
+        "message": "Font family used without @font-face declaration: plex arabic. These are not in the auto-resolved font list, so the renderer cannot supply them automatically. Text will fall back to a generic font, producing incorrect typography in the video.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\New folder\\tahseel-promo\\compositions\\remind.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add @font-face { font-family: '...'; src: url('capture/assets/fonts/...woff2'); } for each font family, pointing to the captured .woff2 files. For an OS-bundled system font (e.g. Hiragino Sans, Microsoft YaHei) that has no downloadable file, use src: local('Exact Font Name') instead. The declaration alone satisfies this check without needing a font file."
+      },
+      {
+        "code": "font_family_without_font_face",
+        "severity": "error",
+        "message": "Font family used without @font-face declaration: plex arabic. These are not in the auto-resolved font list, so the renderer cannot supply them automatically. Text will fall back to a generic font, producing incorrect typography in the video.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\New folder\\tahseel-promo\\compositions\\reveal.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add @font-face { font-family: '...'; src: url('capture/assets/fonts/...woff2'); } for each font family, pointing to the captured .woff2 files. For an OS-bundled system font (e.g. Hiragino Sans, Microsoft YaHei) that has no downloadable file, use src: local('Exact Font Name') instead. The declaration alone satisfies this check without needing a font file."
+      },
+      {
+        "code": "font_family_without_font_face",
+        "severity": "error",
+        "message": "Font family used without @font-face declaration: plex arabic. These are not in the auto-resolved font list, so the renderer cannot supply them automatically. Text will fall back to a generic font, producing incorrect typography in the video.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\New folder\\tahseel-promo\\compositions\\roles.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add @font-face { font-family: '...'; src: url('capture/assets/fonts/...woff2'); } for each font family, pointing to the captured .woff2 files. For an OS-bundled system font (e.g. Hiragino Sans, Microsoft YaHei) that has no downloadable file, use src: local('Exact Font Name') instead. The declaration alone satisfies this check without needing a font file."
+      },
+      {
+        "code": "font_family_without_font_face",
+        "severity": "error",
+        "message": "Font family used without @font-face declaration: plex arabic. These are not in the auto-resolved font list, so the renderer cannot supply them automatically. Text will fall back to a generic font, producing incorrect typography in the video.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\New folder\\tahseel-promo\\compositions\\schedule.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add @font-face { font-family: '...'; src: url('capture/assets/fonts/...woff2'); } for each font family, pointing to the captured .woff2 files. For an OS-bundled system font (e.g. Hiragino Sans, Microsoft YaHei) that has no downloadable file, use src: local('Exact Font Name') instead. The declaration alone satisfies this check without needing a font file."
+      },
+      {
+        "code": "font_family_without_font_face",
+        "severity": "error",
+        "message": "Font family used without @font-face declaration: plex arabic. These are not in the auto-resolved font list, so the renderer cannot supply them automatically. Text will fall back to a generic font, producing incorrect typography in the video.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\New folder\\tahseel-promo\\compositions\\upload.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add @font-face { font-family: '...'; src: url('capture/assets/fonts/...woff2'); } for each font family, pointing to the captured .woff2 files. For an OS-bundled system font (e.g. Hiragino Sans, Microsoft YaHei) that has no downloadable file, use src: local('Exact Font Name') instead. The declaration alone satisfies this check without needing a font file."
+      }
+    ],
+    "filesScanned": 9
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 0,
+    "samples": [],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [],
+    "checked": 0,
+    "passed": 0
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "step": 0,
+    "samples": 0
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

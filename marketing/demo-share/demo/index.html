@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Tahseel Demo</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="One-minute demo of Tahseel, invoice and payment reminders for UAE businesses.">
+<meta property="og:title" content="Tahseel — product demo">
+<meta property="og:description" content="Your unpaid invoices, followed up automatically.">
+<meta property="og:image" content="poster.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@600;700&display=swap">
+<style>
+  /* Layout: one centred column — video first, then the pitch in short ledger-style rows, pricing, and a reply prompt */
+  :root {
+    --bg: #f4f7f6;
+    --surface: #ffffff;
+    --ink: #0d1b1e;
+    --muted: #55666a;
+    --line: #dde6e4;
+    --brand: #0f766e;
+    --brand-soft: #e3f3f0;
+    --overdue: #b4233c;
+    --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+    --font-ar: 'IBM Plex Sans Arabic', 'Segoe UI', system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b1416; --surface: #121f22; --ink: #e8f0ee; --muted: #9db0ad; --line: #22363a;
+      --brand: #2fb5a5; --brand-soft: #123330; --overdue: #f2879a; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b1416; --surface: #121f22; --ink: #e8f0ee; --muted: #9db0ad; --line: #22363a;
+    --brand: #2fb5a5; --brand-soft: #123330; --overdue: #f2879a; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  body {
+    background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--font-body);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 40px 56px;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; display: grid; gap: 40px; }
+  header { display: flex; align-items: center; gap: 12px; }
+  .mark {
+    width: 44px; height: 44px; border-radius: 12px; background: var(--brand); color: #fff;
+    display: grid; place-items: center; font: 700 24px/1 var(--font-ar); padding-bottom: 4px;
+  }
+  .brand { font-weight: 700; font-size: 20px; }
+  .brand small { display: block; font-weight: 500; font-size: 13px; color: var(--muted); }
+  h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.15; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+  h1 em { font-style: normal; color: var(--brand); }
+  .lede { margin: 14px 0 0; color: var(--muted); font-size: 18px; max-width: 62ch; }
+  .video {
+    border-radius: 18px; overflow: hidden; background: #000; border: 1px solid var(--line);
+    box-shadow: 0 24px 60px -24px rgba(6, 30, 28, 0.45);
+  }
+  video { display: block; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; }
+  .caption { margin: 10px 2px 0; font-size: 13px; color: var(--muted); }
+  h2 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; font-weight: 600; }
+  .rows { display: grid; border-top: 1px solid var(--line); }
+  .row { display: grid; grid-template-columns: 210px 1fr; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .row b { font-weight: 600; }
+  .row p { margin: 0; color: var(--muted); min-width: 0; }
+  .ledger { display: inline-flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .chip { font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: var(--brand-soft); color: var(--brand); font-variant-numeric: tabular-nums; }
+  .chip.late { background: color-mix(in srgb, var(--overdue) 14%, transparent); color: var(--overdue); }
+  .prices { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .price { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 4px; }
+  .price span { color: var(--muted); font-size: 13px; }
+  .price strong { font-size: 26px; font-variant-numeric: tabular-nums; }
+  .price strong small { font-size: 13px; font-weight: 500; color: var(--muted); }
+  .note { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
+  .cta {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 28px;
+    display: grid; gap: 8px; border-inline-start: 4px solid var(--brand);
+  }
+  .cta h3 { margin: 0; font-size: 22px; }
+  .cta p { margin: 0; color: var(--muted); }
+  footer { font-size: 13px; color: var(--muted); }
+  @media (max-width: 560px) {
+    .row { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="mark" aria-hidden="true">ت</div>
+    <div class="brand">Tahseel <small>Invoice &amp; payment reminders for UAE businesses</small></div>
+  </header>
+
+  <section>
+    <h1>Your unpaid invoices, <em>followed up automatically.</em></h1>
+    <p class="lede">Tahseel imports your invoices from Excel, reminds your clients before and after the due date by email and WhatsApp, and shows exactly what is due, overdue and collected — in Arabic or English.</p>
+  </section>
+
+  <section>
+    <div class="video">
+      <video controls playsinline preload="metadata" poster="poster.jpg">
+        <source src="tahseel-demo-en.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="caption">One-minute product demo. Figures shown come from a demo company.</p>
+  </section>
+
+  <section>
+    <h2>What it does</h2>
+    <div class="rows">
+      <div class="row"><b>Excel import</b><p>Upload your invoice sheet as it is. Arabic or English column headers are recognised and clients are created automatically.</p></div>
+      <div class="row"><b>Automatic reminders</b><p>Sent every morning at 9:00 UAE time on the schedule you choose:
+        <span class="ledger"><span class="chip">3 days before</span><span class="chip">due date</span><span class="chip late">+7</span><span class="chip late">+14</span><span class="chip late">+30</span><span class="chip late">final notice</span></span></p></div>
+      <div class="row"><b>Manual &amp; scheduled</b><p>Pick one or many invoices, edit the message, and send now or at a set day and time. Every message is kept in a reminder log.</p></div>
+      <div class="row"><b>Payments &amp; aging</b><p>Record payments, see the invoice close, and track receivables by 1–30, 31–60, 61–90 and 90+ days, with one-click Excel export.</p></div>
+      <div class="row"><b>Owner dashboard</b><p>Collection rate, days sales outstanding, invoiced vs collected by month, top debtors and team activity.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Plans</h2>
+    <div class="prices">
+      <div class="price"><span>Freelancers</span><strong>99 <small>AED / month</small></strong></div>
+      <div class="price"><span>Marketing agencies</span><strong>149–199 <small>AED / month</small></strong></div>
+      <div class="price"><span>Service companies</span><strong>179 <small>AED / month</small></strong></div>
+      <div class="price"><span>Accounting offices</span><strong>199 <small>AED / month</small></strong></div>
+    </div>
+    <p class="note">14-day free trial with no card, then a paid plan to continue. Yearly billing includes two months free.</p>
+  </section>
+
+  <section class="cta">
+    <h3>Want to try it with your own invoices?</h3>
+    <p>Reply to the email this link came in, and we will set up your free 14-day trial and walk you through it.</p>
+  </section>
+
+  <footer>Tahseel · Built for businesses in the United Arab Emirates</footer>
+</div>
+
+</body>
+</html>

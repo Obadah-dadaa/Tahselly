@@ -1,0 +1,37 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; direction: rtl; font-family: "Plex Arabic"; background: #0f766e; }
+    #intro-box { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; }
+    #intro-mark { width: 170px; height: 170px; border-radius: 42px; background: #fff; color: #0f766e; font-size: 110px; font-weight: 700; display: grid; place-items: center; line-height: 1; padding-bottom: 14px; }
+    #intro-k { margin-top: 40px; font-size: 34px; font-weight: 600; color: #99f6e4; }
+    #intro-t { margin-top: 8px; font-size: 104px; font-weight: 700; line-height: 1.15; }
+    #intro-l { margin-top: 18px; font-size: 40px; color: #ccfbf1; }
+    .chips { margin-top: 44px; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; max-width: 1500px; }
+    .chip { padding: 10px 24px; border-radius: 999px; background: rgba(255,255,255,.12); font-size: 28px; font-weight: 600; }
+  </style>
+  <div id="root" data-composition-id="intro" data-width="1920" data-height="1080">
+    <div id="intro-box" class="clip" data-start="0" data-duration="11.74">
+      <div id="intro-mark">ت</div>
+      <div id="intro-k">دليل الاستخدام</div>
+      <div id="intro-t">تعلّم تحصيل خطوة بخطوة</div>
+      <div id="intro-l">من تسجيل الدخول حتى تحصيل أموالك</div>
+      <div id="intro-chips" class="chips"><span class="chip">تسجيل الدخول</span><span class="chip">لوحة المدير: نظرة سريعة</span><span class="chip">إضافة عميل جديد</span><span class="chip">إنشاء فاتورة</span><span class="chip">الاستيراد من Excel</span><span class="chip">مركز التذكيرات</span><span class="chip">إرسال تذكير أو جدولته</span><span class="chip">تسجيل الدفعة</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#intro-mark", { scale: 0, rotation: -20 }, { scale: 1, rotation: 0, duration: 0.55, ease: "back.out(1.7)" }, 0.15);
+    tl.fromTo("#intro-k", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.5);
+    tl.fromTo("#intro-t", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.65);
+    tl.fromTo("#intro-l", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.1);
+    tl.fromTo("#intro-chips .chip", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out", stagger: 0.12 }, 1.6);
+    window.__timelines["intro"] = tl;
+  </script>
+</template>

@@ -1,0 +1,29 @@
+To: efs.dubai@efsme.com
+Subject: Tahseel for EFS Facilities Services: Automated Invoice Follow-Up & Payment Collection
+Attachment: Tahseel-Demo-English.mp4
+
+Dear EFS Facilities Services Team,
+
+My name is Obadah Dadaa, a software engineer based in Dubai. I've built Tahseel, a ready-to-use platform that helps businesses collect payments on time without chasing clients manually. For service and maintenance companies with many open jobs and invoices, it takes the follow-up work off your team's plate.
+
+I've attached a 1-minute demo video showing how it works. In short, it lets you:
+
+- Import your existing invoices from Excel, with no need to change your accounting software.
+- Send automatic payment reminders by email and WhatsApp, before and after the due date, on a schedule you choose.
+- Track paid, unpaid and overdue invoices at a glance, with an aging report by 30/60/90+ days.
+- Record customer payments, and reminders stop automatically once an invoice is paid.
+- Work in Arabic or English, for your team and for your clients.
+
+I'm currently partnering with a small number of UAE businesses to set it up with their own invoices, including a free 14-day trial.
+
+Would you be available for a brief 15-minute online demonstration next week?
+
+Thank you for your time. I look forward to hearing from you.
+
+Best regards,
+Obadah Dadaa
+Software Engineer
+Dubai, UAE
++971 56 864 0530
+
+If this isn't relevant to you, just reply and I won't contact you again.

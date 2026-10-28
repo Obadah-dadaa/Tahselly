@@ -1,0 +1,737 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 15
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 170.13,
+    "samples": [
+      9.452,
+      28.355,
+      47.258,
+      66.162,
+      85.065,
+      103.968,
+      122.872,
+      141.775,
+      160.678
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      9.452,
+      47.258,
+      85.065,
+      122.872,
+      160.678
+    ],
+    "checked": 24,
+    "passed": 24
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 27,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "first_frame_empty",
+        "severity": "warning",
+        "message": "Frame 0 shows only the background, and the first frame is the thumbnail on social players: have the title or key image already on screen at 0 s instead of entering from nothing; see references/review.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 8.80 s (2.84–11.64 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 2.84,
+        "seconds": 8.805,
+        "floorSeconds": 3,
+        "until": 11.645
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 1 من 12\" renders at 26 px for 8.24 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 1 من 12",
+        "selector": "#s1-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s1.html",
+        "bbox": {
+          "x": 1535.7,
+          "y": 903,
+          "width": 171.49,
+          "height": 39
+        },
+        "time": 12.213,
+        "times": [
+          12.213
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 8.237,
+        "elements": [
+          {
+            "selector": "#s1-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 1 من 12",
+            "fontPx": 26,
+            "time": 12.213,
+            "seconds": 8.237
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 7.67 s (12.50–20.17 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 12.497,
+        "seconds": 7.669,
+        "floorSeconds": 3,
+        "until": 20.166
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 2 من 12\" renders at 26 px for 18.74 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 2 من 12",
+        "selector": "#s2-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s2.html",
+        "bbox": {
+          "x": 1539.95,
+          "y": 903,
+          "width": 171.49,
+          "height": 39
+        },
+        "time": 20.734,
+        "times": [
+          20.734
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 18.745,
+        "elements": [
+          {
+            "selector": "#s2-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 2 من 12",
+            "fontPx": 26,
+            "time": 20.734,
+            "seconds": 18.745
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 18.18 s (21.02–39.20 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 21.018,
+        "seconds": 18.177,
+        "floorSeconds": 3,
+        "until": 39.195
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 3 من 12\" renders at 26 px for 13.06 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 3 من 12",
+        "selector": "#s3-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s3.html",
+        "bbox": {
+          "x": 1533.45,
+          "y": 903,
+          "width": 171.49,
+          "height": 39
+        },
+        "time": 39.763,
+        "times": [
+          39.763
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 13.065,
+        "elements": [
+          {
+            "selector": "#s3-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 3 من 12",
+            "fontPx": 26,
+            "time": 39.763,
+            "seconds": 13.065
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 12.50 s (40.05–52.54 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 40.047,
+        "seconds": 12.497,
+        "floorSeconds": 3,
+        "until": 52.544
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 4 من 12\" renders at 26 px for 9.09 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 4 من 12",
+        "selector": "#s4-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4.html",
+        "bbox": {
+          "x": 1552.53,
+          "y": 903,
+          "width": 171.49,
+          "height": 39
+        },
+        "time": 53.112,
+        "times": [
+          53.112
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 9.089,
+        "elements": [
+          {
+            "selector": "#s4-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 4 من 12",
+            "fontPx": 26,
+            "time": 53.112,
+            "seconds": 9.089
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 8.24 s (53.68–61.92 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 53.68,
+        "seconds": 8.237,
+        "floorSeconds": 3,
+        "until": 61.917
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 5 من 12\" renders at 26 px for 15.62 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 5 من 12",
+        "selector": "#s5-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5.html",
+        "bbox": {
+          "x": 1538.7,
+          "y": 903,
+          "width": 171.49,
+          "height": 39
+        },
+        "time": 62.485,
+        "times": [
+          62.485
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 15.621,
+        "elements": [
+          {
+            "selector": "#s5-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 5 من 12",
+            "fontPx": 26,
+            "time": 62.485,
+            "seconds": 15.621
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 15.05 s (62.77–77.82 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 62.769,
+        "seconds": 15.053,
+        "floorSeconds": 3,
+        "until": 77.822
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 6 من 12\" renders at 26 px for 14.20 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 6 من 12",
+        "selector": "#s6-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6.html",
+        "bbox": {
+          "x": 1562.39,
+          "y": 903,
+          "width": 171.48,
+          "height": 39
+        },
+        "time": 78.106,
+        "times": [
+          78.106
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 14.202,
+        "elements": [
+          {
+            "selector": "#s6-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 6 من 12",
+            "fontPx": 26,
+            "time": 78.106,
+            "seconds": 14.202
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 13.35 s (78.67–92.02 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 78.674,
+        "seconds": 13.35,
+        "floorSeconds": 3,
+        "until": 92.024
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 7 من 12\" renders at 26 px for 17.04 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 7 من 12",
+        "selector": "#s7-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s7.html",
+        "bbox": {
+          "x": 1559.64,
+          "y": 903,
+          "width": 171.49,
+          "height": 39
+        },
+        "time": 92.308,
+        "times": [
+          92.308
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 17.041,
+        "elements": [
+          {
+            "selector": "#s7-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 7 من 12",
+            "fontPx": 26,
+            "time": 92.308,
+            "seconds": 17.041
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 16.19 s (92.88–109.06 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 92.876,
+        "seconds": 16.189,
+        "floorSeconds": 3,
+        "until": 109.065
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 8 من 12\" renders at 26 px for 11.64 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 8 من 12",
+        "selector": "#s8-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s8.html",
+        "bbox": {
+          "x": 1545.34,
+          "y": 903,
+          "width": 171.49,
+          "height": 39
+        },
+        "time": 109.633,
+        "times": [
+          109.633
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 11.645,
+        "elements": [
+          {
+            "selector": "#s8-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 8 من 12",
+            "fontPx": 26,
+            "time": 109.633,
+            "seconds": 11.645
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 11.08 s (109.92–120.99 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 109.917,
+        "seconds": 11.077,
+        "floorSeconds": 3,
+        "until": 120.994
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 9 من 12\" renders at 26 px for 11.93 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 9 من 12",
+        "selector": "#s9-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s9.html",
+        "bbox": {
+          "x": 1535.05,
+          "y": 903,
+          "width": 171.48,
+          "height": 39
+        },
+        "time": 121.562,
+        "times": [
+          121.562
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 11.929,
+        "elements": [
+          {
+            "selector": "#s9-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 9 من 12",
+            "fontPx": 26,
+            "time": 121.562,
+            "seconds": 11.929
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 11.36 s (121.85–133.21 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 121.846,
+        "seconds": 11.361,
+        "floorSeconds": 3,
+        "until": 133.207
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 10 من 12\" renders at 26 px for 9.09 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 10 من 12",
+        "selector": "#s10-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s10.html",
+        "bbox": {
+          "x": 1518.01,
+          "y": 903,
+          "width": 187.07,
+          "height": 39
+        },
+        "time": 133.775,
+        "times": [
+          133.775
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 9.089,
+        "elements": [
+          {
+            "selector": "#s10-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 10 من 12",
+            "fontPx": 26,
+            "time": 133.775,
+            "seconds": 9.089
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 8.52 s (134.06–142.58 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 134.059,
+        "seconds": 8.521,
+        "floorSeconds": 3,
+        "until": 142.58
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 11 من 12\" renders at 26 px for 9.09 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 11 من 12",
+        "selector": "#s11-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s11.html",
+        "bbox": {
+          "x": 1534.27,
+          "y": 903,
+          "width": 187.08,
+          "height": 39
+        },
+        "time": 143.148,
+        "times": [
+          143.148
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 9.089,
+        "elements": [
+          {
+            "selector": "#s11-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 11 من 12",
+            "fontPx": 26,
+            "time": 143.148,
+            "seconds": 9.089
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 8.24 s (143.72–151.95 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 143.716,
+        "seconds": 8.237,
+        "floorSeconds": 3,
+        "until": 151.953
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"الخطوة 12 من 12\" renders at 26 px for 9.09 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "الخطوة 12 من 12",
+        "selector": "#s12-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s12.html",
+        "bbox": {
+          "x": 1520.11,
+          "y": 903,
+          "width": 187.08,
+          "height": 39
+        },
+        "time": 152.521,
+        "times": [
+          152.521
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 9.088,
+        "elements": [
+          {
+            "selector": "#s12-cap > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "الخطوة 12 من 12",
+            "fontPx": 26,
+            "time": 152.521,
+            "seconds": 9.088
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 8.52 s (152.81–161.32 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 152.805,
+        "seconds": 8.52,
+        "floorSeconds": 3,
+        "until": 161.325
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 3.82 s (163.31–167.13 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 163.313,
+        "seconds": 3.817,
+        "floorSeconds": 3,
+        "until": 167.13
+      }
+    ],
+    "enabled": true,
+    "step": 0.2839999999999989,
+    "samples": 599
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

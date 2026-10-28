@@ -1,0 +1,39 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #0f766e; }
+    #ec-field { position: absolute; inset: 0; background: #0f766e; }
+    #ec-lockup { position: absolute; left: 0; right: 0; top: 230px; display: flex; align-items: center; justify-content: center; gap: 44px; }
+    #ec-mark { width: 200px; height: 200px; border-radius: 48px; background: #ffffff; color: #0f766e; font-size: 130px; font-weight: 700; display: grid; place-items: center; line-height: 1; padding-bottom: 16px; }
+    #ec-word { font-size: 170px; font-weight: 700; color: #ffffff; line-height: 1.1; }
+    #ec-claim { position: absolute; left: 0; right: 0; top: 525px; text-align: center; font-size: 52px; font-weight: 600; color: #ccfbf1; }
+    #ec-price { position: absolute; left: 0; right: 0; top: 640px; text-align: center; font-size: 52px; font-weight: 700; color: #ffffff; }
+    #ec-cta-wrap { position: absolute; left: 0; right: 0; top: 760px; display: flex; justify-content: center; }
+    #ec-cta { background: #ffffff; color: #0f766e; font-size: 50px; font-weight: 700; padding: 26px 64px; border-radius: 26px; box-shadow: 0 20px 40px rgba(4, 47, 46, .35); }
+    #ec-aud { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; font-size: 30px; color: #99f6e4; }
+  </style>
+  <div id="root" data-composition-id="endcard" data-width="1920" data-height="1080" data-composition-variables='[{"id":"price","type":"string","label":"Price line","default":"From AED 99 / month"},{"id":"cta","type":"string","label":"Call to action","default":"Start your free 14-day trial"}]'>
+    <div id="ec-field" class="clip" data-start="0" data-duration="7.5"></div>
+    <div id="ec-lockup" class="clip" data-start="0" data-duration="7.5"><div id="ec-mark">ت</div><div id="ec-word">Tahseel</div></div>
+    <div id="ec-claim" class="clip" data-start="0" data-duration="7.5">Your invoices follow themselves up. Your money arrives on time.</div>
+    <div id="ec-price" class="clip" data-start="0" data-duration="7.5" data-var-text="price">From AED 99 / month</div>
+    <div id="ec-cta-wrap" class="clip" data-start="0" data-duration="7.5"><div id="ec-cta" data-var-text="cta">Start your free 14-day trial</div></div>
+    <div id="ec-aud" class="clip" data-start="0" data-duration="7.5">For marketing agencies · service firms · freelancers · accounting offices</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ec-field", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(75% at 50% 50%)", duration: 0.6, ease: "expo.inOut" }, 0);
+    tl.fromTo("#ec-mark", { scale: 0, rotation: -25 }, { scale: 1, rotation: 0, duration: 0.55, ease: "back.out(1.8)" }, 0.2);
+    tl.fromTo("#ec-word", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.6, ease: "power3.out" }, 0.4);
+    tl.fromTo("#ec-claim", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 1.0);
+    tl.fromTo("#ec-price", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 1.3);
+    tl.fromTo("#ec-cta", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" }, 3.8);
+    tl.fromTo("#ec-aud", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 4.5);
+    window.__timelines["endcard"] = tl;
+  </script>
+</template>
