@@ -16,19 +16,19 @@ class PlatformSeeder extends Seeder
     {
         // Plans per customer segment; yearly = 10 months (2 months free), quarterly gets 5% off
         $plans = [
-            ['freelancer', 'freelancer', 'المستقل', 'Freelancer', 99, 2, 1, 200, false,
+            ['freelancer', 'freelancer', 'الانطلاقة', 'Starter', 99, 2, 1, 200, false,
                 ['مستخدم واحد', 'حتى 200 فاتورة', 'استيراد Excel', 'تذكيرات بريد آلية', 'تقرير أعمار الديون'],
                 ['1 user', 'Up to 200 invoices', 'Excel import', 'Automatic email reminders', 'Aging report']],
-            ['agency-basic', 'agency', 'الوكالات — الأساسية', 'Agency — Basic', 149, 3, 3, 1000, false,
+            ['agency-basic', 'agency', 'النمو', 'Growth', 149, 3, 3, 1000, false,
                 ['3 مستخدمين', 'حتى 1,000 فاتورة', 'تذكيرات بريد وواتساب', 'قوالب رسائل مخصصة', 'تقرير أعمار الديون'],
                 ['3 users', 'Up to 1,000 invoices', 'Email & WhatsApp reminders', 'Custom message templates', 'Aging report']],
-            ['agency-pro', 'agency', 'الوكالات — الاحترافية', 'Agency — Pro', 199, 4, 10, 5000, true,
+            ['agency-pro', 'agency', 'الاحترافية', 'Professional', 199, 4, 10, 5000, true,
                 ['10 مستخدمين', 'حتى 5,000 فاتورة', 'لوحة المالك والتحليلات', 'جدول تذكيرات مرن', 'أولوية في الدعم'],
                 ['10 users', 'Up to 5,000 invoices', 'Owner dashboard & analytics', 'Flexible reminder schedule', 'Priority support']],
-            ['services', 'services', 'شركات الخدمات', 'Service Companies', 179, 5, 5, 3000, false,
+            ['services', 'services', 'الأعمال', 'Business', 179, 5, 5, 3000, false,
                 ['5 مستخدمين', 'حتى 3,000 فاتورة', 'تذكيرات بريد وواتساب', 'إدارة الفريق والصلاحيات', 'تصدير التقارير'],
                 ['5 users', 'Up to 3,000 invoices', 'Email & WhatsApp reminders', 'Team & permissions', 'Report exports']],
-            ['accounting', 'accounting', 'مكاتب المحاسبة', 'Accounting Offices', 199, 6, 15, 10000, false,
+            ['accounting', 'accounting', 'المؤسسات', 'Enterprise', 199, 6, 15, 10000, false,
                 ['15 مستخدماً', 'حتى 10,000 فاتورة', 'استيراد دفعات كبيرة من Excel', 'تقارير أعمار ديون لكل عميل', 'سجل نشاط كامل'],
                 ['15 users', 'Up to 10,000 invoices', 'Bulk Excel imports', 'Per-client aging reports', 'Full activity log']],
         ];

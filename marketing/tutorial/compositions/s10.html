@@ -18,7 +18,7 @@
   </style>
   <div id="root" data-composition-id="s10" data-width="1920" data-height="1080">
     <div id="s10-stage" class="clip" data-start="0" data-duration="9.55" data-layout-allow-overflow data-layout-ignore>
-      <div id="s10-cam"><img src="assets/screens/settings.png" alt="جدول التذكيرات ونصوص الرسائل" /><div id="s10-ring0" class="ring" style="left:623.6px;top:246.8px;width:941.6px;height:555.2px"></div></div>
+      <div id="s10-cam"><img src="assets/screens/settings.png" alt="جدول التذكيرات ونصوص الرسائل" /><div id="s10-ring0" class="ring" style="left:623.6px;top:246.8px;width:941.6px;height:686.0px"></div></div>
     </div>
     <div id="s10-cap" class="clip" data-start="0" data-duration="9.55">
       <div class="n">10</div>
@@ -29,7 +29,7 @@
     const tl = gsap.timeline({ paused: true });
     tl.fromTo("#s10-cam", { x: 0, y: 0, scale: 1 }, { x: 0, y: 0, scale: 1, duration: 0.01 }, 0);
     tl.fromTo("#s10-cap", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.2);
-    tl.to("#s10-cam", { x: -471.4, y: -255.9, scale: 1.308, duration: 0.9, ease: "expo.inOut" }, 1.10);
+    tl.to("#s10-cam", { x: -98.0, y: -181.3, scale: 1.051, duration: 0.9, ease: "expo.inOut" }, 1.10);
     tl.fromTo("#s10-ring0", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 1.85);
     window.__timelines["s10"] = tl;
   </script>

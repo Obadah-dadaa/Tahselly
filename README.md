@@ -61,11 +61,11 @@ Import your invoices from Excel, remind clients automatically by email and Whats
 
 | Plan | Category | Monthly (AED) | Users | Invoices |
 |---|---|---:|---:|---:|
-| Freelancer | Freelancers | 99 | 1 | 200 |
-| Agency — Basic | Marketing agencies | 149 | 3 | 1,000 |
-| Agency — Pro | Marketing agencies | 199 | 10 | 5,000 |
-| Service Companies | Services | 179 | 5 | 3,000 |
-| Accounting Offices | Accounting | 199 | 15 | 10,000 |
+| Starter | Freelancers | 99 | 1 | 200 |
+| Growth | Marketing agencies | 149 | 3 | 1,000 |
+| Professional | Marketing agencies | 199 | 10 | 5,000 |
+| Business | Service companies | 179 | 5 | 3,000 |
+| Enterprise | Accounting offices | 199 | 15 | 10,000 |
 
 - Billing cycles: monthly, quarterly (5% off) and yearly (two months free).
 - **14-day free trial without a card**; the owner is notified before it ends and access moves to the billing page afterwards.
