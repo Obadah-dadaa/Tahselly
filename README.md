@@ -174,7 +174,7 @@ marketing/             promo videos, tutorial, demo page and outreach kit
 
 | Folder | Contents |
 |---|---|
-| `marketing/promo` | Arabic promo (Emirati and Fusha voice-overs) and its HyperFrames source |
+| `marketing/promo` | Arabic promo (Modern Standard Arabic voice-over) and its HyperFrames source |
 | `marketing/promo-en` | English promo and source |
 | `marketing/tutorial` | Arabic how-to-use tutorial (2:50) and source |
 | `marketing/demo-share` | Standalone demo page, `demo.zip` for static hosting, and a 2.3 MB email-attachment video |
