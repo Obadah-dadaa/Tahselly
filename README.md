@@ -1,6 +1,6 @@
 <div align="center">
 
-# تحصيل · Tahseel
+# تحصيلي · Tahselly
 
 **Invoice follow-up and payment reminders for UAE businesses.**
 Import your invoices from Excel, remind clients automatically by email and WhatsApp, and see what is due, overdue and collected — in Arabic or English.
@@ -12,9 +12,9 @@ Import your invoices from Excel, remind clients automatically by email and Whats
 ![Alpine.js](https://img.shields.io/badge/Alpine.js-3-8BC0D0?logo=alpinedotjs&logoColor=white)
 ![Stripe](https://img.shields.io/badge/Stripe-Checkout-635BFF?logo=stripe&logoColor=white)
 
-<img src="public/videos/poster-en.jpg" alt="Tahseel promo video cover" width="760">
+<img src="public/videos/poster-en.jpg" alt="Tahselly promo video cover" width="760">
 
-[English promo](public/videos/tahseel-promo-en.mp4) · [Arabic promo](public/videos/tahseel-promo-ar.mp4) · [Arabic tutorial](public/videos/tahseel-tutorial-ar.mp4)
+[English promo](public/videos/tahselly-promo-en.mp4) · [Arabic promo](public/videos/tahselly-promo-ar.mp4) · [Arabic tutorial](public/videos/tahselly-tutorial-ar.mp4)
 
 </div>
 
@@ -85,14 +85,14 @@ Import your invoices from Excel, remind clients automatically by email and Whats
 Requirements: PHP 8.4, Composer, Node 20+, MySQL 8 (or SQLite for a quick try).
 
 ```bash
-git clone https://github.com/Obadah-dadaa/tahseel.git
-cd tahseel
+git clone https://github.com/Obadah-dadaa/tahselly.git
+cd tahselly
 composer setup          # installs packages, creates .env, app key, migrates, builds assets
 php artisan db:seed     # platform data + demo companies, invoices and reminders
 composer dev            # starts the local dev environment
 ```
 
-Create the MySQL database first (`CREATE DATABASE tahseel CHARACTER SET utf8mb4;`) and set the `DB_*` values in `.env`. With [Laravel Herd](https://herd.laravel.com) the app is served at `http://tahseel.test`.
+Create the MySQL database first (`CREATE DATABASE tahselly CHARACTER SET utf8mb4;`) and set the `DB_*` values in `.env`. With [Laravel Herd](https://herd.laravel.com) the app is served at `http://tahselly.test`.
 
 ## Demo accounts
 
@@ -100,8 +100,8 @@ Created by `php artisan db:seed` — for local use only. Password for all: `pass
 
 | Email | Role |
 |---|---|
-| `developer@tahseel.test` | Developer |
-| `platform@tahseel.test` | Platform |
+| `developer@tahselly.test` | Developer |
+| `platform@tahselly.test` | Platform |
 | `owner@demo.test` | Owner of the demo company |
 | `manager@demo.test` | Manager of the demo company |
 
@@ -113,7 +113,7 @@ php artisan platform:admin you@your-domain.ae --role=platform --name="Your name"
 
 ## Scheduled jobs
 
-Add one cron entry on the server: `* * * * * cd /path/to/tahseel && php artisan schedule:run >> /dev/null 2>&1`
+Add one cron entry on the server: `* * * * * cd /path/to/tahselly && php artisan schedule:run >> /dev/null 2>&1`
 (locally: `php artisan schedule:work`).
 
 | Command | When | Purpose |

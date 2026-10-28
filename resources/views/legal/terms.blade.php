@@ -1,8 +1,8 @@
 @php
-    $entity = \App\Models\SystemSetting::get('legal_entity_name', 'Tahseel');
+    $entity = \App\Models\SystemSetting::get('legal_entity_name', 'Tahselly');
     $email = \App\Models\SystemSetting::get('support_email');
     $days = (int) \App\Models\SystemSetting::get('default_trial_days', 14);
-    $app = __(\App\Models\SystemSetting::get('app_name', 'تحصيل'));
+    $app = __(\App\Models\SystemSetting::get('app_name', 'تحصيلي'));
 
     $sections = app()->getLocale() === 'en' ? [
         ['Definitions', [

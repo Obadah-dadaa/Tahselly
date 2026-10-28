@@ -1,5 +1,5 @@
 <?php
-// Outreach sender for Tahseel. Default is a dry run that writes previews only.
+// Outreach sender for Tahselly. Default is a dry run that writes previews only.
 //   php send.php            -> previews in ./previews, nothing is sent
 //   php send.php --send     -> sends one by one (60s apart), logs to sent-log.csv
 //   php send.php --send --only=email@x.com   -> send to a single address
@@ -11,16 +11,16 @@ foreach ($argv as $a) {
     if (str_starts_with($a, '--test=')) $test = substr($a, 7);
 }
 
-$app = __DIR__.'/../tahseel';
+$app = __DIR__.'/../tahselly';
 require $app.'/vendor/autoload.php';
 $laravel = require $app.'/bootstrap/app.php';
 $laravel->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
 use Illuminate\Support\Facades\Mail;
 
-$video = realpath(__DIR__.'/../tahseel-demo-share/Tahseel-Demo-English.mp4');
-// Personalised per company, e.g. "Tahseel for SnapFixNow: Automated Invoice Follow-Up & Payment Collection"
-$subjectFor = fn ($company) => "Tahseel for {$company}: Automated Invoice Follow-Up & Payment Collection";
+$video = realpath(__DIR__.'/../tahselly-demo-share/Tahselly-Demo-English.mp4');
+// Personalised per company, e.g. "Tahselly for SnapFixNow: Automated Invoice Follow-Up & Payment Collection"
+$subjectFor = fn ($company) => "Tahselly for {$company}: Automated Invoice Follow-Up & Payment Collection";
 
 $hooks = [
     'services' => "For service and maintenance companies with many open jobs and invoices, it takes the follow-up work off your team's plate.",
@@ -31,7 +31,7 @@ $hooks = [
 $body = fn ($company, $segment, $greeting) => <<<TXT
 Dear {$greeting},
 
-My name is Obadah Dadaa, a software engineer based in Dubai. I've built Tahseel, a ready-to-use platform that helps businesses collect payments on time without chasing clients manually. {$hooks[$segment]}
+My name is Obadah Dadaa, a software engineer based in Dubai. I've built Tahselly, a ready-to-use platform that helps businesses collect payments on time without chasing clients manually. {$hooks[$segment]}
 
 I've attached a 1-minute demo video showing how it works. In short, it lets you:
 
@@ -68,7 +68,7 @@ if ($test) {
     Mail::raw($body($company, $segment, "{$company} Team"), function ($m) use ($test, $subject, $video) {
         $m->to($test)->subject('[TEST] '.$subject)
           ->from(config('mail.from.address'), 'Obadah Dadaa')
-          ->attach($video, ['as' => 'Tahseel-Demo.mp4', 'mime' => 'video/mp4']);
+          ->attach($video, ['as' => 'Tahselly-Demo.mp4', 'mime' => 'video/mp4']);
     });
     exit("test sent to {$test} ({$company} version)
 ");
@@ -91,7 +91,7 @@ foreach ($rows as $i => $row) {
         Mail::raw($text, function ($m) use ($email, $subject, $video) {
             $m->to($email)->subject($subject)
               ->from(config('mail.from.address'), 'Obadah Dadaa')
-              ->attach($video, ['as' => 'Tahseel-Demo.mp4', 'mime' => 'video/mp4']);
+              ->attach($video, ['as' => 'Tahselly-Demo.mp4', 'mime' => 'video/mp4']);
         });
         fputcsv($log, [date('Y-m-d H:i:s'), $email, 'OK', $company]);
         echo "sent     {$email}\n";

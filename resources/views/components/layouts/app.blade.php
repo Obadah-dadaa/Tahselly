@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? __('لوحة التحكم') }} — {{ __(\App\Models\SystemSetting::get('app_name', __('تحصيل'))) }}</title>
+    <title>{{ $title ?? __('لوحة التحكم') }} — {{ __(\App\Models\SystemSetting::get('app_name', __('تحصيلي'))) }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 @php
     $user = auth()->user();
     $role = $user->role->value;
-    $appName = __(\App\Models\SystemSetting::get('app_name', __('تحصيل')));
+    $appName = __(\App\Models\SystemSetting::get('app_name', __('تحصيلي')));
     $announcement = \App\Models\SystemSetting::get('announcement');
     $nav = [];
     if (in_array($role, ['manager', 'owner'], true)) {

@@ -41,10 +41,10 @@ class PlatformSeeder extends Seeder
         }
 
         foreach ([
-            ['app_name', 'تحصيل', 'string', 'general', 'اسم النظام'],
+            ['app_name', 'تحصيلي', 'string', 'general', 'اسم النظام'],
             ['app_tagline', 'تابع فواتيرك، وحصّل أموالك في وقتها', 'string', 'general', 'الشعار النصي'],
-            ['support_email', 'support@tahseel.ae', 'string', 'general', 'بريد الدعم'],
-            ['legal_entity_name', 'Tahseel', 'string', 'general', 'الاسم القانوني للشركة (يظهر في الشروط والخصوصية)'],
+            ['support_email', 'support@tahselly.com', 'string', 'general', 'بريد الدعم'],
+            ['legal_entity_name', 'Tahselly', 'string', 'general', 'الاسم القانوني للشركة (يظهر في الشروط والخصوصية)'],
             ['support_whatsapp', '971500000000', 'string', 'general', 'واتساب الدعم'],
             ['primary_color', '#0f766e', 'string', 'branding', 'اللون الأساسي'],
             ['reminders_engine_enabled', '1', 'bool', 'features', 'تفعيل محرك التذكيرات الآلي'],
@@ -54,11 +54,11 @@ class PlatformSeeder extends Seeder
             ['default_trial_days', '14', 'int', 'billing', 'أيام التجربة المجانية'],
             ['announcement', '', 'text', 'general', 'إعلان يظهر لكل المستخدمين (اتركه فارغاً للإخفاء)'],
             ['bank_name', 'Emirates NBD', 'string', 'billing', 'اسم البنك (للتحويل البنكي)'],
-            ['bank_account_name', 'Tahseel Software Solutions', 'string', 'billing', 'اسم صاحب الحساب'],
+            ['bank_account_name', 'Tahselly Software Solutions', 'string', 'billing', 'اسم صاحب الحساب'],
             ['bank_iban', 'AE07 0331 2345 6789 0123 456', 'string', 'billing', 'رقم IBAN'],
-            ['promo_video_ar', 'videos/tahseel-promo-ar.mp4', 'string', 'branding', 'فيديو البرومو العربي (مسار داخل public)'],
-            ['promo_video_en', 'videos/tahseel-promo-en.mp4', 'string', 'branding', 'فيديو البرومو الإنكليزي (مسار داخل public)'],
-            ['tutorial_video', 'videos/tahseel-tutorial-ar.mp4', 'string', 'branding', 'فيديو شرح الاستخدام (مسار داخل public)'],
+            ['promo_video_ar', 'videos/tahselly-promo-ar.mp4', 'string', 'branding', 'فيديو البرومو العربي (مسار داخل public)'],
+            ['promo_video_en', 'videos/tahselly-promo-en.mp4', 'string', 'branding', 'فيديو البرومو الإنكليزي (مسار داخل public)'],
+            ['tutorial_video', 'videos/tahselly-tutorial-ar.mp4', 'string', 'branding', 'فيديو شرح الاستخدام (مسار داخل public)'],
         ] as [$key, $value, $type, $group, $label]) {
             SystemSetting::firstOrCreate(['key' => $key], compact('value', 'type', 'group', 'label'));
         }

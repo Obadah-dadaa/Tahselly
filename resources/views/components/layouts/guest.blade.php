@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ? $title.' — ' : '' }}{{ __(\App\Models\SystemSetting::get('app_name', __('تحصيل'))) }}</title>
+    <title>{{ $title ? $title.' — ' : '' }}{{ __(\App\Models\SystemSetting::get('app_name', __('تحصيلي'))) }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -14,7 +14,7 @@
         <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
             <a href="{{ route('landing') }}" class="flex items-center gap-2">
                 <span class="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 font-bold text-white">{{ __('ت') }}</span>
-                <span class="text-xl font-bold text-ink">{{ __(\App\Models\SystemSetting::get('app_name', __('تحصيل'))) }}</span>
+                <span class="text-xl font-bold text-ink">{{ __(\App\Models\SystemSetting::get('app_name', __('تحصيلي'))) }}</span>
             </a>
             <div class="flex items-center gap-3">
                 <x-preference-switches />

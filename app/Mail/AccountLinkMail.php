@@ -24,8 +24,8 @@ class AccountLinkMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(subject: $this->kind === 'reset'
-            ? __('إعادة تعيين كلمة المرور في تحصيل')
-            : __('أكّد بريدك الإلكتروني في تحصيل'));
+            ? __('إعادة تعيين كلمة المرور في تحصيلي')
+            : __('أكّد بريدك الإلكتروني في تحصيلي'));
     }
 
     public function content(): Content

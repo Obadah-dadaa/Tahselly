@@ -15,7 +15,7 @@
                     <tr><td style="color:#64748b;text-align:{{ $align }}">{{ __('المبلغ المتبقي') }}</td><td style="text-align:{{ $end }}"><b style="color:#be123c">{{ number_format($invoice->balance(), 2) }} {{ $invoice->currency }}</b></td></tr>
                 </table>
             </td></tr>
-            <tr><td style="padding:16px 28px;border-top:1px solid #e2e8f0;font-size:12px;color:#94a3b8;text-align:{{ $align }}">{{ __('أُرسلت هذه الرسالة عبر نظام تحصيل لمتابعة الفواتير.') }}</td></tr>
+            <tr><td style="padding:16px 28px;border-top:1px solid #e2e8f0;font-size:12px;color:#94a3b8;text-align:{{ $align }}">{{ __('أُرسلت هذه الرسالة عبر نظام تحصيلي لمتابعة الفواتير.') }}</td></tr>
         </table>
     </td></tr>
 </table>

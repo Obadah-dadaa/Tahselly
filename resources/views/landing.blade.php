@@ -1,5 +1,5 @@
 @php
-    $appName = __(\App\Models\SystemSetting::get('app_name', __('تحصيل')));
+    $appName = __(\App\Models\SystemSetting::get('app_name', __('تحصيلي')));
     $locale = app()->getLocale();
     $plans = \App\Models\Plan::query()->where('is_active', true)->orderBy('sort')->get();
     $categories = collect(\App\Models\Plan::CATEGORIES)->filter(fn ($c) => $plans->contains('category', $c))->values();

@@ -1,7 +1,7 @@
 @php
-    $entity = \App\Models\SystemSetting::get('legal_entity_name', 'Tahseel');
+    $entity = \App\Models\SystemSetting::get('legal_entity_name', 'Tahselly');
     $email = \App\Models\SystemSetting::get('support_email');
-    $app = __(\App\Models\SystemSetting::get('app_name', 'تحصيل'));
+    $app = __(\App\Models\SystemSetting::get('app_name', 'تحصيلي'));
 
     $sections = app()->getLocale() === 'en' ? [
         ['Who we are', [

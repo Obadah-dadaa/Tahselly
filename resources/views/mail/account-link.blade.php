@@ -1,12 +1,12 @@
 @php $rtl = app()->getLocale() === 'ar'; @endphp
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}" dir="{{ $rtl ? 'rtl' : 'ltr' }}">
-<head><meta charset="utf-8"><title>{{ __('تحصيل') }}</title></head>
+<head><meta charset="utf-8"><title>{{ __('تحصيلي') }}</title></head>
 <body style="margin:0;background:#f1f5f9;font-family:Tahoma,Arial,sans-serif;color:#0f172a">
 <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 12px">
     <tr><td align="center">
         <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;max-width:100%">
-            <tr><td style="background:#0f766e;padding:20px 28px;color:#fff;font-size:18px;font-weight:bold">{{ __('تحصيل') }}</td></tr>
+            <tr><td style="background:#0f766e;padding:20px 28px;color:#fff;font-size:18px;font-weight:bold">{{ __('تحصيلي') }}</td></tr>
             <tr><td style="padding:28px;font-size:15px;line-height:1.9;text-align:{{ $rtl ? 'right' : 'left' }}">
                 <p style="margin:0 0 12px">{{ __('مرحباً :name،', ['name' => $user->name]) }}</p>
                 @if($kind === 'reset')

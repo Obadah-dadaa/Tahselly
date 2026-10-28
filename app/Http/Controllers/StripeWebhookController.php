@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Stripe → Tahseel: activates a subscription when its Checkout payment completes,
+ * Stripe → Tahselly: activates a subscription when its Checkout payment completes,
  * even if the customer never returns to the success page.
  */
 class StripeWebhookController extends Controller

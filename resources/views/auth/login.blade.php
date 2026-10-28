@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ __('تسجيل الدخول') }} — {{ __(\App\Models\SystemSetting::get('app_name', 'تحصيل')) }}</title>
+    <title>{{ __('تسجيل الدخول') }} — {{ __(\App\Models\SystemSetting::get('app_name', 'تحصيلي')) }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -14,7 +14,7 @@
         <div class="w-full max-w-sm">
             <a href="{{ route('landing') }}" class="mb-10 flex items-center gap-3">
                 <span class="grid size-11 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-xl font-bold text-white">{{ __('ت') }}</span>
-                <span class="text-2xl font-bold text-ink">{{ __(\App\Models\SystemSetting::get('app_name', 'تحصيل')) }}</span>
+                <span class="text-2xl font-bold text-ink">{{ __(\App\Models\SystemSetting::get('app_name', 'تحصيلي')) }}</span>
             </a>
             <x-preference-switches class="-mt-6 mb-8" />
             <h1 class="text-2xl font-bold text-ink">{{ __('مرحباً بعودتك 👋') }}</h1>
@@ -42,7 +42,7 @@
                 <div class="mt-8 rounded-2xl border border-dashed border-slate-300 p-4">
                     <p class="mb-3 text-xs font-semibold text-slate-500">{{ __('حسابات تجريبية (بيئة التطوير فقط)') }}</p>
                     <div class="grid gap-2 text-sm">
-                        @foreach(['owner@demo.test' => __('المالك'), 'manager@demo.test' => __('المدير'), 'developer@tahseel.test' => __('المبرمج')] as $demoEmail => $demoRole)
+                        @foreach(['owner@demo.test' => __('المالك'), 'manager@demo.test' => __('المدير'), 'developer@tahselly.test' => __('المبرمج')] as $demoEmail => $demoRole)
                             <button type="button" @click="email='{{ $demoEmail }}'; password='password'" class="flex items-center justify-between rounded-lg bg-slate-100 px-3 py-2 hover:bg-slate-200">
                                 <span class="font-semibold">{{ $demoRole }}</span><span dir="ltr" class="text-slate-500">{{ $demoEmail }}</span>
                             </button>

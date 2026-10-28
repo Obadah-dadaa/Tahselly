@@ -85,7 +85,7 @@ class PaymentGateway
                     'price_data' => [
                         'currency' => strtolower($subscription->currency),
                         'unit_amount' => $this->minorUnits($subscription),
-                        'product_data' => ['name' => 'Tahseel — '.($subscription->plan->name_en ?: $subscription->plan->name).' ('.$subscription->cycle.')'],
+                        'product_data' => ['name' => 'Tahselly — '.($subscription->plan->name_en ?: $subscription->plan->name).' ('.$subscription->cycle.')'],
                     ],
                 ]],
             ])

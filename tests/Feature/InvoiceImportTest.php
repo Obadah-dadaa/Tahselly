@@ -46,6 +46,6 @@ class InvoiceImportTest extends TestCase
 
         $this->actingAs($user)->get(route('import.template'))
             ->assertOk()
-            ->assertDownload('tahseel-invoices-template.xlsx');
+            ->assertDownload('tahselly-invoices-template.xlsx');
     }
 }

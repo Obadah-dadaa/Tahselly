@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
 
         $plans = Plan::query()->get()->keyBy('code');
 
-        User::updateOrCreate(['email' => 'developer@tahseel.test'], [
+        User::updateOrCreate(['email' => 'developer@tahselly.test'], [
             'name' => 'المبرمج', 'password' => 'password', 'role' => Role::Developer,
         ]);
-        User::updateOrCreate(['email' => 'platform@tahseel.test'], [
+        User::updateOrCreate(['email' => 'platform@tahselly.test'], [
             'name' => 'عبادة دعدع', 'password' => 'password', 'role' => Role::Platform,
         ]);
 
