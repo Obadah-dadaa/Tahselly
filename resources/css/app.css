@@ -1,0 +1,195 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'IBM Plex Sans Arabic', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    --color-brand-50: #f0fdfa;
+    --color-brand-100: #ccfbf1;
+    --color-brand-200: #99f6e4;
+    --color-brand-500: #14b8a6;
+    --color-brand-600: #0d9488;
+    --color-brand-700: #0f766e;
+    --color-brand-800: #115e59;
+    --color-brand-900: #134e4a;
+    --color-ink: #0b1220;
+    --color-night: #0b1220;
+    --color-surface: #ffffff;
+}
+
+/* Dark theme: remap the neutral scale and soft tints so every screen follows without per-class dark: variants */
+.dark {
+    color-scheme: dark;
+    --color-surface: #111a2e;
+    --color-night: #060b16;
+    --color-ink: #e8edf5;
+    --color-slate-50: #0a1120;
+    --color-slate-100: #172238;
+    --color-slate-200: #22304b;
+    --color-slate-300: #34435f;
+    --color-slate-400: #7d8ba6;
+    --color-slate-500: #98a6bd;
+    --color-slate-600: #b6c2d4;
+    --color-slate-700: #cfd8e5;
+    --color-slate-800: #e2e8f0;
+    --color-brand-50: rgb(20 184 166 / 0.12);
+    --color-brand-100: rgb(20 184 166 / 0.2);
+    --color-brand-200: rgb(94 234 212 / 0.5);
+    --color-brand-800: #5eead4;
+    --color-brand-900: #99f6e4;
+    --color-rose-50: rgb(244 63 94 / 0.12);
+    --color-rose-700: #fda4af;
+    --color-rose-800: #fecdd3;
+    --color-amber-50: rgb(245 158 11 / 0.12);
+    --color-amber-700: #fcd34d;
+    --color-amber-800: #fde68a;
+    --color-orange-50: rgb(249 115 22 / 0.12);
+    --color-orange-800: #fdba74;
+    --color-emerald-50: rgb(16 185 129 / 0.12);
+    --color-emerald-700: #6ee7b7;
+    --color-emerald-800: #a7f3d0;
+    --color-sky-50: rgb(14 165 233 / 0.12);
+    --color-sky-700: #7dd3fc;
+    --color-violet-50: rgb(139 92 246 / 0.14);
+    --color-violet-700: #c4b5fd;
+    --color-green-50: rgb(34 197 94 / 0.12);
+}
+
+/* Sections that are dark in both themes (sidebar, hero, plan cards) keep their light-on-dark greys */
+.dark .bg-night {
+    --color-slate-200: #e2e8f0;
+    --color-slate-300: #cbd5e1;
+    --color-slate-400: #94a3b8;
+    --color-slate-500: #64748b;
+}
+
+@utility btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50 disabled:opacity-50;
+}
+
+@layer components {
+    .card {
+        @apply rounded-2xl border border-slate-200/80 bg-surface shadow-[0_1px_2px_rgba(15,23,42,0.04)];
+    }
+    .btn-primary {
+        @apply btn bg-brand-700 text-white hover:bg-brand-800;
+    }
+    .btn-secondary {
+        @apply btn border border-slate-200 bg-surface text-slate-700 hover:bg-slate-50;
+    }
+    .btn-danger {
+        @apply btn bg-rose-600 text-white hover:bg-rose-700;
+    }
+    .btn-whatsapp {
+        @apply btn bg-[#25D366] text-white hover:bg-[#1ebe5a];
+    }
+    .input {
+        @apply block w-full rounded-xl border border-slate-200 bg-surface px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none;
+    }
+    .label {
+        @apply mb-1 block text-sm font-medium text-slate-600;
+    }
+    .table-base {
+        @apply w-full text-sm;
+    }
+    .table-base th {
+        @apply bg-slate-50 px-4 py-3 text-start text-xs font-semibold tracking-wide text-slate-500;
+    }
+    .table-base td {
+        @apply border-t border-slate-100 px-4 py-3 text-slate-700;
+    }
+    .table-base tbody tr {
+        @apply transition hover:bg-slate-50/70;
+    }
+    .nav-link {
+        @apply flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white;
+    }
+    .nav-link.active {
+        @apply bg-white/10 text-white;
+    }
+    .num {
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* ---------- Loading states ---------- */
+#page-progress {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 100;
+    height: 3px;
+    transform-origin: left;
+    transform: scaleX(0);
+    background: linear-gradient(90deg, var(--color-brand-500), #38bdf8);
+    box-shadow: 0 0 10px rgb(20 184 166 / 0.6);
+    opacity: 0;
+    pointer-events: none;
+}
+[dir='rtl'] #page-progress {
+    transform-origin: right;
+}
+#page-progress.active {
+    opacity: 1;
+    animation: progress-grow 8s cubic-bezier(0.1, 0.7, 0.2, 1) forwards;
+}
+#page-progress.done {
+    opacity: 0;
+    transform: scaleX(1);
+    transition: opacity 0.3s ease 0.1s;
+}
+@keyframes progress-grow {
+    0% { transform: scaleX(0); }
+    10% { transform: scaleX(0.35); }
+    100% { transform: scaleX(0.92); }
+}
+
+.spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    border: 2px solid currentColor;
+    border-inline-end-color: transparent;
+    border-radius: 9999px;
+    animation: spin 0.7s linear infinite;
+}
+button[data-loading] {
+    cursor: wait;
+    opacity: 0.85;
+}
+
+.skeleton {
+    position: relative;
+}
+.skeleton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    background: linear-gradient(90deg, var(--color-slate-100) 25%, var(--color-slate-50) 50%, var(--color-slate-100) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.2s infinite;
+}
+@keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+}
+
+main {
+    animation: page-in 0.35s ease-out;
+}
+@keyframes page-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    main, #page-progress.active, .skeleton::before { animation: none; }
+}

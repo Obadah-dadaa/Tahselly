@@ -1,0 +1,205 @@
+@php
+    $appName = __(\App\Models\SystemSetting::get('app_name', __('تحصيل')));
+    $locale = app()->getLocale();
+    $plans = \App\Models\Plan::query()->where('is_active', true)->orderBy('sort')->get();
+    $categories = collect(\App\Models\Plan::CATEGORIES)->filter(fn ($c) => $plans->contains('category', $c))->values();
+    $video = \App\Models\SystemSetting::get($locale === 'en' ? 'promo_video_en' : 'promo_video_ar');
+    $tutorial = \App\Models\SystemSetting::get('tutorial_video');
+    $trialOn = (bool) \App\Models\SystemSetting::get('allow_signups', true);
+    $trialDays = (int) \App\Models\SystemSetting::get('default_trial_days', 14);
+    $planData = $plans->map(fn ($p) => [
+        'code' => $p->code, 'category' => $p->category, 'name' => $p->localizedName(), 'featured' => $p->is_featured,
+        'prices' => ['monthly' => $p->priceFor('monthly'), 'quarterly' => $p->priceFor('quarterly'), 'yearly' => $p->priceFor('yearly')],
+        'features' => $p->localizedFeatures(),
+    ])->values();
+@endphp
+<!DOCTYPE html>
+<html lang="{{ $locale }}" dir="{{ $dir }}" class="{{ $theme === 'dark' ? 'dark' : '' }} scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $appName }} — {{ __('نظام متابعة الفواتير وتذكير العملاء بالدفع') }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-surface font-sans text-slate-800 antialiased" x-data="{ player: null }" @keydown.escape.window="player = null">
+<header class="absolute inset-x-0 top-0 z-10">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
+        <a href="/" class="flex items-center gap-2 text-white"><span class="grid size-9 place-items-center rounded-xl bg-brand-500 font-bold">{{ __('ت') }}</span><span class="text-xl font-bold">{{ $appName }}</span></a>
+        <nav class="hidden gap-8 text-sm text-slate-300 md:flex">
+            <a href="#video" class="hover:text-white">{{ __('شاهد العرض') }}</a>
+            <a href="#features" class="hover:text-white">{{ __('المزايا') }}</a>
+            <a href="#how" class="hover:text-white">{{ __('كيف يعمل') }}</a>
+            <a href="#pricing" class="hover:text-white">{{ __('الأسعار') }}</a>
+        </nav>
+        <div class="flex items-center gap-2">
+            <x-preference-switches tone="onDark" />
+            <a href="{{ route('login') }}" class="hidden rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/20 sm:block">{{ __('تسجيل الدخول') }}</a>
+            @if($trialOn)<a href="{{ route('trial.create') }}" class="hidden rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-600 md:block">{{ __('ابدأ مجاناً') }}</a>@endif
+        </div>
+    </div>
+</header>
+
+<section class="relative overflow-hidden bg-night pb-28 pt-36 text-white">
+    <div class="absolute -end-40 top-0 size-[40rem] rounded-full bg-brand-600/25 blur-3xl"></div>
+    <div class="absolute -bottom-40 -start-20 size-[30rem] rounded-full bg-sky-500/15 blur-3xl"></div>
+    <div class="relative mx-auto grid max-w-6xl items-center gap-14 px-6 lg:grid-cols-2">
+        <div>
+            <span class="inline-flex rounded-full bg-brand-500/15 px-3 py-1 text-sm text-brand-200 ring-1 ring-brand-500/30">{{ __('لوكالات التسويق · شركات الخدمات · المستقلين · مكاتب المحاسبة') }}</span>
+            <h1 class="mt-6 text-4xl font-bold leading-[1.25] sm:text-5xl">{{ __('فواتيرك غير المدفوعة') }}<br><span class="text-brand-400">{{ __('تُتابَع تلقائياً.') }}</span></h1>
+            <p class="mt-6 max-w-lg text-lg leading-relaxed text-slate-300">{{ __(':app يستورد فواتيرك من Excel، يرسل تذكيرات ذكية لعملائك قبل وبعد الاستحقاق عبر البريد وواتساب، ويعرض لك المستحق والمتأخر وأعمار الديون في لوحة واحدة.', ['app' => $appName]) }}</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+                @if($trialOn)
+                    <a href="{{ route('trial.create') }}" class="btn-primary bg-brand-500 px-6 py-3 text-base hover:bg-brand-600">{{ __('جرّب مجاناً :days يوماً', ['days' => $trialDays]) }}</a>
+                @else
+                    <a href="#pricing" class="btn-primary bg-brand-500 px-6 py-3 text-base hover:bg-brand-600">{{ __('اختر باقتك') }}</a>
+                @endif
+                @if($video)
+                    <button @click="player = 'promo'" class="btn px-6 py-3 text-base text-white ring-1 ring-white/20 hover:bg-white/10">
+                        <span class="grid size-7 place-items-center rounded-full bg-white text-night"><svg class="size-3.5 translate-x-px" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        {{ __('شاهد الفيديو (دقيقة)') }}
+                    </button>
+                @endif
+            </div>
+            @if($trialOn)
+                <p class="mt-4 text-sm text-slate-400">{{ __('بدون بطاقة ائتمان · مجاناً لمدة :days يوماً فقط، ثم اشتراك مدفوع من :price درهم شهرياً للاستمرار.', ['days' => $trialDays, 'price' => (int) $plans->min('price')]) }}</p>
+            @endif
+        </div>
+        <div class="rounded-3xl bg-white/5 p-3 ring-1 ring-white/10 backdrop-blur">
+            <div class="rounded-2xl bg-surface p-5 text-slate-800 shadow-2xl">
+                <div class="grid grid-cols-2 gap-3">
+                    @foreach([[__('إجمالي المستحق'), '332,990', 'text-ink'], [__('متأخرات'), '166,040', 'text-rose-600'], [__('يستحق هذا الأسبوع'), '69,050', 'text-amber-600'], [__('محصّل هذا الشهر'), '201,010', 'text-brand-700']] as [$l, $v, $c])
+                        <div class="rounded-xl bg-slate-50 p-3"><p class="text-xs text-slate-500">{{ $l }}</p><p class="num mt-1 text-xl font-bold {{ $c }}">{{ $v }} <span class="text-xs text-slate-400">AED</span></p></div>
+                    @endforeach
+                </div>
+                <div class="mt-4 space-y-2 text-sm">
+                    @foreach([['Oud Al Sharq Perfumes', '6,150', 123], ['Marina Dental Clinic', '9,880', 119], ['Pearl Beauty Lounge', '16,200', 70]] as [$n, $a, $d])
+                        <div class="flex items-center justify-between rounded-xl border border-slate-100 px-3 py-2"><span class="font-medium">{{ $n }}</span><span class="flex items-center gap-2"><b class="num">{{ $a }}</b><span class="rounded-full bg-rose-50 px-2 py-0.5 text-xs font-semibold text-rose-700">{{ __(':count يوم', ['count' => $d]) }}</span></span></div>
+                    @endforeach
+                </div>
+                <div class="mt-4 flex items-center gap-2 rounded-xl bg-brand-50 px-3 py-2 text-xs text-brand-800"><x-icon name="bolt" class="size-4" /> {{ __('التذكيرات الآلية تُرسل كل يوم الساعة 9:00 صباحاً') }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- Promo video showcase --}}
+@if($video)
+<section id="video" class="relative -mt-16 px-6">
+    <div class="mx-auto max-w-5xl">
+        <button @click="player = 'promo'" class="group relative block w-full overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-20px_rgba(2,6,23,.45)] ring-1 ring-black/5">
+            <img src="{{ asset('videos/poster-'.($locale === 'en' ? 'en' : 'ar').'.jpg') }}" alt="{{ __('فيديو تعريفي') }}" class="aspect-video w-full object-cover transition duration-700 group-hover:scale-[1.03]">
+            <span class="absolute inset-0 bg-gradient-to-t from-night/80 via-night/10 to-transparent"></span>
+            <span class="absolute inset-0 grid place-items-center">
+                <span class="relative grid size-24 place-items-center rounded-full bg-white/95 text-brand-700 shadow-2xl transition group-hover:scale-110">
+                    <span class="absolute inset-0 animate-ping rounded-full bg-white/40"></span>
+                    <svg class="relative size-10 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+            </span>
+            <span class="absolute inset-x-0 bottom-0 flex items-end justify-between p-6 text-start text-white sm:p-8">
+                <span><span class="block text-sm text-brand-200">{{ __('فيديو تعريفي · دقيقة واحدة') }}</span><span class="mt-1 block text-2xl font-bold sm:text-3xl">{{ __('شاهد كيف يحصّل :app أموالك', ['app' => $appName]) }}</span></span>
+            </span>
+        </button>
+        @if($tutorial)
+            <button @click="player = 'tutorial'" class="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-surface py-4 text-sm font-semibold text-ink hover:border-brand-500">
+                <x-icon name="doc" class="size-5 text-brand-700" /> {{ __('جديد على النظام؟ شاهد شرح الاستخدام خطوة بخطوة') }}
+            </button>
+        @endif
+    </div>
+</section>
+
+<div x-show="player" x-cloak x-transition.opacity class="fixed inset-0 z-50 grid place-items-center bg-night/90 p-4 backdrop-blur-sm" @click.self="player = null">
+    <div class="relative w-full max-w-5xl">
+        <button @click="player = null" class="absolute -top-12 end-0 grid size-10 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20" aria-label="{{ __('إغلاق') }}">✕</button>
+        <template x-if="player === 'promo'">
+            <video src="{{ asset($video) }}" controls autoplay playsinline class="aspect-video w-full rounded-2xl bg-black shadow-2xl"></video>
+        </template>
+        @if($tutorial)
+            <template x-if="player === 'tutorial'">
+                <video src="{{ asset($tutorial) }}" controls autoplay playsinline class="aspect-video w-full rounded-2xl bg-black shadow-2xl"></video>
+            </template>
+        @endif
+    </div>
+</div>
+@endif
+
+<section id="features" class="mx-auto max-w-6xl px-6 py-24">
+    <h2 class="text-center text-3xl font-bold text-ink">{{ __('كل ما تحتاجه لتحصيل أموالك في وقتها') }}</h2>
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @foreach([
+            ['upload', __('استيراد Excel'), __('ارفع ملف فواتيرك كما هو — يتعرف على الأعمدة بالعربية والإنجليزية وينشئ العملاء تلقائياً.')],
+            ['clock', __('مواعيد الاستحقاق'), __('تابع ما يستحق اليوم، هذا الأسبوع، وما تأخر — بفلاتر واضحة لكل فاتورة.')],
+            ['bell', __('تذكيرات آلية + سجل كامل'), __('قبل الاستحقاق، يومه، وبعده بـ 7 و14 و30 يوم، وإنذار نهائي. كل رسالة محفوظة في السجل.')],
+            ['chart', __('تقارير أعمار الديون'), __('تقسيم الذمم إلى 0-30، 31-60، 61-90، +90 يوم لكل عميل مع تصدير Excel بنقرة.')],
+        ] as [$icon, $title, $text])
+            <div class="rounded-2xl border border-slate-100 bg-surface p-6 shadow-sm">
+                <span class="grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-700"><x-icon :name="$icon" class="size-6" /></span>
+                <h3 class="mt-5 font-bold text-ink">{{ $title }}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-slate-500">{{ $text }}</p>
+            </div>
+        @endforeach
+    </div>
+</section>
+
+<section id="how" class="bg-slate-50 py-24">
+    <div class="mx-auto max-w-6xl px-6">
+        <h2 class="text-center text-3xl font-bold text-ink">{{ __('ثلاث خطوات فقط') }}</h2>
+        <div class="mt-14 grid gap-8 md:grid-cols-3">
+            @foreach([['1', __('ارفع فواتيرك'), __('من Excel أو أدخلها يدوياً في ثوانٍ.')], ['2', __('اضبط الجدول'), __('حدد متى وكيف يتم تذكير العملاء، وخصص نص الرسائل.')], ['3', __('استلم أموالك'), __('النظام يتابع يومياً وأنت تراقب التحصيل من لوحة المالك.')]] as [$n, $t, $d])
+                <div class="text-center"><span class="mx-auto grid size-14 place-items-center rounded-full bg-night text-xl font-bold text-white">{{ $n }}</span><h3 class="mt-5 text-lg font-bold text-ink">{{ $t }}</h3><p class="mt-2 text-slate-500">{{ $d }}</p></div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- Pricing: category tabs + billing cycle toggle --}}
+<section id="pricing" class="mx-auto max-w-6xl px-6 py-24"
+         x-data="{ category: 'agency', cycle: 'monthly', plans: @js($planData),
+                   perLabel: { monthly: @js(__('درهم / شهرياً')), quarterly: @js(__('درهم / 3 أشهر')), yearly: @js(__('درهم / سنوياً')) } }">
+    <h2 class="text-center text-3xl font-bold text-ink">{{ __('باقة تناسب نوع عملك') }}</h2>
+    <p class="mt-3 text-center text-slate-500">{{ __('بدون رسوم إعداد. ادفع شهرياً أو وفّر مع الاشتراك السنوي.') }}</p>
+    @if($trialOn)
+        <p class="mx-auto mt-4 w-fit rounded-full bg-amber-50 px-4 py-1.5 text-center text-sm font-semibold text-amber-800">{{ __('كل الباقات: تجربة مجانية :days يوماً بدون بطاقة، ثم يتطلب الاستمرار الدفع.', ['days' => $trialDays]) }}</p>
+    @endif
+
+    <div class="mt-10 flex flex-wrap justify-center gap-2">
+        @foreach($categories as $c)
+            <button @click="category='{{ $c }}'" :class="category==='{{ $c }}' ? 'bg-night text-white' : 'bg-surface text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50'" class="rounded-full px-5 py-2 text-sm font-semibold transition">{{ \App\Models\Plan::categoryLabel($c) }}</button>
+        @endforeach
+    </div>
+    <div class="mt-6 flex justify-center">
+        <div class="inline-flex rounded-2xl bg-slate-100 p-1 text-sm font-semibold">
+            @foreach(['monthly' => __('شهري'), 'quarterly' => __('ربع سنوي -5%'), 'yearly' => __('سنوي — شهران مجاناً')] as $c => $l)
+                <button @click="cycle='{{ $c }}'" :class="cycle==='{{ $c }}' ? 'bg-surface text-ink shadow' : 'text-slate-500'" class="rounded-xl px-4 py-2 transition">{{ $l }}</button>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="mx-auto mt-12 grid max-w-4xl justify-center gap-6 md:grid-cols-2">
+        <template x-for="plan in plans.filter(p => p.category === category)" :key="plan.code">
+            <div class="rounded-3xl p-8" :class="plan.featured ? 'bg-night text-white shadow-2xl ring-4 ring-brand-500/30' : 'border border-slate-200 bg-surface'">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold" x-text="plan.name"></h3>
+                    <span x-show="plan.featured" class="rounded-full bg-brand-500 px-3 py-1 text-xs font-bold text-white">{{ __('الأكثر طلباً') }}</span>
+                </div>
+                <p class="mt-4"><span class="num text-5xl font-bold" x-text="Number(plan.prices[cycle]).toLocaleString('en-US')"></span> <span :class="plan.featured ? 'text-slate-400' : 'text-slate-500'" x-text="perLabel[cycle]"></span></p>
+                <ul class="mt-8 space-y-3 text-sm">
+                    <template x-for="f in plan.features"><li class="flex items-center gap-2"><x-icon name="check" class="size-4 shrink-0 text-brand-500" /> <span x-text="f"></span></li></template>
+                </ul>
+                <a :href="`{{ url('/subscribe') }}/${plan.code}?cycle=${cycle}`" class="mt-8 w-full" :class="plan.featured ? 'btn-primary bg-brand-500' : 'btn-secondary'">{{ __('اشترك الآن') }}</a>
+                @if($trialOn)
+                    <a :href="`{{ route('trial.create') }}?plan=${plan.code}`" class="mt-3 block text-center text-sm font-semibold underline" :class="plan.featured ? 'text-brand-200' : 'text-brand-700'">{{ __('أو جرّبها مجاناً :days يوماً', ['days' => $trialDays]) }}</a>
+                @endif
+            </div>
+        </template>
+    </div>
+</section>
+
+<footer class="border-t border-slate-100 py-10 text-center text-sm text-slate-500">
+    © {{ date('Y') }} {{ $appName }} — {{ \App\Models\SystemSetting::get('support_email') }}
+    <span class="mx-2">·</span><a href="{{ route('legal.terms') }}" class="hover:text-brand-700">{{ __('شروط الاستخدام') }}</a>
+    <span class="mx-2">·</span><a href="{{ route('legal.privacy') }}" class="hover:text-brand-700">{{ __('سياسة الخصوصية') }}</a>
+</footer>
+</body>
+</html>

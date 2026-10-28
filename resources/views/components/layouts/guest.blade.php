@@ -1,0 +1,43 @@
+@props(['title' => null])
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}" dir="{{ $dir }}" class="{{ $theme === 'dark' ? 'dark' : '' }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $title ? $title.' — ' : '' }}{{ __(\App\Models\SystemSetting::get('app_name', __('تحصيل'))) }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased">
+    <header class="border-b border-slate-200/70 bg-surface">
+        <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+            <a href="{{ route('landing') }}" class="flex items-center gap-2">
+                <span class="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 font-bold text-white">{{ __('ت') }}</span>
+                <span class="text-xl font-bold text-ink">{{ __(\App\Models\SystemSetting::get('app_name', __('تحصيل'))) }}</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <x-preference-switches />
+                @auth
+                    <a href="{{ route('home') }}" class="btn-secondary">{{ __('لوحة التحكم') }}</a>
+                @else
+                    <a href="{{ route('login') }}" class="btn-secondary">{{ __('تسجيل الدخول') }}</a>
+                @endauth
+            </div>
+        </div>
+    </header>
+    <main class="mx-auto max-w-6xl px-6 py-10">
+        @foreach(['success' => 'bg-emerald-50 text-emerald-800 ring-emerald-600/20', 'error' => 'bg-rose-50 text-rose-800 ring-rose-600/20'] as $key => $style)
+            @if(session($key))
+                <div class="mb-6 rounded-xl px-4 py-3 text-sm ring-1 ring-inset {{ $style }}">{{ session($key) }}</div>
+            @endif
+        @endforeach
+        @if($errors->any())
+            <div class="mb-6 rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-800 ring-1 ring-inset ring-rose-600/20">
+                <ul class="list-inside list-disc space-y-1">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
+            </div>
+        @endif
+        {{ $slot }}
+    </main>
+</body>
+</html>
