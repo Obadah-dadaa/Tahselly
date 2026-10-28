@@ -1,58 +1,187 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# تحصيل · Tahseel
 
-## About Laravel
+**Invoice follow-up and payment reminders for UAE businesses.**
+Import your invoices from Excel, remind clients automatically by email and WhatsApp, and see what is due, overdue and collected — in Arabic or English.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![Laravel](https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+![Alpine.js](https://img.shields.io/badge/Alpine.js-3-8BC0D0?logo=alpinedotjs&logoColor=white)
+![Stripe](https://img.shields.io/badge/Stripe-Checkout-635BFF?logo=stripe&logoColor=white)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<img src="public/videos/poster-en.jpg" alt="Tahseel promo video cover" width="760">
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+[English promo](public/videos/tahseel-promo-en.mp4) · [Arabic promo](public/videos/tahseel-promo-ar.mp4) · [Arabic tutorial](public/videos/tahseel-tutorial-ar.mp4)
 
-## Learning Laravel
+</div>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Contents
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- [What it does](#what-it-does)
+- [Roles and dashboards](#roles-and-dashboards)
+- [Plans and billing](#plans-and-billing)
+- [Tech stack](#tech-stack)
+- [Local setup](#local-setup)
+- [Demo accounts](#demo-accounts)
+- [Scheduled jobs](#scheduled-jobs)
+- [Configuration](#configuration)
+- [Tests](#tests)
+- [Deploying to production](#deploying-to-production)
+- [Project structure](#project-structure)
+- [Marketing material](#marketing-material)
 
-## Agentic Development
+## What it does
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+| | |
+|---|---|
+| **Excel import** | Upload an invoice sheet as it is. Arabic or English column headers are recognised, clients are created automatically, and every row is validated before it is saved. |
+| **Automatic reminders** | Every morning at 09:00 UAE time, on a schedule each company chooses: 3 days before, on the due date, then +7, +14, +30 days and a final notice. |
+| **Manual & scheduled reminders** | Pick one or many invoices, edit the message, and send now or at a set day and time. Pause reminders per invoice. |
+| **Email & WhatsApp** | Email through SMTP, WhatsApp through ready-to-send links. Message templates per stage, channel and language. |
+| **Payments & aging** | Record payments (full or partial); paid invoices close and stop reminding. Aging report by 1–30, 31–60, 61–90 and 90+ days with Excel export. |
+| **Analytics** | Collection rate, days sales outstanding, invoiced vs collected per month, top debtors, team activity. |
+| **Bilingual & themed** | Full Arabic (RTL) and English interface, per-client message language, light and dark themes. |
+| **Multi-tenant** | Every company's data is isolated by a global scope; staff of one company never see another's records. |
+
+## Roles and dashboards
+
+| Role | Sees |
+|---|---|
+| **Developer** | Whole platform: companies, subscriptions, plans, templates, payment gateway status, logs and tools. |
+| **Platform** (owner of the SaaS) | All companies and subscribers with their plan and billing cycle, revenue and activity. |
+| **Owner** (customer company) | Company dashboard and analytics, team, settings and reminder templates, billing. |
+| **Manager** | Day-to-day work: clients, invoices, import, reminders, payments and reports. |
+
+## Plans and billing
+
+| Plan | Category | Monthly (AED) | Users | Invoices |
+|---|---|---:|---:|---:|
+| Freelancer | Freelancers | 99 | 1 | 200 |
+| Agency — Basic | Marketing agencies | 149 | 3 | 1,000 |
+| Agency — Pro | Marketing agencies | 199 | 10 | 5,000 |
+| Service Companies | Services | 179 | 5 | 3,000 |
+| Accounting Offices | Accounting | 199 | 15 | 10,000 |
+
+- Billing cycles: monthly, quarterly (5% off) and yearly (two months free).
+- **14-day free trial without a card**; the owner is notified before it ends and access moves to the billing page afterwards.
+- Payment by **Stripe Checkout** (verified by signed webhook, amount and currency checked, activation locked against double processing) or by bank transfer approved by platform staff.
+- A sandbox gateway is available for local testing without Stripe.
+
+## Tech stack
+
+- **Backend:** Laravel 13, PHP 8.4, MySQL 8
+- **Frontend:** Blade, Tailwind CSS 4, Alpine.js, Chart.js, Vite
+- **Payments:** Stripe Checkout over the HTTP API (no SDK)
+- **Mail:** any SMTP provider
+- **Tests:** PHPUnit (feature tests), Laravel Pint for code style
+
+## Local setup
+
+Requirements: PHP 8.4, Composer, Node 20+, MySQL 8 (or SQLite for a quick try).
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/Obadah-dadaa/tahseel.git
+cd tahseel
+composer setup          # installs packages, creates .env, app key, migrates, builds assets
+php artisan db:seed     # platform data + demo companies, invoices and reminders
+composer dev            # starts the local dev environment
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Create the MySQL database first (`CREATE DATABASE tahseel CHARACTER SET utf8mb4;`) and set the `DB_*` values in `.env`. With [Laravel Herd](https://herd.laravel.com) the app is served at `http://tahseel.test`.
 
-## Contributing
+## Demo accounts
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Created by `php artisan db:seed` — for local use only. Password for all: `password`.
 
-## Code of Conduct
+| Email | Role |
+|---|---|
+| `developer@tahseel.test` | Developer |
+| `platform@tahseel.test` | Platform |
+| `owner@demo.test` | Owner of the demo company |
+| `manager@demo.test` | Manager of the demo company |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+On a real server, do not run the demo seeder. Create admin accounts with a hidden password prompt instead:
 
-## Security Vulnerabilities
+```bash
+php artisan platform:admin you@your-domain.ae --role=platform --name="Your name"
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Scheduled jobs
+
+Add one cron entry on the server: `* * * * * cd /path/to/tahseel && php artisan schedule:run >> /dev/null 2>&1`
+(locally: `php artisan schedule:work`).
+
+| Command | When | Purpose |
+|---|---|---|
+| `reminders:send` | Daily 09:00 Dubai | Sends automatic reminders that are due today |
+| `reminders:dispatch` | Every minute | Sends manually scheduled reminders |
+| `subscriptions:expire` | Hourly | Ends expired subscriptions and trials |
+| `trials:notify` | Daily 10:00 Dubai | Warns owners before their trial ends |
+
+## Configuration
+
+Main `.env` values (see `.env.example` and `.env.production.example`):
+
+| Key | Notes |
+|---|---|
+| `APP_TIMEZONE` | `Asia/Dubai` — reminder times depend on it |
+| `MAIL_*` | SMTP host, user and password; use an address on your own domain in production |
+| `STRIPE_SECRET` | `sk_test_…` locally, `sk_live_…` in production |
+| `STRIPE_WEBHOOK_SECRET` | From the Stripe endpoint `https://your-domain/stripe/webhook` (events `checkout.session.completed`, `checkout.session.async_payment_succeeded`) |
+| `PAYMENT_SANDBOX` | `true` to use the built-in test gateway instead of Stripe |
+
+Never commit `.env`; it is ignored by Git.
+
+## Tests
+
+```bash
+php artisan test
+```
+
+Feature tests cover the reminder engine, tenant isolation, Excel import, the subscription and Stripe payment flows, the free trial, the reminder centre and account security.
+
+## Deploying to production
+
+1. Upload the code, create `.env` from `.env.production.example` and fill it in.
+2. Run `bash deploy.sh --first` (later updates: `bash deploy.sh`). It installs packages, migrates, seeds platform data and caches config, routes and views.
+3. Build assets with `npm ci && npm run build` (or upload `public/build`).
+4. Point the domain's document root at `public/`, enable HTTPS, and add the scheduler cron above.
+5. Add the Stripe live key and webhook, then create the admin accounts with `platform:admin`.
+
+## Project structure
+
+```
+app/
+  Console/Commands/    platform:admin
+  Http/Controllers/    app, Owner/ and Developer/ areas, subscriptions, Stripe webhook
+  Mail/                invoice reminder, trial ending, account links
+  Models/              Company, User, Client, Invoice, Payment, Reminder, Plan, Subscription…
+  Services/            ReminderService, PaymentGateway
+database/              migrations and seeders (PlatformSeeder = plans, settings, templates)
+lang/en.json           English translations (Arabic is the source language)
+resources/views/       Blade views (landing, dashboards, reminders, billing, legal, mail)
+routes/                web.php, console.php (commands and schedule)
+tests/Feature/         feature tests
+marketing/             promo videos, tutorial, demo page and outreach kit
+```
+
+## Marketing material
+
+| Folder | Contents |
+|---|---|
+| `marketing/promo` | Arabic promo (Emirati and Fusha voice-overs) and its HyperFrames source |
+| `marketing/promo-en` | English promo and source |
+| `marketing/tutorial` | Arabic how-to-use tutorial (2:50) and source |
+| `marketing/demo-share` | Standalone demo page, `demo.zip` for static hosting, and a 2.3 MB email-attachment video |
+| `marketing/outreach` | Personalised outreach email sender, recipient list and send log |
+
+Videos are rendered with HyperFrames: `npx hyperframes render` inside each folder.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Proprietary. © 2026 Obadah Dadaa. All rights reserved. This code may not be copied, distributed or used without written permission.
