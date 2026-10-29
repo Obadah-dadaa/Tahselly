@@ -53,7 +53,7 @@
                 <h2 class="font-semibold text-ink">{{ __('٢. القناة والرسالة') }}</h2>
                 <div class="mt-4 grid grid-cols-2 gap-3">
                     <button type="button" @click="useChannel('email')" class="flex items-center justify-center gap-2 rounded-2xl border-2 p-3 font-semibold" :class="channel==='email' ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-slate-200 text-slate-600'"><x-icon name="mail" class="size-5" /> {{ __('بريد إلكتروني') }}</button>
-                    <button type="button" @click="useChannel('whatsapp')" class="flex items-center justify-center gap-2 rounded-2xl border-2 p-3 font-semibold" :class="channel==='whatsapp' ? 'border-[#25D366] bg-green-50 text-green-700' : 'border-slate-200 text-slate-600'"><x-icon name="whatsapp" class="size-5" /> {{ __('واتساب') }}</button>
+                    <button type="button" @click="useChannel('whatsapp')" class="flex items-center justify-center gap-2 rounded-2xl border-2 p-3 font-semibold" :class="channel==='whatsapp' ? 'border-[#25D366] bg-green-50 text-green-700' : 'border-slate-200 text-slate-600'"><x-icon name="whatsapp" class="size-5" /> {{ __('واتساب') }} <x-plan-badge feature="whatsapp" /></button>
                 </div>
                 <input type="hidden" name="channel" :value="channel">
                 <div class="mt-4 space-y-3">

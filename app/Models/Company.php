@@ -76,6 +76,48 @@ class Company extends Model
         return $this->subscriptions()->current()->with('plan')->latest('ends_at')->first();
     }
 
+    public function onTrial(): bool
+    {
+        return $this->status === 'trial';
+    }
+
+    /**
+     * Free trials open every feature; paid companies get what their plan includes.
+     */
+    public function canUse(string $feature): bool
+    {
+        if ($this->onTrial()) {
+            return true;
+        }
+
+        return (bool) $this->plan?->includes($feature);
+    }
+
+    /**
+     * "included" — part of the plan; "trial" — open only because of the free trial; "locked" — needs an upgrade.
+     */
+    public function featureState(string $feature): string
+    {
+        if ($this->plan?->includes($feature)) {
+            return 'included';
+        }
+
+        return $this->onTrial() ? 'trial' : 'locked';
+    }
+
+    /**
+     * How many more open (unpaid or partly paid) invoices the plan allows; null means no limit.
+     */
+    public function openInvoiceRoom(): ?int
+    {
+        if ($this->onTrial() || ! $this->plan) {
+            return null;
+        }
+        $open = $this->invoices()->withoutGlobalScopes()->whereIn('status', ['unpaid', 'partial'])->count();
+
+        return max(0, $this->plan->max_invoices - $open);
+    }
+
     /**
      * Whether the company may use the app right now (paid period or running trial).
      */

@@ -16,9 +16,17 @@
             <p class="flex justify-between"><span class="text-slate-500">{{ __('التذكيرات الآلية') }}</span><span>{{ $client->reminders_enabled ? __('مفعّلة') : __('موقوفة') }}</span></p>
             @if($client->notes)<p class="rounded-xl bg-slate-50 p-3 text-slate-600">{{ $client->notes }}</p>@endif
         </div>
+        @if(! $aging)
+        <div class="card flex flex-col items-center justify-center gap-3 p-5 text-center lg:col-span-2">
+            <span class="grid size-12 place-items-center rounded-2xl bg-slate-100 text-slate-500"><x-icon name="lock" class="size-6" /></span>
+            <h2 class="font-semibold text-ink">{{ __('أعمار ديون العميل') }}</h2>
+            <p class="text-sm text-slate-500">{{ __('تحليل أعمار الديون لكل عميل متاح من باقة :plan.', ['plan' => \App\Models\Plan::minimumFor('client_aging')?->localizedName()]) }}</p>
+            @if(auth()->user()->isOwner())<a href="{{ route('owner.billing') }}" class="btn-secondary">{{ __('ترقية الباقة') }}</a>@endif
+        </div>
+        @else
         <div class="card p-5 lg:col-span-2">
             <div class="flex items-center justify-between">
-                <h2 class="font-semibold text-ink">{{ __('أعمار ديون العميل') }}</h2>
+                <h2 class="flex items-center gap-2 font-semibold text-ink">{{ __('أعمار ديون العميل') }} <x-plan-badge feature="client_aging" /></h2>
                 <p class="num text-xl font-bold">@money($aging['grand']) <span class="text-sm font-medium text-slate-400">{{ auth()->user()->company->currency }}</span></p>
             </div>
             <div class="mt-4 grid grid-cols-5 gap-2 text-center">
@@ -30,6 +38,7 @@
                 @endforeach
             </div>
         </div>
+        @endif
     </div>
 
     <div class="card mt-6 overflow-hidden">

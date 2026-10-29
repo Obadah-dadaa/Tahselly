@@ -16,7 +16,7 @@
             'monthly' => (float) $p->price,
             'totals' => ['monthly' => $p->priceFor('monthly'), 'quarterly' => $p->priceFor('quarterly'), 'yearly' => $p->priceFor('yearly')],
             'users' => $p->max_users == 1 ? __('مستخدم واحد') : __('حتى :count مستخدمين', ['count' => $p->max_users]),
-            'invoices' => __('حتى :count فاتورة', ['count' => number_format($p->max_invoices)]),
+            'invoices' => __('حتى :count فاتورة مفتوحة', ['count' => number_format($p->max_invoices)]),
             'features' => $allFeatures->map(fn ($f) => ['text' => $f, 'on' => $included->contains($f)])->all(),
         ];
     });

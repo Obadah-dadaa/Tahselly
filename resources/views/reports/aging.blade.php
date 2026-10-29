@@ -1,6 +1,12 @@
 <x-layouts.app title="{{ __('تقرير أعمار الديون') }}">
     <x-page-header title="{{ __('تقرير أعمار الديون') }}" :subtitle="__('حتى تاريخ :date — الأرصدة المفتوحة مصنفة حسب مدة التأخير', ['date' => today()->format('Y-m-d')])">
-        <x-slot:actions><a href="{{ route('reports.aging.export') }}" download class="btn-primary"><x-icon name="download" class="size-4" /> {{ __('تصدير Excel') }}</a></x-slot:actions>
+        <x-slot:actions>
+            @if(auth()->user()->company->canUse('report_exports'))
+                <a href="{{ route('reports.aging.export') }}" download class="btn-primary"><x-icon name="download" class="size-4" /> {{ __('تصدير Excel') }} <x-plan-badge feature="report_exports" /></a>
+            @else
+                <a href="{{ route('reports.aging.export') }}" class="btn-secondary opacity-70"><x-icon name="download" class="size-4" /> {{ __('تصدير Excel') }} <x-plan-badge feature="report_exports" /></a>
+            @endif
+        </x-slot:actions>
     </x-page-header>
 
     @php

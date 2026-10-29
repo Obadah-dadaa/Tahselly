@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
+use App\Models\Company;
 use App\Models\ReminderTemplate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -57,13 +58,21 @@ class SettingsController extends Controller
             'locale' => ['required', 'in:ar,en'],
         ]);
 
-        $request->user()->company->update(['reminder_settings' => [
+        $company = $request->user()->company;
+        $channels = $data['channels'] ?? ['email'];
+        if (! $company->canUse('whatsapp')) {
+            $channels = array_values(array_diff($channels, ['whatsapp'])) ?: ['email'];
+        }
+        // Without the flexible schedule the reminder days stay on the standard schedule
+        $schedule = $company->canUse('flexible_schedule')
+            ? ['before_days' => $this->days($data['before_days'] ?? ''), 'after_days' => $this->days($data['after_days'] ?? ''), 'final_after' => (int) ($data['final_after'] ?? 0)]
+            : array_intersect_key(Company::DEFAULT_REMINDER_SETTINGS, array_flip(['before_days', 'after_days', 'final_after']));
+
+        $company->update(['reminder_settings' => [
             'enabled' => $request->boolean('enabled'),
             'on_due' => $request->boolean('on_due'),
-            'before_days' => $this->days($data['before_days'] ?? ''),
-            'after_days' => $this->days($data['after_days'] ?? ''),
-            'final_after' => (int) ($data['final_after'] ?? 0),
-            'channels' => $data['channels'] ?? ['email'],
+            ...$schedule,
+            'channels' => $channels,
             'locale' => $data['locale'],
         ]]);
         ActivityLog::record('settings.reminders', 'تحديث جدول التذكيرات');

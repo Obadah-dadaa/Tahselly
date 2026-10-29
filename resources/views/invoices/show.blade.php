@@ -4,7 +4,11 @@
             @if(in_array($invoice->status, ['unpaid', 'partial'], true))
                 <form method="POST" action="{{ route('invoices.remind', $invoice) }}">@csrf<button class="btn-primary"><x-icon name="mail" class="size-4" /> {{ __('إرسال تذكير بالبريد') }}</button></form>
                 @if($whatsappLink && \App\Models\SystemSetting::get('feature_whatsapp', true))
-                    <a href="{{ route('invoices.whatsapp', $invoice) }}" target="_blank" class="btn-whatsapp"><x-icon name="whatsapp" class="size-4" /> {{ __('تذكير واتساب') }}</a>
+                    @if(auth()->user()->company->canUse('whatsapp'))
+                        <a href="{{ route('invoices.whatsapp', $invoice) }}" target="_blank" class="btn-whatsapp"><x-icon name="whatsapp" class="size-4" /> {{ __('تذكير واتساب') }} <x-plan-badge feature="whatsapp" /></a>
+                    @else
+                        <a href="{{ route('invoices.whatsapp', $invoice) }}" class="btn-secondary opacity-70"><x-icon name="whatsapp" class="size-4" /> {{ __('تذكير واتساب') }} <x-plan-badge feature="whatsapp" /></a>
+                    @endif
                 @endif
                 <a href="{{ route('reminders.create', ['invoices' => [$invoice->id]]) }}" class="btn-secondary"><x-icon name="clock" class="size-4" /> {{ __('رسالة مخصصة أو مجدولة') }}</a>
             @endif

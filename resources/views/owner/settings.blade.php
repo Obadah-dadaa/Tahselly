@@ -14,17 +14,25 @@
                 <span><span class="block font-semibold">{{ __('تفعيل التذكيرات الآلية') }}</span><span class="text-sm text-slate-500">{{ __('يرسل النظام التذكيرات يومياً الساعة 9 صباحاً') }}</span></span>
                 <input type="checkbox" name="enabled" value="1" @checked($settings['enabled']) class="size-5 rounded text-brand-600">
             </label>
-            <div class="grid gap-5 sm:grid-cols-2">
+            @php $flexible = $company->canUse('flexible_schedule'); @endphp
+            <div class="flex items-center justify-between gap-3">
+                <p class="font-semibold text-ink">{{ __('أيام التذكير') }}</p>
+                <x-plan-badge feature="flexible_schedule" />
+            </div>
+            @unless($flexible)
+                <p class="-mt-4 text-sm text-slate-500">{{ __('باقتك تستخدم الجدول القياسي. تعديل الأيام متاح من باقة :plan.', ['plan' => \App\Models\Plan::minimumFor('flexible_schedule')?->localizedName()]) }}</p>
+            @endunless
+            <fieldset @disabled(! $flexible) class="grid gap-5 disabled:opacity-60 sm:grid-cols-2">
                 <div><label class="label">{{ __('قبل الاستحقاق بـ (أيام)') }}</label><input name="before_days" value="{{ implode(', ', $settings['before_days']) }}" class="input num" placeholder="3"><p class="mt-1 text-xs text-slate-400">{{ __('افصل بفاصلة، مثال: 7, 3') }}</p></div>
                 <div><label class="label">{{ __('بعد الاستحقاق بـ (أيام)') }}</label><input name="after_days" value="{{ implode(', ', $settings['after_days']) }}" class="input num" placeholder="7, 14, 30"></div>
                 <div><label class="label">{{ __('إنذار نهائي بعد (يوم) — 0 للإيقاف') }}</label><input type="number" name="final_after" value="{{ $settings['final_after'] }}" class="input num"></div>
-                <div class="flex items-end"><label class="flex items-center gap-2 text-sm"><input type="checkbox" name="on_due" value="1" @checked($settings['on_due']) class="rounded text-brand-600"> {{ __('تذكير يوم الاستحقاق نفسه') }}</label></div>
-            </div>
+            </fieldset>
+            <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="on_due" value="1" @checked($settings['on_due']) class="rounded text-brand-600"> {{ __('تذكير يوم الاستحقاق نفسه') }}</label>
             <div>
                 <p class="label">{{ __('القنوات الآلية') }}</p>
                 <div class="flex gap-4 text-sm">
                     <label class="flex items-center gap-2"><input type="checkbox" name="channels[]" value="email" @checked(in_array('email', $settings['channels'])) class="rounded text-brand-600"> {{ __('البريد الإلكتروني') }}</label>
-                    <label class="flex items-center gap-2"><input type="checkbox" name="channels[]" value="whatsapp" @checked(in_array('whatsapp', $settings['channels'])) class="rounded text-brand-600"> {{ __('واتساب (إرسال بنقرة من صفحة الفاتورة)') }}</label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="channels[]" value="whatsapp" @checked(in_array('whatsapp', $settings['channels'])) @disabled(! $company->canUse('whatsapp')) class="rounded text-brand-600"> {{ __('واتساب (إرسال بنقرة من صفحة الفاتورة)') }} <x-plan-badge feature="whatsapp" /></label>
                 </div>
             </div>
             <div>
@@ -40,8 +48,15 @@
 
         <form x-show="tab==='templates'" x-cloak method="POST" action="{{ route('owner.settings.templates') }}" class="space-y-6" x-data="{ lang: '{{ $settings['locale'] ?? 'ar' }}' }">
             @csrf @method('PUT')
+            @unless($company->canUse('custom_templates'))
+                <div class="card flex flex-wrap items-center justify-between gap-3 border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+                    <span>{{ __('يمكنك معاينة القوالب، وتعديلها متاح من باقة :plan.', ['plan' => \App\Models\Plan::minimumFor('custom_templates')?->localizedName()]) }}</span>
+                    <x-plan-badge feature="custom_templates" />
+                </div>
+            @endunless
             <div class="card flex flex-wrap items-center justify-between gap-4 p-4 text-sm text-slate-600">
                 <div>
+                    <x-plan-badge feature="custom_templates" class="me-2" />
                     {{ __('المتغيرات المتاحة:') }}
                     @foreach($placeholders as $p)<code class="mx-1 rounded bg-slate-100 px-1.5 py-0.5 text-xs" dir="ltr">{{ $p }}</code>@endforeach
                 </div>
@@ -70,7 +85,7 @@
                     @endforeach
                 </div>
             @endforeach
-            <button class="btn-primary">{{ __('حفظ القوالب') }}</button>
+            <button class="btn-primary" @disabled(! $company->canUse('custom_templates'))>{{ __('حفظ القوالب') }}</button>
         </form>
 
         <form x-show="tab==='company'" x-cloak method="POST" action="{{ route('owner.settings.company') }}" class="card max-w-3xl space-y-5 p-6">

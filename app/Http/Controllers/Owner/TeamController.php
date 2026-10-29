@@ -38,6 +38,10 @@ class TeamController extends Controller
             'password' => ['required', Password::min(8)],
         ]);
 
+        if ($data['role'] === 'owner' && ! $company->canUse('team_permissions')) {
+            $data['role'] = 'manager';
+        }
+
         $user = User::create($data + ['company_id' => $company->id, 'is_active' => true]);
         $user->markEmailAsVerified();
         ActivityLog::record('team.added', 'إضافة مستخدم: '.$user->name);

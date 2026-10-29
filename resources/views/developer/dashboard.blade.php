@@ -13,6 +13,38 @@
         <x-kpi :label="__('نجاح إرسال التذكيرات')" :value="$stats['delivery_rate'].'%'" icon="bell" :tone="$stats['delivery_rate'] < 90 ? 'rose' : 'brand'" :hint="__(':sent مرسلة · :failed فاشلة (30 يوم)', ['sent' => $stats['reminders_sent'], 'failed' => $stats['reminders_failed']])" />
     </div>
 
+    {{-- Growth funnel: visitors → free trials → paying subscribers --}}
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <x-kpi :label="__('زوار الموقع اليوم')" :value="number_format($funnel['visitors']['today'])" icon="users" tone="sky" :hint="__(':week آخر 7 أيام · :month آخر 30 يوماً', ['week' => number_format($funnel['visitors']['week']), 'month' => number_format($funnel['visitors']['month'])])" />
+        <x-kpi :label="__('في التجربة المجانية الآن')" :value="$funnel['trials']" icon="clock" tone="amber" :hint="__(':count تنتهي تجربتهم خلال 3 أيام', ['count' => $funnel['trials_ending']])" />
+        <x-kpi :label="__('مشتركون يدفعون')" :value="$funnel['paying']" icon="cash" :hint="__('اشتراك مدفوع فعّال حالياً')" />
+        <x-kpi :label="__('تحويل الزوار لتسجيلات')" :value="$funnel['signup_rate'].'%'" icon="trend" tone="violet" :hint="__(':signups تسجيل جديد من :visitors زائر (30 يوماً)', ['signups' => $funnel['signups'], 'visitors' => number_format($funnel['visitors']['month'])])" />
+    </div>
+
+    <div class="mt-6 grid gap-6 xl:grid-cols-3">
+        <div class="card p-5 xl:col-span-2">
+            <h2 class="font-semibold text-ink">{{ __('زوار الموقع — آخر 14 يوماً') }}</h2>
+            <p class="text-xs text-slate-500">{{ __('زوار فريدون يومياً للصفحات العامة، بدون تخزين عناوين IP أو ملفات تعريف الارتباط.') }}</p>
+            <div class="skeleton mt-3 h-48">
+                @php
+                    $visitChart = ['type' => 'bar', 'data' => ['labels' => $visitorChart['labels'], 'datasets' => [['data' => $visitorChart['data'], 'backgroundColor' => 'rgba(14,165,233,.55)', 'borderRadius' => 6]]], 'options' => ['plugins' => ['legend' => ['display' => false]], 'scales' => ['y' => ['beginAtZero' => true, 'ticks' => ['precision' => 0]], 'x' => ['grid' => ['display' => false]]]]];
+                @endphp
+                <canvas data-chart="{{ json_encode($visitChart) }}"></canvas>
+            </div>
+        </div>
+        <div class="card p-5">
+            <h2 class="font-semibold text-ink">{{ __('من أين يأتي الزوار') }}</h2>
+            <p class="text-xs text-slate-500">{{ __('أكثر المواقع إحالةً (30 يوماً)') }}</p>
+            <ul class="mt-4 space-y-2 text-sm">
+                @forelse($funnel['referrers'] as $host => $total)
+                    <li class="flex items-center justify-between gap-3"><span class="truncate" dir="ltr">{{ $host }}</span><span class="num font-semibold">{{ $total }}</span></li>
+                @empty
+                    <li class="text-slate-400">{{ __('لا توجد إحالات بعد — أغلب الزوار وصلوا مباشرة.') }}</li>
+                @endforelse
+            </ul>
+        </div>
+    </div>
+
     <div class="mt-6 grid gap-6 xl:grid-cols-3">
         <div class="card overflow-hidden xl:col-span-2">
             <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">

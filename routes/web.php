@@ -18,12 +18,12 @@ use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TrialController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'landing')->name('landing');
+Route::view('/', 'landing')->middleware('track')->name('landing');
 Route::post('/locale/{locale}', [PreferenceController::class, 'locale'])->whereIn('locale', ['ar', 'en'])->name('locale');
 Route::post('/theme/{theme}', [PreferenceController::class, 'theme'])->whereIn('theme', ['light', 'dark'])->name('theme');
 
 // Checkout: guests create an account while subscribing; owners renew or change plan
-Route::get('/subscribe/{plan:code}', [SubscribeController::class, 'show'])->name('subscribe.show');
+Route::get('/subscribe/{plan:code}', [SubscribeController::class, 'show'])->middleware('track')->name('subscribe.show');
 Route::post('/subscribe/{plan:code}', [SubscribeController::class, 'store'])->middleware('throttle:10,1')->name('subscribe.store');
 Route::get('/checkout/{subscription}/pay', [SubscribeController::class, 'sandbox'])->name('subscribe.sandbox');
 Route::post('/checkout/{subscription}/pay', [SubscribeController::class, 'sandboxPay'])->middleware('throttle:10,1')->name('subscribe.sandbox.pay');
@@ -33,11 +33,11 @@ Route::post('/stripe/webhook', StripeWebhookController::class)->name('stripe.web
 
 // Free trial (no card) and legal pages
 Route::middleware('guest')->group(function () {
-    Route::get('/start', [TrialController::class, 'create'])->name('trial.create');
+    Route::get('/start', [TrialController::class, 'create'])->middleware('track')->name('trial.create');
     Route::post('/start', [TrialController::class, 'store'])->middleware('throttle:5,1')->name('trial.store');
 });
-Route::view('/terms', 'legal.terms')->name('legal.terms');
-Route::view('/privacy', 'legal.privacy')->name('legal.privacy');
+Route::view('/terms', 'legal.terms')->middleware('track')->name('legal.terms');
+Route::view('/privacy', 'legal.privacy')->middleware('track')->name('legal.privacy');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'create'])->name('login');
@@ -67,7 +67,7 @@ Route::middleware(['auth', 'verified', 'role:manager,owner'])->group(function ()
     Route::resource('clients', ClientController::class);
     Route::resource('invoices', InvoiceController::class);
     Route::post('invoices/{invoice}/remind', [InvoiceController::class, 'remind'])->name('invoices.remind');
-    Route::get('invoices/{invoice}/whatsapp', [InvoiceController::class, 'whatsapp'])->name('invoices.whatsapp');
+    Route::get('invoices/{invoice}/whatsapp', [InvoiceController::class, 'whatsapp'])->middleware('feature:whatsapp')->name('invoices.whatsapp');
     Route::post('invoices/{invoice}/cancel', [InvoiceController::class, 'cancel'])->name('invoices.cancel');
     Route::post('invoices/{invoice}/payments', [PaymentController::class, 'store'])->name('payments.store');
     Route::delete('payments/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');
@@ -85,21 +85,21 @@ Route::middleware(['auth', 'verified', 'role:manager,owner'])->group(function ()
     Route::post('reminders/run', [ReminderController::class, 'run'])->name('reminders.run');
 
     Route::get('reports/aging', [ReportController::class, 'aging'])->name('reports.aging');
-    Route::get('reports/aging/export', [ReportController::class, 'exportAging'])->name('reports.aging.export');
+    Route::get('reports/aging/export', [ReportController::class, 'exportAging'])->middleware('feature:report_exports')->name('reports.aging.export');
 });
 
 // Owner area: business overview, team, company settings
 Route::middleware(['auth', 'verified', 'role:owner'])->prefix('owner')->name('owner.')->group(function () {
-    Route::get('/', Owner\DashboardController::class)->name('dashboard');
+    Route::get('/', Owner\DashboardController::class)->middleware('feature:owner_analytics')->name('dashboard');
     Route::get('billing', Owner\BillingController::class)->name('billing');
     Route::get('team', [Owner\TeamController::class, 'index'])->name('team.index');
     Route::post('team', [Owner\TeamController::class, 'store'])->name('team.store');
-    Route::patch('team/{user}', [Owner\TeamController::class, 'update'])->name('team.update');
+    Route::patch('team/{user}', [Owner\TeamController::class, 'update'])->middleware('feature:team_permissions')->name('team.update');
     Route::get('settings', [Owner\SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('settings/company', [Owner\SettingsController::class, 'updateCompany'])->name('settings.company');
     Route::put('settings/reminders', [Owner\SettingsController::class, 'updateReminders'])->name('settings.reminders');
-    Route::put('settings/templates', [Owner\SettingsController::class, 'updateTemplates'])->name('settings.templates');
-    Route::get('activity', [Owner\DashboardController::class, 'activity'])->name('activity');
+    Route::put('settings/templates', [Owner\SettingsController::class, 'updateTemplates'])->middleware('feature:custom_templates')->name('settings.templates');
+    Route::get('activity', [Owner\DashboardController::class, 'activity'])->middleware('feature:activity_log')->name('activity');
 });
 
 // Platform area: developer and platform owner see every subscriber

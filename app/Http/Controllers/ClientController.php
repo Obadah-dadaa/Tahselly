@@ -40,13 +40,13 @@ class ClientController extends Controller
         return redirect()->route('clients.show', $client)->with('success', __('تم إضافة العميل.'));
     }
 
-    public function show(Client $client, ReceivablesReport $report): View
+    public function show(Request $request, Client $client, ReceivablesReport $report): View
     {
         $client->load(['invoices' => fn ($q) => $q->latest('due_date'), 'reminders' => fn ($q) => $q->with('invoice')->latest()->limit(15)]);
 
         return view('clients.show', [
             'client' => $client,
-            'aging' => $report->aging($client->id),
+            'aging' => $request->user()->company->canUse('client_aging') ? $report->aging($client->id) : null,
         ]);
     }
 

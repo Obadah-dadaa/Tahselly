@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\Invoice;
+use App\Models\Plan;
 use App\Models\User;
 use Database\Seeders\PlatformSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -39,7 +40,7 @@ class TenantIsolationTest extends TestCase
 
     public function test_roles_are_restricted_to_their_areas(): void
     {
-        $company = Company::factory()->create();
+        $company = Company::factory()->create(['plan_id' => Plan::query()->where('code', 'agency-pro')->value('id')]);
         $manager = $this->userFor($company);
         $owner = $this->userFor($company, Role::Owner);
 

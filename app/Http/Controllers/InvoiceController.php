@@ -52,7 +52,11 @@ class InvoiceController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $invoice = Invoice::create($this->validated($request) + ['status' => 'unpaid']);
+        $data = $this->validated($request);
+        if ($request->user()->company->openInvoiceRoom() === 0) {
+            return back()->withInput()->with('error', __('وصلت للحد الأقصى للفواتير المفتوحة في باقتك. سجّل الدفعات أو قم بترقية باقتك لإضافة المزيد.'));
+        }
+        $invoice = Invoice::create($data + ['status' => 'unpaid']);
         ActivityLog::record('invoice.created', 'إنشاء فاتورة '.$invoice->number);
 
         return redirect()->route('invoices.show', $invoice)->with('success', __('تم إنشاء الفاتورة.'));

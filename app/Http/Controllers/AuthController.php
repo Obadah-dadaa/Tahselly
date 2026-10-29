@@ -35,7 +35,12 @@ class AuthController extends Controller
 
     public function home(Request $request): RedirectResponse
     {
-        return redirect()->route($request->user()->role->homeRoute());
+        $user = $request->user();
+        if ($user->isOwner() && $user->company && ! $user->company->canUse('owner_analytics')) {
+            return redirect()->route('dashboard');
+        }
+
+        return redirect()->route($user->role->homeRoute());
     }
 
     public function destroy(Request $request): RedirectResponse

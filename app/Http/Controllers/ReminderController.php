@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
 use App\Models\Invoice;
+use App\Models\Plan;
 use App\Models\Reminder;
 use App\Models\ReminderTemplate;
 use App\Services\ReminderService;
@@ -75,6 +76,12 @@ class ReminderController extends Controller
             'when' => ['required', Rule::in(['now', 'later'])],
             'scheduled_for' => ['required_if:when,later', 'nullable', 'date', 'after:now'],
         ]);
+
+        if ($data['channel'] === 'whatsapp' && ! $request->user()->company->canUse('whatsapp')) {
+            return back()->withInput()->with('error', __('«:feature» متاحة من باقة :plan. قم بترقية باقتك لاستخدامها.', [
+                'feature' => Plan::featureLabel('whatsapp'), 'plan' => Plan::minimumFor('whatsapp')?->localizedName(),
+            ]));
+        }
 
         // Tenant scope guarantees only this company's invoices are found
         $invoices = Invoice::query()->open()->with('client')->whereIn('id', $data['invoices'])->get();

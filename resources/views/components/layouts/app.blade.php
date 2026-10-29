@@ -19,11 +19,11 @@
     if (in_array($role, ['manager', 'owner'], true)) {
         if ($role === 'owner') {
             $nav[__('المالك')] = [
-                ['owner.dashboard', __('لوحة المالك'), 'trend', 'owner.dashboard'],
+                ['owner.dashboard', __('لوحة المالك'), 'trend', 'owner.dashboard', 'owner_analytics'],
                 ['owner.billing', __('الاشتراك والفواتير'), 'tag', 'owner.billing'],
                 ['owner.team.index', __('فريق العمل'), 'users', 'owner.team.*'],
                 ['owner.settings.edit', __('الإعدادات والقوالب'), 'cog', 'owner.settings.*'],
-                ['owner.activity', __('سجل النشاط'), 'list', 'owner.activity'],
+                ['owner.activity', __('سجل النشاط'), 'list', 'owner.activity', 'activity_log'],
             ];
         }
         $nav[__('التحصيل')] = [
@@ -69,9 +69,11 @@
         @foreach($nav as $section => $items)
             <p class="mb-2 mt-6 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500">{{ $section }}</p>
             <nav class="space-y-1">
-                @foreach($items as [$route, $label, $icon, $pattern])
+                @foreach($items as $item)
+                    @php [$route, $label, $icon, $pattern] = $item; @endphp
                     <a href="{{ route($route) }}" class="nav-link {{ request()->routeIs($pattern) ? 'active' : '' }}">
                         <x-icon :name="$icon" class="size-5 opacity-80" /> {{ __($label) }}
+                        @isset($item[4])<x-plan-badge :feature="$item[4]" class="ms-auto" />@endisset
                     </a>
                 @endforeach
             </nav>
@@ -108,6 +110,9 @@
                         {{ __('اليوم آخر يوم في تجربتك المجانية.') }}
                     @else
                         {{ __('تجربة مجانية — متبقٍ :days يوم، ثم يتطلب الاستمرار اشتراكاً مدفوعاً.', ['days' => $trialDays]) }}
+                        @if($user->company->plan)
+                            <span class="opacity-80">{{ __('كل الميزات مفتوحة لك الآن؛ المعلَّمة «من باقة …» ليست ضمن باقة :plan.', ['plan' => $user->company->plan->localizedName()]) }}</span>
+                        @endif
                     @endif
                 </span>
                 @if($user->isOwner())

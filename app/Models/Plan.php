@@ -13,6 +13,27 @@ class Plan extends Model
     /** @var list<string> */
     public const CATEGORIES = ['freelancer', 'agency', 'services', 'accounting'];
 
+    /**
+     * Gated features and the cheapest plan (by code) that includes each one.
+     * Everything not listed here is part of every plan.
+     *
+     * @var array<string, string>
+     */
+    public const FEATURES = [
+        'whatsapp' => 'agency-basic',
+        'custom_templates' => 'agency-basic',
+        'team_permissions' => 'services',
+        'report_exports' => 'services',
+        'owner_analytics' => 'agency-pro',
+        'flexible_schedule' => 'agency-pro',
+        'bulk_import' => 'accounting',
+        'client_aging' => 'accounting',
+        'activity_log' => 'accounting',
+    ];
+
+    /** Rows allowed in one Excel import without the bulk_import feature. */
+    public const IMPORT_ROWS_LIMIT = 500;
+
     /** Quarterly billing discount. */
     public const QUARTERLY_DISCOUNT = 0.05;
 
@@ -34,6 +55,45 @@ class Plan extends Model
     public function scopeOrdered(Builder $query): Builder
     {
         return $query->orderBy('price')->orderBy('max_users')->orderBy('sort');
+    }
+
+    /**
+     * The cheapest active-or-not plan that includes a feature, or null when that plan no longer exists.
+     */
+    public static function minimumFor(string $feature): ?self
+    {
+        $code = self::FEATURES[$feature] ?? null;
+
+        return $code ? once(fn () => self::query()->where('code', $code)->first()) : null;
+    }
+
+    public function includes(string $feature): bool
+    {
+        if (! array_key_exists($feature, self::FEATURES)) {
+            return true;
+        }
+        $minimum = self::minimumFor($feature);
+        if (! $minimum) {
+            return true;
+        }
+
+        // Plans rank by price, then by size, the same order the pricing page shows
+        return [(float) $this->price, $this->max_users] >= [(float) $minimum->price, $minimum->max_users];
+    }
+
+    public static function featureLabel(string $feature): string
+    {
+        return __([
+            'whatsapp' => 'تذكيرات واتساب',
+            'custom_templates' => 'قوالب رسائل مخصصة',
+            'team_permissions' => 'إدارة الفريق والصلاحيات',
+            'report_exports' => 'تصدير التقارير إلى Excel',
+            'owner_analytics' => 'لوحة المالك والتحليلات',
+            'flexible_schedule' => 'جدول تذكيرات مرن',
+            'bulk_import' => 'استيراد دفعات كبيرة من Excel',
+            'client_aging' => 'تقارير أعمار ديون لكل عميل',
+            'activity_log' => 'سجل نشاط كامل',
+        ][$feature] ?? $feature);
     }
 
     public function companies(): HasMany

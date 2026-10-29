@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Client;
 use App\Models\ImportBatch;
 use App\Models\Invoice;
+use App\Models\Plan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
@@ -49,9 +50,18 @@ class InvoiceImportService
         $errors = [];
         $imported = 0;
         $total = 0;
+        $company = $user->company;
+        // New open invoices this plan still allows (null = no limit)
+        $room = $company?->openInvoiceRoom();
+        $dataRows = count(array_filter($rows, fn ($row) => array_filter($row, fn ($v) => $v !== null && $v !== '')));
 
         if (! isset($map['number'], $map['client_name'], $map['due_date'], $map['amount'])) {
             $errors[] = ['row' => 1, 'message' => 'الأعمدة المطلوبة: رقم الفاتورة، العميل، تاريخ الاستحقاق، المبلغ'];
+        } elseif ($company && $dataRows > Plan::IMPORT_ROWS_LIMIT && ! $company->canUse('bulk_import')) {
+            $total = $dataRows;
+            $errors[] = ['row' => 1, 'message' => __('الملف فيه :count صف. باقتك تسمح حتى :limit صف في الملف الواحد؛ الملفات الأكبر متاحة من باقة :plan. قسّم الملف أو قم بترقية باقتك.', [
+                'count' => $dataRows, 'limit' => Plan::IMPORT_ROWS_LIMIT, 'plan' => Plan::minimumFor('bulk_import')?->localizedName(),
+            ])];
         } else {
             foreach ($rows as $index => $row) {
                 if (! array_filter($row, fn ($v) => $v !== null && $v !== '')) {
@@ -60,7 +70,7 @@ class InvoiceImportService
                 $total++;
                 $rowNumber = $index + 2;
                 try {
-                    $this->importRow($this->extract($row, $map), $user, $batch);
+                    $this->importRow($this->extract($row, $map), $user, $batch, $room);
                     $imported++;
                 } catch (Throwable $e) {
                     $errors[] = ['row' => $rowNumber, 'message' => $e->getMessage()];
@@ -116,7 +126,7 @@ class InvoiceImportService
     /**
      * @param  array<string, mixed>  $data
      */
-    private function importRow(array $data, User $user, ImportBatch $batch): void
+    private function importRow(array $data, User $user, ImportBatch $batch, ?int &$room): void
     {
         if (! $data['number'] || ! $data['client_name']) {
             throw new \InvalidArgumentException('رقم الفاتورة واسم العميل مطلوبان');
@@ -128,6 +138,14 @@ class InvoiceImportService
         $dueDate = $this->date($data['due_date']) ?? throw new \InvalidArgumentException('تاريخ الاستحقاق غير صالح');
         $issueDate = $this->date($data['issue_date']) ?? $dueDate->copy()->subDays(30);
         $paid = min($this->number($data['paid_amount']), $amount);
+
+        // Updating an existing invoice is always allowed; a new open one needs room in the plan
+        if ($room !== null && $paid < $amount && ! Invoice::query()->where('company_id', $user->company_id)->where('number', (string) $data['number'])->exists()) {
+            if ($room <= 0) {
+                throw new \InvalidArgumentException(__('وصلت للحد الأقصى للفواتير المفتوحة في باقتك. سجّل الدفعات أو قم بترقية باقتك لإضافة المزيد.'));
+            }
+            $room--;
+        }
 
         DB::transaction(function () use ($data, $user, $batch, $amount, $dueDate, $issueDate, $paid): void {
             $client = Client::firstOrCreate(
