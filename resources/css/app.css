@@ -41,14 +41,19 @@
     --color-brand-800: #5eead4;
     --color-brand-900: #99f6e4;
     --color-rose-50: rgb(244 63 94 / 0.12);
+    --color-rose-100: rgb(244 63 94 / 0.2);
     --color-rose-700: #fda4af;
     --color-rose-800: #fecdd3;
     --color-amber-50: rgb(245 158 11 / 0.12);
+    --color-amber-100: rgb(245 158 11 / 0.2);
+    --color-amber-200: rgb(245 158 11 / 0.3);
+    --color-amber-300: rgb(245 158 11 / 0.45);
     --color-amber-700: #fcd34d;
     --color-amber-800: #fde68a;
     --color-orange-50: rgb(249 115 22 / 0.12);
     --color-orange-800: #fdba74;
     --color-emerald-50: rgb(16 185 129 / 0.12);
+    --color-emerald-100: rgb(16 185 129 / 0.2);
     --color-emerald-700: #6ee7b7;
     --color-emerald-800: #a7f3d0;
     --color-sky-50: rgb(14 165 233 / 0.12);
@@ -56,6 +61,11 @@
     --color-violet-50: rgb(139 92 246 / 0.14);
     --color-violet-700: #c4b5fd;
     --color-green-50: rgb(34 197 94 / 0.12);
+}
+
+/* Dark amber text sits on amber tints (trial notices); lighten it in dark mode */
+.dark .text-amber-900 {
+    color: #fef3c7;
 }
 
 /* Sections that are dark in both themes (sidebar, hero, plan cards) keep their light-on-dark greys */

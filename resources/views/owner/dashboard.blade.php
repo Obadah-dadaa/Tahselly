@@ -1,4 +1,4 @@
-<x-layouts.app title="{{ __('لوحة المالك') }}">
+<x-layouts.app :title="__('لوحة المالك')">
     @php $currency = $company->currency; @endphp
     <x-page-header :title="__('أهلاً').' '.explode(' ', auth()->user()->name)[0].' 👋'" :subtitle="__('صورة كاملة عن التدفق النقدي وأداء التحصيل لشركتك.')">
         <x-slot:actions>
@@ -43,7 +43,7 @@
                 @php
                     $agingChart = [
                         'type' => 'doughnut',
-                        'data' => ['labels' => array_values($buckets), 'datasets' => [['data' => array_map(fn ($v) => round($v), array_values($aging['totals'])), 'backgroundColor' => ['#14b8a6', '#fbbf24', '#fb923c', '#f87171', '#be123c'], 'borderWidth' => 0]]],
+                        'data' => ['labels' => array_map(fn ($l) => __($l), array_values($buckets)), 'datasets' => [['data' => array_map(fn ($v) => round($v), array_values($aging['totals'])), 'backgroundColor' => ['#14b8a6', '#fbbf24', '#fb923c', '#f87171', '#be123c'], 'borderWidth' => 0]]],
                         'options' => ['cutout' => '70%', 'plugins' => ['legend' => ['display' => false]]],
                     ];
                 @endphp

@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('الفواتير') }}">
-    <x-page-header title="{{ __('الفواتير') }}" :subtitle="__(':count فاتورة', ['count' => $invoices->total()])">
+<x-layouts.app :title="__('الفواتير')">
+    <x-page-header :title="__('الفواتير')" :subtitle="__(':count فاتورة', ['count' => $invoices->total()])">
         <x-slot:actions>
             <a href="{{ route('import.index') }}" class="btn-secondary"><x-icon name="upload" class="size-4" /> {{ __('استيراد Excel') }}</a>
             <a href="{{ route('invoices.create') }}" class="btn-primary"><x-icon name="plus" class="size-4" /> {{ __('فاتورة جديدة') }}</a>

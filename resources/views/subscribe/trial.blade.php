@@ -1,15 +1,3 @@
-@php
-    $included = [
-        ['upload', __('استيراد فواتيرك من Excel كما هي')],
-        ['bell', __('تذكيرات آلية بالبريد قبل الاستحقاق وبعده')],
-        ['whatsapp', __('تذكيرات واتساب برسالة جاهزة بنقرة')],
-        ['clock', __('جدولة التذكيرات وتعديل أيامها ونصوصها')],
-        ['cash', __('تسجيل الدفعات وإغلاق الفواتير تلقائياً')],
-        ['chart', __('تقارير أعمار الديون وتصديرها إلى Excel')],
-        ['trend', __('لوحة المالك: نسبة التحصيل والتدفق النقدي')],
-        ['users', __('إضافة فريقك وتحديد صلاحياتهم')],
-    ];
-@endphp
 <x-layouts.guest :title="__('ابدأ تجربتك المجانية')">
     <form method="POST" action="{{ route('trial.store') }}" class="mx-auto grid max-w-5xl gap-8 lg:grid-cols-5">
         @csrf
@@ -49,11 +37,7 @@
 
             <div class="card p-6">
                 <h2 class="font-semibold text-ink">{{ __('ماذا تستطيع أن تفعل خلال التجربة') }}</h2>
-                <ul class="mt-4 space-y-3 text-sm">
-                    @foreach($included as [$icon, $text])
-                        <li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700"><x-icon :name="$icon" class="size-4" /></span> {{ $text }}</li>
-                    @endforeach
-                </ul>
+                <x-trial-includes class="mt-4" />
             </div>
         </aside>
     </form>

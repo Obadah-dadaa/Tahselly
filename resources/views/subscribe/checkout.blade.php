@@ -81,6 +81,9 @@
                     @endforeach
                 </ul>
                 <div class="border-t border-slate-100 p-6">
+                    @if($trial && $trial->trial_ends_at)
+                        <p class="mb-3 rounded-xl bg-amber-50 p-3 text-xs text-amber-900">{{ __('متبقٍ لك :days يوم من التجربة المجانية. عند الدفع تتحول تجربتك فوراً إلى باقة :plan.', ['days' => max(0, (int) today()->diffInDays($trial->trial_ends_at, false)), 'plan' => $plan->localizedName()]) }}</p>
+                    @endif
                     @if($current && $upgrading)
                         <p class="mb-3 rounded-xl bg-brand-50 p-3 text-xs text-brand-800">{{ __('الترقية تبدأ فوراً بعد الدفع، والأيام المتبقية من باقتك الحالية تُضاف لمدتك الجديدة حسب قيمتها.') }}</p>
                     @elseif($current)

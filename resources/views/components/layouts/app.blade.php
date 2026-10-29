@@ -72,6 +72,7 @@
             <nav class="space-y-1">
                 @foreach($items as $item)
                     @php [$route, $label, $icon, $pattern] = $item; $locked = isset($item[4]) && $user->company?->featureState($item[4]) === 'locked'; @endphp
+                    @continue($locked)
                     <a href="{{ route($route) }}" class="nav-link {{ request()->routeIs($pattern) ? 'active' : '' }} {{ $locked ? 'opacity-70' : '' }}"
                        @if($locked) @click.prevent="$dispatch('upgrade', '{{ $item[4] }}')" @endif>
                         <x-icon :name="$icon" class="size-5 opacity-80" /> {{ __($label) }}
@@ -107,7 +108,7 @@
             <div class="border-b px-4 py-2.5 {{ $urgent ? 'border-rose-700 bg-rose-600 text-white' : 'border-amber-200 bg-gradient-to-r from-amber-50 to-amber-100 text-amber-900' }}">
                 <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2">
                     <div class="flex min-w-0 items-center gap-3">
-                        <span class="flex shrink-0 items-baseline gap-1 rounded-xl px-3 py-1 {{ $urgent ? 'bg-white/15' : 'bg-white shadow-sm ring-1 ring-amber-200' }}">
+                        <span class="flex shrink-0 items-baseline gap-1 rounded-xl px-3 py-1 {{ $urgent ? 'bg-white/15' : 'bg-white shadow-sm ring-1 ring-amber-200 dark:bg-white/10' }}">
                             @if($trialDays === 0)
                                 <span class="text-sm font-bold">{{ __('آخر يوم') }}</span>
                             @else

@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('نشاط المنصة') }}">
-    <x-page-header title="{{ __('نشاط المنصة') }}" :subtitle="__('كل الإجراءات عبر جميع الشركات.')" />
+<x-layouts.app :title="__('نشاط المنصة')">
+    <x-page-header :title="__('نشاط المنصة')" :subtitle="__('كل الإجراءات عبر جميع الشركات.')" />
     <div class="card overflow-hidden">
         <table class="table-base">
             <thead><tr><th>{{ __('الوقت') }}</th><th>{{ __('الشركة') }}</th><th>{{ __('المستخدم') }}</th><th>{{ __('الإجراء') }}</th><th>{{ __('الكود') }}</th><th>IP</th></tr></thead>

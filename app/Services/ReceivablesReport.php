@@ -97,7 +97,7 @@ class ReceivablesReport
         for ($i = $months - 1; $i >= 0; $i--) {
             $start = today()->startOfMonth()->subMonths($i);
             $end = $start->copy()->endOfMonth();
-            $labels[] = $start->locale('ar')->translatedFormat('M Y');
+            $labels[] = $start->locale(app()->getLocale())->translatedFormat('M Y');
             $invoiced[] = (float) Invoice::query()->where('status', '!=', 'cancelled')->whereBetween('issue_date', [$start, $end])->sum('amount');
             $collected[] = (float) Payment::query()->whereBetween('paid_on', [$start, $end])->sum('amount');
         }

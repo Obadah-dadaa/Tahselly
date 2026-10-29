@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('سجل النشاط') }}">
-    <x-page-header title="{{ __('سجل النشاط') }}" :subtitle="__('كل ما قام به فريقك: الفواتير، الدفعات، التذكيرات والعملاء.')" />
+<x-layouts.app :title="__('سجل النشاط')">
+    <x-page-header :title="__('سجل النشاط')" :subtitle="__('كل ما قام به فريقك: الفواتير، الدفعات، التذكيرات والعملاء.')" />
     @php
         $types = ['' => __('الكل'), 'invoices' => __('الفواتير'), 'payments' => __('الدفعات'), 'reminders' => __('التذكيرات'), 'clients' => __('العملاء والاستيراد'), 'team' => __('الفريق والإعدادات')];
         $tones = ['invoice' => 'bg-sky-50 text-sky-700', 'payment' => 'bg-emerald-50 text-emerald-700', 'reminder' => 'bg-violet-50 text-violet-700', 'reminders' => 'bg-violet-50 text-violet-700', 'client' => 'bg-amber-50 text-amber-700', 'import' => 'bg-amber-50 text-amber-700'];

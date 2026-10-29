@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('أدوات الصيانة') }}">
-    <x-page-header title="{{ __('أدوات الصيانة') }}" :subtitle="__('أوامر آمنة بنقرة واحدة + خريطة قاعدة البيانات والمسارات لتسهيل التعديل.')" />
+<x-layouts.app :title="__('أدوات الصيانة')">
+    <x-page-header :title="__('أدوات الصيانة')" :subtitle="__('أوامر آمنة بنقرة واحدة + خريطة قاعدة البيانات والمسارات لتسهيل التعديل.')" />
 
     <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         @foreach($actions as $key => $action)

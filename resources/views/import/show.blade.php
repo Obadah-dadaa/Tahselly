@@ -1,4 +1,4 @@
-<x-layouts.app title="{{ __('نتيجة الاستيراد') }}">
+<x-layouts.app :title="__('نتيجة الاستيراد')">
     <x-page-header :title="__('نتيجة استيراد:').' '.$batch->filename" :subtitle="$batch->created_at->format('Y-m-d H:i').' · '.$batch->user?->name">
         <x-slot:actions><a href="{{ route('import.index') }}" class="btn-secondary">{{ __('استيراد ملف آخر') }}</a></x-slot:actions>
     </x-page-header>

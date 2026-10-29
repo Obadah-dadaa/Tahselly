@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('سجل الأخطاء') }}">
-    <x-page-header title="{{ __('سجل الأخطاء') }}" :subtitle="'storage/logs/laravel.log — '.$size.' KB'">
+<x-layouts.app :title="__('سجل الأخطاء')">
+    <x-page-header :title="__('سجل الأخطاء')" :subtitle="'storage/logs/laravel.log — '.$size.' KB'">
         <x-slot:actions>
             @foreach(['' => __('الكل'), 'error' => 'Errors', 'warning' => 'Warnings', 'info' => 'Info'] as $k => $l)
                 <a href="{{ route('developer.logs', $k ? ['level' => $k] : []) }}" class="rounded-full px-3 py-1 text-xs font-semibold {{ request('level', '') === $k ? 'bg-night text-white' : 'bg-surface ring-1 ring-slate-200' }}">{{ $l }}</a>

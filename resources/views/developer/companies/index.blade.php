@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('الشركات') }}">
-    <x-page-header title="{{ __('الشركات المشتركة') }}" :subtitle="__(':count شركة', ['count' => $companies->total()])" />
+<x-layouts.app :title="__('الشركات')">
+    <x-page-header :title="__('الشركات المشتركة')" :subtitle="__(':count شركة', ['count' => $companies->total()])" />
 
     <div class="grid gap-6 xl:grid-cols-3">
         <div class="card overflow-hidden xl:col-span-2">

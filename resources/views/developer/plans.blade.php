@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('الباقات والأسعار') }}">
-    <x-page-header title="{{ __('الباقات والأسعار') }}" :subtitle="__('عدّل الأسعار والحدود والمزايا — تنعكس فوراً على الصفحة التسويقية وحدود الشركات.')" />
+<x-layouts.app :title="__('الباقات والأسعار')">
+    <x-page-header :title="__('الباقات والأسعار')" :subtitle="__('عدّل الأسعار والحدود والمزايا — تنعكس فوراً على الصفحة التسويقية وحدود الشركات.')" />
     <form method="POST" action="{{ route('developer.plans.update') }}">
         @csrf @method('PUT')
         <div class="grid gap-6 lg:grid-cols-2">

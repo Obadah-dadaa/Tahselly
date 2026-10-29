@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('العملاء') }}">
-    <x-page-header title="{{ __('العملاء') }}" :subtitle="__(':count عميل', ['count' => $clients->total()])">
+<x-layouts.app :title="__('العملاء')">
+    <x-page-header :title="__('العملاء')" :subtitle="__(':count عميل', ['count' => $clients->total()])">
         <x-slot:actions>
             <a href="{{ route('clients.create') }}" class="btn-primary"><x-icon name="plus" class="size-4" /> {{ __('عميل جديد') }}</a>
         </x-slot:actions>

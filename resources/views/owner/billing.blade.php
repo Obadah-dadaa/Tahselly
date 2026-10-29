@@ -114,9 +114,12 @@
             </div>
         @else
         <div class="card p-6">
-            <h3 class="font-semibold text-ink">{{ __('اختر باقة') }}</h3>
+            <h3 class="font-semibold text-ink">{{ $company->onTrial() && $company->plan ? __('ترقية الباقة') : __('اختر باقة') }}</h3>
+            @if($company->onTrial() && $company->trial_ends_at)
+                <p class="mt-1 text-xs text-slate-500">{{ __('متبقٍ لك :days يوم من التجربة المجانية.', ['days' => max(0, (int) today()->diffInDays($company->trial_ends_at, false))]) }}</p>
+            @endif
             <div class="mt-4 space-y-3">
-                @foreach($plans as $plan)
+                @foreach($plans->filter(fn ($p) => ! ($company->onTrial() && $company->plan) || $p->id === $company->plan_id || $p->isHigherThan($company->plan)) as $plan)
                     <a href="{{ route('subscribe.show', ['plan' => $plan->code, 'cycle' => $current?->cycle ?? 'monthly']) }}"
                        class="flex items-center justify-between rounded-2xl border p-4 transition hover:border-brand-500 {{ $current?->plan_id === $plan->id ? 'border-brand-500 bg-brand-50' : 'border-slate-200' }}">
                         <span>

@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('فريق العمل') }}">
-    <x-page-header title="{{ __('فريق العمل') }}" :subtitle="__(':count من :max مستخدمين مسموحين في باقتك', ['count' => $users->count(), 'max' => $company->plan?->max_users ?? '—'])" />
+<x-layouts.app :title="__('فريق العمل')">
+    <x-page-header :title="__('فريق العمل')" :subtitle="__(':count من :max مستخدمين مسموحين في باقتك', ['count' => $users->count(), 'max' => $company->plan?->max_users ?? '—'])" />
 
     <div class="grid gap-6 lg:grid-cols-3">
         <div class="card overflow-hidden lg:col-span-2">

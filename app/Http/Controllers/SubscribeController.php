@@ -36,6 +36,9 @@ class SubscribeController extends Controller
         }
 
         $current = $user?->company?->currentSubscription();
+        if ($this->belowTrialPlan($user?->company, $plan)) {
+            return redirect()->route('owner.plan')->with('error', __('يمكنك الترقية فقط، لا الانتقال لباقة أقل.'));
+        }
         $allowed = $this->allowedCycles($plan, $current, $request->query('intent') === 'upgrade');
         if ($allowed === []) {
             return redirect()->route('owner.billing')->with('error', $plan->id === $current?->plan_id
@@ -53,7 +56,13 @@ class SubscribeController extends Controller
             'sandbox' => $gateway->sandboxEnabled() && ! $gateway->stripeEnabled(),
             'renewing' => (bool) $user,
             'current' => $current,
+            'trial' => $user?->company?->onTrial() ? $user->company : null,
         ]);
+    }
+
+    private function belowTrialPlan(?Company $company, Plan $plan): bool
+    {
+        return $company?->onTrial() && $company->plan && $plan->id !== $company->plan_id && ! $plan->isHigherThan($company->plan);
     }
 
     /**
@@ -100,6 +109,7 @@ class SubscribeController extends Controller
             ];
         }
         $data = $request->validate($rules);
+        abort_if($this->belowTrialPlan($user?->company, $plan), 422, __('يمكنك الترقية فقط، لا الانتقال لباقة أقل.'));
 
         $subscription = DB::transaction(function () use ($user, $data, $plan): Subscription {
             $company = $user?->company;

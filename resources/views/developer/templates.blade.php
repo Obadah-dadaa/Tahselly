@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('القوالب الافتراضية') }}">
-    <x-page-header title="{{ __('قوالب الرسائل الافتراضية') }}" :subtitle="__('تُستخدم لكل الشركات التي لم تخصص قوالبها الخاصة.')" />
+<x-layouts.app :title="__('القوالب الافتراضية')">
+    <x-page-header :title="__('قوالب الرسائل الافتراضية')" :subtitle="__('تُستخدم لكل الشركات التي لم تخصص قوالبها الخاصة.')" />
     <div class="card mb-6 p-4 text-sm text-slate-600">
         {{ __('المتغيرات:') }} @foreach($placeholders as $p)<code class="mx-1 rounded bg-slate-100 px-1.5 py-0.5 text-xs" dir="ltr">{{ $p }}</code>@endforeach
     </div>

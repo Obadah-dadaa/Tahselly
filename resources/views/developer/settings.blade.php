@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('إعدادات النظام') }}">
-    <x-page-header title="{{ __('إعدادات النظام') }}" :subtitle="__('غيّر اسم المنتج، الألوان والميزات بدون لمس الكود. القيم محفوظة في جدول system_settings.')" />
+<x-layouts.app :title="__('إعدادات النظام')">
+    <x-page-header :title="__('إعدادات النظام')" :subtitle="__('غيّر اسم المنتج، الألوان والميزات بدون لمس الكود. القيم محفوظة في جدول system_settings.')" />
     @php $groupLabels = ['general' => __('عام'), 'branding' => __('الهوية'), 'features' => __('الميزات (Feature Flags)'), 'billing' => __('الاشتراكات')]; @endphp
     <form method="POST" action="{{ route('developer.settings.update') }}" class="max-w-3xl space-y-6">
         @csrf @method('PUT')

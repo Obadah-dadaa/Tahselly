@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Plan;
 use App\Models\SystemSetting;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -90,7 +91,11 @@ class TrialController extends Controller
             return redirect()->route('owner.billing');
         }
 
-        return view('owner.choose-plan', ['plans' => Plan::query()->where('is_active', true)->ordered()->get()]);
+        return view('owner.choose-plan', [
+            'company' => $company,
+            'plans' => $this->plansFor($company),
+            'totalDays' => (int) SystemSetting::get('default_trial_days', 14),
+        ]);
     }
 
     /**
@@ -100,11 +105,26 @@ class TrialController extends Controller
     {
         $company = $request->user()->company;
         abort_if((bool) $company->currentSubscription(), 403);
-        $plan = Plan::query()->where('is_active', true)->where('code', (string) $request->input('plan'))->firstOrFail();
+        $plan = $this->plansFor($company)->firstWhere('code', (string) $request->input('plan'));
+        abort_unless($plan, 422, __('يمكنك الترقية فقط، لا الانتقال لباقة أقل.'));
 
         $company->update(['plan_id' => $plan->id, 'category' => $plan->category]);
         ActivityLog::record('settings.plan', 'اختيار الباقة: '.$plan->name, [], $company->id);
 
         return redirect()->route('dashboard')->with('success', __('اخترت باقة :plan. كل المزايا تبقى مفتوحة حتى نهاية تجربتك.', ['plan' => $plan->localizedName()]));
+    }
+
+    /**
+     * Plans a trial company may pick: once a plan is chosen, only that one and higher ones.
+     *
+     * @return Collection<int, Plan>
+     */
+    private function plansFor(Company $company): Collection
+    {
+        $plans = Plan::query()->where('is_active', true)->ordered()->get();
+
+        return $company->plan
+            ? $plans->filter(fn (Plan $p) => $p->id === $company->plan_id || $p->isHigherThan($company->plan))->values()
+            : $plans;
     }
 }

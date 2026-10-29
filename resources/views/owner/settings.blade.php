@@ -1,9 +1,9 @@
-<x-layouts.app title="{{ __('الإعدادات') }}">
-    <x-page-header title="{{ __('إعدادات الشركة والتذكيرات') }}" />
+<x-layouts.app :title="__('الإعدادات')">
+    <x-page-header :title="__('إعدادات الشركة والتذكيرات')" />
 
     <div x-data="{ tab: 'reminders' }">
         <div class="mb-6 flex gap-2 border-b border-slate-200">
-            @foreach(['reminders' => __('جدول التذكيرات'), 'templates' => __('قوالب الرسائل'), 'company' => __('بيانات الشركة')] as $key => $label)
+            @foreach(array_filter(['reminders' => __('جدول التذكيرات'), 'templates' => $company->canUse('custom_templates') ? __('قوالب الرسائل') : null, 'company' => __('بيانات الشركة')]) as $key => $label)
                 <button @click="tab='{{ $key }}'" :class="tab==='{{ $key }}' ? 'border-brand-600 text-brand-700' : 'border-transparent text-slate-500'" class="-mb-px border-b-2 px-4 py-2 text-sm font-semibold">{{ __($label) }}</button>
             @endforeach
         </div>
@@ -20,9 +20,9 @@
                 <x-plan-badge feature="flexible_schedule" />
             </div>
             @unless($flexible)
-                <p class="-mt-4 text-sm text-slate-500">{{ __('باقتك تستخدم الجدول القياسي. تعديل الأيام متاح من باقة :plan.', ['plan' => \App\Models\Plan::minimumFor('flexible_schedule')?->localizedName()]) }}</p>
+                <p class="-mt-4 rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-600">{{ __('الجدول القياسي: قبل الاستحقاق بـ :before أيام، يوم الاستحقاق، وبعده بـ :after يوماً، وإنذار نهائي بعد :final يوماً.', ['before' => implode('، ', $settings['before_days']), 'after' => implode('، ', $settings['after_days']), 'final' => $settings['final_after']]) }}</p>
             @endunless
-            <fieldset @disabled(! $flexible) class="grid gap-5 disabled:opacity-60 sm:grid-cols-2">
+            <fieldset @disabled(! $flexible) @class(['grid gap-5 sm:grid-cols-2', 'hidden' => ! $flexible])>
                 <div><label class="label">{{ __('قبل الاستحقاق بـ (أيام)') }}</label><input name="before_days" value="{{ implode(', ', $settings['before_days']) }}" class="input num" placeholder="3"><p class="mt-1 text-xs text-slate-400">{{ __('افصل بفاصلة، مثال: 7, 3') }}</p></div>
                 <div><label class="label">{{ __('بعد الاستحقاق بـ (أيام)') }}</label><input name="after_days" value="{{ implode(', ', $settings['after_days']) }}" class="input num" placeholder="7, 14, 30"></div>
                 <div><label class="label">{{ __('إنذار نهائي بعد (يوم) — 0 للإيقاف') }}</label><input type="number" name="final_after" value="{{ $settings['final_after'] }}" class="input num"></div>
@@ -32,7 +32,9 @@
                 <p class="label">{{ __('القنوات الآلية') }}</p>
                 <div class="flex gap-4 text-sm">
                     <label class="flex items-center gap-2"><input type="checkbox" name="channels[]" value="email" @checked(in_array('email', $settings['channels'])) class="rounded text-brand-600"> {{ __('البريد الإلكتروني') }}</label>
+                    @if($company->canUse('whatsapp'))
                     <label class="flex items-center gap-2"><input type="checkbox" name="channels[]" value="whatsapp" @checked(in_array('whatsapp', $settings['channels'])) @disabled(! $company->canUse('whatsapp')) class="rounded text-brand-600"> {{ __('واتساب (إرسال بنقرة من صفحة الفاتورة)') }} <x-plan-badge feature="whatsapp" /></label>
+                    @endif
                 </div>
             </div>
             <div>
@@ -46,6 +48,7 @@
             <button class="btn-primary">{{ __('حفظ الجدول') }}</button>
         </form>
 
+        @if($company->canUse('custom_templates'))
         <form x-show="tab==='templates'" x-cloak method="POST" action="{{ route('owner.settings.templates') }}" class="space-y-6" x-data="{ lang: '{{ $settings['locale'] ?? 'ar' }}' }">
             @csrf @method('PUT')
             @unless($company->canUse('custom_templates'))
@@ -85,8 +88,9 @@
                     @endforeach
                 </div>
             @endforeach
-            <button class="btn-primary" @disabled(! $company->canUse('custom_templates'))>{{ __('حفظ القوالب') }}</button>
+            <button class="btn-primary">{{ __('حفظ القوالب') }}</button>
         </form>
+        @endif
 
         <form x-show="tab==='company'" x-cloak method="POST" action="{{ route('owner.settings.company') }}" class="card max-w-3xl space-y-5 p-6">
             @csrf @method('PUT')

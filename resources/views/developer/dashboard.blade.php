@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('لوحة المبرمج') }}">
-    <x-page-header title="{{ __('لوحة المبرمج') }}" :subtitle="__('مراقبة المنصة، الاشتراكات وصحة النظام — كل ما تحتاجه لإدارة المنتج وتعديله.')">
+<x-layouts.app :title="__('لوحة المبرمج')">
+    <x-page-header :title="__('لوحة المبرمج')" :subtitle="__('مراقبة المنصة، الاشتراكات وصحة النظام — كل ما تحتاجه لإدارة المنتج وتعديله.')">
         <x-slot:actions>
             <a href="{{ route('developer.tools') }}" class="btn-secondary"><x-icon name="terminal" class="size-4" /> {{ __('أدوات الصيانة') }}</a>
             <a href="{{ route('developer.companies.index') }}" class="btn-primary"><x-icon name="plus" class="size-4" /> {{ __('شركة جديدة') }}</a>

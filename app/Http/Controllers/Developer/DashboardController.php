@@ -47,7 +47,7 @@ class DashboardController extends Controller
         $signups = [];
         for ($i = 5; $i >= 0; $i--) {
             $month = today()->startOfMonth()->subMonths($i);
-            $signups['labels'][] = $month->locale('ar')->translatedFormat('M');
+            $signups['labels'][] = $month->locale(app()->getLocale())->translatedFormat('M');
             $signups['data'][] = $companies->filter(fn (Company $c) => $c->created_at->isSameMonth($month))->count();
         }
 

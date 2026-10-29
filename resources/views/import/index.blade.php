@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('استيراد Excel') }}">
-    <x-page-header title="{{ __('استيراد الفواتير من Excel') }}" :subtitle="__('ارفع ملف xlsx أو csv — يتم إنشاء العملاء تلقائياً وتحديث الفواتير الموجودة بنفس الرقم.')" />
+<x-layouts.app :title="__('استيراد Excel')">
+    <x-page-header :title="__('استيراد الفواتير من Excel')" :subtitle="__('ارفع ملف xlsx أو csv — يتم إنشاء العملاء تلقائياً وتحديث الفواتير الموجودة بنفس الرقم.')" />
 
     @if(! \App\Models\SystemSetting::get('feature_excel_import', true))
         <div class="card p-8 text-center text-slate-500">{{ __('ميزة الاستيراد معطلة حالياً من قبل مدير النظام.') }}</div>

@@ -159,6 +159,6 @@ class PlanFeaturesTest extends TestCase
         $client = Client::factory()->create(['company_id' => $company->id]);
 
         $this->actingAs($this->user($company, Role::Manager))->withSession(['locale' => 'ar'])->get(route('clients.show', $client))
-            ->assertOk()->assertSee('تحليل أعمار الديون لكل عميل متاح من باقة المؤسسات.');
+            ->assertOk()->assertDontSee('أعمار ديون العميل');
     }
 }

@@ -1,5 +1,5 @@
-<x-layouts.app title="{{ __('لوحة المدير') }}">
-    <x-page-header title="{{ __('لوحة المدير') }}" :subtitle="__('ملخص المستحقات اليوم وما يحتاج إلى متابعة.')">
+<x-layouts.app :title="__('لوحة المدير')">
+    <x-page-header :title="__('لوحة المدير')" :subtitle="__('ملخص المستحقات اليوم وما يحتاج إلى متابعة.')">
         <x-slot:actions>
             <form method="POST" action="{{ route('reminders.run') }}">@csrf<button class="btn-secondary"><x-icon name="bolt" class="size-4" /> {{ __('تشغيل التذكيرات الآن') }}</button></form>
             <a href="{{ route('invoices.create') }}" class="btn-primary"><x-icon name="plus" class="size-4" /> {{ __('فاتورة جديدة') }}</a>
@@ -52,7 +52,7 @@
                     $agingChart = [
                         'type' => 'doughnut',
                         'data' => [
-                            'labels' => array_values(\App\Services\ReceivablesReport::BUCKETS),
+                            'labels' => array_map(fn ($l) => __($l), array_values(\App\Services\ReceivablesReport::BUCKETS)),
                             'datasets' => [['data' => array_map(fn ($v) => round($v), array_values($aging)), 'backgroundColor' => ['#14b8a6', '#fbbf24', '#fb923c', '#f87171', '#be123c'], 'borderWidth' => 0]],
                         ],
                         'options' => ['cutout' => '68%', 'plugins' => ['legend' => ['position' => 'bottom', 'labels' => ['boxWidth' => 8, 'font' => ['size' => 11]]]]],
