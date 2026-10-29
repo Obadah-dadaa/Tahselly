@@ -59,13 +59,15 @@ Import your invoices from Excel, remind clients automatically by email and Whats
 
 ## Plans and billing
 
-| Plan | Category | Monthly (AED) | Users | Invoices |
+| Plan | Best for | Monthly (AED) | Users | Invoices |
 |---|---|---:|---:|---:|
-| Starter | Freelancers | 99 | 1 | 200 |
-| Growth | Marketing agencies | 149 | 3 | 1,000 |
-| Professional | Marketing agencies | 199 | 10 | 5,000 |
-| Business | Service companies | 179 | 5 | 3,000 |
-| Enterprise | Accounting offices | 199 | 15 | 10,000 |
+| Starter | Freelancers and new businesses | 99 | 1 | 200 |
+| Growth | Small teams and agencies | 149 | 3 | 1,000 |
+| Business | Service and maintenance companies | 179 | 5 | 3,000 |
+| Professional (most popular) | Growing companies | 199 | 10 | 5,000 |
+| Enterprise | Accounting firms and larger companies | 299 | 15 | 10,000 |
+
+Each plan includes everything in the cheaper plans; the landing page shows every feature as included or not.
 
 - Billing cycles: monthly, quarterly (5% off) and yearly (two months free).
 - **14-day free trial without a card**; the owner is notified before it ends and access moves to the billing page afterwards.

@@ -29,7 +29,7 @@ class PlatformSeeder extends Seeder
             ['agency-pro', 'agency', 'الاحترافية', 'Professional', 199, 4, 10, 5000, true,
                 ['لوحة المالك والتحليلات', 'جدول تذكيرات مرن', 'أولوية في الدعم'],
                 ['Owner dashboard & analytics', 'Flexible reminder schedule', 'Priority support']],
-            ['accounting', 'accounting', 'المؤسسات', 'Enterprise', 199, 5, 15, 10000, false,
+            ['accounting', 'accounting', 'المؤسسات', 'Enterprise', 299, 5, 15, 10000, false,
                 ['استيراد دفعات كبيرة من Excel', 'تقارير أعمار ديون لكل عميل', 'سجل نشاط كامل'],
                 ['Bulk Excel imports', 'Per-client aging reports', 'Full activity log']],
         ];
