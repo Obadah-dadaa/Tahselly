@@ -54,6 +54,7 @@ class PlatformSeeder extends Seeder
             ['allow_signups', '1', 'bool', 'features', 'السماح بالتسجيل الذاتي والتجربة المجانية'],
             ['default_trial_days', '14', 'int', 'billing', 'أيام التجربة المجانية'],
             ['announcement', '', 'text', 'general', 'إعلان يظهر لكل المستخدمين (اتركه فارغاً للإخفاء)'],
+            ['card_payments', '1', 'bool', 'billing', 'إظهار الدفع بالبطاقة (Stripe) في صفحة الاشتراك'],
             ['bank_name', 'Emirates NBD', 'string', 'billing', 'اسم البنك (للتحويل البنكي)'],
             ['bank_account_name', 'Tahselly Software Solutions', 'string', 'billing', 'اسم صاحب الحساب'],
             ['bank_iban', 'AE07 0331 2345 6789 0123 456', 'string', 'billing', 'رقم IBAN'],

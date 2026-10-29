@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Subscription;
+use App\Models\SystemSetting;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
@@ -46,7 +47,8 @@ class PaymentGateway
     public function availableMethods(): array
     {
         $methods = [];
-        if ($this->stripeEnabled() || $this->sandboxEnabled()) {
+        // Card checkout can be hidden from settings, e.g. while the Stripe account awaits activation
+        if (($this->stripeEnabled() || $this->sandboxEnabled()) && SystemSetting::get('card_payments', true)) {
             $methods[] = 'card';
         }
         $methods[] = 'bank_transfer';

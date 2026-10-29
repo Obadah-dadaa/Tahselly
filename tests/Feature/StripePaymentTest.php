@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Subscription;
+use App\Models\SystemSetting;
 use Database\Seeders\PlatformSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request as HttpRequest;
@@ -124,5 +125,17 @@ class StripePaymentTest extends TestCase
 
         $this->assertSame('active', $subscription->fresh()->status);
         $this->assertAuthenticated();
+    }
+
+    public function test_card_checkout_can_be_hidden_from_settings(): void
+    {
+        SystemSetting::query()->where('key', 'card_payments')->update(['value' => '0']);
+        SystemSetting::flush();
+
+        $this->get(route('subscribe.show', 'agency-pro'))->assertOk()->assertDontSee('value="card"', false);
+        $this->post(route('subscribe.store', 'agency-pro'), [
+            'cycle' => 'monthly', 'payment_method' => 'card', 'company_name' => 'Hidden Co', 'name' => 'Owner',
+            'email' => 'owner@hidden.test', 'password' => 'secret-pass-1', 'password_confirmation' => 'secret-pass-1', 'terms' => 1,
+        ])->assertSessionHasErrors('payment_method');
     }
 }
