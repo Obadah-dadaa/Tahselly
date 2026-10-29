@@ -25,6 +25,7 @@
 <html lang="{{ $locale }}" dir="{{ $dir }}" class="{{ $theme === 'dark' ? 'dark' : '' }} scroll-smooth">
 <head>
     <meta charset="utf-8">
+    <x-favicons />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $appName }} — {{ __('نظام متابعة الفواتير وتذكير العملاء بالدفع') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">

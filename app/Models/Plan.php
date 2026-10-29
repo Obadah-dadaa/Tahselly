@@ -81,6 +81,14 @@ class Plan extends Model
         return [(float) $this->price, $this->max_users] >= [(float) $minimum->price, $minimum->max_users];
     }
 
+    /**
+     * Whether this plan sits above another on the pricing ladder (price, then size).
+     */
+    public function isHigherThan(self $other): bool
+    {
+        return [(float) $this->price, $this->max_users] > [(float) $other->price, $other->max_users];
+    }
+
     public static function featureLabel(string $feature): string
     {
         return __([

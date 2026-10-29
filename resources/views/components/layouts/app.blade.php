@@ -2,6 +2,7 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ $dir }}" class="{{ $theme === 'dark' ? 'dark' : '' }}">
 <head>
     <meta charset="utf-8">
+    <x-favicons />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? __('لوحة التحكم') }} — {{ __(\App\Models\SystemSetting::get('app_name', __('تحصيلي'))) }}</title>
@@ -38,7 +39,7 @@
     if (in_array($role, ['developer', 'platform'], true)) {
         $nav[__('المنصة')] = [
             ['developer.dashboard', __('نظرة عامة'), 'trend', 'developer.dashboard'],
-            ['developer.subscriptions.index', __('المشتركون والاشتراكات'), 'tag', 'developer.subscriptions.*'],
+            ['developer.subscriptions.index', __('المشتركون والاشتراكات'), 'tag', 'developer.subscriptions.*', null, \App\Models\Subscription::query()->where('status', 'pending')->count()],
             ['developer.companies.index', __('الشركات'), 'building', 'developer.companies.*'],
             ['developer.plans', __('الباقات والأسعار'), 'cash', 'developer.plans*'],
             ['developer.activity', __('نشاط المنصة'), 'list', 'developer.activity'],
@@ -75,6 +76,7 @@
                        @if($locked) @click.prevent="$dispatch('upgrade', '{{ $item[4] }}')" @endif>
                         <x-icon :name="$icon" class="size-5 opacity-80" /> {{ __($label) }}
                         @isset($item[4])<x-plan-badge :feature="$item[4]" class="ms-auto" />@endisset
+                        @if(! empty($item[5]))<span class="num ms-auto grid min-w-5 place-items-center rounded-full bg-amber-500 px-1.5 text-[11px] font-bold leading-5 text-white" title="{{ __('طلبات بانتظار الموافقة') }}">{{ $item[5] }}</span>@endif
                     </a>
                 @endforeach
             </nav>
@@ -135,6 +137,7 @@
                     </button>
                 @endif
                 <span class="hidden text-sm text-slate-500 xl:block">{{ now()->locale(app()->getLocale())->translatedFormat(__('l، j F Y')) }}</span>
+                <x-notification-bell />
                 <x-preference-switches />
                 <div class="relative">
                     <button @click="open=!open" class="flex items-center gap-2 rounded-xl px-2 py-1.5 hover:bg-slate-100">

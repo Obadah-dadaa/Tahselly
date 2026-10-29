@@ -1,6 +1,14 @@
 <x-layouts.guest :title="__('التحويل البنكي')">
     <div class="mx-auto max-w-2xl">
-        <div class="card p-8 text-center">
+        <div class="card p-8 text-center"
+             x-data="{ approved: false }"
+             x-init="const poll = setInterval(async () => {
+                 try {
+                     const r = await fetch(@js(route('subscribe.status', $subscription)), { headers: { Accept: 'application/json' } });
+                     if (r.ok && (await r.json()).status === 'active') { approved = true; clearInterval(poll); setTimeout(() => location.href = @js(route('subscribe.continue', $subscription)), 1500); }
+                 } catch (e) {}
+             }, 10000)">
+            <div x-show="approved" x-cloak class="mb-6 rounded-2xl bg-emerald-50 px-4 py-3 font-semibold text-emerald-800">{{ __('تم تأكيد التحويل! جارٍ فتح حسابك…') }}</div>
             <span class="mx-auto grid size-16 place-items-center rounded-2xl bg-amber-50 text-amber-600"><x-icon name="clock" class="size-8" /></span>
             <h1 class="mt-5 text-2xl font-bold text-ink">{{ __('بانتظار التحويل البنكي') }}</h1>
             <p class="mt-2 text-slate-500">{{ __('حوّل المبلغ إلى الحساب التالي واكتب رقم المرجع في خانة الملاحظات. سنفعّل حسابك فور تأكيد التحويل.') }}</p>
@@ -18,7 +26,8 @@
                 @endforeach
             </dl>
             <p class="mt-6 text-sm text-slate-500">{{ __('ستصلك رسالة على :email عند التفعيل.', ['email' => $subscription->company->email]) }}</p>
-            <a href="{{ route('landing') }}" class="btn-secondary mt-6">{{ __('العودة للرئيسية') }}</a>
+            <p class="mt-2 flex items-center justify-center gap-2 text-xs text-slate-400"><span class="size-2 animate-pulse rounded-full bg-amber-400"></span>{{ __('هذه الصفحة تتحقق تلقائياً، وستنقلك لحسابك فور التأكيد.') }}</p>
+            <a href="{{ route('subscribe.continue', $subscription) }}" class="btn-primary mt-6">{{ __('الدخول إلى حسابي') }}</a>
         </div>
     </div>
 </x-layouts.guest>

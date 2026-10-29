@@ -63,7 +63,7 @@ class FreeTrialTest extends TestCase
         $company = Company::factory()->create(['status' => 'trial', 'trial_ends_at' => today()->addDays(5)]);
         $owner = User::factory()->create(['company_id' => $company->id, 'role' => Role::Owner]);
 
-        $this->actingAs($owner)->get(route('dashboard'))->assertOk()->assertSee('متبقٍ 5 يوم');
+        $this->actingAs($owner)->withSession(['locale' => 'ar'])->get(route('dashboard'))->assertOk()->assertSee('متبقٍ 5 يوم');
     }
 
     public function test_ended_trial_locks_the_account_until_payment(): void
@@ -103,6 +103,7 @@ class FreeTrialTest extends TestCase
 
     public function test_legal_pages_render_in_both_languages(): void
     {
+        $this->post(route('locale', 'ar'));
         $this->get(route('legal.terms'))->assertOk()->assertSee('التجربة المجانية');
         $this->get(route('legal.privacy'))->assertOk()->assertSee('45 لسنة 2021');
 

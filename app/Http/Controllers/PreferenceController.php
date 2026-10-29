@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetPreferences;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class PreferenceController extends Controller
         $request->session()->put('locale', $locale);
         $request->user()?->forceFill(['locale' => $locale])->save();
 
-        return back();
+        return back()->withCookie(cookie('locale', $locale, SetPreferences::COOKIE_MINUTES));
     }
 
     public function theme(Request $request, string $theme): RedirectResponse
@@ -23,6 +24,6 @@ class PreferenceController extends Controller
         $request->session()->put('theme', $theme);
         $request->user()?->forceFill(['theme' => $theme])->save();
 
-        return back();
+        return back()->withCookie(cookie('theme', $theme, SetPreferences::COOKIE_MINUTES));
     }
 }

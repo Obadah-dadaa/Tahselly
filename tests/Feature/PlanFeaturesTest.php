@@ -120,8 +120,8 @@ class PlanFeaturesTest extends TestCase
         $this->assertSame('trial', $company->featureState('whatsapp'));
         $this->assertSame('included', $this->company('agency-basic', 'trial')->featureState('whatsapp'));
 
-        $this->actingAs($owner)->get(route('owner.dashboard'))->assertOk()
-            ->assertSee(__('من باقة :plan', ['plan' => 'الاحترافية']));
+        $this->actingAs($owner)->withSession(['locale' => 'ar'])->get(route('owner.dashboard'))->assertOk()
+            ->assertSee('من باقة الاحترافية');
     }
 
     public function test_open_invoice_limit_blocks_new_invoices(): void
@@ -158,7 +158,7 @@ class PlanFeaturesTest extends TestCase
         $company = $this->company('agency-pro');
         $client = Client::factory()->create(['company_id' => $company->id]);
 
-        $this->actingAs($this->user($company, Role::Manager))->get(route('clients.show', $client))
-            ->assertOk()->assertSee(__('تحليل أعمار الديون لكل عميل متاح من باقة :plan.', ['plan' => 'المؤسسات']));
+        $this->actingAs($this->user($company, Role::Manager))->withSession(['locale' => 'ar'])->get(route('clients.show', $client))
+            ->assertOk()->assertSee('تحليل أعمار الديون لكل عميل متاح من باقة المؤسسات.');
     }
 }

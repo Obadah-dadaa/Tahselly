@@ -38,11 +38,32 @@ class DashboardController extends Controller
         ]);
     }
 
+    /**
+     * The team's day-to-day work only (invoices, payments, reminders, clients, team and settings),
+     * without subscription or platform events.
+     */
+    public const ACTIVITY_TYPES = [
+        'invoices' => ['invoice.%'],
+        'payments' => ['payment.%'],
+        'reminders' => ['reminder.%', 'reminders.%'],
+        'clients' => ['client.%', 'import'],
+        'team' => ['team.%', 'settings.%', 'login'],
+    ];
+
     public function activity(Request $request): View
     {
-        return view('owner.activity', [
-            'logs' => ActivityLog::query()->where('company_id', $request->user()->company_id)
-                ->with('user')->latest()->paginate(30),
-        ]);
+        $company = $request->user()->company;
+        $type = array_key_exists((string) $request->type, self::ACTIVITY_TYPES) ? $request->type : null;
+        $patterns = $type ? self::ACTIVITY_TYPES[$type] : array_merge(...array_values(self::ACTIVITY_TYPES));
+        $team = $company->users()->orderBy('name')->get(['id', 'name']);
+
+        $logs = ActivityLog::query()->where('company_id', $company->id)
+            // Only people on this company's team (or the system itself), never platform staff
+            ->where(fn ($q) => $q->whereNull('user_id')->orWhereIn('user_id', $team->pluck('id')))
+            ->where(fn ($q) => collect($patterns)->each(fn ($p) => $q->orWhere('action', 'like', $p)))
+            ->when($request->integer('user'), fn ($q, $id) => $q->where('user_id', $id))
+            ->with('user')->latest()->paginate(30)->withQueryString();
+
+        return view('owner.activity', compact('logs', 'team', 'type'));
     }
 }

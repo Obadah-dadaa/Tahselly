@@ -59,15 +59,26 @@ class Subscription extends Model
      */
     public function activate(?string $gatewayRef = null): void
     {
-        $current = static::query()->current()->where('company_id', $this->company_id)->whereKeyNot($this->id)->latest('ends_at')->first();
-        $start = $current?->ends_at ?? now();
+        $current = static::query()->current()->with('plan')->where('company_id', $this->company_id)->whereKeyNot($this->id)->latest('ends_at')->first();
+        $this->loadMissing('plan');
+
+        if ($current && $this->plan->isHigherThan($current->plan)) {
+            // Upgrade: starts now; the days left on the old plan become extra days at the new plan's rate
+            $start = now();
+            $creditDays = (int) floor(now()->diffInDays($current->ends_at) * $current->monthlyValue() / max(1, $this->monthlyValue()));
+            $current->forceFill(['status' => 'expired', 'ends_at' => now()])->save();
+        } else {
+            // Renewal or same plan: the new period follows the current one
+            $start = $current?->ends_at ?? now();
+            $creditDays = 0;
+        }
 
         $this->forceFill([
             'status' => 'active',
             'gateway_ref' => $gatewayRef ?? $this->gateway_ref,
             'paid_at' => now(),
             'starts_at' => $start,
-            'ends_at' => $start->copy()->addMonths(self::CYCLE_MONTHS[$this->cycle]),
+            'ends_at' => $start->copy()->addMonths(self::CYCLE_MONTHS[$this->cycle])->addDays($creditDays),
         ])->save();
 
         $this->company->forceFill([

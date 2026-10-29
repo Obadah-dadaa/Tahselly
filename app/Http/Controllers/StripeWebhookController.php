@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
 use App\Models\Subscription;
+use App\Notifications\AccountNotice;
 use App\Services\PaymentGateway;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -41,6 +42,8 @@ class StripeWebhookController extends Controller
         });
 
         if ($activated) {
+            AccountNotice::send(AccountNotice::staff(), 'subscription_paid', AccountNotice::about($activated), route('developer.subscriptions.index'));
+            AccountNotice::send(AccountNotice::owners($activated->company), 'subscription_active', AccountNotice::about($activated), route('owner.billing'));
             ActivityLog::record('subscription.paid', 'دفع اشتراك عبر Stripe: '.number_format((float) $activated->amount, 2).' AED', ['session' => $session['id'] ?? null], $activated->company_id);
         }
 

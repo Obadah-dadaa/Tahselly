@@ -16,8 +16,10 @@
                 <h2 class="font-semibold text-ink">{{ __('١. مدة الاشتراك') }}</h2>
                 <div class="mt-4 grid gap-3 sm:grid-cols-3">
                     @foreach(\App\Models\Subscription::CYCLE_MONTHS as $c => $months)
-                        <label class="relative cursor-pointer rounded-2xl border-2 p-4 transition" :class="cycle==='{{ $c }}' ? 'border-brand-600 bg-brand-50' : 'border-slate-200 hover:border-slate-300'">
-                            <input type="radio" name="cycle" value="{{ $c }}" x-model="cycle" class="sr-only">
+                        @php $available = in_array($c, $allowed, true); @endphp
+                        <label class="relative rounded-2xl border-2 p-4 transition {{ $available ? 'cursor-pointer' : 'cursor-not-allowed opacity-40' }}" :class="cycle==='{{ $c }}' ? 'border-brand-600 bg-brand-50' : 'border-slate-200 {{ $available ? 'hover:border-slate-300' : '' }}'"
+                               @unless($available) title="{{ __('غير متاح: اختر مدة أطول من اشتراكك الحالي') }}" @endunless>
+                            <input type="radio" name="cycle" value="{{ $c }}" x-model="cycle" class="sr-only" @disabled(! $available)>
                             <span class="block font-semibold text-ink">{{ \App\Models\Plan::cycleLabel($c) }}</span>
                             <span class="num mt-1 block text-xl font-bold">{{ number_format($prices[$c]) }} <span class="text-sm font-medium text-slate-400">AED</span></span>
                             <span class="mt-1 block text-xs text-slate-500">
@@ -79,7 +81,9 @@
                     @endforeach
                 </ul>
                 <div class="border-t border-slate-100 p-6">
-                    @if($current)
+                    @if($current && $upgrading)
+                        <p class="mb-3 rounded-xl bg-brand-50 p-3 text-xs text-brand-800">{{ __('الترقية تبدأ فوراً بعد الدفع، والأيام المتبقية من باقتك الحالية تُضاف لمدتك الجديدة حسب قيمتها.') }}</p>
+                    @elseif($current)
                         <p class="mb-3 rounded-xl bg-slate-50 p-3 text-xs text-slate-500">{{ __('اشتراكك الحالي ينتهي في :date — المدة الجديدة تبدأ بعده.', ['date' => $current->ends_at->format('Y-m-d')]) }}</p>
                     @endif
                     @unless($renewing)

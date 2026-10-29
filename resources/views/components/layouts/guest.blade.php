@@ -3,6 +3,7 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ $dir }}" class="{{ $theme === 'dark' ? 'dark' : '' }}">
 <head>
     <meta charset="utf-8">
+    <x-favicons />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ? $title.' — ' : '' }}{{ __(\App\Models\SystemSetting::get('app_name', __('تحصيلي'))) }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +28,7 @@
         </div>
     </header>
     <main class="mx-auto max-w-6xl px-6 py-10">
-        @foreach(['success' => 'bg-emerald-50 text-emerald-800 ring-emerald-600/20', 'error' => 'bg-rose-50 text-rose-800 ring-rose-600/20'] as $key => $style)
+        @foreach(['success' => 'bg-emerald-50 text-emerald-800 ring-emerald-600/20', 'info' => 'bg-amber-50 text-amber-800 ring-amber-600/20', 'error' => 'bg-rose-50 text-rose-800 ring-rose-600/20'] as $key => $style)
             @if(session($key))
                 <div class="mb-6 rounded-xl px-4 py-3 text-sm ring-1 ring-inset {{ $style }}">{{ session($key) }}</div>
             @endif

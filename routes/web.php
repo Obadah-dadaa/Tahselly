@@ -7,6 +7,7 @@ use App\Http\Controllers\Developer;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Owner;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PaymentController;
@@ -29,6 +30,8 @@ Route::get('/checkout/{subscription}/pay', [SubscribeController::class, 'sandbox
 Route::post('/checkout/{subscription}/pay', [SubscribeController::class, 'sandboxPay'])->middleware('throttle:10,1')->name('subscribe.sandbox.pay');
 Route::get('/checkout/{subscription}/return', [SubscribeController::class, 'stripeReturn'])->name('subscribe.return');
 Route::get('/checkout/{subscription}/pending', [SubscribeController::class, 'pending'])->name('subscribe.pending');
+Route::get('/checkout/{subscription}/status', [SubscribeController::class, 'status'])->middleware('throttle:30,1')->name('subscribe.status');
+Route::get('/checkout/{subscription}/continue', [SubscribeController::class, 'continue'])->name('subscribe.continue');
 Route::post('/stripe/webhook', StripeWebhookController::class)->name('stripe.webhook');
 
 // Free trial (no card) and legal pages
@@ -57,6 +60,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
     Route::get('/home', [AuthController::class, 'home'])->name('home');
+    Route::get('/notifications/{id}', [NotificationController::class, 'open'])->name('notifications.open');
+    Route::post('/notifications/read', [NotificationController::class, 'readAll'])->name('notifications.read');
 });
 
 // Operational area: managers and owners of a company

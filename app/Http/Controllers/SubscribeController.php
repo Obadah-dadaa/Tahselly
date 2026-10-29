@@ -9,7 +9,9 @@ use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\SystemSetting;
 use App\Models\User;
+use App\Notifications\AccountNotice;
 use App\Services\PaymentGateway;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,16 +35,50 @@ class SubscribeController extends Controller
             return redirect()->route('home')->with('error', __('الاشتراك متاح لمالك الشركة فقط.'));
         }
 
-        $cycle = in_array($request->cycle, array_keys(Subscription::CYCLE_MONTHS), true) ? $request->cycle : 'monthly';
+        $current = $user?->company?->currentSubscription();
+        $allowed = $this->allowedCycles($plan, $current, $request->query('intent') === 'upgrade');
+        if ($allowed === []) {
+            return redirect()->route('owner.billing')->with('error', $plan->id === $current?->plan_id
+                ? __('أنت على أطول مدة لهذه الباقة. يمكنك ترقية الباقة أو التمديد لاحقاً.')
+                : __('لا يمكن الانتقال لباقة أقل أثناء اشتراك فعّال.'));
+        }
+        $cycle = in_array($request->cycle, $allowed, true) ? $request->cycle : $allowed[0];
 
         return view('subscribe.checkout', [
             'plan' => $plan,
             'cycle' => $cycle,
+            'allowed' => $allowed,
+            'upgrading' => $current && $plan->isHigherThan($current->plan),
             'methods' => $gateway->availableMethods(),
             'sandbox' => $gateway->sandboxEnabled() && ! $gateway->stripeEnabled(),
             'renewing' => (bool) $user,
-            'current' => $user?->company?->currentSubscription(),
+            'current' => $current,
         ]);
+    }
+
+    /**
+     * Billing periods an owner may buy for a plan: anything when not subscribed or upgrading,
+     * never a cheaper plan mid-subscription, and on the same plan only the same or a longer period
+     * (strictly longer when switching from the upgrade list).
+     *
+     * @return list<string>
+     */
+    private function allowedCycles(Plan $plan, ?Subscription $current, bool $longerOnly = false): array
+    {
+        $cycles = array_keys(Subscription::CYCLE_MONTHS);
+        if (! $current) {
+            return $cycles;
+        }
+        $current->loadMissing('plan');
+        if ($plan->isHigherThan($current->plan)) {
+            return $cycles;
+        }
+        if ($plan->id !== $current->plan_id) {
+            return [];
+        }
+        $min = Subscription::CYCLE_MONTHS[$current->cycle] + ($longerOnly ? 1 : 0);
+
+        return array_values(array_filter($cycles, fn ($c) => Subscription::CYCLE_MONTHS[$c] >= $min));
     }
 
     public function store(Request $request, Plan $plan, PaymentGateway $gateway): RedirectResponse
@@ -50,7 +86,7 @@ class SubscribeController extends Controller
         abort_unless($plan->is_active, 404);
         $user = $request->user();
         $rules = [
-            'cycle' => ['required', Rule::in(array_keys(Subscription::CYCLE_MONTHS))],
+            'cycle' => ['required', Rule::in($this->allowedCycles($plan, $user?->company?->currentSubscription()))],
             'payment_method' => ['required', Rule::in($gateway->availableMethods())],
         ];
         if (! $user) {
@@ -104,6 +140,8 @@ class SubscribeController extends Controller
         ActivityLog::record('subscription.started', "طلب اشتراك: {$plan->name} ({$data['cycle']})", [], $subscription->company_id);
 
         if ($data['payment_method'] === 'bank_transfer') {
+            AccountNotice::send(AccountNotice::staff(), 'subscription_requested', AccountNotice::about($subscription), route('developer.subscriptions.index', ['status' => 'pending']));
+
             return redirect()->route('subscribe.pending', $subscription);
         }
 
@@ -176,6 +214,37 @@ class SubscribeController extends Controller
         ]);
     }
 
+    /**
+     * Polled by the bank-transfer page so it can move on by itself once the payment is approved.
+     */
+    public function status(Request $request, Subscription $subscription): JsonResponse
+    {
+        $this->authorizeCheckout($request, $subscription);
+
+        return response()->json(['status' => $subscription->status]);
+    }
+
+    /**
+     * After approval: sign the new owner in (same browser that paid) and open their account.
+     */
+    public function continue(Request $request, Subscription $subscription): RedirectResponse
+    {
+        $this->authorizeCheckout($request, $subscription);
+
+        if ($subscription->status !== 'active') {
+            return redirect()->route('subscribe.pending', $subscription)->with('info', __('لم يتم تأكيد التحويل بعد. ستنتقل لحسابك تلقائياً فور التأكيد.'));
+        }
+
+        $owner = $subscription->company->users()->where('role', Role::Owner)->where('is_active', true)->first();
+        if ($owner && ! Auth::check()) {
+            Auth::login($owner);
+            $request->session()->regenerate();
+        }
+        $request->session()->forget('checkout_subscription_id');
+
+        return redirect()->route('home')->with('success', __('تم تفعيل اشتراكك! أهلاً بك في :app.', ['app' => __('تحصيلي')]));
+    }
+
     private function complete(Request $request, Subscription $subscription, ?string $reference): RedirectResponse
     {
         // The Stripe webhook may activate the same subscription concurrently; lock so it happens once
@@ -189,6 +258,9 @@ class SubscribeController extends Controller
             return true;
         });
         if ($activatedHere) {
+            $fresh = $subscription->fresh();
+            AccountNotice::send(AccountNotice::staff(), 'subscription_paid', AccountNotice::about($fresh), route('developer.subscriptions.index'));
+            AccountNotice::send(AccountNotice::owners($fresh->company), 'subscription_active', AccountNotice::about($fresh), route('owner.billing'));
             ActivityLog::record('subscription.paid', "دفع اشتراك {$subscription->plan->name}: ".number_format((float) $subscription->amount, 2).' AED', [], $subscription->company_id);
         }
 

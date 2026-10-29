@@ -16,6 +16,7 @@ class BillingController extends Controller
         return view('owner.billing', [
             'company' => $company,
             'current' => $company->currentSubscription(),
+            'pending' => $company->subscriptions()->with('plan')->where('status', 'pending')->latest()->first(),
             'history' => $company->subscriptions()->with('plan')->latest()->get(),
             'plans' => Plan::query()->where('is_active', true)->ordered()->get(),
         ]);

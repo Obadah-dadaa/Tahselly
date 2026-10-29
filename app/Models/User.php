@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Mail\AccountLinkMail;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\URL;
 
 #[Fillable(['company_id', 'name', 'email', 'password', 'role', 'phone', 'locale', 'theme', 'is_active', 'last_login_at'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements HasLocalePreference, MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -71,6 +72,11 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Platform staff (developer or platform owner) see every tenant.
      */
+    public function preferredLocale(): string
+    {
+        return $this->locale ?: config('app.locale');
+    }
+
     public function isPlatformStaff(): bool
     {
         return in_array($this->role, [Role::Developer, Role::Platform], true);

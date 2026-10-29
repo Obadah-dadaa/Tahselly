@@ -7,6 +7,7 @@ use App\Models\ActivityLog;
 use App\Models\Company;
 use App\Models\Plan;
 use App\Models\Subscription;
+use App\Notifications\AccountNotice;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -54,6 +55,7 @@ class SubscriptionController extends Controller
     {
         abort_unless($subscription->status === 'pending', 422);
         $subscription->activate($subscription->gateway_ref ?? 'bank-'.$subscription->id);
+        AccountNotice::send(AccountNotice::owners($subscription->company), 'subscription_active', AccountNotice::about($subscription->fresh()), route('owner.billing'));
         ActivityLog::record('subscription.approved', 'اعتماد تحويل بنكي: '.$subscription->company->name, [], $subscription->company_id);
 
         return back()->with('success', __('تم اعتماد الدفع وتفعيل الاشتراك.'));
@@ -75,6 +77,8 @@ class SubscriptionController extends Controller
             $subscription->company->update(['status' => 'active']);
             ActivityLog::record('subscription.extended', "تمديد اشتراك {$subscription->company->name} {$months} شهر", [], $subscription->company_id);
 
+            AccountNotice::send(AccountNotice::owners($company), 'subscription_extended', AccountNotice::about($subscription->fresh()), route('owner.billing'));
+
             return back()->with('success', __('تم تمديد اشتراك :company :months شهر.', ['company' => $company->name, 'months' => $months]));
         }
 
@@ -83,6 +87,7 @@ class SubscriptionController extends Controller
         if (! $company->subscriptions()->current()->exists()) {
             $company->update(['status' => 'expired']);
         }
+        AccountNotice::send(AccountNotice::owners($company), 'subscription_cancelled', AccountNotice::about($subscription), route('owner.billing'));
         ActivityLog::record('subscription.cancelled', 'إلغاء اشتراك '.$company->name.($data['reason'] ? ' — '.$data['reason'] : ''), [], $company->id);
 
         return back()->with('success', __('تم إلغاء اشتراك :company وإيقاف وصولها للنظام.', ['company' => $company->name]));
@@ -105,6 +110,7 @@ class SubscriptionController extends Controller
             'payment_method' => 'manual',
         ]);
         $subscription->activate('manual-'.$request->user()->id);
+        AccountNotice::send(AccountNotice::owners($subscription->company), 'subscription_active', AccountNotice::about($subscription->fresh()), route('owner.billing'));
         ActivityLog::record('subscription.manual', 'اشتراك يدوي: '.$subscription->company->name, [], $subscription->company_id);
 
         return back()->with('success', __('تم إضافة الاشتراك.'));

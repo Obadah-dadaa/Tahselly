@@ -61,8 +61,60 @@
             </div>
         </div>
 
+        @if($current)
+            @php
+                $higher = $plans->filter(fn ($p) => $p->isHigherThan($current->plan))->values();
+                $longer = collect(\App\Models\Subscription::CYCLE_MONTHS)->filter(fn ($m) => $m > \App\Models\Subscription::CYCLE_MONTHS[$current->cycle])->keys();
+            @endphp
+            <div class="space-y-6" x-data="{ upgrade: false }">
+                <div class="card p-6">
+                    <h3 class="font-semibold text-ink">{{ __('إدارة اشتراكك') }}</h3>
+                    @if($pending)
+                        <p class="mt-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-800">{{ __('لديك طلب :plan (:cycle) بانتظار تأكيد الدفع.', ['plan' => $pending->plan->localizedName(), 'cycle' => \App\Models\Plan::cycleLabel($pending->cycle)]) }}
+                            <a href="{{ route('subscribe.pending', $pending) }}" class="font-semibold underline">{{ __('تعليمات التحويل') }}</a></p>
+                    @endif
+                    <div class="mt-4 space-y-3">
+                        <a href="{{ route('subscribe.show', ['plan' => $current->plan->code, 'cycle' => $current->cycle, 'intent' => 'renew']) }}" class="btn-secondary w-full justify-center">
+                            <x-icon name="clock" class="size-4" /> {{ __('تمديد الاشتراك') }}
+                        </a>
+                        @if($higher->isNotEmpty() || $longer->isNotEmpty())
+                            <button type="button" @click="upgrade = !upgrade" class="btn-primary w-full justify-center"><x-icon name="bolt" class="size-4" /> {{ __('ترقية الباقة') }}</button>
+                        @else
+                            <p class="text-center text-sm text-slate-500">{{ __('أنت على أعلى باقة وأطول مدة.') }}</p>
+                        @endif
+                    </div>
+                    <p class="mt-3 text-xs text-slate-500">{{ __('التمديد يضيف مدة جديدة بعد انتهاء اشتراكك الحالي بنفس باقتك.') }}</p>
+                </div>
+
+                <div x-show="upgrade" x-cloak x-transition class="card p-6">
+                    <h3 class="font-semibold text-ink">{{ __('اختر الترقية') }}</h3>
+                    <div class="mt-4 space-y-3">
+                        @if($longer->isNotEmpty())
+                            <a href="{{ route('subscribe.show', ['plan' => $current->plan->code, 'cycle' => $longer->last(), 'intent' => 'upgrade']) }}"
+                               class="flex items-center justify-between rounded-2xl border border-brand-500 bg-brand-50 p-4 transition hover:bg-brand-100">
+                                <span>
+                                    <span class="block font-semibold text-ink">{{ $current->plan->localizedName() }} — {{ __('مدة أطول') }}</span>
+                                    <span class="text-xs text-slate-500">{{ __('باقتك الحالية بمدة :cycles', ['cycles' => $longer->map(fn ($c) => \App\Models\Plan::cycleLabel($c))->join(' / ')]) }}</span>
+                                </span>
+                                <span class="text-xs font-semibold text-brand-700">{{ __('وفّر أكثر') }}</span>
+                            </a>
+                        @endif
+                        @foreach($higher as $plan)
+                            <a href="{{ route('subscribe.show', ['plan' => $plan->code, 'cycle' => $current->cycle]) }}"
+                               class="flex items-center justify-between rounded-2xl border border-slate-200 p-4 transition hover:border-brand-500">
+                                <span>
+                                    <span class="block font-semibold text-ink">{{ $plan->localizedName() }}</span>
+                                    <span class="text-xs text-slate-500">{{ $plan->audience() }}</span>
+                                </span>
+                                <span class="num text-end font-bold">{{ (int) $plan->price }}<span class="block text-[11px] font-normal text-slate-400">{{ __('درهم / شهر') }}</span></span>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @else
         <div class="card p-6">
-            <h3 class="font-semibold text-ink">{{ $current ? __('جدّد أو غيّر باقتك') : __('اختر باقة') }}</h3>
+            <h3 class="font-semibold text-ink">{{ __('اختر باقة') }}</h3>
             <div class="mt-4 space-y-3">
                 @foreach($plans as $plan)
                     <a href="{{ route('subscribe.show', ['plan' => $plan->code, 'cycle' => $current?->cycle ?? 'monthly']) }}"
@@ -76,5 +128,6 @@
                 @endforeach
             </div>
         </div>
+        @endif
     </div>
 </x-layouts.app>
