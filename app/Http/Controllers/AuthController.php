@@ -36,6 +36,12 @@ class AuthController extends Controller
     public function home(Request $request): RedirectResponse
     {
         $user = $request->user();
+        // Trial owners who haven't picked a plan see the plans once per session (with "skip for now")
+        if ($user->isOwner() && $user->company?->onTrial() && ! $user->company->plan_id && ! $request->session()->get('plan_prompted')) {
+            $request->session()->put('plan_prompted', true);
+
+            return redirect()->route('owner.plan');
+        }
         if ($user->isOwner() && $user->company && ! $user->company->canUse('owner_analytics')) {
             return redirect()->route('dashboard');
         }

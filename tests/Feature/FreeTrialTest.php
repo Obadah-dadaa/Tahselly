@@ -43,7 +43,7 @@ class FreeTrialTest extends TestCase
     {
         $this->get(route('trial.create'))->assertOk()->assertSee('14');
 
-        $this->post(route('trial.store'), $this->signup())->assertRedirect(route('dashboard'));
+        $this->post(route('trial.store'), $this->signup())->assertRedirect(route('home'));
 
         $company = Company::query()->where('name', 'Trial Agency')->firstOrFail();
         $this->assertSame('trial', $company->status);
@@ -63,7 +63,7 @@ class FreeTrialTest extends TestCase
         $company = Company::factory()->create(['status' => 'trial', 'trial_ends_at' => today()->addDays(5)]);
         $owner = User::factory()->create(['company_id' => $company->id, 'role' => Role::Owner]);
 
-        $this->actingAs($owner)->withSession(['locale' => 'ar'])->get(route('dashboard'))->assertOk()->assertSee('متبقٍ 5 يوم');
+        $this->actingAs($owner)->withSession(['locale' => 'ar'])->get(route('dashboard'))->assertOk()->assertSeeInOrder(['>5<', 'يوم متبقٍ'], false);
     }
 
     public function test_ended_trial_locks_the_account_until_payment(): void
@@ -110,5 +110,32 @@ class FreeTrialTest extends TestCase
         $this->post(route('locale', 'en'));
         $this->get(route('legal.terms'))->assertOk()->assertSee('Free trial');
         $this->get(route('legal.privacy'))->assertOk()->assertSee('Decree-Law No. 45 of 2021');
+    }
+
+    public function test_sign_up_without_a_plan_shows_the_plans_once_then_lets_you_skip_or_choose(): void
+    {
+        $this->get(route('trial.create'))->assertOk()->assertDontSee('name="plan"', false);
+
+        $this->post(route('trial.store'), $this->signup(['plan' => null]))->assertRedirect(route('home'));
+        $owner = User::query()->where('email', 'trial@agency.test')->firstOrFail();
+        $owner->markEmailAsVerified();
+        $this->actingAs($owner->fresh());
+        $this->assertNull($owner->company->plan_id);
+        $this->assertSame('included', $owner->company->featureState('activity_log'), 'No plan yet: everything open, no badges');
+
+        $this->get(route('home'))->assertRedirect(route('owner.plan'));
+        $this->get(route('owner.plan'))->assertOk()->assertSee(route('dashboard'), false);
+        $this->get(route('home'))->assertRedirect(route('owner.dashboard'));
+
+        $this->post(route('owner.plan.choose'), ['plan' => 'services'])->assertRedirect(route('dashboard'));
+        $this->assertSame('services', $owner->company->fresh()->plan->code);
+    }
+
+    public function test_a_plan_picked_on_the_pricing_page_is_kept_at_sign_up(): void
+    {
+        $this->get(route('trial.create', ['plan' => 'agency-pro']))->assertOk()->assertSee('name="plan" value="agency-pro"', false);
+        $this->post(route('trial.store'), $this->signup());
+
+        $this->assertSame('agency-pro', User::query()->where('email', 'trial@agency.test')->firstOrFail()->company->plan->code);
     }
 }

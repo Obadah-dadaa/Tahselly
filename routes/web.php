@@ -96,6 +96,8 @@ Route::middleware(['auth', 'verified', 'role:manager,owner'])->group(function ()
 Route::middleware(['auth', 'verified', 'role:owner'])->prefix('owner')->name('owner.')->group(function () {
     Route::get('/', Owner\DashboardController::class)->middleware('feature:owner_analytics')->name('dashboard');
     Route::get('billing', Owner\BillingController::class)->name('billing');
+    Route::get('plan', [TrialController::class, 'choosePlan'])->name('plan');
+    Route::post('plan', [TrialController::class, 'storePlan'])->name('plan.choose');
     Route::get('team', [Owner\TeamController::class, 'index'])->name('team.index');
     Route::post('team', [Owner\TeamController::class, 'store'])->name('team.store');
     Route::patch('team/{user}', [Owner\TeamController::class, 'update'])->middleware('feature:team_permissions')->name('team.update');

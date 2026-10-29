@@ -85,7 +85,7 @@
             <a href="{{ $user->isOwner() ? route('owner.billing') : '#' }}" class="mt-10 block rounded-2xl bg-white/5 p-4 text-sm">
                 <p class="text-slate-400">{{ __('الشركة') }}</p>
                 <p class="mt-1 font-semibold text-white">{{ $user->company->name }}</p>
-                <p class="mt-2 inline-flex rounded-full bg-brand-500/15 px-2 py-0.5 text-xs text-brand-200">{{ $user->company->plan?->localizedName() ?? '—' }}</p>
+                <p class="mt-2 inline-flex rounded-full bg-brand-500/15 px-2 py-0.5 text-xs text-brand-200">{{ $user->company->plan?->localizedName() ?? ($user->company->onTrial() ? __('تجربة مجانية') : '—') }}</p>
                 @if($subscription)
                     <p class="mt-2 text-xs text-slate-400">{{ __('ينتهي بعد :days يوم', ['days' => $subscription->daysLeft()]) }}</p>
                 @elseif($user->company->status === 'trial')
@@ -98,22 +98,44 @@
 
     <div class="flex min-w-0 flex-1 flex-col">
         @if($user->company?->status === 'trial' && $user->company->trial_ends_at)
-            @php $trialDays = max(0, (int) today()->diffInDays($user->company->trial_ends_at, false)); @endphp
-            <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 px-4 py-2.5 text-sm {{ $trialDays <= 3 ? 'bg-rose-600 text-white' : 'bg-amber-100 text-amber-900' }}">
-                <span class="flex items-center gap-2 font-semibold">
-                    <x-icon name="clock" class="size-4" />
-                    @if($trialDays === 0)
-                        {{ __('اليوم آخر يوم في تجربتك المجانية.') }}
-                    @else
-                        {{ __('تجربة مجانية — متبقٍ :days يوم، ثم يتطلب الاستمرار اشتراكاً مدفوعاً.', ['days' => $trialDays]) }}
-                        @if($user->company->plan)
-                            <span class="opacity-80">{{ __('كل الميزات مفتوحة لك الآن؛ المعلَّمة «من باقة …» ليست ضمن باقة :plan.', ['plan' => $user->company->plan->localizedName()]) }}</span>
-                        @endif
+            @php
+                $trialDays = max(0, (int) today()->diffInDays($user->company->trial_ends_at, false));
+                $urgent = $trialDays <= 3;
+                $trialPlan = $user->company->plan;
+            @endphp
+            {{-- Trial reminder bar: days left, what happens next, and the way to subscribe --}}
+            <div class="border-b px-4 py-2.5 {{ $urgent ? 'border-rose-700 bg-rose-600 text-white' : 'border-amber-200 bg-gradient-to-r from-amber-50 to-amber-100 text-amber-900' }}">
+                <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2">
+                    <div class="flex min-w-0 items-center gap-3">
+                        <span class="flex shrink-0 items-baseline gap-1 rounded-xl px-3 py-1 {{ $urgent ? 'bg-white/15' : 'bg-white shadow-sm ring-1 ring-amber-200' }}">
+                            @if($trialDays === 0)
+                                <span class="text-sm font-bold">{{ __('آخر يوم') }}</span>
+                            @else
+                                <span class="num text-lg font-bold leading-none">{{ $trialDays }}</span>
+                                <span class="text-xs font-semibold">{{ __('يوم متبقٍ') }}</span>
+                            @endif
+                        </span>
+                        <div class="min-w-0 text-sm">
+                            <p class="font-semibold">{{ __('تجربة مجانية — كل المزايا مفتوحة لك') }}</p>
+                            <p class="text-xs {{ $urgent ? 'text-rose-100' : 'text-amber-800' }}">
+                                {{ __('بعد انتهائها يتطلب الاستمرار اشتراكاً مدفوعاً.') }}
+                                @if($trialPlan)
+                                    {{ __('باقتك المختارة: :plan؛ الميزات التي تحمل علامة صفراء ليست ضمنها.', ['plan' => $trialPlan->localizedName()]) }}
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                    @if($user->isOwner())
+                        <div class="flex shrink-0 items-center gap-2">
+                            @if($trialPlan)
+                                <a href="{{ route('owner.plan') }}" class="rounded-lg px-3 py-1.5 text-xs font-semibold {{ $urgent ? 'text-white/90 hover:bg-white/10' : 'text-amber-900 hover:bg-amber-200/60' }}">{{ __('تغيير الباقة') }}</a>
+                                <a href="{{ route('subscribe.show', ['plan' => $trialPlan->code, 'cycle' => 'yearly']) }}" class="rounded-lg px-4 py-1.5 text-sm font-bold shadow-sm {{ $urgent ? 'bg-white text-rose-700' : 'bg-amber-900 text-white hover:bg-amber-950' }}">{{ __('اشترك في :plan', ['plan' => $trialPlan->localizedName()]) }}</a>
+                            @else
+                                <a href="{{ route('owner.plan') }}" class="rounded-lg px-4 py-1.5 text-sm font-bold shadow-sm {{ $urgent ? 'bg-white text-rose-700' : 'bg-amber-900 text-white hover:bg-amber-950' }}">{{ __('اختر باقتك') }}</a>
+                            @endif
+                        </div>
                     @endif
-                </span>
-                @if($user->isOwner())
-                    <a href="{{ $user->company->plan ? route('subscribe.show', ['plan' => $user->company->plan->code, 'cycle' => 'yearly']) : route('owner.billing') }}" class="rounded-lg px-3 py-1 font-bold {{ $trialDays <= 3 ? 'bg-white text-rose-700' : 'bg-amber-900 text-white' }}">{{ __('اشترك الآن') }}</a>
-                @endif
+                </div>
             </div>
         @endif
         @if($announcement)

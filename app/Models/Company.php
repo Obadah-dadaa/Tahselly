@@ -98,7 +98,7 @@ class Company extends Model
      */
     public function featureState(string $feature): string
     {
-        if ($this->plan?->includes($feature)) {
+        if ($this->plan?->includes($feature) || ($this->onTrial() && ! $this->plan)) {
             return 'included';
         }
 
