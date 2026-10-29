@@ -108,7 +108,7 @@ class SubscriptionFlowTest extends TestCase
         $platform = User::factory()->create(['role' => Role::Platform]);
 
         $this->actingAs($platform)->get(route('developer.subscriptions.index'))->assertOk();
-        $this->actingAs($platform)->get(route('developer.tools'))->assertForbidden();
+        $this->actingAs($platform)->get(route('developer.tools'))->assertNotFound();
     }
 
     public function test_language_switch_renders_english(): void

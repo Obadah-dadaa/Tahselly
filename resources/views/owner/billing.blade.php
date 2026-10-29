@@ -26,6 +26,16 @@
                     <h2 class="text-2xl font-bold">{{ __('لا يوجد اشتراك فعّال') }}</h2>
                     <p class="mt-2 text-slate-300">{{ __('اختر باقة أدناه لتفعيل حسابك.') }}</p>
                 @endif
+                @if(! $current && $company->plan)
+                    <div class="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-white/10 p-4">
+                        <div>
+                            <p class="text-sm text-brand-200">{{ __('الباقة التي اخترتها') }}</p>
+                            <p class="text-lg font-bold">{{ $company->plan->localizedName() }} — <span class="num">{{ number_format((float) $company->plan->price) }}</span> {{ __('درهم / شهرياً') }}</p>
+                        </div>
+                        <a href="{{ route('subscribe.show', ['plan' => $company->plan->code, 'cycle' => 'yearly']) }}" class="btn-primary bg-brand-500">{{ __('اشترك بهذه الباقة الآن') }}</a>
+                    </div>
+                    <p class="mt-2 text-xs text-slate-400">{{ __('أو اختر باقة أخرى من القائمة أدناه.') }}</p>
+                @endif
             </div>
             <div class="p-6">
                 <h3 class="font-semibold text-ink">{{ __('سجل الاشتراكات والمدفوعات') }}</h3>

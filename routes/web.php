@@ -57,7 +57,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
     Route::get('/home', [AuthController::class, 'home'])->name('home');
-    Route::post('/impersonate/leave', [Developer\CompanyController::class, 'leaveImpersonation'])->name('impersonate.leave');
 });
 
 // Operational area: managers and owners of a company
@@ -103,7 +102,7 @@ Route::middleware(['auth', 'verified', 'role:owner'])->prefix('owner')->name('ow
 });
 
 // Platform area: developer and platform owner see every subscriber
-Route::middleware(['auth', 'role:developer,platform'])->prefix('developer')->name('developer.')->group(function () {
+Route::middleware(['staff:developer,platform'])->prefix('developer')->name('developer.')->group(function () {
     Route::get('/', Developer\DashboardController::class)->name('dashboard');
     Route::get('subscriptions', [Developer\SubscriptionController::class, 'index'])->name('subscriptions.index');
     Route::post('subscriptions', [Developer\SubscriptionController::class, 'store'])->name('subscriptions.store');
@@ -113,14 +112,13 @@ Route::middleware(['auth', 'role:developer,platform'])->prefix('developer')->nam
     Route::post('companies', [Developer\CompanyController::class, 'store'])->name('companies.store');
     Route::get('companies/{company}', [Developer\CompanyController::class, 'show'])->name('companies.show');
     Route::patch('companies/{company}', [Developer\CompanyController::class, 'update'])->name('companies.update');
-    Route::post('companies/{company}/impersonate', [Developer\CompanyController::class, 'impersonate'])->name('companies.impersonate');
     Route::get('plans', [Developer\SettingsController::class, 'plans'])->name('plans');
     Route::put('plans', [Developer\SettingsController::class, 'updatePlans'])->name('plans.update');
     Route::get('activity', [Developer\ToolsController::class, 'activity'])->name('activity');
 });
 
 // Developer-only: system internals
-Route::middleware(['auth', 'role:developer'])->prefix('developer')->name('developer.')->group(function () {
+Route::middleware(['staff:developer'])->prefix('developer')->name('developer.')->group(function () {
     Route::get('settings', [Developer\SettingsController::class, 'edit'])->name('settings');
     Route::put('settings', [Developer\SettingsController::class, 'update'])->name('settings.update');
     Route::get('templates', [Developer\SettingsController::class, 'templates'])->name('templates');
@@ -128,4 +126,8 @@ Route::middleware(['auth', 'role:developer'])->prefix('developer')->name('develo
     Route::get('tools', [Developer\ToolsController::class, 'index'])->name('tools');
     Route::post('tools/{action}', [Developer\ToolsController::class, 'run'])->name('tools.run');
     Route::get('logs', [Developer\ToolsController::class, 'logs'])->name('logs');
+    Route::patch('users/{user}/toggle', [Developer\AccountController::class, 'toggleUser'])->name('users.toggle');
+    Route::delete('users/{user}', [Developer\AccountController::class, 'destroyUser'])->name('users.destroy');
+    Route::patch('companies/{company}/toggle', [Developer\AccountController::class, 'toggleCompany'])->name('companies.toggle');
+    Route::delete('companies/{company}', [Developer\AccountController::class, 'destroyCompany'])->name('companies.destroy');
 });

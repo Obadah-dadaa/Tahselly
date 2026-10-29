@@ -56,12 +56,49 @@
                                 @if($sub->status === 'pending')
                                     <form method="POST" action="{{ route('developer.subscriptions.approve', $sub) }}">@csrf<button class="rounded-lg bg-emerald-600 px-3 py-1 text-xs font-semibold text-white hover:bg-emerald-700">{{ __('اعتماد الدفع') }}</button></form>
                                 @elseif($sub->status === 'active')
-                                    <form method="POST" action="{{ route('developer.subscriptions.update', $sub) }}" class="flex items-center gap-1">
-                                        @csrf @method('PATCH')
-                                        <select name="months" class="input w-16 px-1 py-1 text-xs"><option>1</option><option>3</option><option>12</option></select>
-                                        <button name="action" value="extend" class="text-xs font-semibold text-brand-700 hover:underline">{{ __('تمديد') }}</button>
-                                        <button name="action" value="cancel" class="text-xs text-rose-600 hover:underline" onclick="return confirm(@js(__('إلغاء الاشتراك؟')))">{{ __('إلغاء') }}</button>
-                                    </form>
+                                    <div class="relative flex items-center justify-end gap-2" x-data="{ extend: false, cancel: false }">
+                                        <button type="button" @click="extend = !extend" class="inline-flex items-center gap-1 rounded-lg bg-brand-50 px-3 py-1.5 text-xs font-semibold text-brand-700 ring-1 ring-inset ring-brand-600/20 hover:bg-brand-100">
+                                            <x-icon name="clock" class="size-3.5" /> {{ __('تمديد') }}
+                                        </button>
+                                        <button type="button" @click="cancel = true" class="inline-flex items-center gap-1 rounded-lg bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 ring-1 ring-inset ring-rose-600/20 hover:bg-rose-100">
+                                            ✕ {{ __('إلغاء') }}
+                                        </button>
+
+                                        {{-- Extend: pick a period --}}
+                                        <form x-show="extend" x-cloak @click.outside="extend = false" method="POST" action="{{ route('developer.subscriptions.update', $sub) }}"
+                                              class="card absolute end-0 top-10 z-30 w-56 space-y-2 p-3 text-start">
+                                            @csrf @method('PATCH')
+                                            <input type="hidden" name="action" value="extend">
+                                            <p class="text-xs font-semibold text-slate-500">{{ __('تمديد الاشتراك لمدة') }}</p>
+                                            <div class="grid grid-cols-3 gap-2">
+                                                @foreach([1 => __('شهر'), 3 => __('3 أشهر'), 12 => __('سنة')] as $m => $l)
+                                                    <button name="months" value="{{ $m }}" class="rounded-lg border border-slate-200 py-2 text-xs font-semibold hover:border-brand-500 hover:bg-brand-50">{{ $l }}</button>
+                                                @endforeach
+                                            </div>
+                                        </form>
+
+                                        {{-- Cancel: confirm with an optional reason --}}
+                                        <div x-show="cancel" x-cloak x-transition.opacity class="fixed inset-0 z-50 grid place-items-center bg-night/60 p-4 text-start whitespace-normal backdrop-blur-sm" @keydown.escape.window="cancel = false">
+                                            <form method="POST" action="{{ route('developer.subscriptions.update', $sub) }}" @click.outside="cancel = false" class="card w-full max-w-md overflow-hidden">
+                                                @csrf @method('PATCH')
+                                                <input type="hidden" name="action" value="cancel">
+                                                <div class="flex items-start gap-4 p-6">
+                                                    <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-rose-100 text-rose-600"><x-icon name="alert" class="size-6" /></span>
+                                                    <div class="min-w-0 flex-1 whitespace-normal">
+                                                        <h3 class="text-lg font-bold text-ink">{{ __('إلغاء اشتراك :company؟', ['company' => $sub->company->name]) }}</h3>
+                                                        <p class="mt-1 text-sm text-slate-500">{{ __('ينتهي الاشتراك فوراً ويتوقف وصول الشركة للنظام، ويُطلب من المالك اختيار باقة للعودة. بياناتهم تبقى محفوظة.') }}</p>
+                                                        <p class="mt-3 rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-600">{{ $sub->plan->localizedName() }} · {{ \App\Models\Plan::cycleLabel($sub->cycle) }} · {{ __(':days يوم متبقٍ', ['days' => $sub->daysLeft()]) }}</p>
+                                                        <label class="label mt-4">{{ __('سبب الإلغاء (اختياري)') }}</label>
+                                                        <input name="reason" maxlength="255" class="input" placeholder="{{ __('مثال: طلب العميل، عدم الدفع…') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-end gap-2 border-t border-slate-100 bg-slate-50 px-6 py-4">
+                                                    <button type="button" @click="cancel = false" class="btn-secondary">{{ __('تراجع') }}</button>
+                                                    <button class="btn-primary bg-rose-600 hover:bg-rose-700">{{ __('نعم، ألغِ الاشتراك') }}</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 @endif
                             </td>
                         </tr>

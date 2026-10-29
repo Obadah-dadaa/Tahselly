@@ -70,8 +70,9 @@
             <p class="mb-2 mt-6 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500">{{ $section }}</p>
             <nav class="space-y-1">
                 @foreach($items as $item)
-                    @php [$route, $label, $icon, $pattern] = $item; @endphp
-                    <a href="{{ route($route) }}" class="nav-link {{ request()->routeIs($pattern) ? 'active' : '' }}">
+                    @php [$route, $label, $icon, $pattern] = $item; $locked = isset($item[4]) && $user->company?->featureState($item[4]) === 'locked'; @endphp
+                    <a href="{{ route($route) }}" class="nav-link {{ request()->routeIs($pattern) ? 'active' : '' }} {{ $locked ? 'opacity-70' : '' }}"
+                       @if($locked) @click.prevent="$dispatch('upgrade', '{{ $item[4] }}')" @endif>
                         <x-icon :name="$icon" class="size-5 opacity-80" /> {{ __($label) }}
                         @isset($item[4])<x-plan-badge :feature="$item[4]" class="ms-auto" />@endisset
                     </a>
@@ -94,13 +95,6 @@
     <div x-show="menu" x-cloak @click="menu=false" class="fixed inset-0 z-30 bg-black/40 lg:hidden"></div>
 
     <div class="flex min-w-0 flex-1 flex-col">
-        @if(session('impersonator_id'))
-            <form method="POST" action="{{ route('impersonate.leave') }}" class="flex items-center justify-center gap-3 bg-violet-600 px-4 py-2 text-sm text-white">
-                @csrf
-                {{ __('أنت تتصفح كـ :name (:company)', ['name' => $user->name, 'company' => $user->company?->name]) }}
-                <button class="rounded-lg bg-white/20 px-3 py-1 font-semibold hover:bg-white/30">{{ __('الرجوع لحساب المبرمج') }}</button>
-            </form>
-        @endif
         @if($user->company?->status === 'trial' && $user->company->trial_ends_at)
             @php $trialDays = max(0, (int) today()->diffInDays($user->company->trial_ends_at, false)); @endphp
             <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 px-4 py-2.5 text-sm {{ $trialDays <= 3 ? 'bg-rose-600 text-white' : 'bg-amber-100 text-amber-900' }}">
@@ -116,7 +110,7 @@
                     @endif
                 </span>
                 @if($user->isOwner())
-                    <a href="{{ route('owner.billing') }}" class="rounded-lg px-3 py-1 font-bold {{ $trialDays <= 3 ? 'bg-white text-rose-700' : 'bg-amber-900 text-white' }}">{{ __('اشترك الآن') }}</a>
+                    <a href="{{ $user->company->plan ? route('subscribe.show', ['plan' => $user->company->plan->code, 'cycle' => 'yearly']) : route('owner.billing') }}" class="rounded-lg px-3 py-1 font-bold {{ $trialDays <= 3 ? 'bg-white text-rose-700' : 'bg-amber-900 text-white' }}">{{ __('اشترك الآن') }}</a>
                 @endif
             </div>
         @endif
@@ -135,6 +129,11 @@
                 @endif
             </div>
             <div class="flex items-center gap-2" x-data="{ open: false }">
+                @if($user->isOwner() && $user->company && ! $user->company->onTrial() && $user->company->plan && \App\Models\Plan::query()->where('is_active', true)->where('price', '>', $user->company->plan->price)->exists())
+                    <button type="button" @click="$dispatch('upgrade', '_next')" class="hidden items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-600 to-brand-500 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:from-brand-700 sm:flex">
+                        <x-icon name="bolt" class="size-4" /> {{ __('ترقية الباقة') }}
+                    </button>
+                @endif
                 <span class="hidden text-sm text-slate-500 xl:block">{{ now()->locale(app()->getLocale())->translatedFormat(__('l، j F Y')) }}</span>
                 <x-preference-switches />
                 <div class="relative">
@@ -174,5 +173,6 @@
         </main>
     </div>
 </div>
+<x-upgrade-modal />
 </body>
 </html>

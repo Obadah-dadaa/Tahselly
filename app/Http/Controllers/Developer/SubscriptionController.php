@@ -64,7 +64,9 @@ class SubscriptionController extends Controller
         $data = $request->validate([
             'action' => ['required', Rule::in(['extend', 'cancel'])],
             'months' => ['nullable', 'integer', 'min:1', 'max:24'],
+            'reason' => ['nullable', 'string', 'max:255'],
         ]);
+        $company = $subscription->company;
 
         if ($data['action'] === 'extend') {
             $months = (int) ($data['months'] ?? 1);
@@ -72,12 +74,18 @@ class SubscriptionController extends Controller
             $subscription->update(['status' => 'active', 'ends_at' => $base->copy()->addMonths($months)]);
             $subscription->company->update(['status' => 'active']);
             ActivityLog::record('subscription.extended', "تمديد اشتراك {$subscription->company->name} {$months} شهر", [], $subscription->company_id);
-        } else {
-            $subscription->update(['status' => 'cancelled']);
-            ActivityLog::record('subscription.cancelled', 'إلغاء اشتراك '.$subscription->company->name, [], $subscription->company_id);
+
+            return back()->with('success', __('تم تمديد اشتراك :company :months شهر.', ['company' => $company->name, 'months' => $months]));
         }
 
-        return back()->with('success', __('تم التحديث.'));
+        // Cancelling ends access now, unless the company still has another paid period running
+        $subscription->update(['status' => 'cancelled', 'ends_at' => now()]);
+        if (! $company->subscriptions()->current()->exists()) {
+            $company->update(['status' => 'expired']);
+        }
+        ActivityLog::record('subscription.cancelled', 'إلغاء اشتراك '.$company->name.($data['reason'] ? ' — '.$data['reason'] : ''), [], $company->id);
+
+        return back()->with('success', __('تم إلغاء اشتراك :company وإيقاف وصولها للنظام.', ['company' => $company->name]));
     }
 
     /**

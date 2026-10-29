@@ -12,7 +12,6 @@ use App\Models\Reminder;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
@@ -90,34 +89,5 @@ class CompanyController extends Controller
         ActivityLog::record('company.updated', "تحديث اشتراك {$company->name}: {$data['status']}", [], $company->id);
 
         return back()->with('success', __('تم تحديث الاشتراك.'));
-    }
-
-    /**
-     * Log in as the company's owner to reproduce issues; original developer id kept in session.
-     */
-    public function impersonate(Request $request, Company $company): RedirectResponse
-    {
-        $owner = $company->users()->where('role', 'owner')->where('is_active', true)->first()
-            ?? $company->users()->where('is_active', true)->first();
-        if (! $owner) {
-            return back()->with('error', __('لا يوجد مستخدم نشط في هذه الشركة.'));
-        }
-
-        ActivityLog::record('impersonate', 'دخول كـ '.$owner->email, [], $company->id);
-        $request->session()->put('impersonator_id', $request->user()->id);
-        Auth::login($owner);
-
-        return redirect()->route($owner->role->homeRoute());
-    }
-
-    public function leaveImpersonation(Request $request): RedirectResponse
-    {
-        $developerId = $request->session()->pull('impersonator_id');
-        $developer = $developerId ? User::find($developerId) : null;
-        abort_unless($developer?->isPlatformStaff(), 403);
-
-        Auth::login($developer);
-
-        return redirect()->route('developer.companies.index')->with('success', __('تم الرجوع لحساب المبرمج.'));
     }
 }

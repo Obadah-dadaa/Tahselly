@@ -20,7 +20,7 @@
                             <td class="num">{{ $c->invoices_count }}</td>
                             <td><x-status :value="$c->status" /></td>
                             <td>
-                                <form method="POST" action="{{ route('developer.companies.impersonate', $c) }}">@csrf<button class="text-xs font-semibold text-violet-700 hover:underline">{{ __('دخول كالمالك') }}</button></form>
+                                <a href="{{ route('developer.companies.show', $c) }}" class="text-xs font-semibold text-brand-700 hover:underline">{{ __('عرض') }}</a>
                             </td>
                         </tr>
                     @endforeach

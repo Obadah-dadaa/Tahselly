@@ -47,7 +47,7 @@ class TenantIsolationTest extends TestCase
         $this->actingAs($manager)->get(route('dashboard'))->assertOk();
         $this->actingAs($manager)->get(route('owner.dashboard'))->assertForbidden();
         $this->actingAs($owner)->get(route('owner.dashboard'))->assertOk();
-        $this->actingAs($owner)->get(route('developer.dashboard'))->assertForbidden();
+        $this->actingAs($owner)->get(route('developer.dashboard'))->assertNotFound();
     }
 
     public function test_suspended_company_is_logged_out(): void

@@ -4,7 +4,7 @@
             @if(auth()->user()->company->canUse('report_exports'))
                 <a href="{{ route('reports.aging.export') }}" download class="btn-primary"><x-icon name="download" class="size-4" /> {{ __('تصدير Excel') }} <x-plan-badge feature="report_exports" /></a>
             @else
-                <a href="{{ route('reports.aging.export') }}" class="btn-secondary opacity-70"><x-icon name="download" class="size-4" /> {{ __('تصدير Excel') }} <x-plan-badge feature="report_exports" /></a>
+                <a href="{{ route('reports.aging.export') }}" @click.prevent="$dispatch('upgrade', 'report_exports')" class="btn-secondary opacity-70"><x-icon name="download" class="size-4" /> {{ __('تصدير Excel') }} <x-plan-badge feature="report_exports" /></a>
             @endif
         </x-slot:actions>
     </x-page-header>

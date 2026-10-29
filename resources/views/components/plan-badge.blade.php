@@ -13,7 +13,8 @@
             {{ __('من باقة :plan', ['plan' => $plan->localizedName()]) }}
         </span>
     @else
-        <span {{ $attributes->class('inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-600') }}
+        <span {{ $attributes->class('inline-flex shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-600 hover:bg-brand-50 hover:text-brand-700') }}
+              @click.prevent.stop="$dispatch('upgrade', '{{ $feature }}')" role="button"
               title="{{ __('متاحة من باقة :plan. قم بترقية باقتك لاستخدامها.', ['plan' => $plan->localizedName()]) }}">
             <x-icon name="lock" class="size-3" /> {{ $plan->localizedName() }}
         </span>

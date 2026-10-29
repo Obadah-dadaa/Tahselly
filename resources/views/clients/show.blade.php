@@ -21,7 +21,7 @@
             <span class="grid size-12 place-items-center rounded-2xl bg-slate-100 text-slate-500"><x-icon name="lock" class="size-6" /></span>
             <h2 class="font-semibold text-ink">{{ __('أعمار ديون العميل') }}</h2>
             <p class="text-sm text-slate-500">{{ __('تحليل أعمار الديون لكل عميل متاح من باقة :plan.', ['plan' => \App\Models\Plan::minimumFor('client_aging')?->localizedName()]) }}</p>
-            @if(auth()->user()->isOwner())<a href="{{ route('owner.billing') }}" class="btn-secondary">{{ __('ترقية الباقة') }}</a>@endif
+            <button type="button" @click="$dispatch('upgrade', 'client_aging')" class="btn-secondary">{{ __('ماذا تتضمن الباقة؟') }}</button>
         </div>
         @else
         <div class="card p-5 lg:col-span-2">
