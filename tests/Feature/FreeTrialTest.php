@@ -10,6 +10,7 @@ use App\Models\User;
 use Database\Seeders\PlatformSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class FreeTrialTest extends TestCase
@@ -112,19 +113,25 @@ class FreeTrialTest extends TestCase
         $this->get(route('legal.privacy'))->assertOk()->assertSee('Decree-Law No. 45 of 2021');
     }
 
-    public function test_sign_up_without_a_plan_shows_the_plans_once_then_lets_you_skip_or_choose(): void
+    public function test_trial_owners_land_on_the_trial_welcome_after_confirming_email_and_every_login(): void
     {
         $this->get(route('trial.create'))->assertOk()->assertDontSee('name="plan"', false);
 
         $this->post(route('trial.store'), $this->signup(['plan' => null]))->assertRedirect(route('home'));
         $owner = User::query()->where('email', 'trial@agency.test')->firstOrFail();
-        $owner->markEmailAsVerified();
-        $this->actingAs($owner->fresh());
         $this->assertNull($owner->company->plan_id);
         $this->assertSame('included', $owner->company->featureState('activity_log'), 'No plan yet: everything open, no badges');
 
-        $this->get(route('home'))->assertRedirect(route('owner.plan'));
+        // Confirming the email opens the trial welcome page
+        $verify = URL::temporarySignedRoute('verification.verify', now()->addHour(), ['id' => $owner->id, 'hash' => sha1($owner->email)]);
+        $this->actingAs($owner->fresh())->get($verify)->assertRedirect(route('owner.plan'));
         $this->get(route('owner.plan'))->assertOk()->assertSee(route('dashboard'), false);
+
+        // ... and so does every sign-in while the trial runs
+        foreach ([1, 2] as $attempt) {
+            $this->post(route('logout'));
+            $this->post(route('login'), ['email' => 'trial@agency.test', 'password' => 'secret123'])->assertRedirect(route('owner.plan'));
+        }
         $this->get(route('home'))->assertRedirect(route('owner.dashboard'));
 
         $this->post(route('owner.plan.choose'), ['plan' => 'services'])->assertRedirect(route('dashboard'));

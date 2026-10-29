@@ -71,7 +71,7 @@ class AccountSecurityTest extends TestCase
         $this->get(route('dashboard'))->assertRedirect(route('verification.notice'));
 
         $url = URL::temporarySignedRoute('verification.verify', now()->addHour(), ['id' => $user->id, 'hash' => sha1($user->email)]);
-        $this->get($url)->assertRedirect(route('home'));
+        $this->get($url)->assertRedirect(route('owner.plan'));
 
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
         $this->get(route('dashboard'))->assertOk();

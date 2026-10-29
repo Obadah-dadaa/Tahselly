@@ -30,18 +30,21 @@ class AuthController extends Controller
         $request->user()->forceFill(['last_login_at' => now()])->save();
         ActivityLog::record('login', 'تسجيل دخول');
 
+        // Trial owners land on the trial welcome page every time they sign in
+        // (unless they were on their way to confirm their email, which leads there anyway)
+        $intended = (string) $request->session()->get('url.intended', '');
+        if ($request->user()->onTrialAsOwner() && ! str_contains($intended, '/email/verify/')) {
+            $request->session()->forget('url.intended');
+
+            return redirect()->route('owner.plan');
+        }
+
         return redirect()->intended(route($request->user()->role->homeRoute()));
     }
 
     public function home(Request $request): RedirectResponse
     {
         $user = $request->user();
-        // Trial owners see the full trial welcome (access, what's included, plans) once per session, with "skip"
-        if ($user->isOwner() && $user->company?->onTrial() && ! $request->session()->get('plan_prompted')) {
-            $request->session()->put('plan_prompted', true);
-
-            return redirect()->route('owner.plan');
-        }
         if ($user->isOwner() && $user->company && ! $user->company->canUse('owner_analytics')) {
             return redirect()->route('dashboard');
         }

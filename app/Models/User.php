@@ -77,6 +77,11 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
         return $this->locale ?: config('app.locale');
     }
 
+    public function onTrialAsOwner(): bool
+    {
+        return $this->isOwner() && (bool) $this->company?->onTrial();
+    }
+
     public function isPlatformStaff(): bool
     {
         return in_array($this->role, [Role::Developer, Role::Platform], true);

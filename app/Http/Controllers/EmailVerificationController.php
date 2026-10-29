@@ -27,7 +27,9 @@ class EmailVerificationController extends Controller
             ActivityLog::record('email.verified', 'تأكيد البريد الإلكتروني');
         }
 
-        return redirect()->route('home')->with('success', __('تم تأكيد بريدك الإلكتروني. أهلاً بك!'));
+        // A new trial owner goes straight to the trial welcome page
+        return redirect()->route($request->user()->onTrialAsOwner() ? 'owner.plan' : 'home')
+            ->with('success', __('تم تأكيد بريدك الإلكتروني. أهلاً بك!'));
     }
 
     public function send(Request $request): RedirectResponse
