@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Services\ReminderService;
 use Database\Seeders\PlatformSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -24,6 +25,7 @@ class WhatsappQueueTest extends TestCase
         parent::setUp();
         $this->seed(PlatformSeeder::class);
         Mail::fake();
+        Http::preventStrayRequests();
     }
 
     /**
@@ -66,6 +68,49 @@ class WhatsappQueueTest extends TestCase
 
         $this->assertCount(0, $service->whatsappQueue($company));
         $this->actingAs($manager)->get(route('reminders.whatsapp', $invoice))->assertSessionHas('error');
+    }
+
+    public function test_send_all_uses_the_click_list_until_the_cloud_api_is_set_up(): void
+    {
+        [$company, $invoice, $manager] = $this->setUpCompany();
+
+        $this->actingAs($manager)->get(route('reminders.index', ['tab' => 'whatsapp']))
+            ->assertSee(__('إرسال الكل'))->assertDontSee(route('reminders.whatsapp.all'));
+        $this->actingAs($manager)->post(route('reminders.whatsapp.all'))->assertNotFound();
+        Http::assertNothingSent();
+    }
+
+    public function test_send_all_through_the_cloud_api_personalises_each_message(): void
+    {
+        config(['services.whatsapp.token' => 'test-token', 'services.whatsapp.phone_number_id' => '123']);
+        Http::fake(['graph.facebook.com/*' => Http::response(['messages' => [['id' => 'wamid.1']]])]);
+        [$company, $invoice, $manager] = $this->setUpCompany();
+
+        $this->actingAs($manager)->get(route('reminders.index', ['tab' => 'whatsapp']))->assertSee(route('reminders.whatsapp.all'), false);
+        $this->actingAs($manager)->post(route('reminders.whatsapp.all'))->assertSessionHas('success');
+
+        Http::assertSent(function ($request) use ($invoice, $company) {
+            $params = collect($request['template']['components'][0]['parameters'])->pluck('text');
+
+            return $request->url() === 'https://graph.facebook.com/v21.0/123/messages'
+                && $request['to'] === '971501234567'
+                && $request['template']['name'] === 'tahselly_overdue'
+                && $params->contains($company->name) && $params->contains($invoice->number) && $params->contains('500.00 '.$invoice->currency);
+        });
+        $this->assertSame(1, Reminder::query()->where('invoice_id', $invoice->id)->where('channel', 'whatsapp')->where('status', 'sent')->count());
+        $this->assertCount(0, app(ReminderService::class)->whatsappQueue($company));
+    }
+
+    public function test_a_rejected_message_is_logged_as_failed_and_stays_on_the_list(): void
+    {
+        config(['services.whatsapp.token' => 'test-token', 'services.whatsapp.phone_number_id' => '123']);
+        Http::fake(['graph.facebook.com/*' => Http::response(['error' => ['message' => 'Template not approved']], 400)]);
+        [$company, $invoice, $manager] = $this->setUpCompany();
+
+        $this->actingAs($manager)->post(route('reminders.whatsapp.all'))->assertSessionHas('error');
+
+        $this->assertSame('Template not approved', Reminder::query()->where('invoice_id', $invoice->id)->value('error'));
+        $this->assertCount(1, app(ReminderService::class)->whatsappQueue($company));
     }
 
     public function test_no_list_without_the_whatsapp_channel_or_plan(): void

@@ -183,6 +183,23 @@ class ReminderService
     }
 
     /**
+     * Send every WhatsApp reminder on today's list through the Cloud API in one go.
+     *
+     * @return array{sent: int, failed: int}
+     */
+    public function sendAllWhatsapp(Company $company, User $user): array
+    {
+        $result = ['sent' => 0, 'failed' => 0];
+        foreach ($this->whatsappQueue($company) as $row) {
+            $reminder = $this->send($row['invoice'], $row['stage'], 'whatsapp', $row['offset'], true, $user, viaApi: true);
+            $reminder->status === 'sent' ? $result['sent']++ : $result['failed']++;
+        }
+        self::forgetWhatsappCount($company->id);
+
+        return $result;
+    }
+
+    /**
      * The automatic reminders the engine will send over the next days, so users can see them in advance.
      *
      * @return Collection<int, array{date: CarbonInterface, invoice: Invoice, stage: string, offset: int}>
@@ -233,7 +250,7 @@ class ReminderService
      *
      * @param  array{subject?: string|null, body?: string|null}|null  $custom
      */
-    public function send(Invoice $invoice, string $stage, string $channel, ?int $offset = null, bool $automatic = false, ?User $user = null, ?array $custom = null): Reminder
+    public function send(Invoice $invoice, string $stage, string $channel, ?int $offset = null, bool $automatic = false, ?User $user = null, ?array $custom = null, bool $viaApi = false): Reminder
     {
         $reminder = new Reminder([
             'company_id' => $invoice->company_id,
@@ -246,7 +263,7 @@ class ReminderService
             'automatic' => $automatic,
         ]);
 
-        return $this->deliver($reminder, $invoice, $custom);
+        return $this->deliver($reminder, $invoice, $custom, $viaApi);
     }
 
     /**
@@ -296,7 +313,7 @@ class ReminderService
     /**
      * @param  array{subject?: string|null, body?: string|null}|null  $custom
      */
-    private function deliver(Reminder $reminder, Invoice $invoice, ?array $custom): Reminder
+    private function deliver(Reminder $reminder, Invoice $invoice, ?array $custom, bool $viaApi = false): Reminder
     {
         $invoice->loadMissing(['client', 'company']);
         $stage = $reminder->stage;
@@ -326,6 +343,13 @@ class ReminderService
         } elseif ($channel === 'email') {
             try {
                 Mail::to($recipient)->locale($locale)->send(new InvoiceReminderMail($invoice, $content['subject'], $content['body']));
+            } catch (Throwable $e) {
+                $status = 'failed';
+                $error = $e->getMessage();
+            }
+        } elseif ($viaApi) {
+            try {
+                app(WhatsappCloud::class)->sendReminder($invoice, $this->templateStage($invoice, $stage), $locale, $recipient);
             } catch (Throwable $e) {
                 $status = 'failed';
                 $error = $e->getMessage();

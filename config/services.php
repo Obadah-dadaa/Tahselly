@@ -35,6 +35,14 @@ return [
         ],
     ],
 
+    // WhatsApp Cloud API (Meta): reminders sent automatically from Tahselly's number; off while the token is empty
+    'whatsapp' => [
+        'token' => env('WHATSAPP_TOKEN'),
+        'phone_number_id' => env('WHATSAPP_PHONE_NUMBER_ID'),
+        'template_prefix' => env('WHATSAPP_TEMPLATE_PREFIX', 'tahselly'),
+        'version' => env('WHATSAPP_API_VERSION', 'v21.0'),
+    ],
+
     'stripe' => [
         'secret' => env('STRIPE_SECRET'),
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),

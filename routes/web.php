@@ -91,6 +91,7 @@ Route::middleware(['auth', 'verified', 'role:manager,owner'])->group(function ()
     Route::post('invoices/{invoice}/pause-reminders', [ReminderController::class, 'togglePause'])->name('invoices.pause');
     Route::post('reminders/run', [ReminderController::class, 'run'])->name('reminders.run');
     Route::get('reminders/whatsapp/{invoice}', [ReminderController::class, 'sendWhatsapp'])->middleware('feature:whatsapp')->name('reminders.whatsapp');
+    Route::post('reminders/whatsapp-all', [ReminderController::class, 'sendAllWhatsapp'])->middleware(['feature:whatsapp', 'throttle:6,1'])->name('reminders.whatsapp.all');
 
     Route::get('reports/aging', [ReportController::class, 'aging'])->name('reports.aging');
     Route::get('reports/aging/export', [ReportController::class, 'exportAging'])->middleware('feature:report_exports')->name('reports.aging.export');

@@ -46,7 +46,7 @@ class PlatformSeeder extends Seeder
             ['app_tagline', 'تابع فواتيرك، وحصّل أموالك في وقتها', 'string', 'general', 'الشعار النصي'],
             ['support_email', 'obadah@tahselly.com', 'string', 'general', 'بريد الدعم'],
             ['legal_entity_name', 'Tahselly', 'string', 'general', 'الاسم القانوني للشركة (يظهر في الشروط والخصوصية)'],
-            ['support_whatsapp', '971500000000', 'string', 'general', 'واتساب الدعم'],
+            ['support_whatsapp', '+971568640530', 'string', 'general', 'واتساب الدعم'],
             ['primary_color', '#0f766e', 'string', 'branding', 'اللون الأساسي'],
             ['reminders_engine_enabled', '1', 'bool', 'features', 'تفعيل محرك التذكيرات الآلي'],
             ['feature_whatsapp', '1', 'bool', 'features', 'تفعيل تذكيرات واتساب'],

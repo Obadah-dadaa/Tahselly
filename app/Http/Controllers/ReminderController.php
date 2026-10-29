@@ -8,6 +8,7 @@ use App\Models\Plan;
 use App\Models\Reminder;
 use App\Models\ReminderTemplate;
 use App\Services\ReminderService;
+use App\Services\WhatsappCloud;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,7 +50,20 @@ class ReminderController extends Controller
             'scheduled' => Reminder::query()->with(['client', 'invoice', 'user'])->where('status', 'scheduled')->orderBy('scheduled_for')->get(),
             'whatsappQueue' => $service->whatsappQueue($company),
             'whatsappOn' => in_array('whatsapp', $company->reminderSettings()['channels'], true) && $company->canUse('whatsapp'),
+            'whatsappApi' => app(WhatsappCloud::class)->enabled(),
         ]);
+    }
+
+    /**
+     * Send the whole of today's WhatsApp list automatically (Cloud API).
+     */
+    public function sendAllWhatsapp(Request $request, ReminderService $service, WhatsappCloud $cloud): RedirectResponse
+    {
+        abort_unless($cloud->enabled(), 404);
+        $result = $service->sendAllWhatsapp($request->user()->company, $request->user());
+        ActivityLog::record('reminder.whatsapp', "إرسال واتساب للكل: {$result['sent']} مرسلة");
+
+        return back()->with($result['failed'] ? 'error' : 'success', __('واتساب: :sent رسالة أُرسلت، :failed فشلت (التفاصيل في السجل).', $result));
     }
 
     /**

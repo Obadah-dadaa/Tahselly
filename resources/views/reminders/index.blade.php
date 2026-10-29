@@ -57,7 +57,20 @@
 
     @if($tab === 'whatsapp')
         @php $stageLabels = ['before_due' => __('قبل الاستحقاق'), 'on_due' => __('يوم الاستحقاق'), 'overdue' => __('متأخرة'), 'final' => __('إنذار نهائي')]; @endphp
-        <div class="card overflow-hidden" x-data="{ done: [] }">
+        @php
+            $waItems = $whatsappQueue->map(fn ($row) => ['id' => $row['invoice']->id, 'url' => route('reminders.whatsapp', $row['invoice']), 'name' => $row['invoice']->client->name])->values();
+        @endphp
+        {{-- Send-all: Cloud API sends everything at once; otherwise chats open one after another, one key press each --}}
+        <div class="card overflow-hidden" x-data="{
+                done: [], items: @js($waItems), running: false, pos: 0,
+                get next() { return this.items[this.pos] },
+                openNext() {
+                    const item = this.next; if (! item) { this.running = false; return; }
+                    window.open(item.url, 'tahselly-wa'); this.done.push(item.id); this.pos++;
+                    if (! this.next) this.running = false;
+                },
+                start() { this.items = this.items.filter(i => ! this.done.includes(i.id)); this.pos = 0; this.running = true; this.openNext(); },
+            }" @focus.window="running && $nextTick(() => $refs.next?.focus())">
             <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 bg-green-50 px-5 py-4">
                 <div class="flex items-center gap-3">
                     <span class="grid size-10 place-items-center rounded-xl bg-[#25D366] text-white"><x-icon name="whatsapp" class="size-5" /></span>
@@ -66,7 +79,29 @@
                         <p class="text-xs text-slate-500">{{ __('اضغط «إرسال» لكل عميل: يفتح واتساب والرسالة جاهزة، وتُسجَّل في السجل تلقائياً.') }}</p>
                     </div>
                 </div>
-                <p class="text-sm font-semibold text-slate-600"><span class="num" x-text="{{ $whatsappQueue->count() }} - done.length">{{ $whatsappQueue->count() }}</span> {{ __('متبقية') }}</p>
+                <div class="flex flex-wrap items-center gap-3">
+                    <p class="text-sm font-semibold text-slate-600"><span class="num" x-text="{{ $whatsappQueue->count() }} - done.length">{{ $whatsappQueue->count() }}</span> {{ __('متبقية') }}</p>
+                    @if($whatsappQueue->count())
+                        @if($whatsappApi)
+                            <form method="POST" action="{{ route('reminders.whatsapp.all') }}" onsubmit="return confirm(@js(__('إرسال :count رسالة واتساب الآن لكل العملاء في القائمة؟', ['count' => $whatsappQueue->count()])))">
+                                @csrf
+                                <button class="btn-whatsapp"><x-icon name="bolt" class="size-4" /> {{ __('إرسال الكل تلقائياً') }}</button>
+                            </form>
+                        @else
+                            <button type="button" x-show="! running && done.length < {{ $whatsappQueue->count() }}" @click="start()" class="btn-whatsapp"><x-icon name="bolt" class="size-4" /> {{ __('إرسال الكل') }}</button>
+                        @endif
+                    @endif
+                </div>
+            </div>
+            <div x-show="running" x-cloak class="flex flex-wrap items-center justify-between gap-3 border-b border-green-100 bg-green-50/60 px-5 py-3">
+                <p class="text-sm text-slate-600">{{ __('اضغط «إرسال» في واتساب، ثم ارجع هنا واضغط Enter لفتح العميل التالي.') }}</p>
+                <div class="flex items-center gap-2">
+                    <button type="button" x-ref="next" @click="openNext()" class="btn-whatsapp">
+                        <x-icon name="whatsapp" class="size-4" /> {{ __('التالي:') }} <span x-text="next?.name"></span>
+                        <span class="text-xs opacity-80">(<span x-text="pos + 1"></span>/<span x-text="items.length"></span>)</span>
+                    </button>
+                    <button type="button" @click="running = false" class="btn-secondary">{{ __('إيقاف') }}</button>
+                </div>
             </div>
             <ul class="divide-y divide-slate-100">
                 @forelse($whatsappQueue as $row)
@@ -83,7 +118,7 @@
                         <div class="flex items-center gap-3">
                             <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold {{ in_array($row['stage'], ['overdue', 'final'], true) ? 'bg-rose-50 text-rose-700' : 'bg-amber-50 text-amber-700' }}">{{ $stageLabels[$row['stage']] ?? $row['stage'] }}</span>
                             <template x-if="! done.includes({{ $inv->id }})">
-                                <a href="{{ route('reminders.whatsapp', $inv) }}" target="_blank" rel="noopener" @click="done.push({{ $inv->id }})" class="btn-whatsapp"><x-icon name="whatsapp" class="size-4" /> {{ __('إرسال') }}</a>
+                                <a href="{{ route('reminders.whatsapp', $inv) }}" target="tahselly-wa" @click="done.push({{ $inv->id }})" class="btn-whatsapp"><x-icon name="whatsapp" class="size-4" /> {{ __('إرسال') }}</a>
                             </template>
                             <template x-if="done.includes({{ $inv->id }})">
                                 <span class="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700"><x-icon name="check" class="size-4" /> {{ __('تم') }}</span>

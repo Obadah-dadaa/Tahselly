@@ -226,7 +226,7 @@
 </section>
 
 <footer class="border-t border-slate-100 py-10 text-center text-sm text-slate-500">
-    © {{ date('Y') }} {{ $appName }} — {{ \App\Models\SystemSetting::get('support_email') }}
+    © {{ date('Y') }} {{ $appName }}
     <span class="mx-2">·</span><a href="{{ route('contact') }}" class="hover:text-brand-700">{{ __('تواصل معنا') }}</a>
     <span class="mx-2">·</span><a href="{{ route('legal.terms') }}" class="hover:text-brand-700">{{ __('شروط الاستخدام') }}</a>
     <span class="mx-2">·</span><a href="{{ route('legal.privacy') }}" class="hover:text-brand-700">{{ __('سياسة الخصوصية') }}</a>
