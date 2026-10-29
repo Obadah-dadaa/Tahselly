@@ -98,7 +98,11 @@ class WhatsappCloud
      */
     public static function clean(string $text): string
     {
-        $text = preg_replace('~(https?://|www\.)\S+~iu', '', $text);
+        if (class_exists(\Normalizer::class)) {
+            $text = \Normalizer::normalize($text, \Normalizer::FORM_KC) ?: $text;
+        }
+        $text = preg_replace('/[\x{200B}-\x{200F}\x{2060}\x{FEFF}]/u', '', $text);
+        $text = preg_replace('~(https?://|www\.)\S+|[\p{L}\p{N}-]+(\.[\p{L}\p{N}-]+)*\.\p{L}{2,}(/\S*)?~iu', '', $text);
 
         return Str::limit(trim(preg_replace('/\s+/u', ' ', $text)), 60, '…');
     }

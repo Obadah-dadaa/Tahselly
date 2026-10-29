@@ -10,6 +10,7 @@ use App\Models\Plan;
 use App\Models\Reminder;
 use App\Models\User;
 use App\Services\ReminderService;
+use App\Services\WhatsappCloud;
 use Database\Seeders\PlatformSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
@@ -136,6 +137,11 @@ class WhatsappQueueTest extends TestCase
         Http::assertSentCount(1);
         Http::assertSent(fn ($request) => collect($request['template']['components'][0]['parameters'])->pluck('text')->contains('Spam Co'));
         $this->assertCount(1, app(ReminderService::class)->whatsappQueue($company));
+
+        $this->assertSame('Acme Trading', WhatsappCloud::clean("Acme evil.com Trading\u{200B} bit.ly/x"));
+        $this->assertSame('Acme Trading', WhatsappCloud::clean('Acme ｅｖｉｌ．ｃｏｍ Trading'));
+        $this->assertSame('شركة النور', WhatsappCloud::clean('شركة النور'));
+        $this->assertSame('INV-2026.001', WhatsappCloud::clean('INV-2026.001'));
     }
 
     public function test_no_list_without_the_whatsapp_channel_or_plan(): void

@@ -192,7 +192,7 @@ class ReminderService
         $result = ['sent' => 0, 'failed' => 0, 'skipped' => 0];
         $cloud = app(WhatsappCloud::class);
         // One run per company at a time, so a double click can't message a client twice
-        $lock = Cache::lock('wa-send-all:'.$company->id, 300);
+        $lock = Cache::lock('wa-send-all:'.$company->id, (int) config('services.whatsapp.daily_limit') * 20 + 60);
         if (! $cloud->allowedFor($company) || ! $lock->get()) {
             return $result;
         }
@@ -202,6 +202,9 @@ class ReminderService
             $batch = $queue->take($cloud->remainingToday($company));
             $result['skipped'] = $queue->count() - $batch->count();
             foreach ($batch as $row) {
+                if (! $this->dueStage($row['invoice'], $company->reminderSettings(), 'whatsapp')) {
+                    continue; // sent meanwhile from the click list
+                }
                 $reminder = $this->send($row['invoice'], $row['stage'], 'whatsapp', $row['offset'], true, $user, viaApi: true);
                 $reminder->status === 'sent' ? $result['sent']++ : $result['failed']++;
             }
