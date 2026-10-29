@@ -35,6 +35,8 @@
                 <span class="text-slate-300">·</span>
                 <a href="{{ route('legal.privacy') }}" class="font-semibold text-brand-700 hover:underline">{{ __('سياسة الخصوصية') }}</a>
                 <span class="text-slate-300">·</span>
+                <a href="{{ route('contact') }}" class="font-semibold text-brand-700 hover:underline">{{ __('تواصل معنا') }}</a>
+                <span class="text-slate-300">·</span>
                 <a href="{{ route('landing') }}" class="text-slate-500 hover:underline">{{ __('العودة للرئيسية') }}</a>
             </div>
         </article>

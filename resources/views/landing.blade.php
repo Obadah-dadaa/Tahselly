@@ -41,6 +41,7 @@
             <a href="#features" class="hover:text-white">{{ __('المزايا') }}</a>
             <a href="#how" class="hover:text-white">{{ __('كيف يعمل') }}</a>
             <a href="#pricing" class="hover:text-white">{{ __('الأسعار') }}</a>
+            <a href="{{ route('contact') }}" class="hover:text-white">{{ __('تواصل معنا') }}</a>
         </nav>
         <div class="flex items-center gap-2">
             <x-preference-switches tone="onDark" />
@@ -226,6 +227,7 @@
 
 <footer class="border-t border-slate-100 py-10 text-center text-sm text-slate-500">
     © {{ date('Y') }} {{ $appName }} — {{ \App\Models\SystemSetting::get('support_email') }}
+    <span class="mx-2">·</span><a href="{{ route('contact') }}" class="hover:text-brand-700">{{ __('تواصل معنا') }}</a>
     <span class="mx-2">·</span><a href="{{ route('legal.terms') }}" class="hover:text-brand-700">{{ __('شروط الاستخدام') }}</a>
     <span class="mx-2">·</span><a href="{{ route('legal.privacy') }}" class="hover:text-brand-700">{{ __('سياسة الخصوصية') }}</a>
 </footer>

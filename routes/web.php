@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Developer;
 use App\Http\Controllers\EmailVerificationController;
@@ -41,6 +42,8 @@ Route::middleware('guest')->group(function () {
 });
 Route::view('/terms', 'legal.terms')->middleware('track')->name('legal.terms');
 Route::view('/privacy', 'legal.privacy')->middleware('track')->name('legal.privacy');
+Route::get('/contact', [ContactController::class, 'show'])->middleware('track')->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:3,10')->name('contact.store');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'create'])->name('login');
