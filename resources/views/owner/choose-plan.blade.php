@@ -66,7 +66,7 @@
                                 <li class="flex items-start gap-2"><x-icon name="check" class="mt-0.5 size-4 shrink-0 text-brand-500" /> {{ $feature }}</li>
                             @endforeach
                         </ul>
-                        <a href="{{ route('subscribe.show', ['plan' => $plan->code, 'cycle' => 'yearly']) }}" class="mt-6 w-full {{ $plan->is_featured ? 'btn-primary bg-brand-500' : 'btn-primary' }}">{{ __('اشترك الآن') }}</a>
+                        <a href="{{ route('subscribe.show', ['plan' => $plan->code, 'cycle' => 'monthly']) }}" class="mt-6 w-full {{ $plan->is_featured ? 'btn-primary bg-brand-500' : 'btn-primary' }}">{{ __('اشترك الآن') }}</a>
                         @unless($isCurrent)
                             <form method="POST" action="{{ route('owner.plan.choose') }}" class="mt-2 text-center">
                                 @csrf

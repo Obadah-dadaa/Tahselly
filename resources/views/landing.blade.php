@@ -165,7 +165,7 @@
 
 {{-- Pricing: one ladder of plans, cheapest first; every card shows all features so the differences are visible --}}
 <section id="pricing" class="mx-auto max-w-7xl px-6 py-24"
-         x-data="{ cycle: 'yearly', plans: @js($planData),
+         x-data="{ cycle: 'monthly', plans: @js($planData),
                    months: { monthly: 1, quarterly: 3, yearly: 12 },
                    billed: { monthly: @js(__('يُدفع شهرياً')), quarterly: @js(__('يُدفع :amount درهم كل 3 أشهر')), yearly: @js(__('يُدفع :amount درهم سنوياً')) },
                    saveLabel: @js(__('وفّر :percent%')),
