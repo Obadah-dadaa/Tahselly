@@ -31,7 +31,7 @@
             ['dashboard', __('لوحة المدير'), 'home', 'dashboard'],
             ['invoices.index', __('الفواتير'), 'invoice', 'invoices.*'],
             ['clients.index', __('العملاء'), 'building', 'clients.*'],
-            ['reminders.index', __('مركز التذكيرات'), 'bell', 'reminders.*'],
+            ['reminders.index', __('مركز التذكيرات'), 'bell', 'reminders.*', null, $user->company ? \App\Services\ReminderService::whatsappCount($user->company) : 0],
             ['reports.aging', __('أعمار الديون'), 'chart', 'reports.*'],
             ['import.index', __('استيراد Excel'), 'upload', 'import.*'],
         ];
@@ -77,7 +77,7 @@
                        @if($locked) @click.prevent="$dispatch('upgrade', '{{ $item[4] }}')" @endif>
                         <x-icon :name="$icon" class="size-5 opacity-80" /> {{ __($label) }}
                         @isset($item[4])<x-plan-badge :feature="$item[4]" class="ms-auto" />@endisset
-                        @if(! empty($item[5]))<span class="num ms-auto grid min-w-5 place-items-center rounded-full bg-amber-500 px-1.5 text-[11px] font-bold leading-5 text-white" title="{{ __('طلبات بانتظار الموافقة') }}">{{ $item[5] }}</span>@endif
+                        @if(! empty($item[5]))<span class="num ms-auto grid min-w-5 place-items-center rounded-full bg-amber-500 px-1.5 text-[11px] font-bold leading-5 text-white" title="{{ $route === 'reminders.index' ? __('تذكيرات واتساب جاهزة للإرسال اليوم') : __('طلبات بانتظار الموافقة') }}">{{ $item[5] }}</span>@endif
                     </a>
                 @endforeach
             </nav>

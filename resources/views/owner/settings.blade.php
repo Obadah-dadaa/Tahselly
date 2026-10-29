@@ -33,7 +33,7 @@
                 <div class="flex gap-4 text-sm">
                     <label class="flex items-center gap-2"><input type="checkbox" name="channels[]" value="email" @checked(in_array('email', $settings['channels'])) class="rounded text-brand-600"> {{ __('البريد الإلكتروني') }}</label>
                     @if($company->canUse('whatsapp'))
-                    <label class="flex items-center gap-2"><input type="checkbox" name="channels[]" value="whatsapp" @checked(in_array('whatsapp', $settings['channels'])) @disabled(! $company->canUse('whatsapp')) class="rounded text-brand-600"> {{ __('واتساب (إرسال بنقرة من صفحة الفاتورة)') }} <x-plan-badge feature="whatsapp" /></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="channels[]" value="whatsapp" @checked(in_array('whatsapp', $settings['channels'])) @disabled(! $company->canUse('whatsapp')) class="rounded text-brand-600"> {{ __('واتساب (قائمة يومية في مركز التذكيرات، إرسال بنقرة)') }} <x-plan-badge feature="whatsapp" /></label>
                     @endif
                 </div>
             </div>

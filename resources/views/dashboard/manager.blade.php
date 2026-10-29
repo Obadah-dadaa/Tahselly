@@ -7,6 +7,19 @@
     </x-page-header>
 
     @php $currency = auth()->user()->company->currency; @endphp
+    @php $waToday = auth()->user()->company ? \App\Services\ReminderService::whatsappCount(auth()->user()->company) : 0; @endphp
+    @if($waToday)
+        <a href="{{ route('reminders.index', ['tab' => 'whatsapp']) }}" class="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-green-50 px-5 py-4 ring-1 ring-green-600/20 transition hover:bg-green-100">
+            <span class="flex items-center gap-3">
+                <span class="grid size-10 place-items-center rounded-xl bg-[#25D366] text-white"><x-icon name="whatsapp" class="size-5" /></span>
+                <span>
+                    <span class="block font-semibold text-ink">{{ __(':count تذكير واتساب جاهز للإرسال اليوم', ['count' => $waToday]) }}</span>
+                    <span class="text-sm text-slate-500">{{ __('الرسائل جاهزة؛ أرسل كل واحدة بنقرة.') }}</span>
+                </span>
+            </span>
+            <span class="btn-whatsapp">{{ __('ابدأ الإرسال') }} →</span>
+        </a>
+    @endif
     <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <x-kpi :label="__('إجمالي المستحق')" :value="number_format($kpis['outstanding'], 0)" :suffix="$currency" icon="cash" :hint="__(':count فاتورة مفتوحة', ['count' => $kpis['open_count']])" />
         <x-kpi :label="__('متأخرات')" :value="number_format($kpis['overdue'], 0)" :suffix="$currency" icon="alert" tone="rose" :hint="__(':count فاتورة تجاوزت تاريخ الاستحقاق', ['count' => $kpis['overdue_count']])" />

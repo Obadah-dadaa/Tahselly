@@ -44,7 +44,7 @@ class PlatformSeeder extends Seeder
         foreach ([
             ['app_name', 'تحصيلي', 'string', 'general', 'اسم النظام'],
             ['app_tagline', 'تابع فواتيرك، وحصّل أموالك في وقتها', 'string', 'general', 'الشعار النصي'],
-            ['support_email', 'support@tahselly.com', 'string', 'general', 'بريد الدعم'],
+            ['support_email', 'noreply@tahselly.com', 'string', 'general', 'بريد الدعم'],
             ['legal_entity_name', 'Tahselly', 'string', 'general', 'الاسم القانوني للشركة (يظهر في الشروط والخصوصية)'],
             ['support_whatsapp', '971500000000', 'string', 'general', 'واتساب الدعم'],
             ['primary_color', '#0f766e', 'string', 'branding', 'اللون الأساسي'],

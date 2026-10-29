@@ -46,15 +46,56 @@
     </div>
 
     <div class="mt-6 flex gap-2 border-b border-slate-200">
-        @foreach(['upcoming' => __('القادمة (آلية)'), 'scheduled' => __('المجدولة'), 'log' => __('السجل')] as $key => $label)
+        @foreach(array_filter(['whatsapp' => $whatsappOn ? __('واتساب اليوم') : null, 'upcoming' => __('القادمة (آلية)'), 'scheduled' => __('المجدولة'), 'log' => __('السجل')]) as $key => $label)
             <a href="{{ route('reminders.index', ['tab' => $key]) }}" class="-mb-px border-b-2 px-4 py-2 text-sm font-semibold {{ $tab === $key ? 'border-brand-600 text-brand-700' : 'border-transparent text-slate-500 hover:text-slate-700' }}">
                 {{ __($label) }}
+                @if($key === 'whatsapp' && $whatsappQueue->count())<span class="ms-1 rounded-full bg-green-50 px-2 text-xs text-green-700">{{ $whatsappQueue->count() }}</span>@endif
                 @if($key === 'scheduled' && $scheduled->count())<span class="ms-1 rounded-full bg-violet-50 px-2 text-xs text-violet-700">{{ $scheduled->count() }}</span>@endif
             </a>
         @endforeach
     </div>
 
-    @if($tab === 'upcoming')
+    @if($tab === 'whatsapp')
+        @php $stageLabels = ['before_due' => __('قبل الاستحقاق'), 'on_due' => __('يوم الاستحقاق'), 'overdue' => __('متأخرة'), 'final' => __('إنذار نهائي')]; @endphp
+        <div class="card overflow-hidden" x-data="{ done: [] }">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 bg-green-50 px-5 py-4">
+                <div class="flex items-center gap-3">
+                    <span class="grid size-10 place-items-center rounded-xl bg-[#25D366] text-white"><x-icon name="whatsapp" class="size-5" /></span>
+                    <div>
+                        <p class="font-semibold text-ink">{{ __('تذكيرات واتساب المستحقة اليوم') }}</p>
+                        <p class="text-xs text-slate-500">{{ __('اضغط «إرسال» لكل عميل: يفتح واتساب والرسالة جاهزة، وتُسجَّل في السجل تلقائياً.') }}</p>
+                    </div>
+                </div>
+                <p class="text-sm font-semibold text-slate-600"><span class="num" x-text="{{ $whatsappQueue->count() }} - done.length">{{ $whatsappQueue->count() }}</span> {{ __('متبقية') }}</p>
+            </div>
+            <ul class="divide-y divide-slate-100">
+                @forelse($whatsappQueue as $row)
+                    @php $inv = $row['invoice']; @endphp
+                    <li class="flex flex-wrap items-center justify-between gap-3 px-5 py-4 transition" :class="done.includes({{ $inv->id }}) && 'opacity-50'">
+                        <div class="min-w-0">
+                            <p class="font-semibold text-ink">{{ $inv->client->name }} <span class="text-xs font-normal text-slate-400" dir="ltr">+{{ $inv->client->whatsappNumber() }}</span></p>
+                            <p class="text-sm text-slate-500">
+                                <a href="{{ route('invoices.show', $inv) }}" class="font-medium text-brand-700 hover:underline">{{ $inv->number }}</a>
+                                · <span class="num">@money($inv->balance())</span> {{ $inv->currency }}
+                                · {{ __('الاستحقاق :date', ['date' => $inv->due_date->format('Y-m-d')]) }}
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold {{ in_array($row['stage'], ['overdue', 'final'], true) ? 'bg-rose-50 text-rose-700' : 'bg-amber-50 text-amber-700' }}">{{ $stageLabels[$row['stage']] ?? $row['stage'] }}</span>
+                            <template x-if="! done.includes({{ $inv->id }})">
+                                <a href="{{ route('reminders.whatsapp', $inv) }}" target="_blank" rel="noopener" @click="done.push({{ $inv->id }})" class="btn-whatsapp"><x-icon name="whatsapp" class="size-4" /> {{ __('إرسال') }}</a>
+                            </template>
+                            <template x-if="done.includes({{ $inv->id }})">
+                                <span class="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700"><x-icon name="check" class="size-4" /> {{ __('تم') }}</span>
+                            </template>
+                        </div>
+                    </li>
+                @empty
+                    <li class="px-5 py-12 text-center text-slate-400">{{ __('لا توجد تذكيرات واتساب مستحقة اليوم 🎉') }}</li>
+                @endforelse
+            </ul>
+        </div>
+    @elseif($tab === 'upcoming')
         <div class="mt-6 space-y-4">
             @forelse($upcoming as $date => $rows)
                 @php $day = \Carbon\Carbon::parse($date); @endphp

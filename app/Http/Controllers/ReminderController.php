@@ -23,7 +23,7 @@ class ReminderController extends Controller
     public function index(Request $request, ReminderService $service): View
     {
         $company = $request->user()->company;
-        $tab = in_array($request->tab, ['upcoming', 'scheduled', 'log'], true) ? $request->tab : 'upcoming';
+        $tab = in_array($request->tab, ['whatsapp', 'upcoming', 'scheduled', 'log'], true) ? $request->tab : 'upcoming';
 
         $reminders = Reminder::query()->with(['client', 'invoice', 'user'])
             ->where('status', '!=', 'scheduled')
@@ -47,7 +47,24 @@ class ReminderController extends Controller
             'settings' => $company->reminderSettings(),
             'upcoming' => $service->upcoming($company, 14)->groupBy(fn (array $r) => $r['date']->toDateString()),
             'scheduled' => Reminder::query()->with(['client', 'invoice', 'user'])->where('status', 'scheduled')->orderBy('scheduled_for')->get(),
+            'whatsappQueue' => $service->whatsappQueue($company),
+            'whatsappOn' => in_array('whatsapp', $company->reminderSettings()['channels'], true) && $company->canUse('whatsapp'),
         ]);
+    }
+
+    /**
+     * One item of today's WhatsApp list: log it as sent and open WhatsApp with the message ready.
+     */
+    public function sendWhatsapp(Request $request, Invoice $invoice, ReminderService $service): RedirectResponse
+    {
+        $url = $service->sendQueuedWhatsapp($invoice, $request->user());
+        ReminderService::forgetWhatsappCount($invoice->company_id);
+        if (! $url) {
+            return back()->with('error', __('هذا التذكير أُرسل مسبقاً أو لم يعد مستحقاً اليوم.'));
+        }
+        ActivityLog::record('reminder.whatsapp', 'تذكير واتساب للفاتورة '.$invoice->number);
+
+        return redirect()->away($url);
     }
 
     public function create(Request $request): View

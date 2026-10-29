@@ -11,6 +11,7 @@ use App\Models\SystemSetting;
 use App\Models\User;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
 
@@ -85,7 +86,7 @@ class ReminderService
      * @param  array{before_days: list<int>, on_due: bool, after_days: list<int>, final_after: int}  $settings
      * @return array{stage: string, offset: int}|null
      */
-    public function dueStage(Invoice $invoice, array $settings): ?array
+    public function dueStage(Invoice $invoice, array $settings, string $channel = 'email'): ?array
     {
         $offset = (int) $invoice->due_date->startOfDay()->diffInDays(today(), false);
 
@@ -109,22 +110,76 @@ class ReminderService
             }
         }
 
-        if (! $candidate || $this->alreadySent($invoice, $candidate['stage'], $candidate['offset'])) {
+        if (! $candidate || $this->alreadySent($invoice, $candidate['stage'], $candidate['offset'], $channel)) {
             return null;
         }
 
         return $candidate;
     }
 
-    private function alreadySent(Invoice $invoice, string $stage, int $offset): bool
+    private function alreadySent(Invoice $invoice, string $stage, int $offset, string $channel = 'email'): bool
     {
         return Reminder::withoutGlobalScopes()
             ->where('invoice_id', $invoice->id)
+            ->where('channel', $channel)
             ->where('stage', $stage)
             ->where('day_offset', $offset)
             ->where('automatic', true)
             ->where('status', 'sent')
             ->exists();
+    }
+
+    /**
+     * Today's WhatsApp reminders: the same schedule as email, prepared as one-click messages
+     * that the team sends from the company's own WhatsApp.
+     *
+     * @return Collection<int, array{invoice: Invoice, stage: string, offset: int, url: string}>
+     */
+    public function whatsappQueue(Company $company): Collection
+    {
+        $settings = $company->reminderSettings();
+        if (! $settings['enabled'] || ! in_array('whatsapp', $settings['channels'], true) || ! $company->canUse('whatsapp')) {
+            return collect();
+        }
+
+        return $this->eligibleInvoices($company)
+            ->map(function (Invoice $invoice) use ($settings): ?array {
+                $due = $this->dueStage($invoice, $settings, 'whatsapp');
+                $url = $due ? $this->whatsappLink($invoice, $due['stage']) : null;
+
+                return $url ? ['invoice' => $invoice] + $due + ['url' => $url] : null;
+            })
+            ->filter()
+            ->sortByDesc(fn (array $row) => $row['offset'])
+            ->values();
+    }
+
+    /**
+     * How many WhatsApp reminders are waiting today (cached briefly; shown in the sidebar and dashboard).
+     */
+    public static function whatsappCount(Company $company): int
+    {
+        return (int) Cache::remember('wa-queue:'.$company->id.':'.today()->toDateString(), now()->addMinutes(10),
+            fn () => app(self::class)->whatsappQueue($company)->count());
+    }
+
+    public static function forgetWhatsappCount(int $companyId): void
+    {
+        Cache::forget('wa-queue:'.$companyId.':'.today()->toDateString());
+    }
+
+    /**
+     * Log a WhatsApp reminder from today's list as sent (the user sends it from WhatsApp) and return its link.
+     */
+    public function sendQueuedWhatsapp(Invoice $invoice, User $user): ?string
+    {
+        $due = $this->dueStage($invoice, $invoice->company->reminderSettings(), 'whatsapp');
+        if (! $due) {
+            return null;
+        }
+        $this->send($invoice, $due['stage'], 'whatsapp', $due['offset'], true, $user);
+
+        return $this->whatsappLink($invoice, $due['stage']);
     }
 
     /**
