@@ -26,7 +26,7 @@ class CompanyController extends Controller
                 ->when($request->q, fn ($q, $term) => $q->where('name', 'like', "%{$term}%"))
                 ->when($request->status, fn ($q, $s) => $q->where('status', $s))
                 ->latest()->paginate(20)->withQueryString(),
-            'plans' => Plan::query()->where('is_active', true)->get(),
+            'plans' => Plan::query()->where('is_active', true)->ordered()->get(),
         ]);
     }
 

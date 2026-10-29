@@ -17,7 +17,7 @@ class BillingController extends Controller
             'company' => $company,
             'current' => $company->currentSubscription(),
             'history' => $company->subscriptions()->with('plan')->latest()->get(),
-            'plans' => Plan::query()->where('is_active', true)->orderBy('sort')->get(),
+            'plans' => Plan::query()->where('is_active', true)->ordered()->get(),
         ]);
     }
 }

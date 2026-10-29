@@ -25,7 +25,7 @@ class TrialController extends Controller
     public function create(Request $request): View
     {
         abort_unless(SystemSetting::get('allow_signups', true), 404);
-        $plans = Plan::query()->where('is_active', true)->orderBy('sort')->get();
+        $plans = Plan::query()->where('is_active', true)->ordered()->get();
 
         return view('subscribe.trial', [
             'plans' => $plans,

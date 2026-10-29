@@ -37,7 +37,7 @@ class SettingsController extends Controller
 
     public function plans(): View
     {
-        return view('developer.plans', ['plans' => Plan::query()->withCount('companies')->get()]);
+        return view('developer.plans', ['plans' => Plan::query()->withCount('companies')->ordered()->get()]);
     }
 
     public function updatePlans(Request $request): RedirectResponse

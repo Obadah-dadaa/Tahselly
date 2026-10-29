@@ -16,21 +16,22 @@ class PlatformSeeder extends Seeder
     {
         // Plans per customer segment; yearly = 10 months (2 months free), quarterly gets 5% off
         $plans = [
-            ['freelancer', 'freelancer', 'الانطلاقة', 'Starter', 99, 2, 1, 200, false,
-                ['مستخدم واحد', 'حتى 200 فاتورة', 'استيراد Excel', 'تذكيرات بريد آلية', 'تقرير أعمار الديون'],
-                ['1 user', 'Up to 200 invoices', 'Excel import', 'Automatic email reminders', 'Aging report']],
-            ['agency-basic', 'agency', 'النمو', 'Growth', 149, 3, 3, 1000, false,
-                ['3 مستخدمين', 'حتى 1,000 فاتورة', 'تذكيرات بريد وواتساب', 'قوالب رسائل مخصصة', 'تقرير أعمار الديون'],
-                ['3 users', 'Up to 1,000 invoices', 'Email & WhatsApp reminders', 'Custom message templates', 'Aging report']],
+            // Ordered cheapest to most expensive; each plan lists only what it adds over the one before
+            ['freelancer', 'freelancer', 'الانطلاقة', 'Starter', 99, 1, 1, 200, false,
+                ['استيراد الفواتير من Excel', 'تذكيرات بريد آلية', 'تقرير أعمار الديون'],
+                ['Excel invoice import', 'Automatic email reminders', 'Aging report']],
+            ['agency-basic', 'agency', 'النمو', 'Growth', 149, 2, 3, 1000, false,
+                ['تذكيرات واتساب', 'قوالب رسائل مخصصة'],
+                ['WhatsApp reminders', 'Custom message templates']],
+            ['services', 'services', 'الأعمال', 'Business', 179, 3, 5, 3000, false,
+                ['إدارة الفريق والصلاحيات', 'تصدير التقارير إلى Excel'],
+                ['Team & permissions', 'Report exports to Excel']],
             ['agency-pro', 'agency', 'الاحترافية', 'Professional', 199, 4, 10, 5000, true,
-                ['10 مستخدمين', 'حتى 5,000 فاتورة', 'لوحة المالك والتحليلات', 'جدول تذكيرات مرن', 'أولوية في الدعم'],
-                ['10 users', 'Up to 5,000 invoices', 'Owner dashboard & analytics', 'Flexible reminder schedule', 'Priority support']],
-            ['services', 'services', 'الأعمال', 'Business', 179, 5, 5, 3000, false,
-                ['5 مستخدمين', 'حتى 3,000 فاتورة', 'تذكيرات بريد وواتساب', 'إدارة الفريق والصلاحيات', 'تصدير التقارير'],
-                ['5 users', 'Up to 3,000 invoices', 'Email & WhatsApp reminders', 'Team & permissions', 'Report exports']],
-            ['accounting', 'accounting', 'المؤسسات', 'Enterprise', 199, 6, 15, 10000, false,
-                ['15 مستخدماً', 'حتى 10,000 فاتورة', 'استيراد دفعات كبيرة من Excel', 'تقارير أعمار ديون لكل عميل', 'سجل نشاط كامل'],
-                ['15 users', 'Up to 10,000 invoices', 'Bulk Excel imports', 'Per-client aging reports', 'Full activity log']],
+                ['لوحة المالك والتحليلات', 'جدول تذكيرات مرن', 'أولوية في الدعم'],
+                ['Owner dashboard & analytics', 'Flexible reminder schedule', 'Priority support']],
+            ['accounting', 'accounting', 'المؤسسات', 'Enterprise', 199, 5, 15, 10000, false,
+                ['استيراد دفعات كبيرة من Excel', 'تقارير أعمار ديون لكل عميل', 'سجل نشاط كامل'],
+                ['Bulk Excel imports', 'Per-client aging reports', 'Full activity log']],
         ];
         foreach ($plans as [$code, $category, $name, $nameEn, $price, $sort, $users, $invoices, $featured, $features, $featuresEn]) {
             Plan::updateOrCreate(['code' => $code], [

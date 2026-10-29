@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -25,6 +26,14 @@ class Plan extends Model
             'price' => 'decimal:2',
             'price_yearly' => 'decimal:2',
         ];
+    }
+
+    /**
+     * Cheapest first; plans at the same price go from smaller to bigger limits.
+     */
+    public function scopeOrdered(Builder $query): Builder
+    {
+        return $query->orderBy('price')->orderBy('max_users')->orderBy('sort');
     }
 
     public function companies(): HasMany
@@ -59,6 +68,20 @@ class Plan extends Model
     public function localizedFeatures(): array
     {
         return (app()->getLocale() === 'en' && $this->features_en ? $this->features_en : $this->features) ?? [];
+    }
+
+    /**
+     * Who the plan is for, shown under its name on the pricing cards.
+     */
+    public function audience(): string
+    {
+        return __([
+            'freelancer' => 'للمستقلين والأعمال الناشئة',
+            'agency-basic' => 'للفرق الصغيرة والوكالات',
+            'services' => 'لشركات الخدمات والصيانة',
+            'agency-pro' => 'للشركات النامية التي تريد رؤية كاملة',
+            'accounting' => 'لمكاتب المحاسبة والشركات الكبيرة',
+        ][$this->code] ?? '');
     }
 
     public static function categoryLabel(string $category): string

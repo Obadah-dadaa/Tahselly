@@ -36,7 +36,7 @@ class SubscriptionController extends Controller
 
         return view('developer.subscriptions', [
             'subscriptions' => $subscriptions,
-            'plans' => Plan::query()->orderBy('sort')->get(),
+            'plans' => Plan::query()->ordered()->get(),
             'stats' => [
                 'active' => $active->count(),
                 'mrr' => $active->sum(fn (Subscription $s) => $s->monthlyValue()),

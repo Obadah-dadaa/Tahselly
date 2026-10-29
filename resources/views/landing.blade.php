@@ -1,17 +1,25 @@
 @php
     $appName = __(\App\Models\SystemSetting::get('app_name', __('تحصيلي')));
     $locale = app()->getLocale();
-    $plans = \App\Models\Plan::query()->where('is_active', true)->orderBy('sort')->get();
-    $categories = collect(\App\Models\Plan::CATEGORIES)->filter(fn ($c) => $plans->contains('category', $c))->values();
+    $plans = \App\Models\Plan::query()->where('is_active', true)->ordered()->get();
     $video = \App\Models\SystemSetting::get($locale === 'en' ? 'promo_video_en' : 'promo_video_ar');
     $tutorial = \App\Models\SystemSetting::get('tutorial_video');
     $trialOn = (bool) \App\Models\SystemSetting::get('allow_signups', true);
     $trialDays = (int) \App\Models\SystemSetting::get('default_trial_days', 14);
-    $planData = $plans->map(fn ($p) => [
-        'code' => $p->code, 'category' => $p->category, 'name' => $p->localizedName(), 'featured' => $p->is_featured,
-        'prices' => ['monthly' => $p->priceFor('monthly'), 'quarterly' => $p->priceFor('quarterly'), 'yearly' => $p->priceFor('yearly')],
-        'features' => $p->localizedFeatures(),
-    ])->values();
+    // Each plan adds features on top of the cheaper ones; every card lists them all, ticked or not
+    $allFeatures = $plans->flatMap(fn ($p) => $p->localizedFeatures())->unique()->values();
+    $planData = $plans->values()->map(function ($p, $i) use ($plans, $allFeatures) {
+        $included = $plans->take($i + 1)->flatMap(fn ($q) => $q->localizedFeatures());
+
+        return [
+            'code' => $p->code, 'name' => $p->localizedName(), 'audience' => $p->audience(), 'featured' => $p->is_featured,
+            'monthly' => (float) $p->price,
+            'totals' => ['monthly' => $p->priceFor('monthly'), 'quarterly' => $p->priceFor('quarterly'), 'yearly' => $p->priceFor('yearly')],
+            'users' => $p->max_users == 1 ? __('مستخدم واحد') : __('حتى :count مستخدمين', ['count' => $p->max_users]),
+            'invoices' => __('حتى :count فاتورة', ['count' => number_format($p->max_invoices)]),
+            'features' => $allFeatures->map(fn ($f) => ['text' => $f, 'on' => $included->contains($f)])->all(),
+        ];
+    });
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $locale }}" dir="{{ $dir }}" class="{{ $theme === 'dark' ? 'dark' : '' }} scroll-smooth">
@@ -153,22 +161,22 @@
     </div>
 </section>
 
-{{-- Pricing: category tabs + billing cycle toggle --}}
-<section id="pricing" class="mx-auto max-w-6xl px-6 py-24"
-         x-data="{ category: 'agency', cycle: 'monthly', plans: @js($planData),
-                   perLabel: { monthly: @js(__('درهم / شهرياً')), quarterly: @js(__('درهم / 3 أشهر')), yearly: @js(__('درهم / سنوياً')) } }">
+{{-- Pricing: one ladder of plans, cheapest first; every card shows all features so the differences are visible --}}
+<section id="pricing" class="mx-auto max-w-7xl px-6 py-24"
+         x-data="{ cycle: 'yearly', plans: @js($planData),
+                   months: { monthly: 1, quarterly: 3, yearly: 12 },
+                   billed: { monthly: @js(__('يُدفع شهرياً')), quarterly: @js(__('يُدفع :amount درهم كل 3 أشهر')), yearly: @js(__('يُدفع :amount درهم سنوياً')) },
+                   saveLabel: @js(__('وفّر :percent%')),
+                   perMonth(p) { return Math.round(p.totals[this.cycle] / this.months[this.cycle]) },
+                   saving(p) { return Math.round((1 - p.totals[this.cycle] / (p.monthly * this.months[this.cycle])) * 100) },
+                   fmt(n) { return Number(n).toLocaleString('en-US') } }">
     <h2 class="text-center text-3xl font-bold text-ink">{{ __('باقة تناسب نوع عملك') }}</h2>
     <p class="mt-3 text-center text-slate-500">{{ __('بدون رسوم إعداد. ادفع شهرياً أو وفّر مع الاشتراك السنوي.') }}</p>
     @if($trialOn)
         <p class="mx-auto mt-4 w-fit rounded-full bg-amber-50 px-4 py-1.5 text-center text-sm font-semibold text-amber-800">{{ __('كل الباقات: تجربة مجانية :days يوماً بدون بطاقة، ثم يتطلب الاستمرار الدفع.', ['days' => $trialDays]) }}</p>
     @endif
 
-    <div class="mt-10 flex flex-wrap justify-center gap-2">
-        @foreach($categories as $c)
-            <button @click="category='{{ $c }}'" :class="category==='{{ $c }}' ? 'bg-night text-white' : 'bg-surface text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50'" class="rounded-full px-5 py-2 text-sm font-semibold transition">{{ \App\Models\Plan::categoryLabel($c) }}</button>
-        @endforeach
-    </div>
-    <div class="mt-6 flex justify-center">
+    <div class="mt-8 flex justify-center">
         <div class="inline-flex rounded-2xl bg-slate-100 p-1 text-sm font-semibold">
             @foreach(['monthly' => __('شهري'), 'quarterly' => __('ربع سنوي -5%'), 'yearly' => __('سنوي — شهران مجاناً')] as $c => $l)
                 <button @click="cycle='{{ $c }}'" :class="cycle==='{{ $c }}' ? 'bg-surface text-ink shadow' : 'text-slate-500'" class="rounded-xl px-4 py-2 transition">{{ $l }}</button>
@@ -176,21 +184,40 @@
         </div>
     </div>
 
-    <div class="mx-auto mt-12 grid max-w-4xl justify-center gap-6 md:grid-cols-2">
-        <template x-for="plan in plans.filter(p => p.category === category)" :key="plan.code">
-            <div class="rounded-3xl p-8" :class="plan.featured ? 'bg-night text-white shadow-2xl ring-4 ring-brand-500/30' : 'border border-slate-200 bg-surface'">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-lg font-bold" x-text="plan.name"></h3>
-                    <span x-show="plan.featured" class="rounded-full bg-brand-500 px-3 py-1 text-xs font-bold text-white">{{ __('الأكثر طلباً') }}</span>
+    <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <template x-for="plan in plans" :key="plan.code">
+            <div class="relative flex flex-col rounded-3xl p-6" :class="plan.featured ? 'bg-night text-white shadow-2xl ring-4 ring-brand-500/40 xl:-my-4 xl:py-10' : 'border border-slate-200 bg-surface'">
+                <span x-show="plan.featured" class="absolute inset-x-0 -top-3 mx-auto w-fit whitespace-nowrap rounded-full bg-brand-500 px-4 py-1 text-xs font-bold text-white shadow">{{ __('الأكثر طلباً') }}</span>
+                <h3 class="text-xl font-bold" x-text="plan.name"></h3>
+                <p class="mt-1 min-h-10 text-sm" :class="plan.featured ? 'text-slate-300' : 'text-slate-500'" x-text="plan.audience"></p>
+
+                <div class="mt-5 flex h-6 items-center gap-2 text-sm">
+                    <template x-if="cycle !== 'monthly'">
+                        <span class="flex items-center gap-2">
+                            <s class="num text-slate-400" x-text="fmt(plan.monthly)"></s>
+                            <span class="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-bold text-emerald-700" x-text="saveLabel.replace(':percent', saving(plan))"></span>
+                        </span>
+                    </template>
                 </div>
-                <p class="mt-4"><span class="num text-5xl font-bold" x-text="Number(plan.prices[cycle]).toLocaleString('en-US')"></span> <span :class="plan.featured ? 'text-slate-400' : 'text-slate-500'" x-text="perLabel[cycle]"></span></p>
-                <ul class="mt-8 space-y-3 text-sm">
-                    <template x-for="f in plan.features"><li class="flex items-center gap-2"><x-icon name="check" class="size-4 shrink-0 text-brand-500" /> <span x-text="f"></span></li></template>
-                </ul>
-                <a :href="`{{ url('/subscribe') }}/${plan.code}?cycle=${cycle}`" class="mt-8 w-full" :class="plan.featured ? 'btn-primary bg-brand-500' : 'btn-secondary'">{{ __('اشترك الآن') }}</a>
+                <p class="mt-1"><span class="num text-4xl font-bold" x-text="fmt(perMonth(plan))"></span> <span class="text-sm" :class="plan.featured ? 'text-slate-400' : 'text-slate-500'">{{ __('درهم / شهرياً') }}</span></p>
+                <p class="mt-1 text-xs" :class="plan.featured ? 'text-slate-400' : 'text-slate-500'" x-text="billed[cycle].replace(':amount', fmt(plan.totals[cycle]))"></p>
+
+                <a :href="`{{ url('/subscribe') }}/${plan.code}?cycle=${cycle}`" class="mt-6 w-full" :class="plan.featured ? 'btn-primary bg-brand-500' : 'btn-secondary'">{{ __('اشترك الآن') }}</a>
                 @if($trialOn)
-                    <a :href="`{{ route('trial.create') }}?plan=${plan.code}`" class="mt-3 block text-center text-sm font-semibold underline" :class="plan.featured ? 'text-brand-200' : 'text-brand-700'">{{ __('أو جرّبها مجاناً :days يوماً', ['days' => $trialDays]) }}</a>
+                    <a :href="`{{ route('trial.create') }}?plan=${plan.code}`" class="mt-2 block text-center text-xs font-semibold underline" :class="plan.featured ? 'text-brand-200' : 'text-brand-700'">{{ __('أو جرّبها مجاناً :days يوماً', ['days' => $trialDays]) }}</a>
                 @endif
+
+                <ul class="mt-6 space-y-2.5 border-t pt-6 text-sm" :class="plan.featured ? 'border-white/10' : 'border-slate-100'">
+                    <li class="flex items-start gap-2 font-semibold"><x-icon name="check" class="mt-0.5 size-4 shrink-0 text-brand-500" /> <span x-text="plan.users"></span></li>
+                    <li class="flex items-start gap-2 font-semibold"><x-icon name="check" class="mt-0.5 size-4 shrink-0 text-brand-500" /> <span x-text="plan.invoices"></span></li>
+                    <template x-for="f in plan.features">
+                        <li class="flex items-start gap-2" :class="f.on ? '' : 'opacity-40'">
+                            <span x-show="f.on" class="shrink-0"><x-icon name="check" class="mt-0.5 size-4 text-brand-500" /></span>
+                            <span x-show="!f.on" class="mt-0.5 grid size-4 shrink-0 place-items-center text-xs">✕</span>
+                            <span :class="f.on ? '' : 'line-through'" x-text="f.text"></span>
+                        </li>
+                    </template>
+                </ul>
             </div>
         </template>
     </div>
