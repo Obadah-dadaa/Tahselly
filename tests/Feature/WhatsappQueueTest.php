@@ -113,6 +113,31 @@ class WhatsappQueueTest extends TestCase
         $this->assertCount(1, app(ReminderService::class)->whatsappQueue($company));
     }
 
+    public function test_shared_number_is_for_paying_companies_only_with_a_daily_cap_and_clean_text(): void
+    {
+        config(['services.whatsapp.token' => 'test-token', 'services.whatsapp.phone_number_id' => '123', 'services.whatsapp.daily_limit' => 1]);
+        Http::fake(['graph.facebook.com/*' => Http::response(['messages' => [['id' => 'wamid.1']]])]);
+
+        // Trial accounts keep the click list; they can't send from Tahselly's number
+        [$trial, , $trialManager] = $this->setUpCompany();
+        $trial->update(['status' => 'trial', 'trial_ends_at' => today()->addDays(5)]);
+        $this->actingAs($trialManager)->post(route('reminders.whatsapp.all'))->assertNotFound();
+        Http::assertNothingSent();
+
+        // Paying company: the cap stops the second message for today
+        [$company, $invoice, $manager] = $this->setUpCompany();
+        $second = Invoice::factory()->create([
+            'company_id' => $company->id, 'client_id' => $invoice->client_id, 'status' => 'unpaid',
+            'issue_date' => today()->subDays(37), 'due_date' => today()->subDays(7), 'amount' => 300, 'paid_amount' => 0,
+        ]);
+        $company->update(['name' => "Spam\nCo https://evil.example/x"]);
+        $this->actingAs($manager)->post(route('reminders.whatsapp.all'))->assertSessionHas('error');
+
+        Http::assertSentCount(1);
+        Http::assertSent(fn ($request) => collect($request['template']['components'][0]['parameters'])->pluck('text')->contains('Spam Co'));
+        $this->assertCount(1, app(ReminderService::class)->whatsappQueue($company));
+    }
+
     public function test_no_list_without_the_whatsapp_channel_or_plan(): void
     {
         [$company] = $this->setUpCompany('agency-basic', ['email']);

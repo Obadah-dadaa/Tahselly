@@ -9,6 +9,7 @@
     ":company دفعت :plan (:cycle) بمبلغ :amount درهم بالبطاقة.": ":company paid for :plan (:cycle), AED :amount by card.",
     ":company طلبت :plan (:cycle) بمبلغ :amount درهم بتحويل بنكي — المرجع :ref.": ":company requested :plan (:cycle) for AED :amount by bank transfer — reference :ref.",
     ":count أخطاء": ":count errors",
+    ":count تبقّت لأنك وصلت للحد اليومي، أرسلها غداً أو بالنقر من القائمة.": ":count left because you reached the daily limit. Send them tomorrow or one by one from the list.",
     ":count تذكير · الساعة 9:00": ":count reminders · at 9:00",
     ":count تذكير هذا الشهر": ":count reminders this month",
     ":count تذكير واتساب جاهز للإرسال اليوم": ":count WhatsApp reminders ready to send today",

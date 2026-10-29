@@ -41,6 +41,7 @@ return [
         'phone_number_id' => env('WHATSAPP_PHONE_NUMBER_ID'),
         'template_prefix' => env('WHATSAPP_TEMPLATE_PREFIX', 'tahselly'),
         'version' => env('WHATSAPP_API_VERSION', 'v21.0'),
+        'daily_limit' => (int) env('WHATSAPP_DAILY_LIMIT', 100), // per company
     ],
 
     'stripe' => [

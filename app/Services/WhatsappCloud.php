@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Company;
 use App\Models\Invoice;
+use App\Models\Reminder;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use RuntimeException;
 
 /**
@@ -19,6 +22,23 @@ class WhatsappCloud
     public function enabled(): bool
     {
         return filled(config('services.whatsapp.token')) && filled(config('services.whatsapp.phone_number_id'));
+    }
+
+    /**
+     * Messages go out from Tahselly's own number, so only paying companies may use it, up to a daily cap,
+     * to keep one account from getting the shared number flagged by Meta.
+     */
+    public function allowedFor(Company $company): bool
+    {
+        return $this->enabled() && $company->status === 'active' && ! $company->onTrial();
+    }
+
+    public function remainingToday(Company $company): int
+    {
+        $sent = Reminder::withoutGlobalScopes()->where('company_id', $company->id)->where('channel', 'whatsapp')
+            ->where('status', 'sent')->whereDate('created_at', today())->count();
+
+        return max(0, (int) config('services.whatsapp.daily_limit') - $sent);
     }
 
     /**
@@ -44,7 +64,7 @@ class WhatsappCloud
                 'language' => ['code' => $locale === 'en' ? 'en' : 'ar'],
                 'components' => [[
                     'type' => 'body',
-                    'parameters' => array_map(fn (string $text) => ['type' => 'text', 'text' => $text], $params),
+                    'parameters' => array_map(fn (string $text) => ['type' => 'text', 'text' => self::clean($text)], $params),
                 ]],
             ],
         ]);
@@ -70,6 +90,17 @@ class WhatsappCloud
         }
 
         return ['number' => $response->json('display_phone_number'), 'name' => $response->json('verified_name')];
+    }
+
+    /**
+     * Template variables must be one short line (Meta rejects newlines, tabs and long runs of spaces),
+     * and links are dropped so a company or client name can't carry one from Tahselly's number.
+     */
+    public static function clean(string $text): string
+    {
+        $text = preg_replace('~(https?://|www\.)\S+~iu', '', $text);
+
+        return Str::limit(trim(preg_replace('/\s+/u', ' ', $text)), 60, '…');
     }
 
     private function request()

@@ -185,16 +185,30 @@ class ReminderService
     /**
      * Send every WhatsApp reminder on today's list through the Cloud API in one go.
      *
-     * @return array{sent: int, failed: int}
+     * @return array{sent: int, failed: int, skipped: int}
      */
     public function sendAllWhatsapp(Company $company, User $user): array
     {
-        $result = ['sent' => 0, 'failed' => 0];
-        foreach ($this->whatsappQueue($company) as $row) {
-            $reminder = $this->send($row['invoice'], $row['stage'], 'whatsapp', $row['offset'], true, $user, viaApi: true);
-            $reminder->status === 'sent' ? $result['sent']++ : $result['failed']++;
+        $result = ['sent' => 0, 'failed' => 0, 'skipped' => 0];
+        $cloud = app(WhatsappCloud::class);
+        // One run per company at a time, so a double click can't message a client twice
+        $lock = Cache::lock('wa-send-all:'.$company->id, 300);
+        if (! $cloud->allowedFor($company) || ! $lock->get()) {
+            return $result;
         }
-        self::forgetWhatsappCount($company->id);
+
+        try {
+            $queue = $this->whatsappQueue($company);
+            $batch = $queue->take($cloud->remainingToday($company));
+            $result['skipped'] = $queue->count() - $batch->count();
+            foreach ($batch as $row) {
+                $reminder = $this->send($row['invoice'], $row['stage'], 'whatsapp', $row['offset'], true, $user, viaApi: true);
+                $reminder->status === 'sent' ? $result['sent']++ : $result['failed']++;
+            }
+        } finally {
+            $lock->release();
+            self::forgetWhatsappCount($company->id);
+        }
 
         return $result;
     }
