@@ -25,6 +25,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [SetPreferences::class]);
         // Shared hosting / load balancers terminate HTTPS in front of the app
         $middleware->trustProxies(at: '*');
+        // Only answer for our own domain (plus local hosts in development)
+        $middleware->trustHosts(at: fn () => array_filter([parse_url((string) config('app.url'), PHP_URL_HOST), app()->isProduction() ? null : 'localhost']));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

@@ -21,8 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Behind a hosting proxy the request may look like http; production links must always be https
+        // Behind a hosting proxy the request may look like http; production links must always be https,
+        // and always on APP_URL's domain so a forged Host header can't put another site into emailed links
         if ($this->app->isProduction()) {
+            URL::forceRootUrl(config('app.url'));
             URL::forceScheme('https');
         }
 
