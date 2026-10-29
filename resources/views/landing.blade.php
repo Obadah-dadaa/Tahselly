@@ -206,7 +206,6 @@
 
                 <a :href="`{{ url('/subscribe') }}/${plan.code}?cycle=${cycle}`" class="mt-6 w-full" :class="plan.featured ? 'btn-primary bg-brand-500' : 'btn-secondary'">{{ __('اشترك الآن') }}</a>
                 @if($trialOn)
-                    <a :href="`{{ route('trial.create') }}?plan=${plan.code}`" class="mt-2 block text-center text-xs font-semibold underline" :class="plan.featured ? 'text-brand-200' : 'text-brand-700'">{{ __('أو جرّبها مجاناً :days يوماً', ['days' => $trialDays]) }}</a>
                 @endif
 
                 <ul class="mt-6 space-y-2.5 border-t pt-6 text-sm" :class="plan.featured ? 'border-white/10' : 'border-slate-100'">

@@ -9,7 +9,7 @@
     <form method="POST" action="{{ route('locale', app()->getLocale() === 'ar' ? 'en' : 'ar') }}">
         @csrf
         <button class="grid h-9 min-w-9 place-items-center rounded-xl px-2.5 text-sm font-bold ring-1 {{ $base }}" title="{{ __('تغيير اللغة') }}">
-            {{ app()->getLocale() === 'ar' ? 'EN' : __('ع') }}
+            {{ app()->getLocale() === 'ar' ? 'EN' : 'AR' }}
         </button>
     </form>
     <form method="POST" action="{{ route('theme', $isDark ? 'light' : 'dark') }}">

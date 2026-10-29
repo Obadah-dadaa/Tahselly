@@ -8,7 +8,7 @@
         <div class="mt-10 grid gap-6 lg:grid-cols-5">
             <div class="space-y-4 lg:col-span-2">
                 <div class="card flex items-center gap-4 p-6">
-                    <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-xl font-bold text-white">{{ __('ع') }}</span>
+                    <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-xl font-bold text-white">{{ app()->getLocale() === 'ar' ? 'ع' : 'O' }}</span>
                     <div>
                         <p class="text-lg font-bold text-ink">{{ __('عبادة دعدع') }}</p>
                         <p class="text-sm text-slate-500">{{ __('مؤسس ومطوّر :app', ['app' => __(\App\Models\SystemSetting::get('app_name', 'تحصيلي'))]) }}</p>

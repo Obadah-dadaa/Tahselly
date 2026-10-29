@@ -76,7 +76,7 @@
                     <a href="{{ route($route) }}" class="nav-link {{ request()->routeIs($pattern) ? 'active' : '' }} {{ $locked ? 'opacity-70' : '' }}"
                        @if($locked) @click.prevent="$dispatch('upgrade', '{{ $item[4] }}')" @endif>
                         <x-icon :name="$icon" class="size-5 opacity-80" /> {{ __($label) }}
-                        @isset($item[4])<x-plan-badge :feature="$item[4]" class="ms-auto" />@endisset
+                        @if(isset($item[4]) && $item[4] !== 'activity_log')<x-plan-badge :feature="$item[4]" class="ms-auto" />@endif
                         @if(! empty($item[5]))<span class="num ms-auto grid min-w-5 place-items-center rounded-full bg-amber-500 px-1.5 text-[11px] font-bold leading-5 text-white" title="{{ $route === 'reminders.index' ? __('تذكيرات واتساب جاهزة للإرسال اليوم') : __('طلبات بانتظار الموافقة') }}">{{ $item[5] }}</span>@endif
                     </a>
                 @endforeach
