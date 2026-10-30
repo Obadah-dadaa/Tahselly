@@ -1,0 +1,97 @@
+<template>
+  <style>
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; direction: rtl; font-family: "Plex Arabic"; background: #f3e6cf; }
+    #world { position: absolute; left: 0; top: 0; width: 3200px; height: 1800px; transform-origin: 0 0; background: #f3e6cf; }
+    #world svg { position: absolute; left: 0; top: 0; }
+    .city { position: absolute; font-size: 64px; font-weight: 700; color: #7c5d3a; transform: translate(-50%, -50%); white-space: nowrap; }
+    .gulf { position: absolute; left: 1000px; top: 640px; font-size: 70px; font-weight: 600; color: #3f7f8f; letter-spacing: 0; transform: rotate(-24deg); white-space: nowrap; }
+    .lbl { position: absolute; font-size: 54px; font-weight: 700; color: #0b1220; background: #ffffff; border-radius: 20px; padding: 6px 26px 12px; box-shadow: 0 16px 30px rgba(15,23,42,.18); white-space: nowrap; opacity: 0; }
+    #hub { position: absolute; left: 1490px; top: 310px; width: 220px; height: 220px; border-radius: 54px; box-shadow: 0 0 0 18px rgba(20,184,166,.25); }
+    #hud { position: absolute; inset-inline-start: 70px; top: 60px; background: #ffffff; border-radius: 28px; padding: 22px 40px 26px; box-shadow: 0 24px 50px rgba(15,23,42,.16); min-width: 620px; }
+    #hud .l { font-size: 34px; font-weight: 600; color: #475569; }
+    #hud .n { font-size: 92px; font-weight: 700; line-height: 1.1; direction: ltr; text-align: start; font-variant-numeric: tabular-nums; }
+    #hud .n small { font-size: 40px; color: #64748b; margin-inline-start: 12px; }
+    #hud-b { position: absolute; inset: 22px 40px 26px; opacity: 0; }
+    #clock { position: absolute; inset-inline-end: 70px; top: 60px; background: #0f766e; color: #ffffff; border-radius: 28px; padding: 18px 44px 24px; text-align: center; box-shadow: 0 24px 50px rgba(15,118,110,.35); opacity: 0; }
+    #clock-t { font-size: 96px; font-weight: 700; line-height: 1.1; direction: ltr; font-variant-numeric: tabular-nums; }
+    #clock .s { font-size: 32px; font-weight: 600; color: #99f6e4; }
+    #po-line { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: #0b1220; display: flex; align-items: center; justify-content: center; font-size: 70px; font-weight: 700; color: #ffffff; }
+    #po-line .k { color: #5eead4; }
+  </style>
+  <div id="root" data-composition-id="map" data-width="1920" data-height="1080">
+   <div id="mapwrap" style="position:absolute;inset:0">
+    <div id="world" class="clip" data-start="0" data-duration="51.26">
+      <svg width="3200" height="1800" viewBox="0 0 3200 1800"><path d="M0,0 H3200 V260 C2900,380 2560,560 2250,740 C1950,900 1550,1080 1150,1250 C820,1390 480,1500 0,1640 Z" fill="#cfe6ec" stroke="#b8d8e0" stroke-width="10"/></svg>
+      <div class="gulf">الخليج العربي</div>
+      <div class="city" style="left:2640px;top:860px">الشارقة</div><div class="city" style="left:2050px;top:1240px">دبي</div><div class="city" style="left:560px;top:1520px">أبوظبي</div>
+      <svg width="3200" height="1800" viewBox="0 0 3200 1800"><path class="ln" id="ln-sharjah" d="M1600,420 Q2040.0,160 2480,590" fill="none" stroke="#14b8a6" stroke-width="10" stroke-linecap="butt" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><path class="ln" id="ln-deira" d="M1600,420 Q1885.0,160 2170,750" fill="none" stroke="#14b8a6" stroke-width="10" stroke-linecap="butt" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><path class="ln" id="ln-bbay" d="M1600,420 Q1780.0,160 1960,900" fill="none" stroke="#14b8a6" stroke-width="10" stroke-linecap="butt" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><path class="ln" id="ln-alquoz" d="M1600,420 Q1695.0,160 1790,1000" fill="none" stroke="#14b8a6" stroke-width="10" stroke-linecap="butt" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><path class="ln" id="ln-mussafah" d="M1600,420 Q1160.0,160 720,1550" fill="none" stroke="#14b8a6" stroke-width="10" stroke-linecap="butt" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><g class="dot" id="dot0" transform="translate(2420 760)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot1" transform="translate(2540 790)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot2" transform="translate(2230 930)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot3" transform="translate(2100 800)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot4" transform="translate(2020 1090)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot5" transform="translate(1880 980)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot6" transform="translate(1730 1180)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot7" transform="translate(1850 1190)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot8" transform="translate(660 1720)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot9" transform="translate(800 1700)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot10" transform="translate(2600 720)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot11" transform="translate(1690 1060)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot12" transform="translate(2300 880)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g class="dot" id="dot13" transform="translate(760 1600)"><circle class="dr" r="22" fill="#e11d48" stroke="#ffffff" stroke-width="6"/><circle class="dg" r="22" fill="#059669" stroke="#ffffff" stroke-width="6" opacity="0"/></g><g id="pin-sharjah" class="pin" transform="translate(2480 700)"><g class="pin-body"><path class="pr" d="M0,0 C-34,-52 -52,-74 -52,-104 A52,52 0 1 1 52,-104 C52,-74 34,-52 0,0 Z" fill="#e11d48"/><path class="pg" d="M0,0 C-34,-52 -52,-74 -52,-104 A52,52 0 1 1 52,-104 C52,-74 34,-52 0,0 Z" fill="#059669" opacity="0"/><circle cx="0" cy="-104" r="20" fill="#f1f5f9"/></g></g><g id="pin-deira" class="pin" transform="translate(2170 860)"><g class="pin-body"><path class="pr" d="M0,0 C-34,-52 -52,-74 -52,-104 A52,52 0 1 1 52,-104 C52,-74 34,-52 0,0 Z" fill="#e11d48"/><path class="pg" d="M0,0 C-34,-52 -52,-74 -52,-104 A52,52 0 1 1 52,-104 C52,-74 34,-52 0,0 Z" fill="#059669" opacity="0"/><circle cx="0" cy="-104" r="20" fill="#f1f5f9"/></g></g><g id="pin-bbay" class="pin" transform="translate(1960 1010)"><g class="pin-body"><path class="pr" d="M0,0 C-34,-52 -52,-74 -52,-104 A52,52 0 1 1 52,-104 C52,-74 34,-52 0,0 Z" fill="#e11d48"/><path class="pg" d="M0,0 C-34,-52 -52,-74 -52,-104 A52,52 0 1 1 52,-104 C52,-74 34,-52 0,0 Z" fill="#059669" opacity="0"/><circle cx="0" cy="-104" r="20" fill="#f1f5f9"/></g></g><g id="pin-alquoz" class="pin" transform="translate(1790 1110)"><g class="pin-body"><path class="pr" d="M0,0 C-34,-52 -52,-74 -52,-104 A52,52 0 1 1 52,-104 C52,-74 34,-52 0,0 Z" fill="#e11d48"/><path class="pg" d="M0,0 C-34,-52 -52,-74 -52,-104 A52,52 0 1 1 52,-104 C52,-74 34,-52 0,0 Z" fill="#059669" opacity="0"/><circle cx="0" cy="-104" r="20" fill="#f1f5f9"/></g></g><g id="pin-mussafah" class="pin" transform="translate(720 1660)"><g class="pin-body"><path class="pr" d="M0,0 C-34,-52 -52,-74 -52,-104 A52,52 0 1 1 52,-104 C52,-74 34,-52 0,0 Z" fill="#e11d48"/><path class="pg" d="M0,0 C-34,-52 -52,-74 -52,-104 A52,52 0 1 1 52,-104 C52,-74 34,-52 0,0 Z" fill="#059669" opacity="0"/><circle cx="0" cy="-104" r="20" fill="#f1f5f9"/></g></g></svg>
+      <img id="hub" src="assets/mark.png" alt="Tahselly" />
+      <div class="lbl" id="lbl-sharjah" style="left:2550px;top:550px">الشارقة الصناعية</div><div class="lbl" id="lbl-deira" style="left:2240px;top:710px">ديرة</div><div class="lbl" id="lbl-bbay" style="right:1310px;top:860px">الخليج التجاري</div><div class="lbl" id="lbl-alquoz" style="right:1480px;top:960px">القوز</div><div class="lbl" id="lbl-mussafah" style="left:790px;top:1510px">مصفّح</div>
+    </div>
+    <div id="hud" class="clip" data-start="0" data-duration="51.26">
+      <div id="hud-a"><div class="l">فواتير متأخرة</div><div class="n" style="color:#e11d48"><span id="hud-num">0</span><small>درهم</small></div></div>
+      <div id="hud-b"><div class="l">حُصّلت بعد التذكير (30 يوماً)</div><div class="n" style="color:#059669"><span id="hud-col">0</span><small>درهم</small></div></div>
+    </div>
+    <div id="clock" class="clip" data-start="0" data-duration="51.26"><div id="clock-t">08:45</div><div class="s">الجولة اليومية</div></div>
+    <div id="po-line" class="clip" data-start="0" data-duration="51.26"><div>دبّوس بعد دبّوس، <span class="k">الخريطة تخضرّ.</span></div></div>
+   </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.set('#world', { x: 0.0, y: 0.0, scale: 0.6 }, 0);
+    tl.set('#po-line', { y: 150 }, 0);
+    tl.fromTo('#world', { x: 0.0, y: 0.0, scale: 0.6 }, { ...{ x: -320.0, y: -160.0, scale: 0.7 }, duration: 7.84, ease: 'none' }, 0);
+    tl.fromTo('.pin-body', { scale: 1, transformOrigin: '50% 100%' }, { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1, stagger: 0.12 }, 0.9);
+    tl.fromTo('#hud', { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out' }, 0.6);
+    const ov = { v: 0 }; tl.to(ov, { v: 167370, duration: 3.20, ease: 'power2.out', onUpdate: () => { document.getElementById('hud-num').textContent = Math.round(ov.v).toLocaleString('en-US'); } }, 0.8);
+    tl.to('#world', { ...{ x: -1535.5, y: -380.0, scale: 1.15 }, duration: 0.7, ease: 'expo.inOut' }, 7.94);
+    tl.fromTo('#lbl-deira', { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' }, 8.39);
+    tl.to('#world', { ...{ x: -1098.5, y: -667.5, scale: 1.15 }, duration: 0.7, ease: 'expo.inOut' }, 9.28);
+    tl.fromTo('#lbl-alquoz', { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' }, 9.73);
+    tl.to('#world', { ...{ x: -1760.0, y: -196.0, scale: 1.15 }, duration: 0.7, ease: 'expo.inOut' }, 10.63);
+    tl.fromTo('#lbl-sharjah', { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' }, 11.08);
+    tl.to('#world', { ...{ x: 0.0, y: -990.0, scale: 1.15 }, duration: 0.7, ease: 'expo.inOut' }, 12.30);
+    tl.fromTo('#lbl-mussafah', { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' }, 12.75);
+    tl.to('#world', { ...{ x: 0.0, y: 0.0, scale: 0.6 }, duration: 0.8, ease: 'expo.inOut' }, 13.55);
+    tl.fromTo('#lbl-bbay', { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' }, 13.78);
+    tl.fromTo('.dot', { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.3, ease: 'back.out(2)', stagger: 0.09 }, 14.02);
+    tl.fromTo('#clock', { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: 'back.out(1.7)' }, 16.37);
+    const cl = { m: 0 }; tl.fromTo(cl, { m: 525 }, { m: 540, duration: 0.9, ease: 'power2.out', onUpdate: () => { const m = Math.round(cl.m); document.getElementById('clock-t').textContent = String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); } }, 16.47);
+    tl.fromTo('#hub', { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.5, ease: 'back.out(1.8)' }, 17.37);
+    tl.to('.ln', { strokeDashoffset: 0, duration: 0.7, ease: 'power2.inOut', stagger: 0.12 }, 17.77);
+    tl.to('#world', { ...{ x: -129240.0, y: -44820.0, scale: 60 }, duration: 0.75, ease: 'expo.in' }, 21.49);
+    tl.set('#mapwrap', { opacity: 0 }, 22.24); tl.set('#mapwrap', { opacity: 1 }, 28.64);
+    tl.to('#world', { ...{ x: -2512.0, y: -740.0, scale: 1.6 }, duration: 0.45, ease: 'expo.out' }, 28.64);
+    tl.to('#world', { ...{ x: -106440.0, y: -59820.0, scale: 60 }, duration: 0.75, ease: 'expo.in' }, 29.19);
+    tl.set('#mapwrap', { opacity: 0 }, 29.94); tl.set('#mapwrap', { opacity: 1 }, 37.64);
+    tl.to('#world', { ...{ x: -1904.0, y: -1140.0, scale: 1.6 }, duration: 0.45, ease: 'expo.out' }, 37.64);
+    tl.to('#world', { ...{ x: -116640.0, y: -53820.0, scale: 60 }, duration: 0.75, ease: 'expo.in' }, 38.19);
+    tl.set('#mapwrap', { opacity: 0 }, 38.94); tl.set('#mapwrap', { opacity: 1 }, 45.94);
+    tl.to(['#hud', '#clock', '.lbl'], { opacity: 0, duration: 0.25 }, 21.89);
+    tl.to(['#hud', '#clock', '.lbl'], { opacity: 1, duration: 0.3 }, 46.04);
+    tl.to('#world', { ...{ x: 0.0, y: 0.0, scale: 0.6 }, duration: 0.9, ease: 'expo.out' }, 45.94);
+    tl.to('#hud-a', { opacity: 0, duration: 0.2 }, 46.24);
+    tl.fromTo('#hud-b', { opacity: 0 }, { opacity: 1, duration: 0.25 }, 46.39);
+    const co = { v: 0 }; tl.to(co, { v: 177980, duration: 2.2, ease: 'power2.out', onUpdate: () => { document.getElementById('hud-col').textContent = Math.round(co.v).toLocaleString('en-US'); } }, 46.44);
+    tl.to('#pin-mussafah .pr', { opacity: 0, duration: 0.15 }, 46.54); tl.to('#pin-mussafah .pg', { opacity: 1, duration: 0.15 }, 46.54);
+    tl.fromTo('#pin-mussafah .pin-body', { scale: 1 }, { scale: 1.25, duration: 0.15, yoyo: true, repeat: 1, transformOrigin: '50% 100%' }, 46.54);
+    tl.to('#pin-alquoz .pr', { opacity: 0, duration: 0.15 }, 46.86); tl.to('#pin-alquoz .pg', { opacity: 1, duration: 0.15 }, 46.86);
+    tl.fromTo('#pin-alquoz .pin-body', { scale: 1 }, { scale: 1.25, duration: 0.15, yoyo: true, repeat: 1, transformOrigin: '50% 100%' }, 46.86);
+    tl.to('#pin-bbay .pr', { opacity: 0, duration: 0.15 }, 47.18); tl.to('#pin-bbay .pg', { opacity: 1, duration: 0.15 }, 47.18);
+    tl.fromTo('#pin-bbay .pin-body', { scale: 1 }, { scale: 1.25, duration: 0.15, yoyo: true, repeat: 1, transformOrigin: '50% 100%' }, 47.18);
+    tl.to('#pin-deira .pr', { opacity: 0, duration: 0.15 }, 47.50); tl.to('#pin-deira .pg', { opacity: 1, duration: 0.15 }, 47.50);
+    tl.fromTo('#pin-deira .pin-body', { scale: 1 }, { scale: 1.25, duration: 0.15, yoyo: true, repeat: 1, transformOrigin: '50% 100%' }, 47.50);
+    tl.to('#pin-sharjah .pr', { opacity: 0, duration: 0.15 }, 47.82); tl.to('#pin-sharjah .pg', { opacity: 1, duration: 0.15 }, 47.82);
+    tl.fromTo('#pin-sharjah .pin-body', { scale: 1 }, { scale: 1.25, duration: 0.15, yoyo: true, repeat: 1, transformOrigin: '50% 100%' }, 47.82);
+    tl.to('.dr', { opacity: 0, duration: 0.12, stagger: 0.07 }, 46.74); tl.to('.dg', { opacity: 1, duration: 0.12, stagger: 0.07 }, 46.74);
+    tl.fromTo('#po-line', { y: 150 }, { y: 0, duration: 0.45, ease: 'power3.out' }, 47.84);
+    window.__timelines["map"] = tl;
+  </script>
+</template>

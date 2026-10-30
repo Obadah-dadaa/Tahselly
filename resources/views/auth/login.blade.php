@@ -14,7 +14,7 @@
     <div class="flex items-center justify-center px-6 py-12">
         <div class="w-full max-w-sm">
             <a href="{{ route('landing') }}" class="mb-10 flex items-center gap-3">
-                <span class="grid size-11 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-xl font-bold text-white">{{ __('ت') }}</span>
+                <x-brand-mark class="size-11" />
                 <span class="text-2xl font-bold text-ink">{{ __(\App\Models\SystemSetting::get('app_name', 'تحصيلي')) }}</span>
             </a>
             <x-preference-switches class="-mt-6 mb-8" />

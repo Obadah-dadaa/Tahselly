@@ -6,7 +6,7 @@
 <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 12px">
     <tr><td align="center">
         <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;max-width:100%">
-            <tr><td style="background:#0f766e;padding:20px 28px;color:#fff;font-size:18px;font-weight:bold">{{ __('تحصيلي') }}</td></tr>
+            <tr><td style="background:#0f766e;padding:18px 28px;color:#fff;font-size:18px;font-weight:bold"><img src="{{ asset('icon-192.png') }}" width="30" height="30" alt="" style="vertical-align:middle;border:0;margin-inline-end:10px">{{ __('تحصيلي') }}</td></tr>
             <tr><td style="padding:28px;font-size:15px;line-height:1.9;text-align:{{ $rtl ? 'right' : 'left' }}">
                 <p style="margin:0 0 12px">{{ __('مرحباً :name،', ['name' => $name]) }}</p>
                 <p style="margin:0 0 6px;font-size:18px;font-weight:bold">{{ $title }}</p>

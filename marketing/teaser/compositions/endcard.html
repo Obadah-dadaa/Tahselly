@@ -1,0 +1,55 @@
+<template>
+  <style>
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; direction: rtl; font-family: "Plex Arabic"; background: #f1f5f9; }
+    .red { color: #e11d48; } .k { color: #14b8a6; }
+    .chip { display: inline-block; font-size: 30px; font-weight: 600; color: #0b1220; background: #ffffff; border-radius: 999px; padding: 6px 26px; box-shadow: 0 10px 24px rgba(15,23,42,.12); }
+    .title { position: absolute; inset-inline-start: 120px; bottom: 70px; background: #ffffff; border-radius: 28px; padding: 18px 44px 26px; box-shadow: 0 24px 50px rgba(15,23,42,.16); }
+    .title .t { font-size: 76px; font-weight: 700; color: #0b1220; line-height: 1.25; white-space: nowrap; }
+    .shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; transform-origin: 0 0; }
+    .cursor { position: absolute; width: 70px; height: 70px; left: 0; top: 0; }
+
+    #ec-field { position: absolute; inset: 0; background: #0f766e; }
+    #ec-lockup { position: absolute; left: 0; right: 0; top: 200px; display: flex; align-items: center; justify-content: center; gap: 44px; }
+    #ec-mark { width: 200px; height: 200px; border-radius: 48px; }
+    #ec-word { font-size: 180px; font-weight: 700; color: #ffffff; line-height: 1.15; padding-bottom: 28px; }
+    #ec-claim { position: absolute; left: 80px; right: 80px; top: 480px; text-align: center; font-size: 60px; font-weight: 600; color: #ccfbf1; }
+    #ec-price { position: absolute; left: 0; right: 0; top: 600px; text-align: center; font-size: 54px; font-weight: 700; color: #ffffff; }
+    #ec-cta-wrap { position: absolute; left: 0; right: 0; top: 720px; display: flex; justify-content: center; align-items: center; gap: 40px; }
+    #ec-cta { background: #ffffff; color: #0f766e; font-size: 50px; font-weight: 700; padding: 24px 60px; border-radius: 26px; box-shadow: 0 20px 40px rgba(4,47,46,.35); }
+    #ec-url { font-size: 50px; font-weight: 700; color: #ffffff; direction: ltr; }
+    #ec-aud { position: absolute; left: 0; right: 0; bottom: 80px; text-align: center; font-size: 32px; color: #99f6e4; }
+    
+  </style>
+  <div id="root" data-composition-id="endcard" data-width="1920" data-height="1080">
+
+    <div id="ec-field" class="clip" data-start="0" data-duration="9.44"></div>
+    <div id="ec-lockup" class="clip" data-start="0" data-duration="9.44"><img id="ec-mark" src="assets/mark.png" alt="Tahselly" /><div id="ec-word">تحصيلي</div></div>
+    <div id="ec-claim" class="clip" data-start="0" data-duration="9.44">يتابع فواتيرك، لتتفرّغ لعملك.</div>
+    <div id="ec-price" class="clip" data-start="0" data-duration="9.44" data-var-text="price">من 99 درهم شهرياً</div>
+    <div id="ec-cta-wrap" class="clip" data-start="0" data-duration="9.44"><div id="ec-cta" data-var-text="cta">جرّبه مجاناً 14 يوماً</div><div id="ec-url">tahselly.com</div></div>
+    <div id="ec-aud" class="clip" data-start="0" data-duration="9.44">شركات التجارة · الصيانة · الوكالات · مكاتب المحاسبة · الخدمات</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 9.44;
+    // camera helper: put screenshot point (fx, fy) at the frame centre at scale s
+    const cam = (fx, fy, s) => ({ x: 960 - fx * s, y: 540 - fy * s, scale: s });
+
+    tl.fromTo('#ec-field', { clipPath: 'circle(0% at 50% 50%)' }, { clipPath: 'circle(75% at 50% 50%)', duration: 0.6, ease: 'expo.inOut' }, 0);
+    tl.fromTo('#ec-mark', { scale: 0, rotation: -25 }, { scale: 1, rotation: 0, duration: 0.55, ease: 'back.out(1.8)' }, 0.2);
+    tl.fromTo('#ec-word', { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6, ease: 'power3.out' }, 0.4);
+    tl.fromTo('#ec-claim', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 1.4);
+    tl.fromTo('#ec-price', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 4.53);
+    tl.fromTo('#ec-cta-wrap', { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.6)' }, 5.77);
+    tl.fromTo('#ec-aud', { opacity: 0 }, { opacity: 1, duration: 0.5 }, 6.59);
+    
+    window.__timelines["endcard"] = tl;
+  </script>
+</template>

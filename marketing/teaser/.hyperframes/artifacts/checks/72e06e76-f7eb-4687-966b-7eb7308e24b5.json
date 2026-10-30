@@ -1,0 +1,914 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 6 overlap (assets/sfx/riser.mp3 at 47.37-57.4s, assets/sfx/pop.mp3 at 49.67-50.39s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Multiple audible <audio>/<video> elements on track 6 overlap (assets/sfx/riser.mp3 at 47.37-57.4s, assets/sfx/whoosh.mp3 at 54.49-55.06s). This causes layered audio playback.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use non-overlapping time windows or different track indices."
+      }
+    ],
+    "filesScanned": 9
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 2,
+    "warningCount": 0,
+    "infoCount": 6,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 10.663,
+        "selector": "#h-p3 > div:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 272.13,
+          "top": 54,
+          "right": 578,
+          "bottom": 334.8,
+          "width": 305.87,
+          "height": 280.8
+        },
+        "containerSelector": "#h-p3 > div:nth-of-type(2)",
+        "text": "الخليج التجاري",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/hook.html",
+        "bbox": {
+          "x": 272.13,
+          "y": 54,
+          "width": 305.87,
+          "height": 280.8
+        },
+        "firstSeen": 5.361,
+        "lastSeen": 12.867,
+        "occurrences": 23,
+        "heldMs": 7506.000000000001,
+        "times": [
+          5.361,
+          5.719,
+          6.076,
+          6.434,
+          6.791,
+          7.149,
+          7.506,
+          7.863,
+          8.221,
+          8.578,
+          8.936,
+          9.293,
+          9.651,
+          10.008,
+          10.365,
+          10.663,
+          10.723,
+          11.08,
+          11.438,
+          11.795,
+          12.153,
+          12.51,
+          12.867
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 53.317,
+        "selector": "#po-p3 > div:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 272.13,
+          "top": 54,
+          "right": 578,
+          "bottom": 334.8,
+          "width": 305.87,
+          "height": 280.8
+        },
+        "containerSelector": "#po-p3 > div:nth-of-type(2)",
+        "text": "الخليج التجاري",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 272.13,
+          "y": 54,
+          "width": 305.87,
+          "height": 280.8
+        },
+        "firstSeen": 48.611,
+        "lastSeen": 54.329,
+        "occurrences": 18,
+        "heldMs": 5718.000000000004,
+        "times": [
+          48.611,
+          48.968,
+          49.325,
+          49.683,
+          50.04,
+          50.398,
+          50.755,
+          51.113,
+          51.47,
+          51.827,
+          52.185,
+          52.542,
+          52.9,
+          53.257,
+          53.317,
+          53.615,
+          53.972,
+          54.329
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 3.554,
+        "selector": "#h-banner",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 0,
+          "top": 1080,
+          "right": 1920,
+          "bottom": 1230,
+          "width": 1920,
+          "height": 150
+        },
+        "containerSelector": "#hook > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "bottom": 150
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "13.08"
+        },
+        "sourceFile": "compositions/hook.html",
+        "bbox": {
+          "x": 0,
+          "y": 1080,
+          "width": 1920,
+          "height": 150
+        },
+        "firstSeen": 3.554,
+        "lastSeen": 3.554,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          3.554
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 24.881,
+        "selector": "#tr-shot",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1200,
+          "width": 1920,
+          "height": 1200
+        },
+        "containerSelector": "#tr-wrap",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "bottom": 120
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "tr-shot",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/trading.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1200
+        },
+        "firstSeen": 24.881,
+        "lastSeen": 24.881,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          24.881
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 26.092,
+        "selector": "#tr-file",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 1356.05,
+          "top": 843.71,
+          "right": 1690.15,
+          "bottom": 894.71,
+          "width": 334.1,
+          "height": 51
+        },
+        "containerSelector": "#tr-title > div:nth-of-type(1)",
+        "text": "XLS invoices-october.xlsx",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/trading.html",
+        "bbox": {
+          "x": 1356.05,
+          "y": 843.71,
+          "width": 334.1,
+          "height": 51
+        },
+        "firstSeen": 26.092,
+        "lastSeen": 26.092,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          26.092
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 31.99,
+        "selector": "#mt-shot",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -134.22,
+          "top": 1.15,
+          "right": 1963.77,
+          "bottom": 1312.39,
+          "width": 2097.98,
+          "height": 1311.24
+        },
+        "containerSelector": "#mt-wrap",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 134.22,
+          "right": 43.77,
+          "bottom": 232.39
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "mt-shot",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/upkeep.html",
+        "bbox": {
+          "x": -134.22,
+          "y": 1.15,
+          "width": 2097.98,
+          "height": 1311.24
+        },
+        "firstSeen": 31.99,
+        "lastSeen": 31.99,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          31.99
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 46.208,
+        "selector": "#ag-shot",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 538.5,
+          "top": -439.5,
+          "right": 3418.5,
+          "bottom": 1360.5,
+          "width": 2880,
+          "height": 1800
+        },
+        "containerSelector": "#ag-wrap",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 1498.5,
+          "top": 439.5,
+          "bottom": 280.5
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "ag-shot",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/agency.html",
+        "bbox": {
+          "x": 538.5,
+          "y": -439.5,
+          "width": 2880,
+          "height": 1800
+        },
+        "firstSeen": 46.208,
+        "lastSeen": 46.208,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          46.208
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 46.208,
+        "selector": "#ag-shot",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 538.5,
+          "top": -439.5,
+          "right": 3418.5,
+          "bottom": 1360.5,
+          "width": 2880,
+          "height": 1800
+        },
+        "containerSelector": "#ag-wrap",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "ag-shot",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/agency.html",
+        "bbox": {
+          "x": 538.5,
+          "y": -439.5,
+          "width": 2880,
+          "height": 1800
+        },
+        "firstSeen": 46.208,
+        "lastSeen": 46.208,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          46.208
+        ]
+      }
+    ],
+    "duration": 63.98,
+    "samples": [
+      3.554,
+      10.663,
+      17.772,
+      24.881,
+      31.99,
+      39.099,
+      46.208,
+      53.317,
+      60.426
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 8,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.45:1; WCAG AA requires 3:1.",
+        "text": "لم يُرَد",
+        "fg": "rgb(148,163,184)",
+        "bg": "rgb(248,250,252)",
+        "ratio": 2.45,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(133,146,165)",
+        "large": true,
+        "selector": "div > div:nth-of-type(3) > div > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tension.html",
+        "bbox": {
+          "x": 1504.71875,
+          "y": 303,
+          "width": 111.28125,
+          "height": 48
+        },
+        "time": 17.772,
+        "times": [
+          17.772
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.45:1; WCAG AA requires 3:1.",
+        "text": "✓ لم تُقرأ",
+        "fg": "rgb(148,163,184)",
+        "bg": "rgb(248,250,252)",
+        "ratio": 2.45,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(133,146,165)",
+        "large": true,
+        "selector": "div > div:nth-of-type(3) > div > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tension.html",
+        "bbox": {
+          "x": 1047.921875,
+          "y": 511,
+          "width": 568.078125,
+          "height": 48
+        },
+        "time": 17.772,
+        "times": [
+          17.772
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      3.554,
+      17.772,
+      31.99,
+      46.208,
+      60.426
+    ],
+    "checked": 28,
+    "passed": 26
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 10,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 3 text elements stay under it for 0.5 s or more, the smallest \"AED\" at 26 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "AED",
+        "selector": "#h-p1-inv > div:nth-of-type(3) > div:nth-of-type(1) > small:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/hook.html",
+        "bbox": {
+          "x": 1786.28,
+          "y": 832.87,
+          "width": 51.72,
+          "height": 39
+        },
+        "time": 0.75,
+        "times": [
+          0.75,
+          3.124,
+          5.248
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 12.371,
+        "elements": [
+          {
+            "selector": "#h-p1-inv > div:nth-of-type(3) > div:nth-of-type(1) > small:nth-of-type(1)",
+            "text": "AED",
+            "fontPx": 26,
+            "time": 0.75,
+            "seconds": 12.371
+          },
+          {
+            "selector": "#h-p2-inv > div:nth-of-type(3) > div:nth-of-type(1) > small:nth-of-type(1)",
+            "text": "AED",
+            "fontPx": 26,
+            "time": 3.124,
+            "seconds": 9.997
+          },
+          {
+            "selector": "#h-p3-inv > div:nth-of-type(3) > div:nth-of-type(1) > small:nth-of-type(1)",
+            "text": "AED",
+            "fontPx": 26,
+            "time": 5.248,
+            "seconds": 7.873
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 4.00 s (5.62–9.62 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 5.623,
+        "seconds": 3.999,
+        "floorSeconds": 3,
+        "until": 9.622
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 3.62 s (20.87–24.49 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 20.868,
+        "seconds": 3.624,
+        "floorSeconds": 3,
+        "until": 24.492
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 6 text elements stay under it for 0.5 s or more, the smallest \"XLS\" at 26 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "XLS",
+        "selector": "div.x",
+        "dataAttributes": {},
+        "sourceFile": "compositions/trading.html",
+        "bbox": {
+          "x": 1313.23,
+          "y": 867.5,
+          "width": 47.52,
+          "height": 39
+        },
+        "time": 25.867,
+        "times": [
+          25.867,
+          27.991,
+          28.116,
+          28.241,
+          28.491,
+          28.616
+        ],
+        "fontPx": 25.57,
+        "floorPx": 28,
+        "seconds": 1.25,
+        "elements": [
+          {
+            "selector": "div.x",
+            "text": "XLS",
+            "fontPx": 25.57,
+            "time": 25.867,
+            "seconds": 1.25
+          },
+          {
+            "selector": "#tr-card > div:nth-of-type(2) > span:nth-of-type(4)",
+            "text": "متأخرة · 123 يوم",
+            "fontPx": 26,
+            "time": 27.991,
+            "seconds": 3.249
+          },
+          {
+            "selector": "#tr-card > div:nth-of-type(3) > span:nth-of-type(4)",
+            "text": "متأخرة · 119 يوم",
+            "fontPx": 26,
+            "time": 28.116,
+            "seconds": 3.124
+          },
+          {
+            "selector": "#tr-card > div:nth-of-type(4) > span:nth-of-type(4)",
+            "text": "متأخرة · 89 يوم",
+            "fontPx": 26,
+            "time": 28.241,
+            "seconds": 2.999
+          },
+          {
+            "selector": "#tr-card > div:nth-of-type(5) > span:nth-of-type(4)",
+            "text": "متأخرة · 82 يوم",
+            "fontPx": 26,
+            "time": 28.491,
+            "seconds": 2.749
+          },
+          {
+            "selector": "#tr-card > div:nth-of-type(6) > span:nth-of-type(4)",
+            "text": "متأخرة · 70 يوم",
+            "fontPx": 26,
+            "time": 28.616,
+            "seconds": 2.624
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 8 text elements stay under it for 0.5 s or more, the smallest \"+971563334455\" at 24 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "+971563334455",
+        "selector": "#wa-card > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/upkeep.html",
+        "bbox": {
+          "x": 1561.36,
+          "y": 255.2,
+          "width": 187.2,
+          "height": 36
+        },
+        "time": 34.489,
+        "times": [
+          34.489,
+          34.489,
+          34.614,
+          34.614,
+          34.614,
+          34.614,
+          34.739,
+          34.739
+        ],
+        "fontPx": 24,
+        "floorPx": 28,
+        "seconds": 5.873,
+        "elements": [
+          {
+            "selector": "#wa-card > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "+971563334455",
+            "fontPx": 24,
+            "time": 34.489,
+            "seconds": 5.873
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "+971525556677",
+            "fontPx": 24,
+            "time": 34.614,
+            "seconds": 5.748
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "+971525556677",
+            "fontPx": 24,
+            "time": 34.614,
+            "seconds": 5.748
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "+971507778899",
+            "fontPx": 24,
+            "time": 34.739,
+            "seconds": 5.623
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "إنذار نهائي",
+            "fontPx": 26,
+            "time": 34.489,
+            "seconds": 5.873
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(3) > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "إنذار نهائي",
+            "fontPx": 26,
+            "time": 34.614,
+            "seconds": 5.748
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(4) > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "إنذار نهائي",
+            "fontPx": 26,
+            "time": 34.614,
+            "seconds": 5.748
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(5) > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "إنذار نهائي",
+            "fontPx": 26,
+            "time": 34.739,
+            "seconds": 5.623
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 3.25 s (36.99–40.24 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 36.988,
+        "seconds": 3.249,
+        "floorSeconds": 3,
+        "until": 40.237
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 4.12 s (44.36–48.48 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 44.361,
+        "seconds": 4.124,
+        "floorSeconds": 3,
+        "until": 48.485
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"متأخرة · 62 يوم\" (3 words) is on screen 0.63 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "متأخرة · 62 يوم",
+        "selector": "#po-p1-pill > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 1341.08,
+          "y": 822.15,
+          "width": 197.16000000000008,
+          "height": 47.200000000000045
+        },
+        "time": 48.602,
+        "words": 3,
+        "seconds": 0.633,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 3 text elements stay under it for 0.5 s or more, the smallest \"AED\" at 26 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "AED",
+        "selector": "#po-p1-inv > div:nth-of-type(3) > div:nth-of-type(1) > small:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/payoff.html",
+        "bbox": {
+          "x": 1826.69,
+          "y": 833.69,
+          "width": 54.24,
+          "height": 40.91
+        },
+        "time": 48.61,
+        "times": [
+          48.61,
+          48.61,
+          48.61
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 5.998,
+        "elements": [
+          {
+            "selector": "#po-p1-inv > div:nth-of-type(3) > div:nth-of-type(1) > small:nth-of-type(1)",
+            "text": "AED",
+            "fontPx": 26,
+            "time": 48.61,
+            "seconds": 5.998
+          },
+          {
+            "selector": "#po-p2-inv > div:nth-of-type(3) > div:nth-of-type(1) > small:nth-of-type(1)",
+            "text": "AED",
+            "fontPx": 26,
+            "time": 48.61,
+            "seconds": 5.998
+          },
+          {
+            "selector": "#po-p3-inv > div:nth-of-type(3) > div:nth-of-type(1) > small:nth-of-type(1)",
+            "text": "AED",
+            "fontPx": 26,
+            "time": 48.61,
+            "seconds": 5.998
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 3.25 s (51.23–54.48 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 51.234,
+        "seconds": 3.249,
+        "floorSeconds": 3,
+        "until": 54.483
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 512
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

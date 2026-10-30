@@ -1,0 +1,86 @@
+<template>
+  <style>
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #f1f5f9; }
+    .red { color: #e11d48; } .k { color: #14b8a6; }
+    .chip { display: inline-block; font-size: 30px; font-weight: 600; color: #0b1220; background: #ffffff; border-radius: 999px; padding: 6px 26px; box-shadow: 0 10px 24px rgba(15,23,42,.12); }
+    .title { position: absolute; inset-inline-start: 120px; bottom: 70px; background: #ffffff; border-radius: 28px; padding: 18px 44px 26px; box-shadow: 0 24px 50px rgba(15,23,42,.16); }
+    .title .t { font-size: 76px; font-weight: 700; color: #0b1220; line-height: 1.25; white-space: nowrap; }
+    .shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; transform-origin: 0 0; }
+    .cursor { position: absolute; width: 70px; height: 70px; left: 0; top: 0; }
+
+    #mt-wrap { position: absolute; inset: 0; overflow: hidden; }
+    #mt-list { position: absolute; inset: 0; background: #f1f5f9; }
+    #wa-card { position: absolute; left: 110px; right: 110px; top: 60px; background: #ffffff; border-radius: 28px; box-shadow: 0 30px 60px rgba(15,23,42,.12); overflow: hidden; }
+    #wa-card .hd { display: flex; align-items: center; justify-content: space-between; gap: 30px; background: #f0fdf4; padding: 26px 40px; border-bottom: 1px solid #dcfce7; }
+    #wa-card .hd .l { display: flex; align-items: center; gap: 24px; }
+    #wa-card .ic { width: 84px; height: 84px; border-radius: 22px; background: #25D366; display: grid; place-items: center; }
+    #wa-card h3 { font-size: 42px; font-weight: 700; color: #0b1220; }
+    #wa-card .sub { font-size: 28px; color: #64748b; margin-top: 2px; }
+    #wa-all { display: inline-flex; align-items: center; gap: 12px; background: #25D366; color: #fff; font-size: 36px; font-weight: 700; padding: 16px 38px; border-radius: 20px; white-space: nowrap; }
+    .wa-row { display: flex; align-items: center; justify-content: space-between; padding: 22px 40px; border-bottom: 1px solid #f1f5f9; }
+    .wa-row .nm { font-size: 36px; font-weight: 700; color: #0b1220; direction: ltr; text-align: start; }
+    .wa-row .ph { font-size: 24px; font-weight: 400; color: #94a3b8; }
+    .wa-row .mt { font-size: 28px; color: #475569; margin-top: 4px; }
+    .wa-row .mt b { color: #0f766e; }
+    .wa-row .act { display: flex; align-items: center; gap: 24px; }
+    .wa-row .st { font-size: 26px; font-weight: 700; color: #be123c; background: #fff1f2; border-radius: 999px; padding: 4px 18px; }
+    .btns { display: grid; }
+    .btns > span { grid-area: 1 / 1; font-size: 32px; font-weight: 700; border-radius: 16px; padding: 12px 30px; text-align: center; white-space: nowrap; }
+    .snd { background: #25D366; color: #fff; }
+    .dn { color: #047857; background: #ecfdf5; opacity: 0; }
+    #mt-title .chip { background: #e2e8f0; margin-bottom: 8px; }
+    #mt-t2 { position: absolute; inset: 18px 44px auto; opacity: 0; }
+    
+  </style>
+  <div id="root" data-composition-id="upkeep" data-width="1920" data-height="1080">
+
+    <div id="mt-wrap" class="clip" data-start="0" data-duration="2.9"><img id="mt-shot" class="shot" src="assets/screens/whatsapp-today.png" alt="Reminders center" /></div>
+    <div id="mt-list" class="clip" data-start="2.9" data-duration="4.85">
+      <div id="wa-card">
+        <div class="hd"><div class="l"><div class="ic"><svg width="48" height="48" viewBox="0 0 24 24" fill="#ffffff"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.6.1a8.2 8.2 0 0 1-4.1-3.6c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.5zM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2z"/></svg></div>
+          <div><h3>WhatsApp reminders due today</h3><div class="sub">Each message ready with the client's name, amount and invoice</div></div></div>
+          <span id="wa-all"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Send all</span></div>
+        <div class="wa-row"><div><div class="nm">Emirates Fitness Club <span class="ph">+971563334455</span></div><div class="mt"><b>CH-2508</b> · 260.00 AED · due 20-08-2026</div></div>
+          <div class="act"><span class="st">Final notice</span><span class="btns"><span class="snd" id="wa-snd0">Send</span><span class="dn" id="wa-dn0">✓ Done</span></span></div></div>
+        <div class="wa-row"><div><div class="nm">Marina Dental Clinic <span class="ph">+971525556677</span></div><div class="mt"><b>CH-2418</b> · 5,150.00 AED · due 21-08-2026</div></div>
+          <div class="act"><span class="st">Final notice</span><span class="btns"><span class="snd" id="wa-snd1">Send</span><span class="dn" id="wa-dn1">✓ Done</span></span></div></div>
+        <div class="wa-row"><div><div class="nm">Marina Dental Clinic <span class="ph">+971525556677</span></div><div class="mt"><b>CH-2439</b> · 15,400.00 AED · due 19-07-2026</div></div>
+          <div class="act"><span class="st">Final notice</span><span class="btns"><span class="snd" id="wa-snd2">Send</span><span class="dn" id="wa-dn2">✓ Done</span></span></div></div>
+        <div class="wa-row"><div><div class="nm">Pearl Beauty Lounge <span class="ph">+971507778899</span></div><div class="mt"><b>CH-2401</b> · 6,640.00 AED · due 29-08-2026</div></div>
+          <div class="act"><span class="st">Final notice</span><span class="btns"><span class="snd" id="wa-snd3">Send</span><span class="dn" id="wa-dn3">✓ Done</span></span></div></div>
+      </div>
+      <svg class="cursor" id="mt-cursor" viewBox="0 0 24 24"><path d="M3 2l17 10-7.5 1.6L9 21z" fill="#ffffff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    </div>
+    <div id="mt-title" class="title clip" data-start="0" data-duration="7.75" data-layout-allow-occlusion><div class="chip">Maintenance firm · Al Quoz</div><div style="position:relative"><div class="t" id="mt-t1">Set the schedule once</div></div></div>
+    <div id="mt-title2" class="title clip" data-start="4.50" data-duration="3.25"><div class="chip">Maintenance firm · Al Quoz</div><div class="t">Email and WhatsApp, before and after due</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 7.75;
+    // camera helper: put screenshot point (fx, fy) at the frame centre at scale s
+    const cam = (fx, fy, s) => ({ x: 960 - fx * s, y: 540 - fy * s, scale: s });
+
+    tl.fromTo('#mt-shot', { x: 0, y: 0, scale: 1 }, { ...cam(787, 344, 1.55), duration: 0.8, ease: 'expo.inOut' }, 0.4);
+    tl.fromTo('#mt-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 0.15);
+    tl.fromTo('#wa-card', { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out' }, 2.9);
+    tl.fromTo('.wa-row', { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.1 }, 3.05);
+    // cursor comes in and presses Send all
+    tl.fromTo('#mt-cursor', { x: 960, y: 1100 }, { x: 1590, y: 140, duration: 0.7, ease: 'power2.inOut' }, 3.1);
+    tl.to('#wa-all', { scale: 0.92, duration: 0.08, yoyo: true, repeat: 1 }, 3.9);
+    tl.to('#mt-title', { opacity: 0, duration: 0.25 }, 4.25);
+    tl.fromTo('#mt-title2', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 4.5);
+    [0, 1, 2, 3].forEach(i => {
+      tl.to('#wa-snd' + i, { opacity: 0, duration: 0.15 }, 4.2 + i * 0.4);
+      tl.fromTo('#wa-dn' + i, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.7)' }, 4.2 + i * 0.4);
+    });
+    
+    window.__timelines["upkeep"] = tl;
+  </script>
+</template>

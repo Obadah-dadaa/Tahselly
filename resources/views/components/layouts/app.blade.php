@@ -61,7 +61,7 @@
     <aside class="fixed inset-y-0 start-0 z-40 w-68 overflow-y-auto bg-night px-4 py-6 transition ltr:-translate-x-full rtl:translate-x-full lg:static lg:!translate-x-0"
            :class="menu && '!translate-x-0'">
         <a href="{{ route('home') }}" class="mb-8 flex items-center gap-3 px-2">
-            <span class="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-lg font-bold text-white shadow-lg shadow-brand-900/40">{{ __('ت') }}</span>
+            <x-brand-mark class="size-10 drop-shadow-lg" />
             <span>
                 <span class="block text-lg font-bold text-white">{{ $appName }}</span>
                 <span class="block text-xs text-slate-400">Invoice & Payment Reminder</span>

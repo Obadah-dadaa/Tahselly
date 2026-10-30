@@ -1,0 +1,2069 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 5,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "svg_round_cap_hidden_dash",
+        "severity": "warning",
+        "message": "<path> is hidden with stroke-dasharray 1 and stroke-dashoffset 1 on pathLength 1, but its round cap can still paint a dot at the end of the path (Chrome rounds the zero-length dash differently per curve).",
+        "selector": "#ln-sharjah",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly\\marketing\\map\\compositions\\map.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Make the gap longer than the path (stroke-dasharray \"1 1.2\" with stroke-dashoffset 1.1), or keep the element visibility:hidden until its draw tween starts."
+      },
+      {
+        "code": "svg_round_cap_hidden_dash",
+        "severity": "warning",
+        "message": "<path> is hidden with stroke-dasharray 1 and stroke-dashoffset 1 on pathLength 1, but its round cap can still paint a dot at the end of the path (Chrome rounds the zero-length dash differently per curve).",
+        "selector": "#ln-deira",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly\\marketing\\map\\compositions\\map.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Make the gap longer than the path (stroke-dasharray \"1 1.2\" with stroke-dashoffset 1.1), or keep the element visibility:hidden until its draw tween starts."
+      },
+      {
+        "code": "svg_round_cap_hidden_dash",
+        "severity": "warning",
+        "message": "<path> is hidden with stroke-dasharray 1 and stroke-dashoffset 1 on pathLength 1, but its round cap can still paint a dot at the end of the path (Chrome rounds the zero-length dash differently per curve).",
+        "selector": "#ln-bbay",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly\\marketing\\map\\compositions\\map.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Make the gap longer than the path (stroke-dasharray \"1 1.2\" with stroke-dashoffset 1.1), or keep the element visibility:hidden until its draw tween starts."
+      },
+      {
+        "code": "svg_round_cap_hidden_dash",
+        "severity": "warning",
+        "message": "<path> is hidden with stroke-dasharray 1 and stroke-dashoffset 1 on pathLength 1, but its round cap can still paint a dot at the end of the path (Chrome rounds the zero-length dash differently per curve).",
+        "selector": "#ln-alquoz",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly\\marketing\\map\\compositions\\map.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Make the gap longer than the path (stroke-dasharray \"1 1.2\" with stroke-dashoffset 1.1), or keep the element visibility:hidden until its draw tween starts."
+      },
+      {
+        "code": "svg_round_cap_hidden_dash",
+        "severity": "warning",
+        "message": "<path> is hidden with stroke-dasharray 1 and stroke-dashoffset 1 on pathLength 1, but its round cap can still paint a dot at the end of the path (Chrome rounds the zero-length dash differently per curve).",
+        "selector": "#ln-mussafah",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly\\marketing\\map\\compositions\\map.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Make the gap longer than the path (stroke-dasharray \"1 1.2\" with stroke-dashoffset 1.1), or keep the element visibility:hidden until its draw tween starts."
+      }
+    ],
+    "filesScanned": 6
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 18,
+    "warningCount": 3,
+    "infoCount": 13,
+    "findings": [
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "#world > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1602.19,
+          "top": 509.49,
+          "right": 1824.57,
+          "bottom": 621.61,
+          "width": 222.38,
+          "height": 112.12
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "الشارقة",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1602.19,
+          "y": 509.49,
+          "width": 222.38,
+          "height": 112.12
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "#world > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 976.14,
+          "top": 953.29,
+          "right": 1072.5,
+          "bottom": 1065.41,
+          "width": 96.35,
+          "height": 112.12
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "دبي",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 976.14,
+          "y": 953.29,
+          "width": 96.35,
+          "height": 112.12
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "#lbl-sharjah",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1638.64,
+          "top": 210.51,
+          "right": 2061.94,
+          "bottom": 305.11,
+          "width": 423.31,
+          "height": 94.6
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "الشارقة الصناعية",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.67,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1638.64,
+          "y": 210.51,
+          "width": 423.31,
+          "height": 94.6
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "#lbl-deira",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1276.59,
+          "top": 397.37,
+          "right": 1378.14,
+          "bottom": 491.97,
+          "width": 101.55,
+          "height": 94.6
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "ديرة",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1276.59,
+          "y": 397.37,
+          "width": 101.55,
+          "height": 94.6
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "#lbl-bbay",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1031.33,
+          "top": 572.56,
+          "right": 1390.49,
+          "bottom": 667.16,
+          "width": 359.17,
+          "height": 94.6
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "الخليج التجاري",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1031.33,
+          "y": 572.56,
+          "width": 359.17,
+          "height": 94.6
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "#lbl-alquoz",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 832.79,
+          "top": 689.35,
+          "right": 946.69,
+          "bottom": 783.95,
+          "width": 113.91,
+          "height": 94.6
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "القوز",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 832.79,
+          "y": 689.35,
+          "width": 113.91,
+          "height": 94.6
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "#hud-a > div:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1644.17,
+          "top": 82,
+          "right": 1810,
+          "bottom": 133,
+          "width": 165.83,
+          "height": 51
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "فواتير متأخرة",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1644.17,
+          "y": 82,
+          "width": 165.83,
+          "height": 51
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "#hud-num",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1270,
+          "top": 114,
+          "right": 1629.73,
+          "bottom": 252,
+          "width": 359.73,
+          "height": 138
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "167,370",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1270,
+          "y": 114,
+          "width": 359.73,
+          "height": 138
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "#hud-a > div:nth-of-type(2) > small:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1641.73,
+          "top": 171,
+          "right": 1729.27,
+          "bottom": 231,
+          "width": 87.53,
+          "height": 60
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "درهم",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1641.73,
+          "y": 171,
+          "width": 87.53,
+          "height": 60
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "#clock-t",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 114,
+          "top": 58,
+          "right": 376.09,
+          "bottom": 202,
+          "width": 262.09,
+          "height": 144
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "09:00",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 114,
+          "y": 58,
+          "width": 262.09,
+          "height": 144
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 22.295,
+        "selector": "div.s",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 159.13,
+          "top": 183.59,
+          "right": 330.97,
+          "bottom": 231.59,
+          "width": 171.84,
+          "height": 48
+        },
+        "containerSelector": "#dive1 > div:nth-of-type(1)",
+        "text": "الجولة اليومية",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 159.13,
+          "y": 183.59,
+          "width": 171.84,
+          "height": 48
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 4,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 22.74,
+        "selector": "#lbl-bbay",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 663.6,
+          "top": 826,
+          "right": 1463.18,
+          "bottom": 1036.6,
+          "width": 799.58,
+          "height": 210.6
+        },
+        "containerSelector": "#tr-title > div:nth-of-type(2)",
+        "text": "الخليج التجاري",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 663.6,
+          "y": 826,
+          "width": 799.58,
+          "height": 210.6
+        },
+        "firstSeen": 22.74,
+        "lastSeen": 28.185,
+        "occurrences": 18,
+        "heldMs": 5445,
+        "times": [
+          22.74,
+          23.06,
+          23.38,
+          23.701,
+          24.021,
+          24.341,
+          24.662,
+          24.982,
+          25.302,
+          25.622,
+          25.943,
+          26.263,
+          26.583,
+          26.903,
+          27.224,
+          27.544,
+          27.864,
+          28.185
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 25.622,
+        "selector": "#hud-a > div:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 1644.17,
+          "top": 82,
+          "right": 1810,
+          "bottom": 133,
+          "width": 165.83,
+          "height": 51
+        },
+        "containerSelector": "div.head > h3:nth-of-type(1)",
+        "text": "فواتير متأخرة",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1644.17,
+          "y": 82,
+          "width": 165.83,
+          "height": 51
+        },
+        "firstSeen": 25.622,
+        "lastSeen": 28.185,
+        "occurrences": 9,
+        "heldMs": 2562.9999999999986,
+        "times": [
+          25.622,
+          25.943,
+          26.263,
+          26.583,
+          26.903,
+          27.224,
+          27.544,
+          27.864,
+          28.185
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 35.035,
+        "selector": "#world > div:nth-of-type(2)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 1391.02,
+          "top": 553.8,
+          "right": 1609.98,
+          "bottom": 664.2,
+          "width": 218.96,
+          "height": 110.4
+        },
+        "containerSelector": "#wa-card > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(2)",
+        "text": "الشارقة",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1391.02,
+          "y": 553.8,
+          "width": 218.96,
+          "height": 110.4
+        },
+        "firstSeen": 32.028,
+        "lastSeen": 35.871,
+        "occurrences": 14,
+        "heldMs": 3843.0000000000036,
+        "times": [
+          32.028,
+          32.348,
+          32.668,
+          32.989,
+          33.309,
+          33.629,
+          33.95,
+          34.27,
+          34.59,
+          34.91,
+          35.035,
+          35.231,
+          35.551,
+          35.871
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 35.035,
+        "selector": "#lbl-sharjah",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 1426.9,
+          "top": 259.4,
+          "right": 1843.72,
+          "bottom": 352.55,
+          "width": 416.82,
+          "height": 93.15
+        },
+        "containerSelector": "#wa-card > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "الشارقة الصناعية",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1426.9,
+          "y": 259.4,
+          "width": 416.82,
+          "height": 93.15
+        },
+        "firstSeen": 32.028,
+        "lastSeen": 43.558,
+        "occurrences": 16,
+        "heldMs": 3843.0000000000036,
+        "times": [
+          32.028,
+          32.348,
+          32.668,
+          32.989,
+          33.309,
+          33.629,
+          33.95,
+          34.27,
+          34.59,
+          34.91,
+          35.035,
+          35.231,
+          35.551,
+          35.871,
+          43.238,
+          43.558
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 35.035,
+        "selector": "#hud-num",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 1270,
+          "top": 114,
+          "right": 1629.73,
+          "bottom": 252,
+          "width": 359.73,
+          "height": 138
+        },
+        "containerSelector": "div.sub",
+        "text": "167,370",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1270,
+          "y": 114,
+          "width": 359.73,
+          "height": 138
+        },
+        "firstSeen": 31.708,
+        "lastSeen": 35.871,
+        "occurrences": 15,
+        "heldMs": 4163.000000000004,
+        "times": [
+          31.708,
+          32.028,
+          32.348,
+          32.668,
+          32.989,
+          33.309,
+          33.629,
+          33.95,
+          34.27,
+          34.59,
+          34.91,
+          35.035,
+          35.231,
+          35.551,
+          35.871
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 35.035,
+        "selector": "#clock-t",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 114,
+          "top": 58,
+          "right": 376.09,
+          "bottom": 202,
+          "width": 262.09,
+          "height": 144
+        },
+        "containerSelector": "#wa-all",
+        "text": "09:00",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 114,
+          "y": 58,
+          "width": 262.09,
+          "height": 144
+        },
+        "firstSeen": 25.622,
+        "lastSeen": 35.871,
+        "occurrences": 24,
+        "heldMs": 4163.000000000004,
+        "times": [
+          25.622,
+          25.943,
+          26.263,
+          26.583,
+          26.903,
+          27.224,
+          27.544,
+          27.864,
+          28.185,
+          31.708,
+          32.028,
+          32.348,
+          32.668,
+          32.989,
+          33.309,
+          33.629,
+          33.95,
+          34.27,
+          34.59,
+          34.91,
+          35.035,
+          35.231,
+          35.551,
+          35.871
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 41.405,
+        "selector": "#lbl-deira",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 1507.4,
+          "top": 155.9,
+          "right": 1607.4,
+          "bottom": 249.05,
+          "width": 100,
+          "height": 93.15
+        },
+        "containerSelector": "#hud-num",
+        "text": "ديرة",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1507.4,
+          "y": 155.9,
+          "width": 100,
+          "height": 93.15
+        },
+        "firstSeen": 9.929,
+        "lastSeen": 42.917,
+        "occurrences": 27,
+        "heldMs": 6725.000000000002,
+        "times": [
+          9.929,
+          10.249,
+          10.569,
+          10.889,
+          36.192,
+          36.512,
+          36.832,
+          37.152,
+          37.473,
+          37.793,
+          38.113,
+          38.434,
+          38.754,
+          39.074,
+          39.394,
+          39.715,
+          40.035,
+          40.355,
+          40.675,
+          40.996,
+          41.316,
+          41.405,
+          41.636,
+          41.957,
+          42.277,
+          42.597,
+          42.917
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "warning",
+        "time": 3.185,
+        "selector": "#po-line",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 0,
+          "top": 1080,
+          "right": 1920,
+          "bottom": 1230,
+          "width": 1920,
+          "height": 150
+        },
+        "containerSelector": "#map > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "bottom": 150
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "49.26"
+        },
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 0,
+          "y": 1080,
+          "width": 1920,
+          "height": 150
+        },
+        "firstSeen": 3.185,
+        "lastSeen": 41.405,
+        "occurrences": 7,
+        "heldMs": 0,
+        "times": [
+          3.185,
+          9.555,
+          15.925,
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "warning",
+        "time": 9.555,
+        "selector": "#world",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": -1503.51,
+          "top": -401.05,
+          "right": 2176.49,
+          "bottom": 1668.95,
+          "width": 3680,
+          "height": 2070
+        },
+        "containerSelector": "#map > div:nth-of-type(1)",
+        "text": "الخليج العربي الشارقة دبي أبوظبي الشارقة الصناعية ديرة الخليج التجاري القوز مصفّح",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "49.26"
+        },
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": -1503.51,
+          "y": -401.05,
+          "width": 3680,
+          "height": 2070
+        },
+        "firstSeen": 9.555,
+        "lastSeen": 41.405,
+        "occurrences": 5,
+        "heldMs": 0,
+        "times": [
+          9.555,
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "warning",
+        "time": 15.925,
+        "selector": "#world",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 36,
+          "top": -20,
+          "right": 1828,
+          "bottom": 988,
+          "width": 1792,
+          "height": 1008
+        },
+        "containerSelector": "#map > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 20
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "49.26"
+        },
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 36,
+          "y": -20,
+          "width": 1792,
+          "height": 1008
+        },
+        "firstSeen": 3.185,
+        "lastSeen": 47.775,
+        "occurrences": 8,
+        "heldMs": 0,
+        "times": [
+          3.185,
+          9.555,
+          15.925,
+          22.295,
+          28.665,
+          35.035,
+          41.405,
+          47.775
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 3.185,
+        "selector": "#po-line",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 920.03,
+          "top": 1102.5,
+          "right": 1414.8,
+          "bottom": 1207.5,
+          "width": 494.77,
+          "height": 105
+        },
+        "containerSelector": "#root",
+        "text": "دبّوس بعد دبّوس،",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "bottom": 127.5
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "49.26"
+        },
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 920.03,
+          "y": 1102.5,
+          "width": 494.77,
+          "height": 105
+        },
+        "firstSeen": 3.185,
+        "lastSeen": 41.405,
+        "occurrences": 7,
+        "heldMs": 0,
+        "times": [
+          3.185,
+          9.555,
+          15.925,
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 3.185,
+        "selector": "span.k",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 505.2,
+          "top": 1102.5,
+          "right": 920.03,
+          "bottom": 1207.5,
+          "width": 414.83,
+          "height": 105
+        },
+        "containerSelector": "#root",
+        "text": "الخريطة تخضرّ.",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "bottom": 127.5
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 505.2,
+          "y": 1102.5,
+          "width": 414.83,
+          "height": 105
+        },
+        "firstSeen": 3.185,
+        "lastSeen": 41.405,
+        "occurrences": 7,
+        "heldMs": 0,
+        "times": [
+          3.185,
+          9.555,
+          15.925,
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 9.555,
+        "selector": "div.gulf",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -706.06,
+          "top": 122.18,
+          "right": -297.62,
+          "bottom": 392.47,
+          "width": 408.44,
+          "height": 270.29
+        },
+        "containerSelector": "#root",
+        "text": "الخليج العربي",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 706.06
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": -706.06,
+          "y": 122.18,
+          "width": 408.44,
+          "height": 270.29
+        },
+        "firstSeen": 9.555,
+        "lastSeen": 41.405,
+        "occurrences": 5,
+        "heldMs": 0,
+        "times": [
+          9.555,
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 9.555,
+        "selector": "#world > div:nth-of-type(3)",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 806.56,
+          "top": 1008.85,
+          "right": 901.43,
+          "bottom": 1082.45,
+          "width": 94.87,
+          "height": 73.6
+        },
+        "containerSelector": "#map > div:nth-of-type(1)",
+        "text": "دبي",
+        "fixHint": "Text is 95px x 74px inside 1920px x 1080px and overflows by up to 2px; increase the container height to at least ~1082px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "bottom": 2.45
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 806.56,
+          "y": 1008.85,
+          "width": 94.87,
+          "height": 73.6
+        },
+        "firstSeen": 9.555,
+        "lastSeen": 35.035,
+        "occurrences": 3,
+        "heldMs": 0,
+        "times": [
+          9.555,
+          28.665,
+          35.035
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 9.555,
+        "selector": "#world > div:nth-of-type(4)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -960.19,
+          "top": 1291.75,
+          "right": -758.82,
+          "bottom": 1402.15,
+          "width": 201.37,
+          "height": 110.4
+        },
+        "containerSelector": "#root",
+        "text": "أبوظبي",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 960.19,
+          "bottom": 322.15
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": -960.19,
+          "y": 1291.75,
+          "width": 201.37,
+          "height": 110.4
+        },
+        "firstSeen": 9.555,
+        "lastSeen": 41.405,
+        "occurrences": 5,
+        "heldMs": 0,
+        "times": [
+          9.555,
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 9.555,
+        "selector": "#lbl-mussafah",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -533.07,
+          "top": 1362.36,
+          "right": -436.97,
+          "bottom": 1418.25,
+          "width": 96.1,
+          "height": 55.89
+        },
+        "containerSelector": "#root",
+        "text": "مصفّح",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 533.07,
+          "bottom": 338.25
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": -533.07,
+          "y": 1362.36,
+          "width": 96.1,
+          "height": 55.89
+        },
+        "firstSeen": 9.555,
+        "lastSeen": 41.405,
+        "occurrences": 5,
+        "heldMs": 0,
+        "times": [
+          9.555,
+          22.295,
+          28.665,
+          35.035,
+          41.405
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 22.295,
+        "selector": "#lbl-sharjah",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1638.64,
+          "top": 210.51,
+          "right": 2061.94,
+          "bottom": 305.11,
+          "width": 423.3,
+          "height": 94.6
+        },
+        "containerSelector": "#root",
+        "text": "الشارقة الصناعية",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 141.94
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1638.64,
+          "y": 210.51,
+          "width": 423.3,
+          "height": 94.6
+        },
+        "firstSeen": 22.295,
+        "lastSeen": 41.405,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          22.295,
+          41.405
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 28.665,
+        "selector": "#world > div:nth-of-type(3)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 774.42,
+          "top": 992.57,
+          "right": 869.69,
+          "bottom": 1103.43,
+          "width": 95.27,
+          "height": 110.86
+        },
+        "containerSelector": "#root",
+        "text": "دبي",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "bottom": 23.43
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 774.42,
+          "y": 992.57,
+          "width": 95.27,
+          "height": 110.86
+        },
+        "firstSeen": 28.665,
+        "lastSeen": 35.035,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          28.665,
+          35.035
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 41.405,
+        "selector": "div.gulf",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": -301.05,
+          "top": -82.49,
+          "right": 107.39,
+          "bottom": 131.17,
+          "width": 408.44,
+          "height": 213.66
+        },
+        "containerSelector": "#map > div:nth-of-type(1)",
+        "text": "الخليج العربي",
+        "fixHint": "Text is 408px x 214px inside 1920px x 1080px and overflows by up to 301px; resize the container to at least ~2221px x 1162px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 301.05,
+          "top": 82.49
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": -301.05,
+          "y": -82.49,
+          "width": 408.44,
+          "height": 213.66
+        },
+        "firstSeen": 41.405,
+        "lastSeen": 41.405,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          41.405
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 41.405,
+        "selector": "#world > div:nth-of-type(2)",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 1828.02,
+          "top": 284.7,
+          "right": 2046.98,
+          "bottom": 362.9,
+          "width": 218.96,
+          "height": 78.2
+        },
+        "containerSelector": "#map > div:nth-of-type(1)",
+        "text": "الشارقة",
+        "fixHint": "Text is 219px x 78px inside 1920px x 1080px and overflows by up to 127px; widen the container to at least ~2047px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 126.98
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1828.02,
+          "y": 284.7,
+          "width": 218.96,
+          "height": 78.2
+        },
+        "firstSeen": 41.405,
+        "lastSeen": 41.405,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          41.405
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 41.405,
+        "selector": "#world > div:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1828.02,
+          "top": 266.3,
+          "right": 2046.98,
+          "bottom": 376.7,
+          "width": 218.96,
+          "height": 110.4
+        },
+        "containerSelector": "#root",
+        "text": "الشارقة",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 126.98
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1828.02,
+          "y": 266.3,
+          "width": 218.96,
+          "height": 110.4
+        },
+        "firstSeen": 41.405,
+        "lastSeen": 41.405,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          41.405
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 41.405,
+        "selector": "#ag-shot",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 538.5,
+          "top": -439.5,
+          "right": 3418.5,
+          "bottom": 1360.5,
+          "width": 2880,
+          "height": 1800
+        },
+        "containerSelector": "#ag-wrap",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 1498.5,
+          "top": 439.5,
+          "bottom": 280.5
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "ag-shot",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/dive3.html",
+        "bbox": {
+          "x": 538.5,
+          "y": -439.5,
+          "width": 2880,
+          "height": 1800
+        },
+        "firstSeen": 41.405,
+        "lastSeen": 41.405,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          41.405
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 41.405,
+        "selector": "#ag-shot",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 538.5,
+          "top": -439.5,
+          "right": 3418.5,
+          "bottom": 1360.5,
+          "width": 2880,
+          "height": 1800
+        },
+        "containerSelector": "#ag-wrap",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "ag-shot",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/dive3.html",
+        "bbox": {
+          "x": 538.5,
+          "y": -439.5,
+          "width": 2880,
+          "height": 1800
+        },
+        "firstSeen": 41.405,
+        "lastSeen": 41.405,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          41.405
+        ]
+      }
+    ],
+    "duration": 57.33,
+    "samples": [
+      3.185,
+      9.555,
+      15.925,
+      22.295,
+      28.665,
+      35.035,
+      41.405,
+      47.775,
+      54.145
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 34,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": false,
+    "errorCount": 6,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "error",
+        "message": "Contrast is 1.79:1; WCAG AA requires 3:1.",
+        "text": "الخليج العربي",
+        "fg": "rgb(127,178,191)",
+        "bg": "rgb(207,230,236)",
+        "ratio": 1.79,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(97,135,145)",
+        "large": true,
+        "selector": "div > div:nth-of-type(1) > div > div:nth-of-type(1) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 319.0453796386719,
+          "y": 212.77908325195312,
+          "width": 213.24319458007812,
+          "height": 141.11737060546875
+        },
+        "time": 3.185,
+        "times": [
+          3.185,
+          15.925,
+          41.405
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "error",
+        "message": "Contrast is 2.71:1; WCAG AA requires 3:1.",
+        "text": "الشارقة",
+        "fg": "rgb(168,135,95)",
+        "bg": "rgb(243,230,207)",
+        "ratio": 2.71,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(158,127,89)",
+        "large": true,
+        "selector": "div > div:nth-of-type(1) > div > div:nth-of-type(1) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1430.605224609375,
+          "y": 427.1335754394531,
+          "width": 114.31982421875,
+          "height": 57.63836669921875
+        },
+        "time": 3.185,
+        "times": [
+          3.185,
+          15.925
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "error",
+        "message": "Contrast is 2.71:1; WCAG AA requires 3:1.",
+        "text": "دبي",
+        "fg": "rgb(168,135,95)",
+        "bg": "rgb(243,230,207)",
+        "ratio": 2.71,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(158,127,89)",
+        "large": true,
+        "selector": "div > div:nth-of-type(1) > div > div:nth-of-type(1) > div:nth-of-type(3)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 1108.7626953125,
+          "y": 655.2855834960938,
+          "width": 49.532958984375,
+          "height": 57.638427734375
+        },
+        "time": 3.185,
+        "times": [
+          3.185,
+          15.925
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "error",
+        "message": "Contrast is 2.71:1; WCAG AA requires 3:1.",
+        "text": "أبوظبي",
+        "fg": "rgb(168,135,95)",
+        "bg": "rgb(243,230,207)",
+        "ratio": 2.71,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(158,127,89)",
+        "large": true,
+        "selector": "div > div:nth-of-type(1) > div > div:nth-of-type(1) > div:nth-of-type(4)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 186.3653564453125,
+          "y": 823.3975830078125,
+          "width": 105.13565063476562,
+          "height": 57.63836669921875
+        },
+        "time": 3.185,
+        "times": [
+          3.185,
+          15.925
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "error",
+        "message": "Contrast is 1.05:1; WCAG AA requires 3:1.",
+        "text": "09:00",
+        "fg": "rgb(255,255,255)",
+        "bg": "rgb(248,250,252)",
+        "ratio": 1.05,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(145,145,145)",
+        "large": true,
+        "selector": "#clock-t",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 114,
+          "y": 78,
+          "width": 262.09375,
+          "height": 105.59375
+        },
+        "time": 41.405,
+        "times": [
+          28.665,
+          41.405
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "error",
+        "message": "Contrast is 1.15:1; WCAG AA requires 3:1.",
+        "text": "الجولة اليومية",
+        "fg": "rgb(153,246,228)",
+        "bg": "rgb(241,245,249)",
+        "ratio": 1.15,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(95,152,141)",
+        "large": true,
+        "selector": "div > div:nth-of-type(1) > div > div:nth-of-type(3) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/map.html",
+        "bbox": {
+          "x": 114,
+          "y": 183.59375,
+          "width": 262.09375,
+          "height": 48
+        },
+        "time": 28.665,
+        "times": [
+          28.665,
+          41.405
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      3.185,
+      15.925,
+      28.665,
+      41.405,
+      54.145
+    ],
+    "checked": 53,
+    "passed": 40
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 5,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 3.87 s (17.86–21.73 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 17.861,
+        "seconds": 3.872,
+        "floorSeconds": 3,
+        "until": 21.733
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"invoices-october.xlsx\" (3 words) is on screen 0.94 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "invoices-october.xlsx",
+        "selector": "#tr-file",
+        "dataAttributes": {},
+        "sourceFile": "compositions/dive1.html",
+        "bbox": {
+          "x": 1234.22,
+          "y": 766.18,
+          "width": 334.0899999999999,
+          "height": 51
+        },
+        "time": 23.934,
+        "words": 3,
+        "seconds": 0.936,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 6 text elements stay under it for 0.5 s or more, the smallest \"XLS\" at 21 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "XLS",
+        "selector": "div.x",
+        "dataAttributes": {},
+        "sourceFile": "compositions/dive1.html",
+        "bbox": {
+          "x": 1163.45,
+          "y": 772.18,
+          "width": 47.52,
+          "height": 39
+        },
+        "time": 23.981,
+        "times": [
+          23.981,
+          25.73,
+          25.855,
+          25.98,
+          26.229,
+          26.354
+        ],
+        "fontPx": 21.19,
+        "floorPx": 28,
+        "seconds": 0.999,
+        "elements": [
+          {
+            "selector": "div.x",
+            "text": "XLS",
+            "fontPx": 21.19,
+            "time": 23.981,
+            "seconds": 0.999
+          },
+          {
+            "selector": "#tr-card > div:nth-of-type(2) > span:nth-of-type(4)",
+            "text": "متأخرة · 123 يوم",
+            "fontPx": 26,
+            "time": 25.73,
+            "seconds": 2.623
+          },
+          {
+            "selector": "#tr-card > div:nth-of-type(3) > span:nth-of-type(4)",
+            "text": "متأخرة · 119 يوم",
+            "fontPx": 26,
+            "time": 25.855,
+            "seconds": 2.498
+          },
+          {
+            "selector": "#tr-card > div:nth-of-type(4) > span:nth-of-type(4)",
+            "text": "متأخرة · 89 يوم",
+            "fontPx": 26,
+            "time": 25.98,
+            "seconds": 2.373
+          },
+          {
+            "selector": "#tr-card > div:nth-of-type(5) > span:nth-of-type(4)",
+            "text": "متأخرة · 82 يوم",
+            "fontPx": 26,
+            "time": 26.229,
+            "seconds": 2.124
+          },
+          {
+            "selector": "#tr-card > div:nth-of-type(6) > span:nth-of-type(4)",
+            "text": "متأخرة · 70 يوم",
+            "fontPx": 26,
+            "time": 26.354,
+            "seconds": 1.999
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 8 text elements stay under it for 0.5 s or more, the smallest \"+971563334455\" at 24 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "+971563334455",
+        "selector": "#wa-card > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/dive2.html",
+        "bbox": {
+          "x": 1561.36,
+          "y": 255.73,
+          "width": 187.2,
+          "height": 36
+        },
+        "time": 31.85,
+        "times": [
+          31.85,
+          31.85,
+          31.975,
+          31.975,
+          32.1,
+          32.1,
+          32.1,
+          32.1
+        ],
+        "fontPx": 24,
+        "floorPx": 28,
+        "seconds": 4.247,
+        "elements": [
+          {
+            "selector": "#wa-card > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "+971563334455",
+            "fontPx": 24,
+            "time": 31.85,
+            "seconds": 4.247
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "+971525556677",
+            "fontPx": 24,
+            "time": 31.975,
+            "seconds": 4.122
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "+971525556677",
+            "fontPx": 24,
+            "time": 32.1,
+            "seconds": 3.997
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "+971507778899",
+            "fontPx": 24,
+            "time": 32.1,
+            "seconds": 3.997
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "إنذار نهائي",
+            "fontPx": 26,
+            "time": 31.85,
+            "seconds": 4.247
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(3) > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "إنذار نهائي",
+            "fontPx": 26,
+            "time": 31.975,
+            "seconds": 4.122
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(4) > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "إنذار نهائي",
+            "fontPx": 26,
+            "time": 32.1,
+            "seconds": 3.997
+          },
+          {
+            "selector": "#wa-card > div:nth-of-type(5) > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "إنذار نهائي",
+            "fontPx": 26,
+            "time": 32.1,
+            "seconds": 3.997
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "The film's last line \"شركات التجارة · الصيانة · الوكالات · مكاتب المحاسبة · الخ...\" (7 words) is on screen 1.93 s (±0.01 s), under the 2.00 s a closing line needs: hold it about 0.5 s + 0.3 s a word and at least 2 s before the film ends; see references/motion.md.",
+        "text": "شركات التجارة · الصيانة · الوكالات · مكاتب المحاسبة · الخدمات",
+        "selector": "#ec-aud",
+        "dataAttributes": {},
+        "sourceFile": "compositions/endcard.html",
+        "bbox": {
+          "x": 588.63,
+          "y": 952,
+          "width": 742.7300000000001,
+          "height": 48
+        },
+        "time": 55.402,
+        "words": 7,
+        "seconds": 1.932,
+        "floorSeconds": 2
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 459
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

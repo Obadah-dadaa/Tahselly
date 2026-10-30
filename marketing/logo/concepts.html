@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Tahselly logo directions</title>
+<style>
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("../teaser/assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("../teaser/assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("../teaser/assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("../teaser/assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF; }
+:root { --deep: #0B4F4A; --brand: #0F766E; --mint: #2DD4BF; --ink: #0B1220; }
+* { margin: 0; box-sizing: border-box; }
+body { width: 1800px; background: #F1F5F9; font-family: "Plex Arabic"; color: var(--ink); padding: 56px; }
+h1 { font-size: 40px; font-weight: 700; margin-bottom: 8px; }
+.sub { font-size: 22px; color: #64748B; margin-bottom: 40px; font-weight: 600; }
+.row { display: grid; grid-template-columns: 70px 340px 1fr 1fr; gap: 28px; align-items: stretch; background: #fff; border-radius: 28px; padding: 32px; margin-bottom: 28px; box-shadow: 0 10px 30px rgba(15,23,42,.06); }
+.tag { font-size: 64px; font-weight: 700; color: var(--brand); align-self: center; text-align: center; direction: ltr; }
+.cell { border-radius: 20px; display: flex; align-items: center; justify-content: center; gap: 26px; padding: 26px; }
+.light { background: #FFFFFF; border: 2px solid #E2E8F0; }
+.dark { background: var(--deep); }
+.icons { background: #F8FAFC; border: 2px solid #E2E8F0; flex-direction: column; gap: 18px; }
+.icons .sizes { display: flex; align-items: flex-end; gap: 22px; }
+.name { font-size: 22px; font-weight: 700; margin-top: 4px; text-align: center; }
+.note { font-size: 17px; color: #64748B; font-weight: 600; text-align: center; line-height: 1.5; }
+.lock { display: flex; align-items: center; gap: 22px; }
+.words { display: flex; flex-direction: column; line-height: 1; }
+.ar { font-size: 64px; font-weight: 700; letter-spacing: 0; padding-bottom: 30px; }
+.en { font-size: 25px; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; direction: ltr; text-align: right; }
+.light .ar { color: var(--ink); } .light .en { color: var(--brand); }
+.dark .ar { color: #fff; } .dark .en { color: var(--mint); }
+svg { display: block; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- A: the letter Ta drawn as a bowl; one dot, and the other dot is a tick: "collected" -->
+    <symbol id="markA-tile" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="26" fill="#0F766E"/>
+      <path d="M17 47 C17 63 22 70 36 70 H64 C78 70 83 63 83 47" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="42" cy="44" r="6.5" fill="#fff"/>
+      <path d="M53 44 L58.5 49.5 L69 38" fill="none" stroke="#2DD4BF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="markA-plain" viewBox="0 0 100 100">
+      <path d="M17 47 C17 63 22 70 36 70 H64 C78 70 83 63 83 47" fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="42" cy="44" r="6.5" fill="currentColor"/>
+      <path d="M53 44 L58.5 49.5 L69 38" fill="none" stroke="#2DD4BF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <!-- B: an invoice with a torn edge, its total turning into an upward arrow: money coming in -->
+    <symbol id="markB-tile" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="26" fill="#0B4F4A"/>
+      <path d="M28 18 H72 V80 L65 75 L58 80 L50 75 L42 80 L35 75 L28 80 Z" fill="#fff"/>
+      <rect x="36" y="28" width="22" height="5" rx="2.5" fill="#94A3B8"/>
+      <rect x="36" y="38" width="14" height="5" rx="2.5" fill="#CBD5E1"/>
+      <path d="M38 64 L50 52 L56 58 L66 48" fill="none" stroke="#0F766E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M58 47 H67 V56" fill="none" stroke="#0F766E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="markB-plain" viewBox="0 0 100 100">
+      <path d="M28 18 H72 V80 L65 75 L58 80 L50 75 L42 80 L35 75 L28 80 Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M38 64 L50 52 L56 58 L66 48" fill="none" stroke="#2DD4BF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M58 47 H67 V56" fill="none" stroke="#2DD4BF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <!-- C: the follow-up loop: an almost-closed ring with an arrowhead around a coin -->
+    <symbol id="markC-tile" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="50" fill="#0F766E"/>
+      <path d="M71 31 A28 28 0 1 0 78 50" fill="none" stroke="#fff" stroke-width="8.5" stroke-linecap="round"/>
+      <path d="M78 22 L73 33 L62 29" fill="none" stroke="#fff" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="50" cy="50" r="11" fill="#2DD4BF"/>
+    </symbol>
+    <symbol id="markC-plain" viewBox="0 0 100 100">
+      <path d="M71 31 A28 28 0 1 0 78 50" fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round"/>
+      <path d="M78 22 L73 33 L62 29" fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="50" cy="50" r="11" fill="#2DD4BF"/>
+    </symbol>
+  </defs>
+</svg>
+
+<h1>تحصيلي · Tahselly — ثلاثة اتجاهات للشعار</h1>
+<div class="sub">كل اتجاه: أيقونة التطبيق بثلاثة أحجام (حتى 32px للمتصفح) · الشعار الكامل على أبيض · وعلى الخلفية الداكنة</div>
+
+<div class="row">
+  <div class="tag">A</div>
+  <div class="cell icons">
+    <div class="sizes"><svg width="128" height="128"><use href="#markA-tile"/></svg><svg width="64" height="64"><use href="#markA-tile"/></svg><svg width="32" height="32"><use href="#markA-tile"/></svg></div>
+    <div class="name">«ت» المُحصَّلة</div>
+    <div class="note">حرف التاء بخط هندسي، ونقطتها الثانية علامة ✓<br>= فاتورة تحصّلت</div>
+  </div>
+  <div class="cell light"><div class="lock" style="color:#0F766E"><svg width="118" height="118"><use href="#markA-tile"/></svg><div class="words"><div class="ar">تحصيلي</div><div class="en">Tahselly</div></div></div></div>
+  <div class="cell dark"><div class="lock" style="color:#fff"><svg width="118" height="118"><use href="#markA-plain"/></svg><div class="words"><div class="ar">تحصيلي</div><div class="en">Tahselly</div></div></div></div>
+</div>
+
+<div class="row">
+  <div class="tag">B</div>
+  <div class="cell icons">
+    <div class="sizes"><svg width="128" height="128"><use href="#markB-tile"/></svg><svg width="64" height="64"><use href="#markB-tile"/></svg><svg width="32" height="32"><use href="#markB-tile"/></svg></div>
+    <div class="name">الفاتورة الصاعدة</div>
+    <div class="note">فاتورة بحافة ممزّقة، وخطّها يصعد كسهم<br>= المال يدخل</div>
+  </div>
+  <div class="cell light"><div class="lock" style="color:#0B4F4A"><svg width="118" height="118"><use href="#markB-tile"/></svg><div class="words"><div class="ar">تحصيلي</div><div class="en">Tahselly</div></div></div></div>
+  <div class="cell dark"><div class="lock" style="color:#fff"><svg width="118" height="118"><use href="#markB-plain"/></svg><div class="words"><div class="ar">تحصيلي</div><div class="en">Tahselly</div></div></div></div>
+</div>
+
+<div class="row">
+  <div class="tag">C</div>
+  <div class="cell icons">
+    <div class="sizes"><svg width="128" height="128"><use href="#markC-tile"/></svg><svg width="64" height="64"><use href="#markC-tile"/></svg><svg width="32" height="32"><use href="#markC-tile"/></svg></div>
+    <div class="name">حلقة المتابعة</div>
+    <div class="note">دائرة متابعة بسهم حول عملة<br>= التذكير يدور حتى يصل المال</div>
+  </div>
+  <div class="cell light"><div class="lock" style="color:#0F766E"><svg width="118" height="118"><use href="#markC-tile"/></svg><div class="words"><div class="ar">تحصيلي</div><div class="en">Tahselly</div></div></div></div>
+  <div class="cell dark"><div class="lock" style="color:#fff"><svg width="118" height="118"><use href="#markC-plain"/></svg><div class="words"><div class="ar">تحصيلي</div><div class="en">Tahselly</div></div></div></div>
+</div>
+</body>
+</html>

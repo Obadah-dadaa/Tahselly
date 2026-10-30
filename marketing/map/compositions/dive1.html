@@ -1,0 +1,71 @@
+<template>
+  <style>
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; direction: rtl; font-family: "Plex Arabic"; background: #f1f5f9; }
+    .red { color: #e11d48; } .k { color: #14b8a6; }
+    .chip { display: inline-block; font-size: 30px; font-weight: 600; color: #0b1220; background: #ffffff; border-radius: 999px; padding: 6px 26px; box-shadow: 0 10px 24px rgba(15,23,42,.12); }
+    .title { position: absolute; inset-inline-start: 120px; bottom: 70px; background: #ffffff; border-radius: 28px; padding: 18px 44px 26px; box-shadow: 0 24px 50px rgba(15,23,42,.16); }
+    .title .t { font-size: 76px; font-weight: 700; color: #0b1220; line-height: 1.25; white-space: nowrap; }
+    .shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; transform-origin: 0 0; }
+    .cursor { position: absolute; width: 70px; height: 70px; left: 0; top: 0; }
+
+    #tr-wrap { position: absolute; inset: 0; overflow: hidden; }
+    #tr-file { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 18px; padding: 18px 28px; background: #ffffff; border-radius: 20px; box-shadow: 0 24px 50px rgba(15,23,42,.22); font-size: 34px; font-weight: 600; color: #0b1220; direction: ltr; white-space: nowrap; }
+    #tr-file .x { width: 58px; height: 58px; border-radius: 12px; background: #107c41; color: #fff; font-size: 26px; font-weight: 700; display: grid; place-items: center; }
+    #tr-result { position: absolute; inset: 0; background: #f1f5f9; }
+    #tr-card { position: absolute; left: 120px; right: 120px; top: 80px; background: #ffffff; border-radius: 28px; box-shadow: 0 30px 60px rgba(15,23,42,.12); overflow: hidden; }
+    #tr-card .head { display: flex; align-items: center; justify-content: space-between; padding: 28px 44px; border-bottom: 1px solid #e2e8f0; }
+    #tr-card .head h3 { font-size: 40px; font-weight: 700; color: #0b1220; }
+    #tr-card .ok { font-size: 30px; font-weight: 600; color: #047857; background: #ecfdf5; border-radius: 999px; padding: 8px 26px; }
+    .tr-row { display: grid; grid-template-columns: 200px 1fr 230px 330px; align-items: center; padding: 0 44px; height: 92px; border-bottom: 1px solid #f1f5f9; font-size: 32px; color: #334155; }
+    .tr-row .num { color: #0f766e; font-weight: 700; direction: ltr; text-align: start; }
+    .tr-row .cl { direction: ltr; text-align: start; }
+    .tr-row .amt { font-weight: 700; color: #0b1220; font-variant-numeric: tabular-nums; direction: ltr; text-align: end; padding-inline-end: 30px; }
+    .tr-row .tp { justify-self: start; font-size: 26px; font-weight: 700; color: #be123c; background: #fff1f2; border: 2px solid #fecdd3; border-radius: 999px; padding: 4px 20px; }
+    #tr-title .chip { background: #f3e6cf; margin-bottom: 8px; }
+    
+  </style>
+  <div id="root" data-composition-id="dive1" data-width="1920" data-height="1080">
+
+    <div id="tr-wrap" class="clip" data-start="0" data-duration="3.10">
+      <img id="tr-shot" class="shot" src="assets/screens/import.png" alt="Excel import" />
+      <div id="tr-file"><div class="x">XLS</div>invoices-october.xlsx</div>
+      <svg class="cursor" id="tr-cursor" viewBox="0 0 24 24"><path d="M3 2l17 10-7.5 1.6L9 21z" fill="#ffffff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    </div>
+    <div id="tr-result" class="clip" data-start="3.1" data-duration="3.30">
+      <div id="tr-card"><div class="head"><h3>تمت قراءة الملف، والعملاء أُنشئوا تلقائياً</h3><span class="ok">✓ تم الاستيراد</span></div>
+<div class="tr-row"><span class="num">CH-2446</span><span class="cl">Oud Al Sharq Perfumes</span><span class="amt">6,150.00</span><span class="tp">متأخرة · 123 يوم</span></div>
+<div class="tr-row"><span class="num">CH-2489</span><span class="cl">Marina Dental Clinic</span><span class="amt">9,880.00</span><span class="tp">متأخرة · 119 يوم</span></div>
+<div class="tr-row"><span class="num">CH-2472</span><span class="cl">Marina Dental Clinic</span><span class="amt">5,510.00</span><span class="tp">متأخرة · 89 يوم</span></div>
+<div class="tr-row"><span class="num">CH-2414</span><span class="cl">Al Noor Trading LLC</span><span class="amt">1,370.00</span><span class="tp">متأخرة · 82 يوم</span></div>
+<div class="tr-row"><span class="num">CH-2503</span><span class="cl">Pearl Beauty Lounge</span><span class="amt">16,200.00</span><span class="tp">متأخرة · 70 يوم</span></div>
+      </div>
+    </div>
+    <div id="tr-title" class="title clip" data-start="0" data-duration="6.40" data-layout-allow-occlusion><div class="chip">شركة التجارة · ديرة</div><div class="t">ارفع ملف Excel كما هو</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 6.40;
+    // camera helper: put screenshot point (fx, fy) at the frame centre at scale s
+    const cam = (fx, fy, s) => ({ x: 960 - fx * s, y: 540 - fy * s, scale: s });
+
+    tl.fromTo('#tr-shot', { x: 0, y: 0, scale: 1 }, { ...cam(1106, 394, 1.45), duration: 0.8, ease: 'expo.inOut' }, 0.4);
+    tl.set('#tr-file', { x: 1280, y: 840, opacity: 0 }, 0);
+    tl.set('#tr-cursor', { x: 1580, y: 900 }, 0);
+    tl.to('#tr-file', { opacity: 1, duration: 0.2 }, 1.2);
+    tl.to('#tr-file', { x: 730, y: 490, duration: 0.8, ease: 'power2.inOut' }, 1.4);
+    tl.to('#tr-cursor', { x: 1030, y: 550, duration: 0.8, ease: 'power2.inOut' }, 1.4);
+    tl.to('#tr-file', { scale: 0.6, opacity: 0, duration: 0.25, ease: 'power2.in' }, 2.4);
+    tl.fromTo('#tr-card', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' }, 3.1);
+    tl.fromTo('.tr-row', { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.3, ease: 'power3.out', stagger: 0.16 }, 3.35);
+    tl.fromTo('#tr-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 0.15);
+    
+    window.__timelines["dive1"] = tl;
+  </script>
+</template>

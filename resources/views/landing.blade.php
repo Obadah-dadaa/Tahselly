@@ -35,7 +35,7 @@
 <body class="bg-surface font-sans text-slate-800 antialiased" x-data="{ player: null }" @keydown.escape.window="player = null">
 <header class="absolute inset-x-0 top-0 z-10">
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-        <a href="/" class="flex items-center gap-2 text-white"><span class="grid size-9 place-items-center rounded-xl bg-brand-500 font-bold">{{ __('ت') }}</span><span class="text-xl font-bold">{{ $appName }}</span></a>
+        <a href="/" class="flex items-center gap-2 text-white"><x-brand-mark class="size-9" /><span class="text-xl font-bold">{{ $appName }}</span></a>
         <nav class="hidden gap-8 text-sm text-slate-300 md:flex">
             <a href="#video" class="hover:text-white">{{ __('شاهد العرض') }}</a>
             <a href="#features" class="hover:text-white">{{ __('المزايا') }}</a>

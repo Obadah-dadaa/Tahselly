@@ -14,7 +14,7 @@
     <header class="border-b border-slate-200/70 bg-surface">
         <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
             <a href="{{ route('landing') }}" class="flex items-center gap-2">
-                <span class="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 font-bold text-white">{{ __('ت') }}</span>
+                <x-brand-mark class="size-9" />
                 <span class="text-xl font-bold text-ink">{{ __(\App\Models\SystemSetting::get('app_name', __('تحصيلي'))) }}</span>
             </a>
             <div class="flex items-center gap-3">
