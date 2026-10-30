@@ -7,6 +7,8 @@
     $video = $beta ? 'videos/tahselly-promo-beta-'.($locale === 'en' ? 'en' : 'ar').'.mp4' : \App\Models\SystemSetting::get($locale === 'en' ? 'promo_video_en' : 'promo_video_ar');
     $tutorial = $beta ? null : \App\Models\SystemSetting::get('tutorial_video');
     $trialOn = (bool) \App\Models\SystemSetting::get('allow_signups', true);
+    // Posters and videos keep their file names when replaced; the file's time in the URL makes browsers fetch the new one
+    $fresh = fn (string $path) => asset($path).'?v='.(@filemtime(public_path($path)) ?: 1);
     $trialDays = $beta ? \App\Support\Edition::limit('trial_days') : (int) \App\Models\SystemSetting::get('default_trial_days', 14);
     // Each plan adds features on top of the cheaper ones; every card lists them all, ticked or not
     $allFeatures = $plans->flatMap(fn ($p) => $p->localizedFeatures())->unique()->values();
@@ -107,7 +109,7 @@
 <section id="video" class="relative -mt-16 px-6">
     <div class="mx-auto max-w-5xl">
         <button @click="player = 'promo'" class="group relative block w-full overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-20px_rgba(2,6,23,.45)] ring-1 ring-black/5">
-            <img src="{{ asset('videos/poster-'.($beta ? 'beta-' : '').($locale === 'en' ? 'en' : 'ar').'.jpg') }}" alt="{{ __('فيديو تعريفي') }}" class="aspect-video w-full object-cover transition duration-700 group-hover:scale-[1.03]">
+            <img src="{{ $fresh('videos/poster-'.($beta ? 'beta-' : '').($locale === 'en' ? 'en' : 'ar').'.jpg') }}" alt="{{ __('فيديو تعريفي') }}" class="aspect-video w-full object-cover transition duration-700 group-hover:scale-[1.03]">
             <span class="absolute inset-0 bg-gradient-to-t from-night/80 via-night/10 to-transparent"></span>
             <span class="absolute inset-0 grid place-items-center">
                 <span class="relative grid size-24 place-items-center rounded-full bg-white/95 text-brand-700 shadow-2xl transition group-hover:scale-110">
@@ -131,11 +133,11 @@
     <div class="relative w-full max-w-5xl">
         <button @click="player = null" class="absolute -top-12 end-0 grid size-10 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20" aria-label="{{ __('إغلاق') }}">✕</button>
         <template x-if="player === 'promo'">
-            <video src="{{ asset($video) }}" controls autoplay playsinline class="aspect-video w-full rounded-2xl bg-black shadow-2xl"></video>
+            <video src="{{ $fresh($video) }}" controls autoplay playsinline class="aspect-video w-full rounded-2xl bg-black shadow-2xl"></video>
         </template>
         @if($tutorial)
             <template x-if="player === 'tutorial'">
-                <video src="{{ asset($tutorial) }}" controls autoplay playsinline class="aspect-video w-full rounded-2xl bg-black shadow-2xl"></video>
+                <video src="{{ $fresh($tutorial) }}" controls autoplay playsinline class="aspect-video w-full rounded-2xl bg-black shadow-2xl"></video>
             </template>
         @endif
     </div>
