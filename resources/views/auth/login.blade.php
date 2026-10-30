@@ -16,7 +16,7 @@
         <div class="w-full max-w-sm">
             <a href="{{ route('landing') }}" class="mb-10 flex items-center gap-3">
                 <x-brand-mark class="size-11" />
-                <span class="text-2xl font-bold text-ink">{{ __(\App\Models\SystemSetting::get('app_name', 'تحصيلي')) }}</span> @beta<span class="rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold leading-none text-amber-950">BETA</span>@endbeta
+                <span class="text-2xl font-bold text-ink">{{ __(\App\Models\SystemSetting::get('app_name', 'تحصيلي')) }}</span> <x-beta-badge />
             </a>
             <x-preference-switches class="-mt-6 mb-8" />
             <h1 class="text-2xl font-bold text-ink">{{ __('مرحباً بعودتك 👋') }}</h1>

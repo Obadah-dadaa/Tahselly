@@ -38,19 +38,19 @@
 <body class="bg-surface font-sans text-slate-800 antialiased" x-data="{ player: null }" @keydown.escape.window="player = null">
 <header class="absolute inset-x-0 top-0 z-10">
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-        <a href="/" class="flex items-center gap-2 text-white"><x-brand-mark class="size-9" /><span class="text-xl font-bold">{{ $appName }}</span>@beta<span class="rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold leading-none text-amber-950">BETA</span>@endbeta</a>
-        <nav class="hidden gap-8 text-sm text-slate-300 md:flex">
+        <a href="/" class="flex items-center gap-2 text-white"><x-brand-mark class="size-9" /><span class="text-xl font-bold">{{ $appName }}</span><x-beta-badge tone="dark" /></a>
+        <nav class="hidden gap-7 whitespace-nowrap text-sm text-slate-300 lg:flex">
             <a href="#video" class="hover:text-white">{{ __('شاهد العرض') }}</a>
             <a href="#features" class="hover:text-white">{{ __('المزايا') }}</a>
             <a href="#how" class="hover:text-white">{{ __('كيف يعمل') }}</a>
-            @beta<a href="#interest" class="hover:text-white">{{ __('مهتم بالاشتراك؟') }}</a>@else<a href="#pricing" class="hover:text-white">{{ __('الأسعار') }}</a>@endbeta
+            @beta<a href="#interest" class="hover:text-white">{{ __('اطلب الاشتراك') }}</a>@else<a href="#pricing" class="hover:text-white">{{ __('الأسعار') }}</a>@endbeta
             <a href="{{ route('blog.index') }}" class="hover:text-white">{{ __('المدوّنة') }}</a>
             <a href="{{ route('contact') }}" class="hover:text-white">{{ __('تواصل معنا') }}</a>
         </nav>
         <div class="flex items-center gap-2">
             <x-preference-switches tone="onDark" />
-            <a href="{{ route('login') }}" class="hidden rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/20 sm:block">{{ __('تسجيل الدخول') }}</a>
-            @if($trialOn)<a href="{{ route('trial.create') }}" class="hidden rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-600 md:block">{{ __('ابدأ مجاناً') }}</a>@endif
+            <a href="{{ route('login') }}" class="hidden whitespace-nowrap rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/20 sm:block">{{ __('تسجيل الدخول') }}</a>
+            @if($trialOn)<a href="{{ route('trial.create') }}" class="hidden whitespace-nowrap rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-600 md:block">{{ __('ابدأ مجاناً') }}</a>@endif
         </div>
     </div>
 </header>

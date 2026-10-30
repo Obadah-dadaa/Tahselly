@@ -1,0 +1,42 @@
+<template>
+  <style>
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; direction: rtl; font-family: "Plex Arabic"; background: #f1f5f9; }
+    .red { color: #e11d48; } .k { color: #14b8a6; }
+    .chip { display: inline-block; font-size: 30px; font-weight: 600; color: #0b1220; background: #ffffff; border-radius: 999px; padding: 6px 26px; box-shadow: 0 10px 24px rgba(15,23,42,.12); }
+    .title { position: absolute; inset-inline-start: 120px; bottom: 70px; background: #ffffff; border-radius: 28px; padding: 18px 44px 26px; box-shadow: 0 24px 50px rgba(15,23,42,.16); }
+    .title .t { font-size: 76px; font-weight: 700; color: #0b1220; line-height: 1.25; white-space: nowrap; }
+    .shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; transform-origin: 0 0; }
+    .cursor { position: absolute; width: 70px; height: 70px; left: 0; top: 0; }
+
+    #ag-wrap { position: absolute; inset: 0; overflow: hidden; background: #f8fafc; }
+    #ag-title .chip { background: #eef6f8; margin-bottom: 8px; }
+    
+  </style>
+  <div id="root" data-composition-id="agency" data-width="1920" data-height="1080">
+
+    <div id="ag-wrap" class="clip" data-start="0" data-duration="8.32"><img id="ag-shot" class="shot" src="assets/screens/owner-dashboard.png" alt="Owner dashboard" /></div>
+    <div id="ag-title" class="title clip" data-start="0" data-duration="3.4"><div class="chip">وكالة التسويق · الخليج التجاري</div><div class="t">نسبة التحصيل أمامك</div></div>
+    <div id="ag-title2" class="title clip" data-start="3.4" data-duration="4.92"><div class="chip">وكالة التسويق · الخليج التجاري</div><div class="t">وأعمار الديون في لوحة واحدة</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 8.32;
+    // camera helper: put screenshot point (fx, fy) at the frame centre at scale s
+    const cam = (fx, fy, s) => ({ x: 960 - fx * s, y: 540 - fy * s, scale: s });
+
+    tl.fromTo('#ag-shot', { x: 0, y: 0, scale: 1 }, { ...cam(989, 288, 1.8), duration: 0.8, ease: 'expo.inOut' }, 0.9);
+    tl.to('#ag-shot', { ...cam(281, 653, 1.5), duration: 0.8, ease: 'expo.inOut' }, 3.3);
+    tl.fromTo('#ag-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 0.2);
+    tl.to('#ag-title', { opacity: 0, duration: 0.2 }, 3.2);
+    tl.fromTo('#ag-title2', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 3.45);
+    
+    window.__timelines["agency"] = tl;
+  </script>
+</template>

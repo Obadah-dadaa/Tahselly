@@ -1,0 +1,51 @@
+<template>
+  <style>
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #f1f5f9; }
+    .red { color: #e11d48; } .k { color: #14b8a6; }
+    .chip { display: inline-block; font-size: 30px; font-weight: 600; color: #0b1220; background: #ffffff; border-radius: 999px; padding: 6px 26px; box-shadow: 0 10px 24px rgba(15,23,42,.12); }
+    .title { position: absolute; inset-inline-start: 120px; bottom: 70px; background: #ffffff; border-radius: 28px; padding: 18px 44px 26px; box-shadow: 0 24px 50px rgba(15,23,42,.16); }
+    .title .t { font-size: 76px; font-weight: 700; color: #0b1220; line-height: 1.25; white-space: nowrap; }
+    .shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; transform-origin: 0 0; }
+    .cursor { position: absolute; width: 70px; height: 70px; left: 0; top: 0; }
+
+    #tn-bg { position: absolute; inset: 0; background: #ffffff; }
+    #tn-count { position: absolute; inset-inline-end: 140px; top: 250px; width: 620px; text-align: center; }
+    #tn-num { font-size: 300px; font-weight: 700; color: #e11d48; line-height: 1; direction: ltr; font-variant-numeric: tabular-nums; }
+    #tn-lbl { font-size: 54px; font-weight: 600; color: #475569; margin-top: 10px; }
+    .ev { position: absolute; inset-inline-start: 140px; width: 900px; display: flex; align-items: center; gap: 30px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 28px; padding: 28px 36px; }
+    .ev .ic { width: 96px; height: 96px; border-radius: 24px; display: grid; place-items: center; flex: none; }
+    .ev .m { font-size: 46px; font-weight: 700; color: #0b1220; }
+    .ev .s { font-size: 32px; font-weight: 600; color: #64748b; margin-top: 4px; }
+    #ev1 { top: 200px; } #ev2 { top: 420px; } #ev3 { top: 640px; }
+    #ev2 .m { font-size: 38px; }
+    
+  </style>
+  <div id="root" data-composition-id="tension" data-width="1920" data-height="1080">
+
+    <div id="tn-bg" class="clip" data-start="0" data-duration="5.64"></div>
+    <div id="tn-count" class="clip" data-start="0" data-duration="5.64"><div id="tn-num">30</div><div id="tn-lbl">days overdue</div></div>
+    <div class="ev clip" id="ev1" data-start="0" data-duration="5.64"><div class="ic" style="background:#fff1f2"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/><path d="M17 3l4 4M21 3l-4 4"/></svg></div><div><div class="m">Call</div><div class="s">no answer</div></div></div>
+    <div class="ev clip" id="ev2" data-start="0" data-duration="5.64"><div class="ic" style="background:#ecfdf5"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.6A8.5 8.5 0 1 1 21 11.5z"/></svg></div><div><div class="m">Kindly settle invoice INV-1047</div><div class="s">✓ not read</div></div></div>
+    <div class="ev clip" id="ev3" data-start="0" data-duration="5.64"><div class="ic" style="background:#fffbeb"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12M6 22h12M7 2v4a5 5 0 0 0 10 0V2M7 22v-4a5 5 0 0 1 10 0v4"/></svg></div><div><div class="m">Waiting for a reply…</div></div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 5.64;
+    // camera helper: put screenshot point (fx, fy) at the frame centre at scale s
+    const cam = (fx, fy, s) => ({ x: 960 - fx * s, y: 540 - fy * s, scale: s });
+
+    [0.25, 1.33610326, 2.47157485].forEach((at, i) => tl.fromTo('#ev' + (i + 1), { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: 'power3.out' }, at));
+    const n = { v: 30 };
+    tl.to(n, { v: 90, duration: 4.44, ease: 'power1.in', onUpdate: () => { document.getElementById('tn-num').textContent = Math.round(n.v); } }, 0.3);
+    tl.fromTo('#tn-num', { scale: 0.85 }, { scale: 1, duration: 0.4, ease: 'back.out(1.7)' }, 0.1);
+    
+    window.__timelines["tension"] = tl;
+  </script>
+</template>

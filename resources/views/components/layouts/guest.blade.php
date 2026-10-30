@@ -18,7 +18,7 @@
             <a href="{{ route('landing') }}" class="flex items-center gap-2">
                 <x-brand-mark class="size-9" />
                 <span class="text-xl font-bold text-ink">{{ __(\App\Models\SystemSetting::get('app_name', __('تحصيلي'))) }}</span>
-                @beta<span class="rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold leading-none text-amber-950">BETA</span>@endbeta
+                <x-beta-badge />
             </a>
             <div class="flex items-center gap-3">
                 <x-preference-switches />

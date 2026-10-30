@@ -68,7 +68,7 @@
         <a href="{{ route('home') }}" class="mb-8 flex items-center gap-3 px-2">
             <x-brand-mark class="size-10 drop-shadow-lg" />
             <span>
-                <span class="flex items-center gap-2 text-lg font-bold text-white">{{ $appName }} @beta<span class="rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold leading-none text-amber-950">BETA</span>@endbeta</span>
+                <span class="flex items-center gap-2 text-lg font-bold text-white">{{ $appName }} <x-beta-badge tone="dark" /></span>
                 <span class="block text-xs text-slate-400">Invoice & Payment Reminder</span>
             </span>
         </a>

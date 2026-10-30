@@ -58,8 +58,8 @@ class PlatformSeeder extends Seeder
             ['bank_name', 'Emirates NBD', 'string', 'billing', 'اسم البنك (للتحويل البنكي)'],
             ['bank_account_name', 'Tahselly Software Solutions', 'string', 'billing', 'اسم صاحب الحساب'],
             ['bank_iban', 'AE07 0331 2345 6789 0123 456', 'string', 'billing', 'رقم IBAN'],
-            ['promo_video_ar', 'videos/tahselly-promo-ar.mp4', 'string', 'branding', 'فيديو البرومو العربي (مسار داخل public)'],
-            ['promo_video_en', 'videos/tahselly-promo-en.mp4', 'string', 'branding', 'فيديو البرومو الإنكليزي (مسار داخل public)'],
+            ['promo_video_ar', 'videos/tahselly-teaser-ar.mp4', 'string', 'branding', 'فيديو البرومو العربي (مسار داخل public)'],
+            ['promo_video_en', 'videos/tahselly-teaser-en.mp4', 'string', 'branding', 'فيديو البرومو الإنكليزي (مسار داخل public)'],
             ['tutorial_video', 'videos/tahselly-tutorial-ar.mp4', 'string', 'branding', 'فيديو شرح الاستخدام (مسار داخل public)'],
         ] as [$key, $value, $type, $group, $label]) {
             SystemSetting::firstOrCreate(['key' => $key], compact('value', 'type', 'group', 'label'));

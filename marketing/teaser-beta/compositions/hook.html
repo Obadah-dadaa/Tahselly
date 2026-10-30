@@ -1,0 +1,92 @@
+<template>
+  <style>
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2713; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; direction: rtl; font-family: "Plex Arabic"; background: #f1f5f9; }
+    .red { color: #e11d48; } .k { color: #14b8a6; }
+    .chip { display: inline-block; font-size: 30px; font-weight: 600; color: #0b1220; background: #ffffff; border-radius: 999px; padding: 6px 26px; box-shadow: 0 10px 24px rgba(15,23,42,.12); }
+    .title { position: absolute; inset-inline-start: 120px; bottom: 70px; background: #ffffff; border-radius: 28px; padding: 18px 44px 26px; box-shadow: 0 24px 50px rgba(15,23,42,.16); }
+    .title .t { font-size: 76px; font-weight: 700; color: #0b1220; line-height: 1.25; white-space: nowrap; }
+    .shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; transform-origin: 0 0; }
+    .cursor { position: absolute; width: 70px; height: 70px; left: 0; top: 0; }
+
+    #panes { position: absolute; inset: 0; display: flex; }
+    .pane { position: relative; width: 640px; height: 1080px; overflow: hidden; }
+    .pane + .pane { border-inline-start: 6px solid #ffffff; }
+    .p1 { background: #f3e6cf; } .p2 { background: #e2e8f0; } .p3 { background: #eef6f8; }
+    .place { position: absolute; inset-inline-start: 56px; top: 70px; font-size: 96px; font-weight: 700; color: #0b1220; line-height: 1.2; white-space: nowrap; }
+    .p3 .place { font-size: 78px; top: 88px; }
+    .kind { position: absolute; inset-inline-start: 60px; top: 210px; font-size: 38px; font-weight: 600; color: #475569; }
+    .world { position: absolute; inset-inline-end: 0; top: 300px; width: 640px; height: 330px; }
+    .inv { position: absolute; inset-inline: 36px; top: 640px; background: #ffffff; border-radius: 28px; padding: 30px 34px; box-shadow: 0 30px 60px rgba(15,23,42,.14); }
+    .inv .c { font-size: 36px; font-weight: 700; color: #0b1220; direction: ltr; text-align: start; }
+    .inv .n { font-size: 28px; font-weight: 600; color: #0f766e; margin-top: 6px; direction: ltr; text-align: start; }
+    .inv .row { display: flex; align-items: center; justify-content: space-between; margin-top: 22px; }
+    .inv .a { font-size: 44px; font-weight: 700; color: #0b1220; direction: ltr; font-variant-numeric: tabular-nums; }
+    .inv .a small { font-size: 26px; color: #64748b; margin-inline-start: 8px; }
+    .pill { position: relative; display: grid; font-size: 25px; font-weight: 700; border-radius: 999px; }
+    .pill span { grid-area: 1 / 1; padding: 6px 18px; border-radius: 999px; white-space: nowrap; text-align: center; }
+    .pill .o { color: #be123c; background: #fff1f2; border: 2px solid #fecdd3; }
+    .pill .d { color: #047857; background: #ecfdf5; border: 2px solid #a7f3d0; opacity: 0; }
+    /* worlds */
+    .carton { position: absolute; background: #c79a6b; border: 3px solid #a87b4f; border-radius: 6px; }
+    .carton::after { content: ""; position: absolute; left: 44%; width: 12%; top: 0; bottom: 0; background: #e9d3a8; }
+    .hazard { position: absolute; left: 0; right: 0; top: 0; height: 46px; background: repeating-linear-gradient(45deg, #facc15 0 34px, #0b1220 34px 68px); }
+    
+    #h-banner { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: #0b1220; display: flex; align-items: center; justify-content: center; }
+    #h-banner .b { font-size: 70px; font-weight: 700; color: #ffffff; }
+    #h-banner .red { color: #fb7185; }
+    
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1920" data-height="1080">
+    <div id="h-panes" class="clip" data-start="0" data-duration="13.08" style="position:absolute;inset:0;display:flex">
+      <div class="pane p1" id="h-p1">
+        <div class="place">ديرة</div><div class="kind">شركة تجارة عامة</div>
+        <div class="world"><div class="carton" style="left:330px;top:150px;width:200px;height:150px"></div><div class="carton" style="left:110px;top:150px;width:200px;height:150px"></div><div class="carton" style="left:220px;top:-10px;width:200px;height:150px"></div></div>
+        <div class="inv" id="h-p1-inv"><div class="c">Gulf Star Supermarket</div><div class="n">INV-1047</div>
+          <div class="row"><div class="a">18,400.00<small>AED</small></div>
+          <div class="pill" id="h-p1-pill"><span class="o">متأخرة · 62 يوم</span><span class="d" id="h-p1-paid">✓ مدفوعة</span></div></div></div>
+      </div>
+      <div class="pane p2" id="h-p2">
+        <div class="place">القوز</div><div class="kind">شركة صيانة</div>
+        <div class="world"><div class="hazard"></div><svg style="position:absolute;left:170px;top:70px;width:300px;height:250px" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <div class="inv" id="h-p2-inv"><div class="c">Marina Heights Towers</div><div class="n">AMC-0312</div>
+          <div class="row"><div class="a">7,250.00<small>AED</small></div>
+          <div class="pill" id="h-p2-pill"><span class="o">متأخرة · 45 يوم</span><span class="d" id="h-p2-paid">✓ مدفوعة</span></div></div></div>
+      </div>
+      <div class="pane p3" id="h-p3">
+        <div class="place">الخليج التجاري</div><div class="kind">وكالة تسويق</div>
+        <div class="world"><svg style="position:absolute;left:40px;top:20px;width:560px;height:310px" viewBox="0 0 560 310"><rect x="20" y="140" width="70" height="170" fill="#cbd5e1"/><rect x="100" y="60" width="80" height="250" fill="#94a3b8"/><rect x="190" y="110" width="60" height="200" fill="#cbd5e1"/><path d="M270 310 V40 L310 0 L350 40 V310 Z" fill="#64748b"/><rect x="365" y="90" width="80" height="220" fill="#94a3b8"/><rect x="455" y="160" width="80" height="150" fill="#cbd5e1"/></svg></div>
+        <div class="inv" id="h-p3-inv"><div class="c">Pearl Beauty Lounge</div><div class="n">CH-2503</div>
+          <div class="row"><div class="a">16,200.00<small>AED</small></div>
+          <div class="pill" id="h-p3-pill"><span class="o">متأخرة · 70 يوم</span><span class="d" id="h-p3-paid">✓ مدفوعة</span></div></div></div>
+      </div>
+    </div>
+    <div id="h-banner" class="clip" data-start="0" data-duration="13.08"><div class="b" id="h-banner-t">مشكلة واحدة: <span class="red">فواتير لم تُدفع</span></div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 13.08;
+    // camera helper: put screenshot point (fx, fy) at the frame centre at scale s
+    const cam = (fx, fy, s) => ({ x: 960 - fx * s, y: 540 - fy * s, scale: s });
+
+    [0.15, 2.60963428, 4.64754688].forEach((at, i) => {
+      const p = '#h-p' + (i + 1);
+      if (i === 0) return;
+      tl.fromTo(p + ' .world', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.5, ease: 'power3.inOut' }, at);
+      tl.fromTo(p + ' .place', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out' }, at + 0.2);
+      tl.fromTo(p + ' .kind', { opacity: 0 }, { opacity: 1, duration: 0.4 }, at + 0.35);
+      tl.fromTo(p + '-inv', { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, at + 0.4);
+    });
+    ['#h-p1-pill', '#h-p2-pill', '#h-p3-pill'].forEach((p, i) => tl.fromTo(p, { scale: 1 }, { scale: 1.18, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 9.75 + i * 0.08));
+    tl.fromTo('#h-banner', { y: 150 }, { y: 0, duration: 0.45, ease: 'power3.out' }, 9.65);
+    tl.fromTo('#h-banner-t', { opacity: 0 }, { opacity: 1, duration: 0.3 }, 9.95);
+    
+    window.__timelines["hook"] = tl;
+  </script>
+</template>
