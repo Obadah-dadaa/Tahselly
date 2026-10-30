@@ -214,13 +214,15 @@
   },
   "renders": {
     "latest": {
-      "id": "88dd6338-b2e6-475c-832f-a091519a5035",
-      "completedAt": 1793359547670,
+      "id": "940e4a8a-c252-41a7-af9d-f8443133884d",
+      "completedAt": 1793359886311,
       "output": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly\\marketing\\teaser-beta\\tahselly-teaser-beta-ar.mp4",
       "status": "completed",
-      "revision": null
+      "revision": "884f4408-02b5-4fc3-86b5-cabb61a660f4"
     },
-    "retainedRevisions": []
+    "retainedRevisions": [
+      "884f4408-02b5-4fc3-86b5-cabb61a660f4"
+    ]
   },
   "pendingArtifactCleanup": []
 }
