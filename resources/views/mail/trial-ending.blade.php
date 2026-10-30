@@ -20,13 +20,18 @@
                         <b>{{ __('تبقّى :days أيام على انتهاء تجربتك المجانية', ['days' => $days]) }}</b> ({{ $company->trial_ends_at->format('Y-m-d') }}).
                     @endif
                 </p>
+                @beta
+                <p style="margin:0 0 20px">{{ __('بعد انتهاء النسخة التجريبية يتوقف الوصول إلى حسابك. إذا كنت مهتماً بالاستمرار، أرسل طلب الاشتراك وسنتواصل معك.') }}</p>
+                <a href="{{ route('owner.billing') }}" style="display:inline-block;background:#0f766e;color:#fff;text-decoration:none;font-weight:bold;padding:12px 24px;border-radius:10px">{{ __('أرسل طلب الاشتراك') }}</a>
+                @else
                 <p style="margin:0 0 12px">{{ __('بعد انتهاء التجربة سيتوقف الوصول إلى حسابك والتذكيرات الآلية لعملائك حتى تشترك. بياناتك محفوظة ولن يُحذف شيء.') }}</p>
                 @if($plan)
                     <p style="margin:0 0 20px">{{ __('باقتك: :plan — :price درهم شهرياً (أو وفّر شهرين بالاشتراك السنوي).', ['plan' => $plan->localizedName(), 'price' => (int) $plan->price]) }}</p>
                 @endif
                 <a href="{{ route('owner.billing') }}" style="display:inline-block;background:#0f766e;color:#fff;text-decoration:none;font-weight:bold;padding:12px 24px;border-radius:10px">{{ __('اشترك الآن') }}</a>
+                @endbeta
             </td></tr>
-            <tr><td style="padding:16px 28px;border-top:1px solid #e2e8f0;font-size:12px;color:#94a3b8">{{ __('لا يتم خصم أي مبلغ تلقائياً — الاشتراك بقرارك.') }}</td></tr>
+            <tr><td style="padding:16px 28px;border-top:1px solid #e2e8f0;font-size:12px;color:#94a3b8">@beta{{ __('النسخة التجريبية مجانية ولا يوجد فيها أي دفع.') }}@else{{ __('لا يتم خصم أي مبلغ تلقائياً — الاشتراك بقرارك.') }}@endbeta</td></tr>
         </table>
     </td></tr>
 </table>

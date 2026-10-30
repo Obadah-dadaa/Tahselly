@@ -1,0 +1,55 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: rtl; font-family: "Plex Arabic"; background: #f1f5f9; }
+    #sc-title { position: absolute; right: 140px; top: 110px; font-size: 92px; font-weight: 700; color: #0b1220; }
+    #sc-title .k { color: #0f766e; }
+    #sc-track { position: absolute; left: 140px; right: 140px; top: 520px; height: 10px; border-radius: 10px; background: #cbd5e1; }
+    #sc-fill { position: absolute; inset: 0; border-radius: 10px; background: #0f766e; transform-origin: 100% 50%; }
+    #sc-due { position: absolute; right: 470px; top: 430px; width: 6px; height: 190px; background: #0b1220; border-radius: 4px; }
+    #sc-due-label { position: absolute; right: 360px; top: 640px; width: 230px; text-align: center; font-size: 30px; font-weight: 700; color: #0b1220; }
+    .sc-chip { position: absolute; top: 380px; transform-origin: 50% 100%; font-size: 34px; font-weight: 700; padding: 14px 28px; border-radius: 999px; white-space: nowrap; }
+    .sc-dot { position: absolute; top: 507px; width: 36px; height: 36px; border-radius: 50%; border: 6px solid #ffffff; box-shadow: 0 4px 10px rgba(15, 23, 42, .2); }
+    #sc-c1 { right: 170px; background: #ccfbf1; color: #115e59; } #sc-d1 { right: 245px; background: #14b8a6; }
+    #sc-c2 { right: 395px; top: 290px; background: #fef3c7; color: #92400e; } #sc-d2 { right: 455px; background: #f59e0b; }
+    #sc-c3 { right: 690px; background: #ffedd5; color: #9a3412; } #sc-d3 { right: 760px; background: #fb923c; }
+    #sc-c4 { right: 960px; background: #ffedd5; color: #9a3412; } #sc-d4 { right: 1030px; background: #fb923c; }
+    #sc-c5 { right: 1230px; background: #ffe4e6; color: #9f1239; } #sc-d5 { right: 1300px; background: #f87171; }
+    #sc-c6 { left: 140px; top: 290px; background: #be123c; color: #ffffff; } #sc-d6 { left: 220px; background: #be123c; }
+    #sc-foot { position: absolute; right: 140px; bottom: 120px; font-size: 40px; font-weight: 600; color: #475569; }
+    #sc-foot b { color: #0f766e; }
+  </style>
+  <div id="root" data-composition-id="schedule" data-width="1920" data-height="1080">
+    <div id="sc-title" class="clip" data-start="0" data-duration="5.8"><span class="k">٢.</span> حدّد متى نذكّر عملاءك</div>
+    <div id="sc-track" class="clip" data-start="0" data-duration="5.8"><div id="sc-fill"></div></div>
+    <div id="sc-due" class="clip" data-start="0" data-duration="5.8"></div>
+    <div id="sc-due-label" class="clip" data-start="0" data-duration="5.8">تاريخ الاستحقاق</div>
+    <div id="sc-chip-layer" class="clip" data-start="0" data-duration="5.8" data-layout-allow-overlap>
+      <div id="sc-d1" class="sc-dot"></div><div id="sc-c1" class="sc-chip">قبل 3 أيام</div>
+      <div id="sc-d2" class="sc-dot"></div><div id="sc-c2" class="sc-chip">يوم الاستحقاق</div>
+      <div id="sc-d3" class="sc-dot"></div><div id="sc-c3" class="sc-chip">بعد 7 يوم</div>
+      <div id="sc-d4" class="sc-dot"></div><div id="sc-c4" class="sc-chip">بعد 14 يوم</div>
+      <div id="sc-d5" class="sc-dot"></div><div id="sc-c5" class="sc-chip">بعد 30 يوم</div>
+      <div id="sc-d6" class="sc-dot"></div><div id="sc-c6" class="sc-chip">إنذار نهائي بعد 45 يوم</div>
+    </div>
+    <div id="sc-foot" class="clip" data-start="0" data-duration="5.8">يعمل يومياً الساعة <b>9:00</b> صباحاً بتوقيت الإمارات — بريد إلكتروني وواتساب</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#sc-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.1);
+    tl.fromTo("#sc-fill", { scaleX: 0 }, { scaleX: 1, duration: 3.6, ease: "power1.inOut" }, 0.6);
+    tl.fromTo(["#sc-due", "#sc-due-label"], { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.4);
+    for (let i = 1; i <= 6; i++) {
+      const t = 0.8 + (i - 1) * 0.6;
+      tl.fromTo("#sc-d" + i, { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(1.8)" }, t);
+      tl.fromTo("#sc-c" + i, { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, t + 0.06);
+    }
+    tl.fromTo("#sc-foot", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.7);
+    window.__timelines["schedule"] = tl;
+  </script>
+</template>

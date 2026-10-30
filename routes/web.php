@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Developer;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\InterestController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Owner;
@@ -19,13 +20,40 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TrialController;
+use App\Support\Blog;
+use App\Support\Edition;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->middleware('track')->name('landing');
+// robots.txt per site: the beta keeps every crawler out so it never competes with tahselly.com
+Route::get('/robots.txt', function () {
+    $body = Edition::isBeta()
+        ? 'User-agent: *
+Disallow: /
+'
+        : 'User-agent: *
+Allow: /
+Disallow: /owner
+Disallow: /developer
+Disallow: /dashboard
+Disallow: /invoices
+Disallow: /clients
+Disallow: /reminders
+Disallow: /reports
+Disallow: /import
+Disallow: /checkout
+Disallow: /subscribe
+
+Sitemap: '.url('sitemap.xml').'
+';
+
+    return response($body, 200)->header('Content-Type', 'text/plain; charset=UTF-8');
+})->name('robots');
 Route::get('/sitemap.xml', function () {
+    abort_if(Edition::isBeta(), 404);
     $pages = ['landing' => '1.0', 'trial.create' => '0.9', 'contact' => '0.7', 'legal.terms' => '0.3', 'legal.privacy' => '0.3'];
 
-    $posts = \App\Support\Blog::all('en')->pluck('slug');
+    $posts = Blog::all('en')->pluck('slug');
 
     return response()->view('sitemap', ['pages' => $pages + ['blog.index' => '0.8'], 'posts' => $posts], 200)->header('Content-Type', 'application/xml');
 })->name('sitemap');
@@ -33,25 +61,30 @@ Route::post('/locale/{locale}', [PreferenceController::class, 'locale'])->whereI
 Route::post('/theme/{theme}', [PreferenceController::class, 'theme'])->whereIn('theme', ['light', 'dark'])->name('theme');
 
 // Checkout: guests create an account while subscribing; owners renew or change plan
-Route::get('/subscribe/{plan:code}', [SubscribeController::class, 'show'])->middleware('track')->name('subscribe.show');
-Route::post('/subscribe/{plan:code}', [SubscribeController::class, 'store'])->middleware('throttle:10,1')->name('subscribe.store');
-Route::get('/checkout/{subscription}/pay', [SubscribeController::class, 'sandbox'])->name('subscribe.sandbox');
-Route::post('/checkout/{subscription}/pay', [SubscribeController::class, 'sandboxPay'])->middleware('throttle:10,1')->name('subscribe.sandbox.pay');
-Route::get('/checkout/{subscription}/return', [SubscribeController::class, 'stripeReturn'])->name('subscribe.return');
-Route::get('/checkout/{subscription}/pending', [SubscribeController::class, 'pending'])->name('subscribe.pending');
-Route::get('/checkout/{subscription}/status', [SubscribeController::class, 'status'])->middleware('throttle:30,1')->name('subscribe.status');
-Route::get('/checkout/{subscription}/continue', [SubscribeController::class, 'continue'])->name('subscribe.continue');
-Route::post('/stripe/webhook', StripeWebhookController::class)->name('stripe.webhook');
+// Plans, checkout and payment: live site only (the beta has none)
+Route::middleware('live')->group(function () {
+    Route::get('/subscribe/{plan:code}', [SubscribeController::class, 'show'])->middleware('track')->name('subscribe.show');
+    Route::post('/subscribe/{plan:code}', [SubscribeController::class, 'store'])->middleware('throttle:10,1')->name('subscribe.store');
+    Route::get('/checkout/{subscription}/pay', [SubscribeController::class, 'sandbox'])->name('subscribe.sandbox');
+    Route::post('/checkout/{subscription}/pay', [SubscribeController::class, 'sandboxPay'])->middleware('throttle:10,1')->name('subscribe.sandbox.pay');
+    Route::get('/checkout/{subscription}/return', [SubscribeController::class, 'stripeReturn'])->name('subscribe.return');
+    Route::get('/checkout/{subscription}/pending', [SubscribeController::class, 'pending'])->name('subscribe.pending');
+    Route::get('/checkout/{subscription}/status', [SubscribeController::class, 'status'])->middleware('throttle:30,1')->name('subscribe.status');
+    Route::get('/checkout/{subscription}/continue', [SubscribeController::class, 'continue'])->name('subscribe.continue');
+    Route::post('/stripe/webhook', StripeWebhookController::class)->name('stripe.webhook');
+});
 
 // Free trial (no card) and legal pages
 Route::middleware('guest')->group(function () {
     Route::get('/start', [TrialController::class, 'create'])->middleware('track')->name('trial.create');
     Route::post('/start', [TrialController::class, 'store'])->middleware('throttle:5,1')->name('trial.store');
 });
-Route::view('/terms', 'legal.terms')->middleware('track')->name('legal.terms');
-Route::view('/privacy', 'legal.privacy')->middleware('track')->name('legal.privacy');
+// The beta has its own terms and privacy notice (free testing, limits, no payment)
+Route::get('/terms', fn () => view(Edition::isBeta() ? 'legal.beta-terms' : 'legal.terms'))->middleware('track')->name('legal.terms');
+Route::get('/privacy', fn () => view(Edition::isBeta() ? 'legal.beta-privacy' : 'legal.privacy'))->middleware('track')->name('legal.privacy');
 Route::get('/blog', [BlogController::class, 'index'])->middleware('track')->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->where('slug', '[a-z0-9-]+')->middleware('track')->name('blog.show');
+Route::post('/interest', [InterestController::class, 'store'])->middleware('throttle:3,10')->name('interest.store');
 Route::get('/contact', [ContactController::class, 'show'])->middleware('track')->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:3,10')->name('contact.store');
 
@@ -112,7 +145,7 @@ Route::middleware(['auth', 'verified', 'role:owner'])->prefix('owner')->name('ow
     Route::get('/', Owner\DashboardController::class)->middleware('feature:owner_analytics')->name('dashboard');
     Route::get('billing', Owner\BillingController::class)->name('billing');
     Route::get('plan', [TrialController::class, 'choosePlan'])->name('plan');
-    Route::post('plan', [TrialController::class, 'storePlan'])->name('plan.choose');
+    Route::post('plan', [TrialController::class, 'storePlan'])->middleware('live')->name('plan.choose');
     Route::get('team', [Owner\TeamController::class, 'index'])->name('team.index');
     Route::post('team', [Owner\TeamController::class, 'store'])->name('team.store');
     Route::patch('team/{user}', [Owner\TeamController::class, 'update'])->middleware('feature:team_permissions')->name('team.update');
@@ -137,6 +170,9 @@ Route::middleware(['staff:developer,platform'])->prefix('developer')->name('deve
     Route::get('plans', [Developer\SettingsController::class, 'plans'])->name('plans');
     Route::put('plans', [Developer\SettingsController::class, 'updatePlans'])->name('plans.update');
     Route::get('activity', [Developer\ToolsController::class, 'activity'])->name('activity');
+    Route::get('interest', [Developer\InterestController::class, 'index'])->name('interest.index');
+    Route::post('interest/{interest}/handled', [Developer\InterestController::class, 'handle'])->name('interest.handle');
+    Route::post('interest/{interest}/extend', [Developer\InterestController::class, 'extend'])->name('interest.extend');
 });
 
 // Developer-only: system internals

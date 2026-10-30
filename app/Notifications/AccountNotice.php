@@ -27,6 +27,8 @@ class AccountNotice extends Notification
         'subscription_paid' => ['اشتراك جديد مدفوع', ':company دفعت :plan (:cycle) بمبلغ :amount درهم بالبطاقة.', 'cash'],
         'subscription_active' => ['تم تفعيل اشتراكك', 'تم تأكيد دفعتك وتفعيل باقة :plan (:cycle) حتى :date.', 'check'],
         'subscription_extended' => ['تم تمديد اشتراكك', 'أصبح اشتراكك في باقة :plan سارياً حتى :date.', 'check'],
+        'interest_requested' => ['طلب اشتراك جديد', ':name (:company) يريد الاشتراك. للتواصل: :email · :phone', 'cash'],
+        'access_extended' => ['تم تفعيل حسابك', 'أصبح حسابك فعّالاً حتى :date.', 'check'],
         'subscription_cancelled' => ['تم إلغاء اشتراكك', 'أُلغي اشتراكك في باقة :plan. اختر باقة للعودة إلى حسابك.', 'alert'],
     ];
 

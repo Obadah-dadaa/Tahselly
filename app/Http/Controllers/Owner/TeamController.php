@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\User;
+use App\Support\Edition;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -26,9 +27,11 @@ class TeamController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $company = $request->user()->company->load('plan');
-        $limit = $company->plan?->max_users ?? 3;
+        $limit = Edition::isBeta() ? Edition::limit('max_users') : ($company->plan?->max_users ?? 3);
         if ($company->users()->count() >= $limit) {
-            return back()->with('error', __('وصلت للحد الأقصى للمستخدمين في باقتك (:limit). قم بالترقية لإضافة المزيد.', ['limit' => $limit]));
+            return back()->with('error', Edition::isBeta()
+                ? __('وصلت لحد النسخة التجريبية (:limit مستخدمين).', ['limit' => $limit])
+                : __('وصلت للحد الأقصى للمستخدمين في باقتك (:limit). قم بالترقية لإضافة المزيد.', ['limit' => $limit]));
         }
 
         $data = $request->validate([

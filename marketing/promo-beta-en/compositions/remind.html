@@ -1,0 +1,108 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #f1f5f9; }
+    #rm-shot-wrap { position: absolute; inset: 0; overflow: hidden; }
+    #rm-shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; }
+    #rm-title { position: absolute; left: 140px; top: 70px; font-size: 84px; font-weight: 700; color: #0b1220; }
+    #rm-title .k { color: #0f766e; }
+    #rm-title2 { position: absolute; left: 140px; top: 70px; font-size: 84px; font-weight: 700; color: #0b1220; }
+    #rm-title2 .k { color: #0f766e; }
+    #rm-stage { position: absolute; inset: 0; background: #f1f5f9; }
+    #rm-log { position: absolute; right: 140px; top: 220px; width: 1000px; background: #ffffff; border-radius: 28px; box-shadow: 0 30px 60px rgba(15, 23, 42, .12); padding: 34px 48px; }
+    #rm-log h4 { font-size: 36px; font-weight: 700; color: #0b1220; margin-bottom: 18px; }
+    .rm-item { display: flex; align-items: center; justify-content: space-between; height: 104px; border-top: 1px solid #f1f5f9; font-size: 32px; }
+    .rm-item .l { display: flex; align-items: center; gap: 22px; }
+    .rm-dot { width: 26px; height: 26px; border-radius: 50%; background: #14b8a6; }
+    .rm-dot.bad { background: #e11d48; }
+    .rm-item b { color: #0b1220; } .rm-item span.m { color: #64748b; font-size: 28px; }
+    .rm-item .r { display: flex; align-items: center; gap: 18px; color: #64748b; font-size: 26px; direction: ltr; }
+    .ok { font-size: 24px; font-weight: 700; color: #047857; background: #ecfdf5; border: 2px solid #a7f3d0; border-radius: 999px; padding: 2px 18px; }
+    .no { font-size: 24px; font-weight: 700; color: #be123c; background: #fff1f2; border: 2px solid #fecdd3; border-radius: 999px; padding: 2px 18px; }
+    #rm-wa-btn { position: absolute; left: 230px; top: 260px; display: flex; align-items: center; gap: 16px; background: #25d366; color: #fff; font-size: 38px; font-weight: 700; padding: 22px 40px; border-radius: 22px; box-shadow: 0 18px 40px rgba(37, 211, 102, .35); }
+    #rm-bubble { position: absolute; left: 140px; top: 420px; width: 600px; background: #dcf8c6; border-radius: 26px 26px 6px 26px; padding: 30px 34px; font-size: 30px; line-height: 1.6; color: #0b1220; box-shadow: 0 18px 40px rgba(15, 23, 42, .15); }
+    #rm-bubble .t { display: block; text-align: right; font-size: 28px; color: #64748b; margin-top: 8px; direction: ltr; }
+    #rm-cursor { position: absolute; left: 380px; top: 300px; width: 74px; }
+    #rm-pay { position: absolute; inset: 0; background: #f1f5f9; }
+    #rm-inv { position: absolute; left: 260px; right: 260px; top: 250px; background: #ffffff; border-radius: 32px; box-shadow: 0 30px 60px rgba(15, 23, 42, .12); padding: 54px 64px; }
+    #rm-inv .row1 { display: flex; justify-content: space-between; align-items: flex-start; }
+    #rm-inv .c { font-size: 30px; color: #64748b; } #rm-inv .n { font-size: 54px; font-weight: 700; color: #0b1220; }
+    #rm-status { position: relative; width: 330px; height: 64px; }
+    #rm-st-late, #rm-st-paid { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 999px; font-size: 32px; font-weight: 700; }
+    #rm-st-late { color: #be123c; background: #fff1f2; border: 2px solid #fecdd3; }
+    #rm-st-paid { color: #047857; background: #ecfdf5; border: 2px solid #a7f3d0; }
+    #rm-bar { margin-top: 50px; height: 22px; border-radius: 22px; background: #f1f5f9; overflow: hidden; }
+    #rm-bar-fill { height: 100%; width: 100%; background: #14b8a6; border-radius: 22px; transform-origin: 0% 50%; }
+    #rm-inv .bal { margin-top: 28px; display: flex; justify-content: space-between; align-items: center; }
+    #rm-inv .bal p { font-size: 48px; font-weight: 700; color: #0b1220; }
+    #rm-paybtn { font-size: 38px; font-weight: 700; color: #fff; background: #0f766e; border-radius: 22px; padding: 22px 48px; }
+    #rm-cursor2 { position: absolute; left: 520px; top: 720px; width: 74px; }
+    #rm-balval { font-variant-numeric: tabular-nums; }
+  </style>
+  <div id="root" data-composition-id="remind" data-width="1920" data-height="1080">
+    <div id="rm-shot-wrap" class="clip" data-start="0" data-duration="1.4">
+      <img id="rm-shot" src="assets/screens/invoice-detail.png" alt="صفحة فاتورة" />
+    </div>
+    <div id="rm-stage" class="clip" data-start="1.4" data-duration="4.2">
+      <div id="rm-log">
+        <h4>Reminder log — CH-2446 · Oud Al Sharq Perfumes</h4>
+        <div class="rm-item" id="rm-i5"><div class="l"><div class="rm-dot"></div><b>Overdue</b><span class="m">· Email · Automatic</span></div><div class="r">2026-07-26 09:10 <span class="ok">Sent</span></div></div>
+        <div class="rm-item" id="rm-i4"><div class="l"><div class="rm-dot bad"></div><b>Overdue</b><span class="m">· Email · Automatic</span></div><div class="r">2026-07-10 09:03 <span class="no">Failed</span></div></div>
+        <div class="rm-item" id="rm-i3"><div class="l"><div class="rm-dot"></div><b>Overdue</b><span class="m">· Email · Automatic</span></div><div class="r">2026-07-03 09:08 <span class="ok">Sent</span></div></div>
+        <div class="rm-item" id="rm-i2"><div class="l"><div class="rm-dot"></div><b>Due date</b><span class="m">· Email · Automatic</span></div><div class="r">2026-06-26 09:06 <span class="ok">Sent</span></div></div>
+        <div class="rm-item" id="rm-i1"><div class="l"><div class="rm-dot"></div><b>Before due</b><span class="m">· Email · Automatic</span></div><div class="r">2026-06-23 09:08 <span class="ok">Sent</span></div></div>
+      </div>
+      <div id="rm-wa-btn">WhatsApp reminder</div>
+      <div id="rm-bubble">Hi Majid Faris, invoice CH-2446 for AED 6,150.00 is 123 days overdue. Please arrange payment or contact us. — Creative Hub Marketing<span class="t">09:41 ✓✓</span></div>
+      <svg id="rm-cursor" viewBox="0 0 24 24"><path d="M3 2l17 10-7.5 1.6L9 21z" fill="#ffffff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    </div>
+    <div id="rm-title" class="clip" data-start="1.4" data-duration="4.2"><span class="k">3.</span> Reminders go out on their own</div>
+    <div id="rm-pay" class="clip" data-start="5.6" data-duration="4.4">
+      <div id="rm-inv">
+        <div class="row1">
+          <div><p class="c">Client · CH-2446</p><p class="n">Oud Al Sharq Perfumes</p></div>
+          <div id="rm-status"><div id="rm-st-late">Overdue · 123 days</div><div id="rm-st-paid">Paid ✓</div></div>
+        </div>
+        <div id="rm-bar"><div id="rm-bar-fill"></div></div>
+        <div class="bal"><p>Balance: <span id="rm-balval">6,150.00</span> AED</p><div id="rm-paybtn">✓ Record payment</div></div>
+      </div>
+      <svg id="rm-cursor2" viewBox="0 0 24 24"><path d="M3 2l17 10-7.5 1.6L9 21z" fill="#ffffff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    </div>
+    <div id="rm-title2" class="clip" data-start="5.6" data-duration="4.4"><span class="k">4.</span> Record the payment — invoice closed</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // establish the invoice page, push toward its reminder log
+    tl.fromTo("#rm-shot", { scale: 1, x: 0, y: 0, transformOrigin: "1056px 905px" }, { scale: 1.5, x: -96, y: -365, duration: 0.9, ease: "expo.inOut" }, 0.35);
+    // rebuilt log: oldest first, each entry lands as it is "sent"
+    ["#rm-i1", "#rm-i2", "#rm-i3", "#rm-i4", "#rm-i5"].forEach((id, i) => {
+      tl.fromTo(id, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 1.5 + i * 0.22);
+    });
+    tl.fromTo("#rm-log", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 1.4);
+    tl.fromTo("#rm-title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 1.45);
+    tl.fromTo("#rm-wa-btn", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, 3.5);
+    tl.fromTo("#rm-cursor", { x: -500, y: 520 }, { x: 0, y: 0, duration: 0.6, ease: "power2.out" }, 3.6);
+    tl.to("#rm-wa-btn", { scale: 0.94, duration: 0.08, yoyo: true, repeat: 1 }, 4.3);
+    tl.fromTo("#rm-bubble", { scale: 0.3, opacity: 0, transformOrigin: "0% 0%" }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }, 4.4);
+    // payment
+    tl.fromTo("#rm-inv", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power3.out" }, 5.6);
+    tl.fromTo("#rm-title2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 5.65);
+    tl.fromTo("#rm-bar-fill", { scaleX: 0.58 }, { scaleX: 0.58, duration: 0.01 }, 5.6);
+    tl.fromTo("#rm-st-paid", { opacity: 0, scale: 0.6 }, { opacity: 0, scale: 0.6, duration: 0.01 }, 5.6);
+    tl.fromTo("#rm-cursor2", { x: -300, y: 300 }, { x: 0, y: 0, duration: 0.55, ease: "power2.out" }, 6.7);
+    tl.to("#rm-paybtn", { scale: 0.94, duration: 0.08, yoyo: true, repeat: 1 }, 7.4);
+    tl.to("#rm-bar-fill", { scaleX: 1, duration: 0.5, ease: "power3.out" }, 7.5);
+    tl.to("#rm-st-late", { opacity: 0, scale: 0.6, duration: 0.2 }, 7.55);
+    tl.to("#rm-st-paid", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 7.6);
+    const bal = { v: 6150 };
+    tl.fromTo(bal, { v: 6150 }, { v: 0, duration: 0.5, ease: "power3.out", onUpdate: () => {
+      document.getElementById("rm-balval").textContent = bal.v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    } }, 7.5);
+    window.__timelines["remind"] = tl;
+  </script>
+</template>

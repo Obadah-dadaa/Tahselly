@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Plan;
 use App\Models\SystemSetting;
 use App\Models\User;
+use App\Support\Edition;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,9 +29,9 @@ class TrialController extends Controller
         abort_unless(SystemSetting::get('allow_signups', true), 404);
 
         return view('subscribe.trial', [
-            // A plan picked on the pricing page is kept; otherwise the plan is chosen after sign-up
-            'selected' => $request->plan ? Plan::query()->where('is_active', true)->where('code', $request->plan)->first() : null,
-            'days' => (int) SystemSetting::get('default_trial_days', 14),
+            // A plan picked on the pricing page is kept; otherwise the plan is chosen after sign-up (the beta has no plans)
+            'selected' => $request->plan && ! Edition::isBeta() ? Plan::query()->where('is_active', true)->where('code', $request->plan)->first() : null,
+            'days' => Edition::isBeta() ? Edition::limit('trial_days') : (int) SystemSetting::get('default_trial_days', 14),
         ]);
     }
 
@@ -48,7 +49,7 @@ class TrialController extends Controller
         ]);
 
         $plan = isset($data['plan']) ? Plan::query()->where('code', $data['plan'])->first() : null;
-        $days = max(1, (int) SystemSetting::get('default_trial_days', 14));
+        $days = Edition::isBeta() ? Edition::limit('trial_days') : max(1, (int) SystemSetting::get('default_trial_days', 14));
 
         $owner = DB::transaction(function () use ($data, $plan, $days): User {
             $company = Company::create([
@@ -87,6 +88,9 @@ class TrialController extends Controller
     public function choosePlan(Request $request): View|RedirectResponse
     {
         $company = $request->user()->company;
+        if (Edition::isBeta()) {
+            return view('owner.beta-access', ['company' => $company, 'welcome' => true]);
+        }
         if ($company->currentSubscription()) {
             return redirect()->route('owner.billing');
         }

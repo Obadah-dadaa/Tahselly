@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ActivityLog;
 use App\Models\Client;
 use App\Services\ReceivablesReport;
+use App\Support\Edition;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -34,6 +35,9 @@ class ClientController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if (Edition::isBeta() && Client::query()->count() >= Edition::limit('max_clients')) {
+            return back()->withInput()->with('error', __('وصلت لحد النسخة التجريبية (:limit عميل).', ['limit' => Edition::limit('max_clients')]));
+        }
         $client = Client::create($this->validated($request));
         ActivityLog::record('client.created', 'إضافة عميل: '.$client->name);
 

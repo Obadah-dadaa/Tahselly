@@ -1,0 +1,35 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #f1f5f9; }
+    .ro-shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; }
+    #ro-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 190px; background: #0b1220; display: flex; align-items: center; padding: 0 140px; gap: 70px; }
+    .ro-tab { font-size: 54px; font-weight: 700; color: #475569; }
+    .ro-tab small { display: block; font-size: 28px; font-weight: 400; }
+  </style>
+  <div id="root" data-composition-id="roles" data-width="1920" data-height="1080">
+    <img id="ro-s1" class="ro-shot clip" data-start="0" data-duration="1.6" src="assets/screens/manager-dashboard.png" alt="لوحة المدير" />
+    <img id="ro-s2" class="ro-shot clip" data-start="1.6" data-duration="1.0" src="assets/screens/owner-settings.png" alt="إعدادات المالك" />
+    <img id="ro-s3" class="ro-shot clip" data-start="2.6" data-duration="1.8" src="assets/screens/developer-dashboard.png" alt="لوحة المبرمج" />
+    <div id="ro-bar" class="clip" data-start="0" data-duration="4.4">
+      <div id="ro-t1" class="ro-tab">For managers<small>Daily follow-up</small></div>
+      <div id="ro-t2" class="ro-tab">For owners<small>Numbers, team &amp; templates</small></div>
+      <div id="ro-t3" class="ro-tab">For developers<small>Subscriptions, settings &amp; maintenance</small></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ro-t1", { color: "#475569" }, { color: "#5eead4", duration: 0.2 }, 0.05);
+    tl.to("#ro-t1", { color: "#475569", duration: 0.2 }, 1.6);
+    tl.fromTo("#ro-t2", { color: "#475569" }, { color: "#5eead4", duration: 0.2 }, 1.6);
+    tl.to("#ro-t2", { color: "#475569", duration: 0.2 }, 2.6);
+    tl.fromTo("#ro-t3", { color: "#475569" }, { color: "#5eead4", duration: 0.2 }, 2.6);
+    tl.fromTo("#ro-bar", { yPercent: 100 }, { yPercent: 0, duration: 0.4, ease: "power3.out" }, 0);
+    window.__timelines["roles"] = tl;
+  </script>
+</template>

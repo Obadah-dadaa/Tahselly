@@ -10,6 +10,7 @@ use App\Models\Invoice;
 use App\Models\Plan;
 use App\Models\Reminder;
 use App\Models\User;
+use App\Support\Edition;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -81,7 +82,7 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company): RedirectResponse
     {
         $data = $request->validate([
-            'plan_id' => ['required', 'exists:plans,id'],
+            'plan_id' => [Edition::isBeta() ? 'nullable' : 'required', 'exists:plans,id'],
             'status' => ['required', Rule::in(['trial', 'active', 'suspended'])],
             'trial_ends_at' => ['nullable', 'date'],
         ]);

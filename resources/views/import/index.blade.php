@@ -15,7 +15,7 @@
                 <p class="mt-4 font-semibold text-ink" x-text="name || @js(__('اسحب الملف هنا أو اضغط للاختيار'))"></p>
                 <p class="mt-1 text-sm text-slate-500">{{ __('XLSX, XLS, CSV — حتى 10 ميجابايت') }}</p>
                 @if(! auth()->user()->company->canUse('bulk_import') || auth()->user()->company->featureState('bulk_import') === 'trial')
-                    <p class="mt-1 flex items-center justify-center gap-2 text-xs text-slate-500">{{ __('حتى :limit صف في الملف الواحد', ['limit' => \App\Models\Plan::IMPORT_ROWS_LIMIT]) }} <x-plan-badge feature="bulk_import" /></p>
+                    <p class="mt-1 flex items-center justify-center gap-2 text-xs text-slate-500">{{ __('حتى :limit صف في الملف الواحد', ['limit' => \App\Support\Edition::isBeta() ? \App\Support\Edition::limit('import_rows') : \App\Models\Plan::IMPORT_ROWS_LIMIT]) }} <x-plan-badge feature="bulk_import" /></p>
                 @endif
                 <input type="file" name="file" accept=".xlsx,.xls,.csv" required class="absolute inset-0 cursor-pointer opacity-0" @change="name = $event.target.files[0]?.name">
             </label>

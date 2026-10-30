@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\Edition;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,9 @@ class EnsureRole
 
         if ($company && ! $company->hasAccess() && ! $request->routeIs('owner.billing', 'subscribe.*')) {
             if ($user->isOwner()) {
-                return redirect()->route('owner.billing')->with('error', __('انتهى اشتراككم. جدّد الاشتراك لمتابعة استخدام النظام.'));
+                return redirect()->route('owner.billing')->with('error', Edition::isBeta()
+                    ? __('انتهت فترة النسخة التجريبية لحسابكم. إذا كنتم مهتمين بالاشتراك، أرسلوا الطلب وسنتواصل معكم.')
+                    : __('انتهى اشتراككم. جدّد الاشتراك لمتابعة استخدام النظام.'));
             }
             Auth::logout();
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Edition;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -86,7 +87,8 @@ class Company extends Model
      */
     public function canUse(string $feature): bool
     {
-        if ($this->onTrial()) {
+        // The beta has no plans: every feature is open, within the beta limits
+        if ($this->onTrial() || Edition::isBeta()) {
             return true;
         }
 
@@ -98,7 +100,7 @@ class Company extends Model
      */
     public function featureState(string $feature): string
     {
-        if ($this->plan?->includes($feature) || ($this->onTrial() && ! $this->plan)) {
+        if (Edition::isBeta() || $this->plan?->includes($feature) || ($this->onTrial() && ! $this->plan)) {
             return 'included';
         }
 
@@ -110,6 +112,9 @@ class Company extends Model
      */
     public function openInvoiceRoom(): ?int
     {
+        if (Edition::isBeta()) {
+            return max(0, Edition::limit('max_invoices') - $this->invoices()->withoutGlobalScopes()->count());
+        }
         if ($this->onTrial() || ! $this->plan) {
             return null;
         }
@@ -121,6 +126,16 @@ class Company extends Model
     /**
      * Whether the company may use the app right now (paid period or running trial).
      */
+    /**
+     * What to tell a user who hit the invoice limit.
+     */
+    public function invoiceLimitMessage(): string
+    {
+        return Edition::isBeta()
+            ? __('وصلت لحد النسخة التجريبية (:limit فاتورة). إذا كنت مهتماً بالاشتراك، اطلبه من صفحة «الاشتراك».', ['limit' => Edition::limit('max_invoices')])
+            : __('وصلت للحد الأقصى للفواتير المفتوحة في باقتك. سجّل الدفعات أو قم بترقية باقتك لإضافة المزيد.');
+    }
+
     public function hasAccess(): bool
     {
         if ($this->status === 'trial') {

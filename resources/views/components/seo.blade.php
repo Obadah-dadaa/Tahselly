@@ -4,7 +4,7 @@
 @php
     $locale = app()->getLocale();
     $appName = __(\App\Models\SystemSetting::get('app_name', 'تحصيلي'));
-    $public = request()->routeIs('landing', 'contact', 'legal.terms', 'legal.privacy', 'trial.create', 'blog.index', 'blog.show');
+    $public = ! \App\Support\Edition::isBeta() && request()->routeIs('landing', 'contact', 'legal.terms', 'legal.privacy', 'trial.create', 'blog.index', 'blog.show');
     $base = url()->current();
     $description ??= __('تحصيلي يتابع فواتيرك غير المدفوعة ويذكّر عملاءك بالدفع تلقائياً عبر البريد وواتساب، قبل الاستحقاق وبعده. للشركات والوكالات والمستقلين في الإمارات. جرّبه مجاناً 14 يوماً.');
     $title ??= $appName;
@@ -33,7 +33,7 @@
 <meta name="twitter:title" content="{{ $title }}">
 <meta name="twitter:description" content="{{ $description }}">
 <meta name="twitter:image" content="{{ asset('og-image.png') }}">
-@if($schema)
+@if($schema && ! \App\Support\Edition::isBeta())
     @php
         $plans = \App\Models\Plan::query()->where('is_active', true)->ordered()->get();
         $graph = [

@@ -54,7 +54,7 @@ class InvoiceController extends Controller
     {
         $data = $this->validated($request);
         if ($request->user()->company->openInvoiceRoom() === 0) {
-            return back()->withInput()->with('error', __('وصلت للحد الأقصى للفواتير المفتوحة في باقتك. سجّل الدفعات أو قم بترقية باقتك لإضافة المزيد.'));
+            return back()->withInput()->with('error', $request->user()->company->invoiceLimitMessage());
         }
         $invoice = Invoice::create($data + ['status' => 'unpaid']);
         ActivityLog::record('invoice.created', 'إنشاء فاتورة '.$invoice->number);

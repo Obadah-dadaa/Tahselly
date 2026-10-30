@@ -22,7 +22,7 @@
         if ($role === 'owner') {
             $nav[__('المالك')] = [
                 ['owner.dashboard', __('لوحة المالك'), 'trend', 'owner.dashboard', 'owner_analytics'],
-                ['owner.billing', __('الاشتراك والفواتير'), 'tag', 'owner.billing'],
+                ['owner.billing', \App\Support\Edition::isBeta() ? __('طلب الاشتراك') : __('الاشتراك والفواتير'), 'tag', 'owner.billing'],
                 ['owner.team.index', __('فريق العمل'), 'users', 'owner.team.*'],
                 ['owner.settings.edit', __('الإعدادات والقوالب'), 'cog', 'owner.settings.*'],
                 ['owner.activity', __('سجل النشاط'), 'list', 'owner.activity', 'activity_log'],
@@ -41,10 +41,14 @@
         $nav[__('المنصة')] = [
             ['developer.dashboard', __('نظرة عامة'), 'trend', 'developer.dashboard'],
             ['developer.subscriptions.index', __('المشتركون والاشتراكات'), 'tag', 'developer.subscriptions.*', null, \App\Models\Subscription::query()->where('status', 'pending')->count()],
+            ['developer.interest.index', __('طلبات الاشتراك'), 'mail', 'developer.interest.*', null, \App\Models\InterestRequest::query()->where('status', 'new')->count()],
             ['developer.companies.index', __('الشركات'), 'building', 'developer.companies.*'],
             ['developer.plans', __('الباقات والأسعار'), 'cash', 'developer.plans*'],
             ['developer.activity', __('نشاط المنصة'), 'list', 'developer.activity'],
         ];
+        if (\App\Support\Edition::isBeta()) {
+            $nav[__('المنصة')] = array_values(array_filter($nav[__('المنصة')], fn ($item) => ! in_array($item[0], ['developer.subscriptions.index', 'developer.plans'], true)));
+        }
     }
     if ($role === 'developer') {
         $nav[__('المبرمج')] = [
@@ -64,7 +68,7 @@
         <a href="{{ route('home') }}" class="mb-8 flex items-center gap-3 px-2">
             <x-brand-mark class="size-10 drop-shadow-lg" />
             <span>
-                <span class="block text-lg font-bold text-white">{{ $appName }}</span>
+                <span class="flex items-center gap-2 text-lg font-bold text-white">{{ $appName }} @beta<span class="rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold leading-none text-amber-950">BETA</span>@endbeta</span>
                 <span class="block text-xs text-slate-400">Invoice & Payment Reminder</span>
             </span>
         </a>
@@ -87,7 +91,7 @@
             <a href="{{ $user->isOwner() ? route('owner.billing') : '#' }}" class="mt-10 block rounded-2xl bg-white/5 p-4 text-sm">
                 <p class="text-slate-400">{{ __('الشركة') }}</p>
                 <p class="mt-1 font-semibold text-white">{{ $user->company->name }}</p>
-                <p class="mt-2 inline-flex rounded-full bg-brand-500/15 px-2 py-0.5 text-xs text-brand-200">{{ $user->company->plan?->localizedName() ?? ($user->company->onTrial() ? __('تجربة مجانية') : '—') }}</p>
+                <p class="mt-2 inline-flex rounded-full bg-brand-500/15 px-2 py-0.5 text-xs text-brand-200">@beta{{ __('نسخة تجريبية') }}@else{{ $user->company->plan?->localizedName() ?? ($user->company->onTrial() ? __('تجربة مجانية') : '—') }}@endbeta</p>
                 @if($subscription)
                     <p class="mt-2 text-xs text-slate-400">{{ __('ينتهي بعد :days يوم', ['days' => $subscription->daysLeft()]) }}</p>
                 @elseif($user->company->status === 'trial')
@@ -118,6 +122,10 @@
                             @endif
                         </span>
                         <div class="min-w-0 text-sm">
+                            @beta
+                            <p class="font-semibold">{{ __('نسخة تجريبية — كل المزايا مفتوحة ضمن حدود الاستخدام') }}</p>
+                            <p class="text-xs {{ $urgent ? 'text-rose-100' : 'text-amber-800' }}">{{ __('مهتم بالاستمرار دون حدود؟ أرسل طلب الاشتراك وسنتواصل معك.') }}</p>
+                            @else
                             <p class="font-semibold">{{ __('تجربة مجانية — كل المزايا مفتوحة لك') }}</p>
                             <p class="text-xs {{ $urgent ? 'text-rose-100' : 'text-amber-800' }}">
                                 {{ __('بعد انتهائها يتطلب الاستمرار اشتراكاً مدفوعاً.') }}
@@ -125,11 +133,14 @@
                                     {{ __('باقتك المختارة: :plan؛ الميزات التي تحمل علامة صفراء ليست ضمنها.', ['plan' => $trialPlan->localizedName()]) }}
                                 @endif
                             </p>
+                            @endbeta
                         </div>
                     </div>
                     @if($user->isOwner())
                         <div class="flex shrink-0 items-center gap-2">
-                            @if($trialPlan)
+                            @if(\App\Support\Edition::isBeta())
+                                <a href="{{ route('owner.billing') }}" class="rounded-lg px-4 py-1.5 text-sm font-bold shadow-sm {{ $urgent ? 'bg-white text-rose-700' : 'bg-amber-900 text-white hover:bg-amber-950' }}">{{ __('مهتم بالاشتراك؟') }}</a>
+                            @elseif($trialPlan)
                                 <a href="{{ route('owner.plan') }}" class="rounded-lg px-3 py-1.5 text-xs font-semibold {{ $urgent ? 'text-white/90 hover:bg-white/10' : 'text-amber-900 hover:bg-amber-200/60' }}">{{ __('تغيير الباقة') }}</a>
                                 <a href="{{ route('subscribe.show', ['plan' => $trialPlan->code, 'cycle' => 'yearly']) }}" class="rounded-lg px-4 py-1.5 text-sm font-bold shadow-sm {{ $urgent ? 'bg-white text-rose-700' : 'bg-amber-900 text-white hover:bg-amber-950' }}">{{ __('اشترك في :plan', ['plan' => $trialPlan->localizedName()]) }}</a>
                             @else
@@ -155,7 +166,7 @@
                 @endif
             </div>
             <div class="flex items-center gap-2" x-data="{ open: false }">
-                @if($user->isOwner() && $user->company && ! $user->company->onTrial() && $user->company->plan && \App\Models\Plan::query()->where('is_active', true)->where('price', '>', $user->company->plan->price)->exists())
+                @if(! \App\Support\Edition::isBeta() && $user->isOwner() && $user->company && ! $user->company->onTrial() && $user->company->plan && \App\Models\Plan::query()->where('is_active', true)->where('price', '>', $user->company->plan->price)->exists())
                     <button type="button" @click="$dispatch('upgrade', '_next')" class="hidden items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-600 to-brand-500 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:from-brand-700 sm:flex">
                         <x-icon name="bolt" class="size-4" /> {{ __('ترقية الباقة') }}
                     </button>

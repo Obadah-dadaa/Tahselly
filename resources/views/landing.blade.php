@@ -2,10 +2,12 @@
     $appName = __(\App\Models\SystemSetting::get('app_name', __('تحصيلي')));
     $locale = app()->getLocale();
     $plans = \App\Models\Plan::query()->where('is_active', true)->ordered()->get();
-    $video = \App\Models\SystemSetting::get($locale === 'en' ? 'promo_video_en' : 'promo_video_ar');
-    $tutorial = \App\Models\SystemSetting::get('tutorial_video');
+    $beta = \App\Support\Edition::isBeta();
+    // The beta plays its own promo cut (no prices) and skips the tutorial (it walks through billing)
+    $video = $beta ? 'videos/tahselly-promo-beta-'.($locale === 'en' ? 'en' : 'ar').'.mp4' : \App\Models\SystemSetting::get($locale === 'en' ? 'promo_video_en' : 'promo_video_ar');
+    $tutorial = $beta ? null : \App\Models\SystemSetting::get('tutorial_video');
     $trialOn = (bool) \App\Models\SystemSetting::get('allow_signups', true);
-    $trialDays = (int) \App\Models\SystemSetting::get('default_trial_days', 14);
+    $trialDays = $beta ? \App\Support\Edition::limit('trial_days') : (int) \App\Models\SystemSetting::get('default_trial_days', 14);
     // Each plan adds features on top of the cheaper ones; every card lists them all, ticked or not
     $allFeatures = $plans->flatMap(fn ($p) => $p->localizedFeatures())->unique()->values();
     $planData = $plans->values()->map(function ($p, $i) use ($plans, $allFeatures) {
@@ -36,12 +38,12 @@
 <body class="bg-surface font-sans text-slate-800 antialiased" x-data="{ player: null }" @keydown.escape.window="player = null">
 <header class="absolute inset-x-0 top-0 z-10">
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-        <a href="/" class="flex items-center gap-2 text-white"><x-brand-mark class="size-9" /><span class="text-xl font-bold">{{ $appName }}</span></a>
+        <a href="/" class="flex items-center gap-2 text-white"><x-brand-mark class="size-9" /><span class="text-xl font-bold">{{ $appName }}</span>@beta<span class="rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold leading-none text-amber-950">BETA</span>@endbeta</a>
         <nav class="hidden gap-8 text-sm text-slate-300 md:flex">
             <a href="#video" class="hover:text-white">{{ __('شاهد العرض') }}</a>
             <a href="#features" class="hover:text-white">{{ __('المزايا') }}</a>
             <a href="#how" class="hover:text-white">{{ __('كيف يعمل') }}</a>
-            <a href="#pricing" class="hover:text-white">{{ __('الأسعار') }}</a>
+            @beta<a href="#interest" class="hover:text-white">{{ __('مهتم بالاشتراك؟') }}</a>@else<a href="#pricing" class="hover:text-white">{{ __('الأسعار') }}</a>@endbeta
             <a href="{{ route('blog.index') }}" class="hover:text-white">{{ __('المدوّنة') }}</a>
             <a href="{{ route('contact') }}" class="hover:text-white">{{ __('تواصل معنا') }}</a>
         </nav>
@@ -65,7 +67,7 @@
                 @if($trialOn)
                     <a href="{{ route('trial.create') }}" class="btn-primary bg-brand-500 px-6 py-3 text-base hover:bg-brand-600">{{ __('جرّب مجاناً :days يوماً', ['days' => $trialDays]) }}</a>
                 @else
-                    <a href="#pricing" class="btn-primary bg-brand-500 px-6 py-3 text-base hover:bg-brand-600">{{ __('اختر باقتك') }}</a>
+                    <a href="#@beta{{ 'interest' }}@else{{ 'pricing' }}@endbeta" class="btn-primary bg-brand-500 px-6 py-3 text-base hover:bg-brand-600">@beta{{ __('مهتم بالاشتراك؟') }}@else{{ __('اختر باقتك') }}@endbeta</a>
                 @endif
                 @if($video)
                     <button @click="player = 'promo'" class="btn px-6 py-3 text-base text-white ring-1 ring-white/20 hover:bg-white/10">
@@ -75,7 +77,11 @@
                 @endif
             </div>
             @if($trialOn)
-                <p class="mt-4 text-sm text-slate-400">{{ __('بدون بطاقة ائتمان · مجاناً لمدة :days يوماً فقط، ثم اشتراك مدفوع من :price درهم شهرياً للاستمرار.', ['days' => $trialDays, 'price' => (int) $plans->min('price')]) }}</p>
+                @beta
+                    <p class="mt-4 text-sm text-slate-400">{{ __('نسخة تجريبية مجانية لمدة :days يوماً · بدون بطاقة · بحدود استخدام للتجربة.', ['days' => $trialDays]) }}</p>
+                @else
+                    <p class="mt-4 text-sm text-slate-400">{{ __('بدون بطاقة ائتمان · مجاناً لمدة :days يوماً فقط، ثم اشتراك مدفوع من :price درهم شهرياً للاستمرار.', ['days' => $trialDays, 'price' => (int) $plans->min('price')]) }}</p>
+                @endbeta
             @endif
         </div>
         <div class="rounded-3xl bg-white/5 p-3 ring-1 ring-white/10 backdrop-blur">
@@ -101,7 +107,7 @@
 <section id="video" class="relative -mt-16 px-6">
     <div class="mx-auto max-w-5xl">
         <button @click="player = 'promo'" class="group relative block w-full overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-20px_rgba(2,6,23,.45)] ring-1 ring-black/5">
-            <img src="{{ asset('videos/poster-'.($locale === 'en' ? 'en' : 'ar').'.jpg') }}" alt="{{ __('فيديو تعريفي') }}" class="aspect-video w-full object-cover transition duration-700 group-hover:scale-[1.03]">
+            <img src="{{ asset('videos/poster-'.($beta ? 'beta-' : '').($locale === 'en' ? 'en' : 'ar').'.jpg') }}" alt="{{ __('فيديو تعريفي') }}" class="aspect-video w-full object-cover transition duration-700 group-hover:scale-[1.03]">
             <span class="absolute inset-0 bg-gradient-to-t from-night/80 via-night/10 to-transparent"></span>
             <span class="absolute inset-0 grid place-items-center">
                 <span class="relative grid size-24 place-items-center rounded-full bg-white/95 text-brand-700 shadow-2xl transition group-hover:scale-110">
@@ -165,6 +171,26 @@
     </div>
 </section>
 
+@beta
+{{-- Beta: no prices or plans; visitors who want to subscribe leave their details --}}
+<section id="interest" class="mx-auto max-w-5xl px-6 py-24">
+    <div class="grid items-start gap-10 lg:grid-cols-5">
+        <div class="lg:col-span-2">
+            <span class="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">BETA</span>
+            <h2 class="mt-4 text-3xl font-bold text-ink">{{ __('مهتم بالاشتراك؟') }}</h2>
+            <p class="mt-4 leading-relaxed text-slate-600">{{ __('هذه نسخة تجريبية مجانية للتعرّف على النظام، بحدود استخدام. إذا أردت استخدامه لشركتك دون حدود، اترك بياناتك وسنتواصل معك لتفعيل حسابك.') }}</p>
+            <ul class="mt-6 space-y-2 text-sm text-slate-600">
+                <li class="flex items-center gap-2"><x-icon name="check" class="size-4 text-brand-600" /> {{ __('حتى :count فاتورة و:clients عميل في التجربة', ['count' => \App\Support\Edition::limit('max_invoices'), 'clients' => \App\Support\Edition::limit('max_clients')]) }}</li>
+                <li class="flex items-center gap-2"><x-icon name="check" class="size-4 text-brand-600" /> {{ __('كل المزايا مفتوحة، بدون بطاقة') }}</li>
+                <li class="flex items-center gap-2"><x-icon name="check" class="size-4 text-brand-600" /> {{ __('نرد خلال يوم عمل') }}</li>
+            </ul>
+        </div>
+        <div class="card p-6 lg:col-span-3 lg:p-8">
+            <x-interest-form />
+        </div>
+    </div>
+</section>
+@else
 {{-- Pricing: one ladder of plans, cheapest first; every card shows all features so the differences are visible --}}
 <section id="pricing" class="mx-auto max-w-7xl px-6 py-24"
          x-data="{ cycle: 'monthly', plans: @js($planData),
@@ -225,6 +251,7 @@
         </template>
     </div>
 </section>
+@endbeta
 
 <footer class="border-t border-slate-100 py-10 text-center text-sm text-slate-500">
     © {{ date('Y') }} {{ $appName }}

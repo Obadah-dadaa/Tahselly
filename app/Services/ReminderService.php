@@ -9,6 +9,7 @@ use App\Models\Reminder;
 use App\Models\ReminderTemplate;
 use App\Models\SystemSetting;
 use App\Models\User;
+use App\Support\Edition;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -354,7 +355,10 @@ class ReminderService
         $status = 'sent';
         $error = null;
 
-        if (! $recipient) {
+        if (Edition::isBeta() && $this->sentToday($invoice->company_id) >= Edition::limit('daily_reminders')) {
+            $status = 'failed';
+            $error = __('وصلت للحد اليومي للتذكيرات في النسخة التجريبية (:limit). يُستأنف الإرسال غداً.', ['limit' => Edition::limit('daily_reminders')]);
+        } elseif (! $recipient) {
             $status = 'failed';
             $error = $channel === 'email' ? __('لا يوجد بريد إلكتروني للعميل') : __('لا يوجد رقم هاتف للعميل');
         } elseif ($channel === 'email') {
@@ -390,6 +394,11 @@ class ReminderService
         }
 
         return $reminder;
+    }
+
+    private function sentToday(int $companyId): int
+    {
+        return Reminder::withoutGlobalScopes()->where('company_id', $companyId)->where('status', 'sent')->whereDate('created_at', today())->count();
     }
 
     /**

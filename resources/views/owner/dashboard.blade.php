@@ -82,9 +82,15 @@
                     <h2 class="font-semibold text-ink">{{ __('الاشتراك') }}</h2>
                     <x-status :value="$company->status" />
                 </div>
-                <p class="mt-3 text-2xl font-bold">{{ $company->plan?->localizedName() }}</p>
-                <p class="num text-sm text-slate-500">{{ number_format((float) $company->plan?->price, 0) }} {{ __('درهم / شهرياً') }}</p>
-                <p class="mt-3 text-sm text-slate-500">{{ __('المستخدمون:') }} <b class="num text-ink">{{ $team->count() }} / {{ $company->plan?->max_users }}</b></p>
+                @beta
+                    <p class="mt-3 text-2xl font-bold">{{ __('نسخة تجريبية') }}</p>
+                    <p class="text-sm text-slate-500">{{ __('حتى :date', ['date' => $company->trial_ends_at?->format('Y-m-d') ?? '—']) }}</p>
+                    <a href="{{ route('owner.billing') }}" class="mt-3 inline-block text-sm font-semibold text-brand-700 hover:underline">{{ __('الحدود وطلب الاشتراك') }} ←</a>
+                @else
+                    <p class="mt-3 text-2xl font-bold">{{ $company->plan?->localizedName() }}</p>
+                    <p class="num text-sm text-slate-500">{{ number_format((float) $company->plan?->price, 0) }} {{ __('درهم / شهرياً') }}</p>
+                    <p class="mt-3 text-sm text-slate-500">{{ __('المستخدمون:') }} <b class="num text-ink">{{ $team->count() }} / {{ $company->plan?->max_users }}</b></p>
+                @endbeta
             </div>
             <div class="card">
                 <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">

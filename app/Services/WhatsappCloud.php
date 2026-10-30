@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Company;
 use App\Models\Invoice;
 use App\Models\Reminder;
+use App\Support\Edition;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use RuntimeException;
@@ -30,7 +31,7 @@ class WhatsappCloud
      */
     public function allowedFor(Company $company): bool
     {
-        return $this->enabled() && $company->status === 'active' && ! $company->onTrial();
+        return $this->enabled() && ! Edition::isBeta() && $company->status === 'active' && ! $company->onTrial();
     }
 
     public function remainingToday(Company $company): int

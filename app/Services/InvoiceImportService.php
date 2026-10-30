@@ -7,6 +7,7 @@ use App\Models\ImportBatch;
 use App\Models\Invoice;
 use App\Models\Plan;
 use App\Models\User;
+use App\Support\Edition;
 use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +58,9 @@ class InvoiceImportService
 
         if (! isset($map['number'], $map['client_name'], $map['due_date'], $map['amount'])) {
             $errors[] = ['row' => 1, 'message' => 'الأعمدة المطلوبة: رقم الفاتورة، العميل، تاريخ الاستحقاق، المبلغ'];
+        } elseif (Edition::isBeta() && $dataRows > Edition::limit('import_rows')) {
+            $total = $dataRows;
+            $errors[] = ['row' => 1, 'message' => __('الملف فيه :count صف. النسخة التجريبية تسمح حتى :limit صف في الملف الواحد.', ['count' => $dataRows, 'limit' => Edition::limit('import_rows')])];
         } elseif ($company && $dataRows > Plan::IMPORT_ROWS_LIMIT && ! $company->canUse('bulk_import')) {
             $total = $dataRows;
             $errors[] = ['row' => 1, 'message' => __('الملف فيه :count صف. باقتك تسمح حتى :limit صف في الملف الواحد؛ الملفات الأكبر متاحة من باقة :plan. قسّم الملف أو قم بترقية باقتك.', [
@@ -142,7 +146,7 @@ class InvoiceImportService
         // Updating an existing invoice is always allowed; a new open one needs room in the plan
         if ($room !== null && $paid < $amount && ! Invoice::query()->where('company_id', $user->company_id)->where('number', (string) $data['number'])->exists()) {
             if ($room <= 0) {
-                throw new \InvalidArgumentException(__('وصلت للحد الأقصى للفواتير المفتوحة في باقتك. سجّل الدفعات أو قم بترقية باقتك لإضافة المزيد.'));
+                throw new \InvalidArgumentException($user->company->invoiceLimitMessage());
             }
             $room--;
         }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Support\Edition;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -27,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
             URL::forceRootUrl(config('app.url'));
             URL::forceScheme('https');
         }
+
+        // @beta ... @else ... @endbeta: the beta site shows no prices, plans or payment
+        Blade::if('beta', fn () => Edition::isBeta());
 
         Blade::directive('money', fn (string $expression) => "<?php echo number_format((float) ({$expression}), 2); ?>");
         Blade::directive('short', fn (string $expression) => "<?php echo \App\Providers\AppServiceProvider::shortMoney((float) ({$expression})); ?>");

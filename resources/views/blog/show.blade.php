@@ -29,10 +29,10 @@
         <div class="mt-12 rounded-3xl bg-night p-8 text-white sm:p-10">
             <div class="flex items-center gap-3"><x-brand-mark variant="plain" class="size-10 text-white" /><span class="text-xl font-bold">{{ __(\App\Models\SystemSetting::get('app_name', 'تحصيلي')) }}</span></div>
             <p class="mt-4 text-2xl font-bold leading-snug">{{ __('دع النظام يتابع فواتيرك ويذكّر عملاءك بالدفع، بالبريد وواتساب.') }}</p>
-            <p class="mt-2 text-slate-300">{{ __('جرّبه مجاناً 14 يوماً، بدون بطاقة. من 99 درهم شهرياً بعدها.') }}</p>
+            <p class="mt-2 text-slate-300">@beta{{ __('جرّب النسخة التجريبية مجاناً، بدون بطاقة.') }}@else{{ __('جرّبه مجاناً 14 يوماً، بدون بطاقة. من 99 درهم شهرياً بعدها.') }}@endbeta</p>
             <div class="mt-6 flex flex-wrap gap-3">
                 <a href="{{ route('trial.create') }}" class="btn-primary bg-brand-500 px-6 py-3 text-base hover:bg-brand-600">{{ __('ابدأ مجاناً') }}</a>
-                <a href="{{ route('landing') }}#pricing" class="rounded-xl px-6 py-3 font-semibold text-white ring-1 ring-white/25 hover:bg-white/10">{{ __('الأسعار') }}</a>
+                <a href="{{ route('landing') }}#@beta{{ 'interest' }}@else{{ 'pricing' }}@endbeta" class="rounded-xl px-6 py-3 font-semibold text-white ring-1 ring-white/25 hover:bg-white/10">@beta{{ __('مهتم بالاشتراك؟') }}@else{{ __('الأسعار') }}@endbeta</a>
             </div>
         </div>
 

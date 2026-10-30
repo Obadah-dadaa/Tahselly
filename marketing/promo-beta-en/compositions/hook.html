@@ -1,0 +1,78 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #ffffff; }
+    #hook-sheet { position: absolute; inset: 0; background: #ffffff; }
+    #hook-sheet .bar { height: 64px; background: #107c41; color: #fff; display: flex; align-items: center; padding: 0 40px; font-size: 26px; font-weight: 600; direction: ltr; gap: 16px; }
+    #hook-sheet .bar span { opacity: .8; font-weight: 400; }
+    #hook-sheet table { width: 100%; border-collapse: collapse; font-size: 30px; }
+    #hook-sheet th { background: #f3f4f6; color: #6b7280; font-weight: 600; height: 64px; border: 1px solid #e2e8f0; padding: 0 22px; text-align: left; }
+    #hook-sheet td { height: 78px; border: 1px solid #e2e8f0; padding: 0 22px; color: #1f2937; font-variant-numeric: tabular-nums; }
+    #hook-sheet td.n { width: 64px; background: #f3f4f6; color: #9ca3af; text-align: center; font-size: 22px; }
+    #hook-sheet tr.row td.fill { position: relative; }
+    .redfill { position: absolute; inset: 0; background: #fecdd3; opacity: 0; }
+    .cell { position: relative; }
+    #hook-note { position: absolute; right: 150px; top: 560px; width: 480px; padding: 40px 44px; background: #fde68a; color: #422006; font-size: 40px; font-weight: 700; line-height: 1.45; box-shadow: 0 24px 50px rgba(120, 53, 15, .25); }
+    #hook-note .tape { position: absolute; top: -18px; left: 170px; width: 140px; height: 40px; background: rgba(255, 255, 255, .65); }
+    #hook-title { position: absolute; left: 120px; bottom: 90px; font-size: 128px; font-weight: 700; color: #0b1220; background: #ffffff; padding: 6px 36px 18px; line-height: 1.2; }
+    #hook-title2 { position: absolute; left: 120px; bottom: 90px; font-size: 112px; font-weight: 700; color: #e11d48; background: #ffffff; padding: 6px 36px 18px; line-height: 1.2; }
+    #hook-count { position: absolute; inset: 0; background: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    #hook-num { font-size: 260px; font-weight: 700; color: #e11d48; font-variant-numeric: tabular-nums; direction: ltr; line-height: 1; }
+    #hook-num small { font-size: 90px; color: #9f1239; margin-left: 24px; }
+    #hook-sub { margin-top: 40px; font-size: 64px; font-weight: 600; color: #0b1220; }
+    #hook-sub2 { margin-top: 26px; font-size: 52px; font-weight: 400; color: #64748b; }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1920" data-height="1080">
+    <div id="hook-sheet" class="clip" data-start="0" data-duration="4.2">
+      <div class="bar">invoices-october.xlsx <span>— Excel</span></div>
+      <table id="hook-table" data-layout-ignore>
+        <tr><th class="n"></th><th>Invoice #</th><th>Client</th><th>Due date</th><th>Balance (AED)</th><th>Notes</th></tr>
+        <tr class="row"><td class="n">2</td><td class="cell">CH-2446</td><td class="cell">Oud Al Sharq Perfumes</td><td class="cell">2026-06-26</td><td class="cell">6,150.00</td><td class="cell">Called?</td></tr>
+        <tr class="row"><td class="n">3</td><td class="cell">CH-2489</td><td class="cell">Marina Dental Clinic</td><td class="cell">2026-06-30</td><td class="cell">9,880.00</td><td class="cell"></td></tr>
+        <tr class="row"><td class="n">4</td><td class="cell">CH-2414</td><td class="cell">Al Noor Trading LLC</td><td class="cell">2026-08-06</td><td class="cell">1,370.00</td><td class="cell">??</td></tr>
+        <tr class="row"><td class="n">5</td><td class="cell">CH-2503</td><td class="cell">Pearl Beauty Lounge</td><td class="cell">2026-08-18</td><td class="cell">16,200.00</td><td class="cell">Emailed</td></tr>
+        <tr class="row"><td class="n">6</td><td class="cell">CH-2426</td><td class="cell">Capital Law Firm</td><td class="cell">2026-08-29</td><td class="cell">10,100.00</td><td class="cell"></td></tr>
+        <tr class="row"><td class="n">7</td><td class="cell">CH-2434</td><td class="cell">Oud Al Sharq Perfumes</td><td class="cell">2026-08-30</td><td class="cell">3,770.00</td><td class="cell"></td></tr>
+        <tr class="row"><td class="n">8</td><td class="cell">CH-2470</td><td class="cell">Marina Dental Clinic</td><td class="cell">2026-08-06</td><td class="cell">10,490.00</td><td class="cell">Follow up!</td></tr>
+        <tr class="row"><td class="n">9</td><td class="cell">CH-2472</td><td class="cell">Marina Dental Clinic</td><td class="cell">2026-07-30</td><td class="cell">5,510.00</td><td class="cell"></td></tr>
+        <tr class="row"><td class="n">10</td><td class="cell">CH-2479</td><td class="cell">Pearl Beauty Lounge</td><td class="cell">2026-10-26</td><td class="cell">…</td><td class="cell"></td></tr>
+      </table>
+      <div id="hook-note" data-layout-allow-occlusion><div class="tape"></div>Call Oud Al Sharq<br>— 4th time…</div>
+    </div>
+    <div id="hook-title" data-layout-allow-occlusion class="clip" data-start="0" data-duration="2.0">End of the month.</div>
+    <div id="hook-title2" data-layout-allow-occlusion class="clip" data-start="2.0" data-duration="2.2">20 overdue invoices.</div>
+    <div id="hook-count" class="clip" data-start="4.2" data-duration="9.2">
+      <div id="hook-num"><span id="hook-num-val">0</span><small>AED</small></div>
+      <div id="hook-sub">overdue and still unpaid</div>
+      <div id="hook-sub2"><span id="hook-s2a">You chase every client yourself —</span> <span id="hook-s2b">calls, emails, spreadsheets.</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // rows turn red one after another (cells of each row together)
+    document.querySelectorAll("#hook-table tr.row").forEach((row, i) => {
+      tl.fromTo(row.querySelectorAll("td.cell"), { backgroundColor: "#ffffff", color: "#1f2937" }, { backgroundColor: "#ffe4e6", color: "#9f1239", duration: 0.25, ease: "power2.out" }, 0.35 + i * 0.28);
+    });
+    tl.fromTo("#hook-note", { scale: 1.6, rotation: -14, opacity: 0 }, { scale: 1, rotation: -3, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, 1.0);
+    tl.fromTo("#hook-title", { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.1);
+    tl.fromTo("#hook-title2", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, 2.05);
+    tl.fromTo("#hook-table", { scale: 1, transformOrigin: "50% 0%" }, { scale: 1.08, duration: 4.2, ease: "none" }, 0);
+    // counter world
+    const counter = { v: 0 };
+    tl.fromTo(counter, { v: 0 }, {
+      v: 166040, duration: 2.4, ease: "power3.out",
+      onUpdate: () => { document.getElementById("hook-num-val").textContent = Math.round(counter.v).toLocaleString("en-US"); },
+    }, 4.5);
+    tl.fromTo("#hook-num", { scale: 0.9 }, { scale: 1, duration: 2.4, ease: "power3.out" }, 4.5);
+    tl.fromTo("#hook-sub", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 6.9);
+    tl.fromTo("#hook-s2a", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 7.9);
+    tl.fromTo("#hook-s2b", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 10.9);
+    tl.fromTo("#hook-num", { color: "#e11d48" }, { color: "#be123c", duration: 0.3 }, 10.9);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>
