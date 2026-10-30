@@ -81,6 +81,51 @@
 }
 
 @layer components {
+    /* Blog article body (rendered Markdown) */
+    .article {
+        @apply text-lg leading-loose text-slate-700;
+    }
+    .article h2 {
+        @apply mt-12 mb-4 text-2xl font-bold leading-snug text-ink;
+    }
+    .article h3 {
+        @apply mt-8 mb-3 text-xl font-bold text-ink;
+    }
+    .article p {
+        @apply my-5;
+    }
+    .article ul, .article ol {
+        @apply my-5 space-y-2 ps-6;
+    }
+    .article ul { list-style: disc; }
+    .article ol { list-style: decimal; }
+    .article li::marker {
+        @apply text-brand-600;
+    }
+    .article strong {
+        @apply font-bold text-ink;
+    }
+    .article a {
+        @apply font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4 hover:decoration-brand-700;
+    }
+    .article blockquote {
+        @apply my-6 rounded-2xl border-s-4 border-brand-500 bg-brand-50 px-6 py-4 text-ink;
+    }
+    .article blockquote p {
+        @apply my-2;
+    }
+    .article table {
+        @apply my-6 w-full overflow-hidden rounded-2xl text-base;
+    }
+    .article th {
+        @apply bg-slate-100 px-4 py-3 text-start font-semibold text-ink;
+    }
+    .article td {
+        @apply border-t border-slate-200 px-4 py-3;
+    }
+    .article hr {
+        @apply my-10 border-slate-200;
+    }
     .card {
         @apply rounded-2xl border border-slate-200/80 bg-surface shadow-[0_1px_2px_rgba(15,23,42,0.04)];
     }

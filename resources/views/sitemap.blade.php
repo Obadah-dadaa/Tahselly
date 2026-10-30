@@ -12,4 +12,15 @@
     </url>
 @endforeach
 @endforeach
+@foreach($posts as $slug)
+@foreach(['en', 'ar'] as $lang)
+    <url>
+        <loc>{{ route('blog.show', $slug) }}?lang={{ $lang }}</loc>
+        <xhtml:link rel="alternate" hreflang="ar" href="{{ route('blog.show', $slug) }}?lang=ar" />
+        <xhtml:link rel="alternate" hreflang="en" href="{{ route('blog.show', $slug) }}?lang=en" />
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+@endforeach
+@endforeach
 </urlset>

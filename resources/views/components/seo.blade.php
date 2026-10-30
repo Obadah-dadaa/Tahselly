@@ -4,7 +4,7 @@
 @php
     $locale = app()->getLocale();
     $appName = __(\App\Models\SystemSetting::get('app_name', 'تحصيلي'));
-    $public = request()->routeIs('landing', 'contact', 'legal.terms', 'legal.privacy', 'trial.create');
+    $public = request()->routeIs('landing', 'contact', 'legal.terms', 'legal.privacy', 'trial.create', 'blog.index', 'blog.show');
     $base = url()->current();
     $description ??= __('تحصيلي يتابع فواتيرك غير المدفوعة ويذكّر عملاءك بالدفع تلقائياً عبر البريد وواتساب، قبل الاستحقاق وبعده. للشركات والوكالات والمستقلين في الإمارات. جرّبه مجاناً 14 يوماً.');
     $title ??= $appName;

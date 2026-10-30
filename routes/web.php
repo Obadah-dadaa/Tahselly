@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
@@ -24,7 +25,9 @@ Route::view('/', 'landing')->middleware('track')->name('landing');
 Route::get('/sitemap.xml', function () {
     $pages = ['landing' => '1.0', 'trial.create' => '0.9', 'contact' => '0.7', 'legal.terms' => '0.3', 'legal.privacy' => '0.3'];
 
-    return response()->view('sitemap', ['pages' => $pages], 200)->header('Content-Type', 'application/xml');
+    $posts = \App\Support\Blog::all('en')->pluck('slug');
+
+    return response()->view('sitemap', ['pages' => $pages + ['blog.index' => '0.8'], 'posts' => $posts], 200)->header('Content-Type', 'application/xml');
 })->name('sitemap');
 Route::post('/locale/{locale}', [PreferenceController::class, 'locale'])->whereIn('locale', ['ar', 'en'])->name('locale');
 Route::post('/theme/{theme}', [PreferenceController::class, 'theme'])->whereIn('theme', ['light', 'dark'])->name('theme');
@@ -47,6 +50,8 @@ Route::middleware('guest')->group(function () {
 });
 Route::view('/terms', 'legal.terms')->middleware('track')->name('legal.terms');
 Route::view('/privacy', 'legal.privacy')->middleware('track')->name('legal.privacy');
+Route::get('/blog', [BlogController::class, 'index'])->middleware('track')->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->where('slug', '[a-z0-9-]+')->middleware('track')->name('blog.show');
 Route::get('/contact', [ContactController::class, 'show'])->middleware('track')->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:3,10')->name('contact.store');
 
