@@ -1983,15 +1983,15 @@
   },
   "renders": {
     "latest": {
-      "id": "a17cf852-f763-487e-adb9-158632889f38",
-      "completedAt": 1793341215186,
+      "id": "110bfb99-620d-4c62-a600-2500e8545dfa",
+      "completedAt": 1793343595582,
       "output": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly\\marketing\\map\\tahselly-map-ar.mp4",
       "status": "completed",
-      "revision": "4598325f-d2ed-4b33-b92e-6e38a9f4a77a"
+      "revision": "6e49bb18-c036-42ec-a238-f75f6ccf4243"
     },
     "retainedRevisions": [
-      "4598325f-d2ed-4b33-b92e-6e38a9f4a77a",
-      "b5773299-264e-47ab-a911-205991283260"
+      "6e49bb18-c036-42ec-a238-f75f6ccf4243",
+      "4598325f-d2ed-4b33-b92e-6e38a9f4a77a"
     ]
   },
   "pendingArtifactCleanup": []

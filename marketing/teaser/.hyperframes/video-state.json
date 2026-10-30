@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "b68aed68-6d53-425c-a25f-2c9f6e6eefe2",
-  "currentRevision": "50e6292c-5553-4540-8637-b7557ba19e4a",
+  "currentRevision": "8f2f8796-c45f-485d-984c-6f32021331c9",
   "pendingChanges": false,
   "files": {
     "SPEC.md": {
@@ -13,8 +13,8 @@
       "content": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\63\\633fc87682c9dcb183eea57a047a502a5daec1aee1263c281a3917c684be2c1a"
     },
     "VOICEOVER.md": {
-      "hash": "e981430b6c022edcf0d2d119f5f51f1eb7c3da0b65bbdbe78cea0851dcc70081",
-      "content": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\e9\\e981430b6c022edcf0d2d119f5f51f1eb7c3da0b65bbdbe78cea0851dcc70081"
+      "hash": "5a0c2d989c77bc01607a76bdccf4ea5b9b4530ebc1937a23f9a037dbf71c8e39",
+      "content": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\5a\\5a0c2d989c77bc01607a76bdccf4ea5b9b4530ebc1937a23f9a037dbf71c8e39"
     },
     "assets/fonts/plex-arabic-400-arabic.woff2": {
       "hash": "6010e7fd0dce5d527583951750728cbe3c895efbd16aa0f809ab8c824878c9d8",
@@ -41,8 +41,8 @@
       "content": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\ae\\ae2d59f91ecf9f7ed279e4a1fc1a9da8170fb0ce5b9152917a8f759033f5777c"
     },
     "assets/mark.png": {
-      "hash": "537315b047a615d9f111149962368d0b75b9cfeea328f402880db5254912109b",
-      "content": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\53\\537315b047a615d9f111149962368d0b75b9cfeea328f402880db5254912109b"
+      "hash": "35d92d5e165cf3f505cdeb10726cff746759d05af0ea34be29c2b65d668ea138",
+      "content": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\35\\35d92d5e165cf3f505cdeb10726cff746759d05af0ea34be29c2b65d668ea138"
     },
     "assets/screens/aging.png": {
       "hash": "efc943b2a941c2c62f2e5882c1cfa806c491e81e1fbe8be6a990639aa2db26c3",
@@ -256,6 +256,25 @@
         "compositions/tension.html": {
           "before": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\4b\\4b855653052307b20a6435239da734ad93f9ab051bd353d949a48745eb38333e",
           "after": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\8d\\8de1b2d62cc12a25422910065b03de22067f3572918c91789d9a1e7a0fe7c70d"
+        }
+      }
+    },
+    "8f2f8796-c45f-485d-984c-6f32021331c9": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793343326274,
+      "endedAt": 1793343326345,
+      "files": {
+        "assets/mark.png": {
+          "before": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\53\\537315b047a615d9f111149962368d0b75b9cfeea328f402880db5254912109b",
+          "after": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\35\\35d92d5e165cf3f505cdeb10726cff746759d05af0ea34be29c2b65d668ea138"
+        },
+        "VOICEOVER.md": {
+          "before": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\e9\\e981430b6c022edcf0d2d119f5f51f1eb7c3da0b65bbdbe78cea0851dcc70081",
+          "after": "C:\\Users\\admin\\.cache\\hyperframes\\history\\b68aed68-6d53-425c-a25f-2c9f6e6eefe2\\blobs\\5a\\5a0c2d989c77bc01607a76bdccf4ea5b9b4530ebc1937a23f9a037dbf71c8e39"
         }
       }
     }
@@ -1781,13 +1800,14 @@
   },
   "renders": {
     "latest": {
-      "id": "855efcda-7756-40b6-984e-748b12276fba",
-      "completedAt": 1793280611708,
+      "id": "5966cb1b-d91c-4826-96f6-393a605a1432",
+      "completedAt": 1793343415744,
       "output": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly\\marketing\\teaser\\tahselly-teaser-ar.mp4",
       "status": "completed",
-      "revision": "50e6292c-5553-4540-8637-b7557ba19e4a"
+      "revision": "8f2f8796-c45f-485d-984c-6f32021331c9"
     },
     "retainedRevisions": [
+      "8f2f8796-c45f-485d-984c-6f32021331c9",
       "50e6292c-5553-4540-8637-b7557ba19e4a"
     ]
   },

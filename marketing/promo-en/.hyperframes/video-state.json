@@ -234,11 +234,11 @@
   },
   "renders": {
     "latest": {
-      "id": "7b0d49be-c5dc-42ff-9218-4429c57631c1",
-      "completedAt": 1793092925336,
-      "output": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly-promo-en\\tahselly-promo-english.mp4",
+      "id": "0a669556-c25e-43f1-8dd3-ef20504d2144",
+      "completedAt": 1793342994424,
+      "output": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly\\marketing\\promo-en\\tahselly-promo-en.mp4",
       "status": "completed",
-      "revision": "30f5b326-04a7-40ff-9bdb-91a6ead168eb"
+      "revision": null
     },
     "retainedRevisions": [
       "30f5b326-04a7-40ff-9bdb-91a6ead168eb",
