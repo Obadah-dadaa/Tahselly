@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\Role;
+use App\Exceptions\BetaLimitReached;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\InterestRequest;
@@ -95,6 +96,23 @@ class BetaEditionTest extends TestCase
         $second = $service->send($invoice, 'manual', 'email', null, false, $owner);
         $this->assertSame('failed', $second->status);
         $this->assertStringContainsString('1', $second->error);
+    }
+
+    public function test_no_path_creates_clients_or_invoices_past_the_beta_limit(): void
+    {
+        config(['tahselly.beta.max_invoices' => 1, 'tahselly.beta.max_clients' => 1]);
+        $owner = $this->betaOwner();
+        $client = Client::factory()->create(['company_id' => $owner->company_id]);
+        Invoice::factory()->create(['client_id' => $client->id]);
+
+        // Straight at the models (what the Excel import does), paid or not
+        $this->expectException(BetaLimitReached::class);
+        try {
+            Client::create(['company_id' => $owner->company_id, 'name' => 'Imported client']);
+        } catch (BetaLimitReached $e) {
+            $this->assertSame(1, Client::withoutGlobalScopes()->count());
+            Invoice::create(['company_id' => $owner->company_id, 'client_id' => $client->id, 'number' => 'PAID-1', 'issue_date' => today(), 'due_date' => today(), 'amount' => 10, 'paid_amount' => 10, 'status' => 'paid']);
+        }
     }
 
     public function test_interest_request_reaches_staff_and_activation_extends_access(): void

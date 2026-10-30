@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\BelongsToCompany;
+use App\Models\Concerns\HasBetaLimit;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['company_id', 'name', 'contact_name', 'email', 'phone', 'trn', 'address', 'notes', 'reminders_enabled', 'locale'])]
 class Client extends Model
 {
-    use BelongsToCompany, HasFactory;
+    use BelongsToCompany, HasBetaLimit, HasFactory;
+
+    public function betaLimitKey(): string
+    {
+        return 'max_clients';
+    }
+
+    public function betaLimitMessage(int $limit): string
+    {
+        return __('وصلت لحد النسخة التجريبية (:limit عميل).', ['limit' => $limit]);
+    }
 
     protected function casts(): array
     {

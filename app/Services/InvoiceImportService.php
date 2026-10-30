@@ -144,7 +144,7 @@ class InvoiceImportService
         $paid = min($this->number($data['paid_amount']), $amount);
 
         // Updating an existing invoice is always allowed; a new open one needs room in the plan
-        if ($room !== null && $paid < $amount && ! Invoice::query()->where('company_id', $user->company_id)->where('number', (string) $data['number'])->exists()) {
+        if ($room !== null && ($paid < $amount || Edition::isBeta()) && ! Invoice::query()->where('company_id', $user->company_id)->where('number', (string) $data['number'])->exists()) {
             if ($room <= 0) {
                 throw new \InvalidArgumentException($user->company->invoiceLimitMessage());
             }

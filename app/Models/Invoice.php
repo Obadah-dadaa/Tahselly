@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\BelongsToCompany;
+use App\Models\Concerns\HasBetaLimit;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['company_id', 'client_id', 'import_batch_id', 'number', 'issue_date', 'due_date', 'amount', 'paid_amount', 'currency', 'status', 'description', 'paid_at', 'last_reminded_at', 'reminders_count', 'reminders_paused'])]
 class Invoice extends Model
 {
-    use BelongsToCompany, HasFactory;
+    use BelongsToCompany, HasBetaLimit, HasFactory;
+
+    public function betaLimitKey(): string
+    {
+        return 'max_invoices';
+    }
+
+    public function betaLimitMessage(int $limit): string
+    {
+        return __('وصلت لحد النسخة التجريبية (:limit فاتورة). إذا كنت مهتماً بالاشتراك، اطلبه من صفحة «الاشتراك».', ['limit' => $limit]);
+    }
 
     /** @var array<string, string> */
     public const STATUS_LABELS = [
