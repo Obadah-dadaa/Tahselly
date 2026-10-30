@@ -22,7 +22,7 @@ class SeoTest extends TestCase
         $this->get('/?lang=ar')->assertOk()
             ->assertSee('<html lang="ar"', false)
             ->assertSee('نظام متابعة الفواتير وتذكير العملاء بالدفع في الإمارات')
-            ->assertSee('<link rel="alternate" hreflang="en" href="'.url('/').'?lang=en">', false)
+            ->assertSee('<link rel="alternate" hreflang="en" href="'.url('/').'/?lang=en">', false)
             ->assertSee('<meta property="og:image" content="'.asset('og-image.png').'">', false)
             ->assertSee('"@type":"SoftwareApplication"', false)
             ->assertSee('"priceCurrency":"AED"', false)
@@ -35,7 +35,7 @@ class SeoTest extends TestCase
     {
         $this->get('/sitemap.xml')->assertOk()
             ->assertHeader('Content-Type', 'application/xml')
-            ->assertSee(url('/').'?lang=ar', false)
+            ->assertSee(url('/').'/?lang=ar', false)
             ->assertSee(route('contact').'?lang=en', false)
             ->assertDontSee('/owner', false);
 
