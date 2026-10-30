@@ -1,2 +1,14 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /owner
+Disallow: /developer
+Disallow: /dashboard
+Disallow: /invoices
+Disallow: /clients
+Disallow: /reminders
+Disallow: /reports
+Disallow: /import
+Disallow: /checkout
+Disallow: /subscribe
+
+Sitemap: https://tahselly.com/sitemap.xml

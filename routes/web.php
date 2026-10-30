@@ -21,6 +21,11 @@ use App\Http\Controllers\TrialController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->middleware('track')->name('landing');
+Route::get('/sitemap.xml', function () {
+    $pages = ['landing' => '1.0', 'trial.create' => '0.9', 'contact' => '0.7', 'legal.terms' => '0.3', 'legal.privacy' => '0.3'];
+
+    return response()->view('sitemap', ['pages' => $pages], 200)->header('Content-Type', 'application/xml');
+})->name('sitemap');
 Route::post('/locale/{locale}', [PreferenceController::class, 'locale'])->whereIn('locale', ['ar', 'en'])->name('locale');
 Route::post('/theme/{theme}', [PreferenceController::class, 'theme'])->whereIn('theme', ['light', 'dark'])->name('theme');
 

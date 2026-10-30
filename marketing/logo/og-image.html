@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("../teaser/assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("../teaser/assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("../teaser/assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("../teaser/assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF; }
+* { margin: 0; box-sizing: border-box; }
+html { width: 1200px; height: 630px; overflow: hidden; }
+body { width: 1200px; height: 630px; overflow: hidden; background: #0B4F4A; font-family: "Plex Arabic"; color: #fff; position: relative; }
+.ring { position: absolute; left: -170px; bottom: -230px; width: 620px; height: 620px; opacity: .10; }
+.wrap { position: absolute; inset: 70px 80px; direction: rtl; display: flex; flex-direction: column; justify-content: center; }
+.lock { display: flex; align-items: center; gap: 28px; }
+.lock svg { width: 150px; height: 150px; }
+.ar { font-size: 96px; font-weight: 700; line-height: 1.1; padding-bottom: 22px; }
+.en { font-size: 28px; font-weight: 600; letter-spacing: .32em; color: #2DD4BF; direction: ltr; text-align: right; margin-top: -6px; }
+.line { margin-top: 44px; font-size: 44px; font-weight: 700; line-height: 1.45; }
+.line .k { color: #5EEAD4; }
+.sub { margin-top: 14px; font-size: 30px; font-weight: 600; color: #99F6E4; direction: ltr; text-align: right; }
+.pill { direction: rtl; position: absolute; left: 80px; top: 70px; background: #2DD4BF; color: #0B4F4A; font-size: 28px; font-weight: 700; padding: 10px 26px 14px; border-radius: 999px; }
+</style>
+</head>
+<body>
+  <svg class="ring" viewBox="0 0 100 100"><path d="M71 31 A28 28 0 1 0 78 50" fill="none" stroke="#fff" stroke-width="8.5" stroke-linecap="round"/><path d="M78 22 L73 33 L62 29" fill="none" stroke="#fff" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="pill">14 يوماً مجاناً</div>
+  <div class="wrap">
+    <div class="lock">
+      <svg viewBox="0 0 100 100"><path d="M71 31 A28 28 0 1 0 78 50" fill="none" stroke="#fff" stroke-width="8.5" stroke-linecap="round"/><path d="M78 22 L73 33 L62 29" fill="none" stroke="#fff" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="50" r="11" fill="#2DD4BF"/></svg>
+      <div><div class="ar">تحصيلي</div><div class="en">TAHSELLY</div></div>
+    </div>
+    <div class="line">فواتيرك غير المدفوعة <span class="k">تُتابَع تلقائياً</span><br>بالبريد وواتساب، قبل الاستحقاق وبعده.</div>
+    <div class="sub">Invoice follow-up &amp; payment reminders · tahselly.com</div>
+  </div>
+</body>
+</html>

@@ -19,6 +19,10 @@ class SetPreferences
     public function handle(Request $request, Closure $next): Response
     {
         $user = $request->user();
+        // ?lang=ar|en gives each language its own URL for search engines (hreflang); the visitor keeps it
+        if (in_array($request->query('lang'), ['ar', 'en'], true)) {
+            $request->session()->put('locale', $request->query('lang'));
+        }
         $locale = $request->session()->get('locale') ?? $request->cookie('locale') ?? $user?->locale ?? config('app.locale');
         $locale = in_array($locale, ['ar', 'en'], true) ? $locale : 'en';
         app()->setLocale($locale);
