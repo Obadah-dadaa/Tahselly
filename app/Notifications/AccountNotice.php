@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Services\Telegram;
 use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -40,8 +41,14 @@ class AccountNotice extends Notification
     /**
      * Notify without ever breaking the action that triggered it (e.g. when SMTP is down).
      */
+    /** Notices that are news for the platform owner, mirrored to Telegram */
+    public const TELEGRAM = ['subscription_requested' => '🏦', 'subscription_paid' => '💳', 'interest_requested' => '🙋'];
+
     public static function send(mixed $users, string $kind, array $params, string $url): void
     {
+        if (isset(self::TELEGRAM[$kind])) {
+            Telegram::notify(self::TELEGRAM[$kind], self::title($kind), ['' => self::body($kind, $params)], $url);
+        }
         try {
             Notifier::send($users, new self($kind, $params, $url));
         } catch (Throwable $e) {

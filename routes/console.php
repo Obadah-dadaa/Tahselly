@@ -2,9 +2,13 @@
 
 use App\Mail\TrialEndingMail;
 use App\Models\Company;
+use App\Models\InterestRequest;
+use App\Models\Reminder;
 use App\Models\Subscription;
 use App\Services\ReminderService;
+use App\Services\Telegram;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schedule;
 
@@ -43,7 +47,23 @@ Artisan::command('trials:notify', function () {
     $this->info("Trial notices sent: {$sent}");
 })->purpose('Email owners whose free trial ends in 3 days or today');
 
+Artisan::command('telegram:digest', function () {
+    // End-of-day summary for the owner's Telegram channel
+    $today = today();
+    Telegram::notify('📊', 'ملخص اليوم '.$today->format('Y-m-d'), [
+        'زوار جدد' => DB::table('site_visits')->whereDate('day', $today)->count(),
+        'من غوغل' => DB::table('site_visits')->whereDate('day', $today)->where('referrer', 'like', '%google%')->count(),
+        'تسجيلات جديدة' => Company::query()->whereDate('created_at', $today)->count(),
+        'شركات في التجربة' => Company::query()->where('status', 'trial')->count(),
+        'مشتركون فعّالون' => Company::query()->where('status', 'active')->count(),
+        'طلبات اشتراك بانتظارك' => Subscription::query()->where('status', 'pending')->count() + InterestRequest::query()->where('status', 'new')->count(),
+        'تذكيرات أُرسلت لعملاء العملاء' => Reminder::withoutGlobalScopes()->where('status', 'sent')->whereDate('created_at', $today)->count(),
+    ], route('developer.dashboard'));
+    $this->info('Digest sent');
+})->purpose('Post the daily summary to the Telegram channel');
+
 Schedule::command('subscriptions:expire')->hourly();
+Schedule::command('telegram:digest')->dailyAt('21:00')->timezone('Asia/Dubai');
 Schedule::command('trials:notify')->dailyAt('10:00')->timezone('Asia/Dubai');
 Schedule::command('reminders:dispatch')->everyMinute();
 Schedule::command('reminders:send')->dailyAt('09:00')->timezone('Asia/Dubai');

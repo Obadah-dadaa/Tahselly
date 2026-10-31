@@ -44,6 +44,12 @@ return [
         'daily_limit' => (int) env('WHATSAPP_DAILY_LIMIT', 100), // per company
     ],
 
+    // Telegram channel for the owner's platform alerts; off while empty
+    'telegram' => [
+        'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+        'chat_id' => env('TELEGRAM_CHAT_ID'),
+    ],
+
     'stripe' => [
         'secret' => env('STRIPE_SECRET'),
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),

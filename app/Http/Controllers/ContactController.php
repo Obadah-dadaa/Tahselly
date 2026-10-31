@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactMessageMail;
 use App\Models\SystemSetting;
+use App\Services\Telegram;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Throwable;
 
@@ -37,6 +39,12 @@ class ContactController extends Controller
             'message' => ['required', 'string', 'min:10', 'max:3000'],
         ]);
 
+        Telegram::notify('✉️', 'رسالة من صفحة التواصل', [
+            'الاسم' => $data['name'],
+            'البريد' => $data['email'],
+            'الشركة' => $data['company'] ?? null,
+            'الرسالة' => Str::limit($data['message'], 600),
+        ]);
         try {
             Mail::to(SystemSetting::get('support_email'))->send(new ContactMessageMail($data));
         } catch (Throwable $e) {

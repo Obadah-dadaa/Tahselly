@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Plan;
 use App\Models\SystemSetting;
 use App\Models\User;
+use App\Services\Telegram;
 use App\Support\Edition;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
@@ -74,6 +75,14 @@ class TrialController extends Controller
             ]);
         });
 
+        Telegram::notify('🆕', 'تسجيل جديد', [
+            'الشركة' => $owner->company->name,
+            'المالك' => $owner->name,
+            'البريد' => $owner->email,
+            'الجوال' => $owner->phone,
+            'التجربة حتى' => $owner->company->trial_ends_at->format('Y-m-d'),
+            'الباقة المختارة' => $plan?->name_en,
+        ], route('developer.companies.show', $owner->company_id));
         ActivityLog::record('trial.started', "بدء تجربة مجانية ({$days} يوم)".($plan ? ": {$plan->name}" : ''), [], $owner->company_id);
         $owner->sendEmailVerificationNotification();
         Auth::login($owner);
