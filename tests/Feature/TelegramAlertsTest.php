@@ -47,6 +47,16 @@ class TelegramAlertsTest extends TestCase
         Http::assertSent(fn ($request) => str_contains($request->url(), '/bot123:test/sendMessage') && $request['chat_id'] === '-100555');
     }
 
+    public function test_a_telegram_failure_never_logs_the_bot_token(): void
+    {
+        Http::fake(['api.telegram.org/*' => fn () => throw new \Illuminate\Http\Client\ConnectionException('cURL error for https://api.telegram.org/bot123:test/sendMessage')]);
+        \Illuminate\Support\Facades\Log::spy();
+
+        \App\Services\Telegram::notify('🆕', 'test');
+
+        \Illuminate\Support\Facades\Log::shouldHaveReceived('warning')->once()->withArgs(fn ($message, $context) => ! str_contains($context['error'], '123:test') && str_contains($context['error'], 'bot***'));
+    }
+
     public function test_daily_digest_posts_and_nothing_is_sent_without_a_token(): void
     {
         $this->artisan('telegram:digest')->assertSuccessful();

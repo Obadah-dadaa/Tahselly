@@ -45,6 +45,49 @@
         </div>
     </div>
 
+    {{-- Who came by: anonymous visits, and registered people by last activity --}}
+    <div class="mt-6 grid gap-6 xl:grid-cols-2">
+        <div class="card overflow-hidden">
+            <div class="border-b border-slate-100 px-5 py-4">
+                <h2 class="font-semibold text-ink">{{ __('آخر الزيارات') }}</h2>
+                <p class="text-xs text-slate-500">{{ __('الزوار مجهولون: نحفظ الصفحة والمصدر فقط، دون أسماء أو عناوين IP. كل زائر يُحسب مرة في اليوم.') }}</p>
+            </div>
+            <table class="w-full text-sm">
+                <thead class="bg-slate-50 text-xs text-slate-500"><tr><th class="px-5 py-2 text-start">{{ __('الوقت') }}</th><th class="px-5 py-2 text-start">{{ __('الصفحة') }}</th><th class="px-5 py-2 text-start">{{ __('المصدر') }}</th></tr></thead>
+                <tbody class="divide-y divide-slate-100">
+                    @forelse($recentVisits as $visit)
+                        <tr>
+                            <td class="whitespace-nowrap px-5 py-2.5 text-slate-500" dir="ltr">{{ \Illuminate\Support\Carbon::parse($visit->created_at)->timezone('Asia/Dubai')->format('m-d H:i') }}</td>
+                            <td class="px-5 py-2.5 font-medium text-ink" dir="ltr">/{{ ltrim($visit->path, '/') }}</td>
+                            <td class="px-5 py-2.5 text-slate-600" dir="ltr">{{ $visit->referrer ?: __('مباشر') }}</td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="3" class="px-5 py-8 text-center text-slate-400">{{ __('لا توجد زيارات بعد.') }}</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        <div class="card overflow-hidden">
+            <div class="border-b border-slate-100 px-5 py-4">
+                <h2 class="font-semibold text-ink">{{ __('المسجّلون: آخر نشاط') }}</h2>
+                <p class="text-xs text-slate-500">{{ __('أصحاب الحسابات الذين دخلوا مؤخراً.') }}</p>
+            </div>
+            <ul class="divide-y divide-slate-100 text-sm">
+                @forelse($activeUsers as $person)
+                    <li class="flex items-center justify-between gap-3 px-5 py-3">
+                        <div class="min-w-0">
+                            <p class="truncate font-semibold text-ink">{{ $person->name }} <span class="font-normal text-slate-400" dir="ltr">{{ $person->email }}</span></p>
+                            <p class="truncate text-xs text-slate-500">{{ $person->company?->name ?? __('فريق المنصة') }}</p>
+                        </div>
+                        <span class="shrink-0 text-xs text-slate-500">{{ \Illuminate\Support\Carbon::createFromTimestamp($person->last_seen)->locale(app()->getLocale())->diffForHumans() }}</span>
+                    </li>
+                @empty
+                    <li class="px-5 py-8 text-center text-slate-400">{{ __('لا يوجد نشاط بعد.') }}</li>
+                @endforelse
+            </ul>
+        </div>
+    </div>
+
     <div class="mt-6 grid gap-6 xl:grid-cols-3">
         <div class="card overflow-hidden xl:col-span-2">
             <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">

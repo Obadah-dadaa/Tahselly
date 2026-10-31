@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Support\Edition;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 /**
@@ -49,7 +50,10 @@ class Telegram
                 'disable_web_page_preview' => 'true',
             ])->throw();
         } catch (Throwable $e) {
-            report($e);
+            // The request URL carries the bot token: log a masked summary, never the raw exception
+            Log::warning('Telegram notify failed', [
+                'error' => str_replace((string) config('services.telegram.bot_token'), '***', $e->getMessage()),
+            ]);
         }
     }
 }

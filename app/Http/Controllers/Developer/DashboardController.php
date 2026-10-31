@@ -78,6 +78,12 @@ class DashboardController extends Controller
                 'referrers' => $topReferrers,
             ],
             'visitorChart' => $visitorChart,
+            // Anonymous visits (no names are stored: visitors are a daily one-way hash, no IP)
+            'recentVisits' => DB::table('site_visits')->latest('id')->limit(15)->get(['created_at', 'path', 'referrer']),
+            // Registered people by their last activity (from the database sessions)
+            'activeUsers' => User::query()->with('company')
+                ->joinSub(DB::table('sessions')->whereNotNull('user_id')->selectRaw('user_id, MAX(last_activity) as last_seen')->groupBy('user_id'), 's', 's.user_id', '=', 'users.id')
+                ->orderByDesc('s.last_seen')->limit(10)->get(['users.*', 's.last_seen']),
             'companies' => $companies->take(8),
             'signups' => $signups,
             'activity' => ActivityLog::query()->with(['user', 'company'])->latest()->limit(10)->get(),
