@@ -50,6 +50,13 @@ return [
         'chat_id' => env('TELEGRAM_CHAT_ID'),
     ],
 
+    // New mail in the business inbox is announced on Telegram (read-only IMAP); off while the password is empty
+    'mailwatch' => [
+        'host' => env('MAILWATCH_HOST', 'imap.hostinger.com'),
+        'username' => env('MAILWATCH_USERNAME', 'obadah@tahselly.com'),
+        'password' => env('MAILWATCH_PASSWORD'),
+    ],
+
     'stripe' => [
         'secret' => env('STRIPE_SECRET'),
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),

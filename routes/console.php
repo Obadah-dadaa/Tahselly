@@ -62,7 +62,12 @@ Artisan::command('telegram:digest', function () {
     $this->info('Digest sent');
 })->purpose('Post the daily summary to the Telegram channel');
 
+Artisan::command('mail:watch', function (\App\Services\InboxWatcher $watcher) {
+    $this->info('New emails announced: '.$watcher->check());
+})->purpose('Announce new emails in the business inbox on Telegram');
+
 Schedule::command('subscriptions:expire')->hourly();
+Schedule::command('mail:watch')->everyTwoMinutes()->withoutOverlapping();
 Schedule::command('telegram:digest')->dailyAt('21:00')->timezone('Asia/Dubai');
 Schedule::command('trials:notify')->dailyAt('10:00')->timezone('Asia/Dubai');
 Schedule::command('reminders:dispatch')->everyMinute();
