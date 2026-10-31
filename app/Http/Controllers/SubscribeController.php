@@ -11,6 +11,7 @@ use App\Models\SystemSetting;
 use App\Models\User;
 use App\Notifications\AccountNotice;
 use App\Services\PaymentGateway;
+use App\Support\Phone;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -103,12 +104,15 @@ class SubscribeController extends Controller
                 'company_name' => ['required', 'string', 'max:190'],
                 'name' => ['required', 'string', 'max:120'],
                 'email' => ['required', 'email', 'max:190', 'unique:users,email'],
-                'phone' => ['required', 'string', 'max:30'],
+                'phone' => ['required', 'string', 'max:30', fn ($attribute, $value, $fail) => Phone::normalize($request->input('phone_country'), $value) ? null : $fail(__('رقم الجوال غير صحيح. اختر الدولة واكتب الرقم كاملاً.'))],
                 'password' => ['required', 'confirmed', Password::min(8)],
                 'terms' => ['accepted'],
             ];
         }
         $data = $request->validate($rules);
+        if (isset($data['phone'])) {
+            $data['phone'] = Phone::normalize($request->input('phone_country'), $data['phone']);
+        }
         abort_if($this->belowTrialPlan($user?->company, $plan), 422, __('يمكنك الترقية فقط، لا الانتقال لباقة أقل.'));
 
         $subscription = DB::transaction(function () use ($user, $data, $plan): Subscription {

@@ -10,7 +10,7 @@
             <div class="card mt-6 grid gap-4 p-6 sm:grid-cols-2">
                 <div class="sm:col-span-2"><label class="label">{{ __('اسم الشركة / النشاط') }}</label><input name="company_name" value="{{ old('company_name') }}" required class="input"></div>
                 <div><label class="label">{{ __('اسمك') }}</label><input name="name" value="{{ old('name') }}" required class="input"></div>
-                <div><label class="label">{{ __('رقم الجوال') }}</label><input name="phone" value="{{ old('phone') }}" required class="input" dir="ltr" placeholder="05XXXXXXXX"></div>
+                <x-phone-input />
                 <div class="sm:col-span-2"><label class="label">{{ __('البريد الإلكتروني') }}</label><input type="email" name="email" value="{{ old('email') }}" required class="input" dir="ltr"></div>
                 <div><label class="label">{{ __('كلمة المرور') }}</label><input type="password" name="password" required minlength="8" class="input" dir="ltr"></div>
                 <div><label class="label">{{ __('تأكيد كلمة المرور') }}</label><input type="password" name="password_confirmation" required class="input" dir="ltr"></div>

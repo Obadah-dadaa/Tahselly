@@ -10,6 +10,7 @@ use App\Models\SystemSetting;
 use App\Models\User;
 use App\Services\Telegram;
 use App\Support\Edition;
+use App\Support\Phone;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,11 +45,12 @@ class TrialController extends Controller
             'company_name' => ['required', 'string', 'max:190'],
             'name' => ['required', 'string', 'max:120'],
             'email' => ['required', 'email', 'max:190', 'unique:users,email'],
-            'phone' => ['required', 'string', 'max:30'],
+            'phone' => ['required', 'string', 'max:30', fn ($attribute, $value, $fail) => Phone::normalize($request->input('phone_country'), $value) ? null : $fail(__('رقم الجوال غير صحيح. اختر الدولة واكتب الرقم كاملاً.'))],
             'password' => ['required', 'confirmed', Password::min(8)],
             'terms' => ['accepted'],
         ]);
 
+        $data['phone'] = Phone::normalize($request->input('phone_country'), $data['phone']);
         $plan = isset($data['plan']) ? Plan::query()->where('code', $data['plan'])->first() : null;
         $days = Edition::isBeta() ? Edition::limit('trial_days') : max(1, (int) SystemSetting::get('default_trial_days', 14));
 
