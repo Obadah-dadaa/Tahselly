@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\BlockAiTrainingBots;
 use App\Http\Middleware\EnsureRole;
 use App\Http\Middleware\LiveOnly;
 use App\Http\Middleware\RequirePlanFeature;
@@ -23,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo('/home');
         // Stripe calls this endpoint server-to-server; it is authenticated by its signature instead
         $middleware->validateCsrfTokens(except: ['stripe/webhook']);
-        $middleware->web(append: [SetPreferences::class]);
+        $middleware->web(prepend: [BlockAiTrainingBots::class], append: [SetPreferences::class]);
         // Shared hosting / load balancers terminate HTTPS in front of the app
         $middleware->trustProxies(at: '*');
         // Only answer for our own domain (plus local hosts in development)

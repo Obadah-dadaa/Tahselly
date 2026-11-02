@@ -21,4 +21,19 @@ return [
 
     // Where the paid site lives, for links from the beta
     'live_url' => env('LIVE_URL', 'https://tahselly.com'),
+
+    /*
+    | Crawlers that collect pages to train AI models. They are disallowed in robots.txt and,
+    | since some ignore it, answered with 403. AI *search* agents (OAI-SearchBot, ChatGPT-User,
+    | Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User) stay allowed so Tahselly
+    | still shows up in AI answers.
+    */
+    'ai_training_bots' => [
+        'GPTBot', 'ClaudeBot', 'anthropic-ai', 'CCBot', 'Google-Extended', 'Applebot-Extended',
+        'Bytespider', 'Meta-ExternalAgent', 'Meta-ExternalFetcher', 'FacebookBot', 'Amazonbot',
+        'cohere-ai', 'cohere-training-data-crawler', 'Diffbot', 'AI2Bot', 'Ai2Bot-Dolma',
+        'Omgilibot', 'Omgili', 'ImagesiftBot', 'Timpibot', 'PanguBot', 'Kangaroo Bot',
+        'img2dataset', 'Scrapy', 'VelenPublicWebCrawler', 'Webzio-Extended', 'DeepSeekBot',
+        'TikTokSpider', 'SemrushBot-OCOB', 'QualifiedBot', 'Brightbot',
+    ],
 ];

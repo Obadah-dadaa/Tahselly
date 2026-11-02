@@ -31,7 +31,11 @@ Route::get('/robots.txt', function () {
         ? 'User-agent: *
 Disallow: /
 '
-        : 'User-agent: *
+        : collect(config('tahselly.ai_training_bots'))->map(fn ($bot) => "User-agent: {$bot}
+Disallow: /
+")->implode("
+")."
+".'User-agent: *
 Allow: /
 Disallow: /owner
 Disallow: /developer
