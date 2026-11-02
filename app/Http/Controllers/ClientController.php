@@ -6,6 +6,7 @@ use App\Models\ActivityLog;
 use App\Models\Client;
 use App\Services\ReceivablesReport;
 use App\Support\Edition;
+use App\Support\Phone;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -84,11 +85,13 @@ class ClientController extends Controller
             'name' => ['required', 'string', 'max:190', Rule::unique('clients')->where('company_id', $request->user()->company_id)->ignore($client?->id)],
             'contact_name' => ['nullable', 'string', 'max:190'],
             'email' => ['nullable', 'email', 'max:190'],
-            'phone' => ['nullable', 'string', 'max:30'],
+            'phone' => ['nullable', 'string', 'max:30', fn ($attribute, $value, $fail) => Phone::normalize($request->input('phone_country'), $value) ? null : $fail(__('رقم الجوال غير صحيح. اختر الدولة واكتب الرقم كاملاً.'))],
             'trn' => ['nullable', 'string', 'max:30'],
             'address' => ['nullable', 'string', 'max:255'],
             'notes' => ['nullable', 'string', 'max:2000'],
         ]);
+        // Stored in international format so WhatsApp reminders reach the right country
+        $data['phone'] = filled($data['phone'] ?? null) ? Phone::normalize($request->input('phone_country'), $data['phone']) : null;
         $data['reminders_enabled'] = $request->boolean('reminders_enabled');
         $data['locale'] = in_array($request->input('locale'), ['ar', 'en'], true) ? $request->input('locale') : null;
 

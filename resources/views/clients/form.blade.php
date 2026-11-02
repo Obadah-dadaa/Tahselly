@@ -9,7 +9,7 @@
             <div><label class="label">{{ __('اسم المسؤول') }}</label><input name="contact_name" value="{{ old('contact_name', $client->contact_name) }}" class="input"></div>
             <div><label class="label">{{ __('الرقم الضريبي (TRN)') }}</label><input name="trn" value="{{ old('trn', $client->trn) }}" class="input" dir="ltr"></div>
             <div><label class="label">{{ __('البريد الإلكتروني (لإرسال التذكيرات)') }}</label><input type="email" name="email" value="{{ old('email', $client->email) }}" class="input" dir="ltr"></div>
-            <div><label class="label">{{ __('الهاتف / واتساب') }}</label><input name="phone" value="{{ old('phone', $client->phone) }}" class="input" dir="ltr" placeholder="05XXXXXXXX"></div>
+            <x-phone-input :label="__('الهاتف / واتساب')" :required="false" :value="$client->phone" />
             <div class="sm:col-span-2"><label class="label">{{ __('العنوان') }}</label><input name="address" value="{{ old('address', $client->address) }}" class="input"></div>
             <div class="sm:col-span-2"><label class="label">{{ __('ملاحظات') }}</label><textarea name="notes" rows="3" class="input">{{ old('notes', $client->notes) }}</textarea></div>
         </div>

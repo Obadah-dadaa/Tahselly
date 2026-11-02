@@ -26,6 +26,23 @@ class PhoneNumberTest extends TestCase
         $this->assertNull(Phone::normalize('971', 'abc'));
     }
 
+    public function test_a_saudi_client_gets_whatsapp_on_the_saudi_number(): void
+    {
+        $this->seed(PlatformSeeder::class);
+        $company = \App\Models\Company::factory()->create(['status' => 'active']);
+        $manager = User::factory()->create(['company_id' => $company->id, 'role' => \App\Enums\Role::Manager]);
+
+        $this->actingAs($manager)->get(route('clients.create'))->assertOk()->assertDontSee('05XXXXXXXX')->assertSee('name="phone_country"', false);
+        $this->post(route('clients.store'), ['name' => 'Riyadh Client', 'phone_country' => '966', 'phone' => '0501234567'])->assertRedirect();
+
+        $client = \App\Models\Client::query()->where('name', 'Riyadh Client')->firstOrFail();
+        $this->assertSame('+966501234567', $client->phone);
+        $this->assertSame('966501234567', $client->whatsappNumber());
+
+        $this->post(route('clients.store'), ['name' => 'No Phone Client'])->assertRedirect();
+        $this->assertNull(\App\Models\Client::query()->where('name', 'No Phone Client')->value('phone'));
+    }
+
     public function test_sign_up_with_a_saudi_number(): void
     {
         $this->seed(PlatformSeeder::class);
