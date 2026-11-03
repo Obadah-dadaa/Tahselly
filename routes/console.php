@@ -66,6 +66,38 @@ Artisan::command('mail:watch', function (\App\Services\InboxWatcher $watcher) {
     $this->info('New emails announced: '.$watcher->check());
 })->purpose('Announce new emails in the business inbox on Telegram');
 
+Artisan::command('telegram:linkedin', function () {
+    // Daily LinkedIn prospects (JSON on stdin), one Telegram post each so they are easy to copy
+    $people = json_decode((string) stream_get_contents(STDIN), true) ?: [];
+    foreach ($people as $i => $p) {
+        Telegram::notify('💼', 'LinkedIn '.($i + 1).'/'.count($people).': '.($p['name'] ?? '?'), [
+            'المنصب' => trim(($p['title'] ?? '').' · '.($p['company'] ?? ''), ' ·'),
+            'الإمارة' => $p['emirate'] ?? null,
+            'البروفايل' => $p['profile'] ?? null,
+            '① ملاحظة طلب الإضافة' => $p['note'] ?? null,
+            '② الرسالة بعد القبول' => $p['message'] ?? null,
+        ]);
+    }
+    $this->info(count($people).' posted');
+})->purpose('Post the daily LinkedIn prospects to the Telegram channel');
+
+Artisan::command('telegram:partners', function () {
+    // Daily accounting offices to offer the referral partnership (JSON on stdin), one Telegram post each
+    $firms = json_decode((string) stream_get_contents(STDIN), true) ?: [];
+    foreach ($firms as $i => $f) {
+        $digits = preg_replace('/\D/', '', (string) ($f['whatsapp'] ?? ''));
+        Telegram::notify('🤝', 'مكتب محاسبة '.($i + 1).'/'.count($firms).': '.($f['name'] ?? '?'), [
+            'الإمارة' => $f['emirate'] ?? null,
+            'واتساب / هاتف' => $f['whatsapp'] ?? null,
+            'افتح واتساب' => $digits ? 'https://wa.me/'.$digits.'?text='.rawurlencode((string) ($f['message'] ?? '')) : null,
+            'الموقع' => $f['website'] ?? null,
+            'الشخص' => $f['contact'] ?? null,
+            'الرسالة' => $f['message'] ?? null,
+        ]);
+    }
+    $this->info(count($firms).' posted');
+})->purpose('Post the daily accounting-office partners to the Telegram channel');
+
 // Proof that the server cron runs this site's scheduler (checked from the server with tinker)
 Schedule::call(fn () => \Illuminate\Support\Facades\Cache::forever('scheduler:heartbeat', now()->toDateTimeString()))->everyMinute()->name('heartbeat');
 Schedule::command('subscriptions:expire')->hourly();
