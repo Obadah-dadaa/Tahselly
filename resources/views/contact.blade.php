@@ -67,6 +67,7 @@
                     <label for="message" class="label">{{ __('رسالتك') }}</label>
                     <textarea id="message" name="message" rows="6" required minlength="10" maxlength="3000" class="input">{{ old('message') }}</textarea>
                 </div>
+                <x-recaptcha action="contact" />
                 <button class="btn-primary w-full sm:w-auto"><x-icon name="mail" class="size-4" /> {{ __('إرسال الرسالة') }}</button>
             </form>
         </div>

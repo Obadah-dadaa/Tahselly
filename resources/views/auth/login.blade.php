@@ -34,6 +34,7 @@
                     <input id="password" name="password" type="password" x-model="password" required class="input py-2.5" dir="ltr">
                 </div>
                 <label class="flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" name="remember" class="rounded border-slate-300 text-brand-600"> {{ __('تذكرني') }}</label>
+                <x-recaptcha action="login" />
                 <button class="btn-primary w-full py-3">{{ __('تسجيل الدخول') }}</button>
             </form>
             @if(\App\Models\SystemSetting::get('allow_signups', true))

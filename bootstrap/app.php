@@ -4,6 +4,7 @@ use App\Http\Middleware\BlockAiTrainingBots;
 use App\Http\Middleware\EnsureRole;
 use App\Http\Middleware\LiveOnly;
 use App\Http\Middleware\RequirePlanFeature;
+use App\Http\Middleware\RequireRecaptcha;
 use App\Http\Middleware\RequireStaff;
 use App\Http\Middleware\SetPreferences;
 use App\Http\Middleware\TrackVisit;
@@ -19,7 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->alias(['role' => EnsureRole::class, 'feature' => RequirePlanFeature::class, 'track' => TrackVisit::class, 'staff' => RequireStaff::class, 'live' => LiveOnly::class]);
+        $middleware->alias(['role' => EnsureRole::class, 'feature' => RequirePlanFeature::class, 'track' => TrackVisit::class, 'staff' => RequireStaff::class, 'live' => LiveOnly::class, 'recaptcha' => RequireRecaptcha::class]);
         $middleware->redirectGuestsTo('/login');
         $middleware->redirectUsersTo('/home');
         // Stripe calls this endpoint server-to-server; it is authenticated by its signature instead

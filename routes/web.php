@@ -68,7 +68,7 @@ Route::post('/theme/{theme}', [PreferenceController::class, 'theme'])->whereIn('
 // Plans, checkout and payment: live site only (the beta has none)
 Route::middleware('live')->group(function () {
     Route::get('/subscribe/{plan:code}', [SubscribeController::class, 'show'])->middleware('track')->name('subscribe.show');
-    Route::post('/subscribe/{plan:code}', [SubscribeController::class, 'store'])->middleware('throttle:10,1')->name('subscribe.store');
+    Route::post('/subscribe/{plan:code}', [SubscribeController::class, 'store'])->middleware(['throttle:10,1', 'recaptcha:checkout'])->name('subscribe.store');
     Route::get('/checkout/{subscription}/pay', [SubscribeController::class, 'sandbox'])->name('subscribe.sandbox');
     Route::post('/checkout/{subscription}/pay', [SubscribeController::class, 'sandboxPay'])->middleware('throttle:10,1')->name('subscribe.sandbox.pay');
     Route::get('/checkout/{subscription}/return', [SubscribeController::class, 'stripeReturn'])->name('subscribe.return');
@@ -81,22 +81,22 @@ Route::middleware('live')->group(function () {
 // Free trial (no card) and legal pages
 Route::middleware('guest')->group(function () {
     Route::get('/start', [TrialController::class, 'create'])->middleware('track')->name('trial.create');
-    Route::post('/start', [TrialController::class, 'store'])->middleware('throttle:5,1')->name('trial.store');
+    Route::post('/start', [TrialController::class, 'store'])->middleware(['throttle:5,1', 'recaptcha:signup'])->name('trial.store');
 });
 // The beta has its own terms and privacy notice (free testing, limits, no payment)
 Route::get('/terms', fn () => view(Edition::isBeta() ? 'legal.beta-terms' : 'legal.terms'))->middleware('track')->name('legal.terms');
 Route::get('/privacy', fn () => view(Edition::isBeta() ? 'legal.beta-privacy' : 'legal.privacy'))->middleware('track')->name('legal.privacy');
 Route::get('/blog', [BlogController::class, 'index'])->middleware('track')->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->where('slug', '[a-z0-9-]+')->middleware('track')->name('blog.show');
-Route::post('/interest', [InterestController::class, 'store'])->middleware('throttle:3,10')->name('interest.store');
+Route::post('/interest', [InterestController::class, 'store'])->middleware(['throttle:3,10', 'recaptcha:interest'])->name('interest.store');
 Route::get('/contact', [ContactController::class, 'show'])->middleware('track')->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:3,10')->name('contact.store');
+Route::post('/contact', [ContactController::class, 'store'])->middleware(['throttle:3,10', 'recaptcha:contact'])->name('contact.store');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'create'])->name('login');
-    Route::post('/login', [AuthController::class, 'store'])->middleware('throttle:10,1');
+    Route::post('/login', [AuthController::class, 'store'])->middleware(['throttle:10,1', 'recaptcha:login']);
     Route::get('/forgot-password', [PasswordResetController::class, 'request'])->name('password.request');
-    Route::post('/forgot-password', [PasswordResetController::class, 'email'])->middleware('throttle:5,1')->name('password.email');
+    Route::post('/forgot-password', [PasswordResetController::class, 'email'])->middleware(['throttle:5,1', 'recaptcha:forgot_password'])->name('password.email');
     Route::get('/reset-password/{token}', [PasswordResetController::class, 'edit'])->name('password.reset');
     Route::post('/reset-password', [PasswordResetController::class, 'update'])->middleware('throttle:5,1')->name('password.update');
 });

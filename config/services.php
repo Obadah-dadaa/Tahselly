@@ -57,6 +57,13 @@ return [
         'password' => env('MAILWATCH_PASSWORD'),
     ],
 
+    // Google reCAPTCHA v3 (invisible) on the public forms; off until both keys are set
+    'recaptcha' => [
+        'site_key' => env('RECAPTCHA_SITE_KEY'),
+        'secret_key' => env('RECAPTCHA_SECRET_KEY'),
+        'min_score' => (float) env('RECAPTCHA_MIN_SCORE', 0.5),
+    ],
+
     'stripe' => [
         'secret' => env('STRIPE_SECRET'),
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),

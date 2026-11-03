@@ -3,6 +3,7 @@
 @php $user = auth()->user(); @endphp
 <form method="POST" action="{{ route('interest.store') }}#interest" {{ $attributes->merge(['class' => 'space-y-4']) }}>
     @csrf
+    <x-recaptcha action="interest" />
     {{-- Its own messages, since it also sits on pages without a flash area (the landing page) --}}
     @if(session('success') && request()->routeIs('landing'))
         <div class="rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-800 ring-1 ring-inset ring-emerald-600/20">{{ session('success') }}</div>

@@ -7,6 +7,7 @@
             <form method="POST" action="{{ route('password.email') }}" class="mt-6 space-y-4">
                 @csrf
                 <div><label class="label" for="email">{{ __('البريد الإلكتروني') }}</label><input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus class="input py-2.5" dir="ltr"></div>
+                <x-recaptcha action="forgot_password" />
                 <button class="btn-primary w-full py-3">{{ __('أرسل رابط إعادة التعيين') }}</button>
             </form>
             <p class="mt-6 text-center text-sm"><a href="{{ route('login') }}" class="font-semibold text-brand-700">← {{ __('العودة لتسجيل الدخول') }}</a></p>

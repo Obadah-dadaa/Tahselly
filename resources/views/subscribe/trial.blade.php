@@ -19,6 +19,7 @@
                     <input type="checkbox" name="terms" value="1" required class="mt-1 rounded text-brand-600">
                     <span>{!! __(\App\Support\Edition::isBeta() ? 'أفهم أن هذه نسخة تجريبية مجانية لمدة :days يوماً بحدود استخدام، وأوافق على :terms و:privacy.' : 'أفهم أن التجربة مجانية لمدة :days يوماً فقط وأن الاستمرار بعدها يتطلب اشتراكاً مدفوعاً، وأوافق على :terms و:privacy.', ['days' => $days, 'terms' => '<a href="'.route('legal.terms').'" target="_blank" class="font-semibold text-brand-700 underline">'.e(__('شروط الاستخدام')).'</a>', 'privacy' => '<a href="'.route('legal.privacy').'" target="_blank" class="font-semibold text-brand-700 underline">'.e(__('سياسة الخصوصية')).'</a>']) !!}</span>
                 </label>
+                <x-recaptcha action="signup" class="sm:col-span-2" />
                 <button class="btn-primary w-full py-3 text-base sm:col-span-2">{{ __('ابدأ التجربة المجانية') }}</button>
                 <p class="text-center text-xs text-slate-500 sm:col-span-2">{{ __('لديك حساب؟') }} <a href="{{ route('login') }}" class="font-semibold text-brand-700">{{ __('سجّل الدخول') }}</a></p>
             </div>

@@ -92,6 +92,7 @@
                     @unless($renewing)
                         <label class="mb-4 flex items-start gap-2 text-sm text-slate-600"><input type="checkbox" name="terms" value="1" required class="mt-1 rounded text-brand-600"> {!! __('أوافق على :terms و:privacy', ['terms' => '<a href="'.route('legal.terms').'" target="_blank" class="font-semibold text-brand-700 underline">'.e(__('شروط الاستخدام')).'</a>', 'privacy' => '<a href="'.route('legal.privacy').'" target="_blank" class="font-semibold text-brand-700 underline">'.e(__('سياسة الخصوصية')).'</a>']) !!}</label>
                     @endunless
+                    <x-recaptcha action="checkout" />
                     <button class="btn-primary w-full py-3 text-base">
                         <span x-show="method==='card'">{{ __('ادفع الآن') }}</span>
                         <span x-show="method==='bank_transfer'" x-cloak>{{ __('متابعة — تعليمات التحويل') }}</span>
