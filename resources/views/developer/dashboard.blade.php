@@ -45,6 +45,24 @@
         </div>
     </div>
 
+    {{-- Opens of the personal links in outreach emails --}}
+    <div class="card mt-6 overflow-hidden">
+        <div class="border-b border-slate-100 px-5 py-4">
+            <h2 class="font-semibold text-ink">{{ __('من فتح رابط إيميلات التسويق') }}</h2>
+            <p class="text-xs text-slate-500">{{ __('كل شركة لها رابط خاص في الإيميل. قد يظهر أحياناً فحص آلي من برنامج حماية البريد.') }}</p>
+        </div>
+        <ul class="divide-y divide-slate-100 text-sm">
+            @forelse($linkClicks as $click)
+                <li class="flex items-center justify-between gap-3 px-5 py-2.5">
+                    <span class="font-medium text-ink" dir="ltr">{{ \Illuminate\Support\Str::of(\Illuminate\Support\Str::after($click->ref, '-'))->replace('-', ' ')->title() }} <span class="text-xs font-normal text-slate-400">{{ \Illuminate\Support\Str::before($click->ref, '-') }}</span></span>
+                    <span class="whitespace-nowrap text-xs text-slate-500" dir="ltr">{{ \Illuminate\Support\Carbon::parse($click->created_at)->timezone('Asia/Dubai')->format('m-d H:i') }}</span>
+                </li>
+            @empty
+                <li class="px-5 py-6 text-center text-slate-400">{{ __('لم يفتح أحد الرابط بعد.') }}</li>
+            @endforelse
+        </ul>
+    </div>
+
     {{-- Who came by: anonymous visits, and registered people by last activity --}}
     <div class="mt-6 grid gap-6 xl:grid-cols-2">
         <div class="card overflow-hidden">

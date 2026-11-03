@@ -90,6 +90,9 @@ Route::get('/blog', [BlogController::class, 'index'])->middleware('track')->name
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->where('slug', '[a-z0-9-]+')->middleware('track')->name('blog.show');
 Route::post('/interest', [InterestController::class, 'store'])->middleware(['throttle:3,10', 'recaptcha:interest'])->name('interest.store');
 Route::get('/contact', [ContactController::class, 'show'])->middleware('track')->name('contact');
+// Personal links in outreach emails
+Route::get('/go/{ref}', [App\Http\Controllers\OutreachLinkController::class, 'show'])->where('ref', '[a-z0-9-]{2,80}')->name('go');
+Route::get('/go/{ref}/hit', [App\Http\Controllers\OutreachLinkController::class, 'hit'])->where('ref', '[a-z0-9-]{2,80}')->middleware('throttle:20,1')->name('go.hit');
 Route::post('/contact', [ContactController::class, 'store'])->middleware(['throttle:3,10', 'recaptcha:contact'])->name('contact.store');
 
 Route::middleware('guest')->group(function () {

@@ -79,6 +79,7 @@ class DashboardController extends Controller
             ],
             'visitorChart' => $visitorChart,
             // Anonymous visits (no names are stored: visitors are a daily one-way hash, no IP)
+            'linkClicks' => DB::table('link_clicks')->latest('id')->limit(10)->get(),
             'recentVisits' => DB::table('site_visits')->latest('id')->limit(15)->get(['created_at', 'path', 'referrer']),
             // Registered people by their last activity (from the database sessions)
             'activeUsers' => User::query()->with('company')
