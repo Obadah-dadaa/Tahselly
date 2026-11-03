@@ -66,6 +66,8 @@ Artisan::command('mail:watch', function (\App\Services\InboxWatcher $watcher) {
     $this->info('New emails announced: '.$watcher->check());
 })->purpose('Announce new emails in the business inbox on Telegram');
 
+// Proof that the server cron runs this site's scheduler (checked from the server with tinker)
+Schedule::call(fn () => \Illuminate\Support\Facades\Cache::forever('scheduler:heartbeat', now()->toDateTimeString()))->everyMinute()->name('heartbeat');
 Schedule::command('subscriptions:expire')->hourly();
 Schedule::command('mail:watch')->everyTwoMinutes()->withoutOverlapping();
 Schedule::command('telegram:digest')->dailyAt('21:00')->timezone('Asia/Dubai');
