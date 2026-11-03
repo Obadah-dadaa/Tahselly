@@ -37,6 +37,8 @@ class InvoiceImportTest extends TestCase
         $this->assertEquals(1000, $first->paid_amount);
         $this->assertSame('2026-12-15', Invoice::query()->where('number', 'AR-2')->first()->due_date->toDateString());
         $this->assertEquals(7250, Invoice::query()->where('number', 'AR-2')->value('amount'));
+
+        $this->actingAs($user)->get(route('import.show', $batch))->assertOk()->assertSee('11,750.00');
     }
 
     public function test_template_download_is_an_xlsx_file(): void

@@ -3,7 +3,14 @@
         <x-slot:actions><a href="{{ route('import.index') }}" class="btn-secondary">{{ __('استيراد ملف آخر') }}</a></x-slot:actions>
     </x-page-header>
 
-    <div class="grid gap-4 sm:grid-cols-3">
+    @php
+        $totals = $batch->invoices->groupBy(fn ($invoice) => $invoice->currency ?: 'AED')->map(fn ($group) => $group->sum(fn ($invoice) => (float) $invoice->amount))->sortDesc();
+        $mainCurrency = $totals->keys()->first() ?? 'AED';
+    @endphp
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <x-kpi :label="__('مجموع الفواتير')" :value="number_format($totals->first() ?? 0, 2)" :suffix="$mainCurrency" icon="cash" tone="sky"
+            :hint="$totals->count() > 1 ? $totals->skip(1)->map(fn ($sum, $currency) => '+ '.number_format($sum, 2).' '.$currency)->implode(' · ') : __(':count فاتورة', ['count' => $batch->invoices->count()])" />
         <x-kpi :label="__('إجمالي الصفوف')" :value="$batch->rows_total" icon="list" tone="slate" />
         <x-kpi :label="__('تم استيرادها')" :value="$batch->rows_imported" icon="check" />
         <x-kpi :label="__('أخطاء')" :value="$batch->rows_failed" icon="alert" tone="rose" />
@@ -34,6 +41,13 @@
                 </tr>
             @endforeach
             </tbody>
+            @if($batch->invoices->isNotEmpty())
+                <tfoot>
+                @foreach($totals as $currency => $sum)
+                    <tr class="bg-slate-50 font-semibold"><td colspan="3">{{ __('المجموع') }}@if($totals->count() > 1) ({{ $currency }})@endif</td><td class="num">@money($sum) <span class="text-xs text-slate-400">{{ $currency }}</span></td><td></td></tr>
+                @endforeach
+                </tfoot>
+            @endif
         </table>
     </div>
 </x-layouts.app>
