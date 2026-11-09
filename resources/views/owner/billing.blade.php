@@ -1,5 +1,9 @@
 <x-layouts.app :title="__('الاشتراك والفواتير')">
     <x-page-header :title="__('الاشتراك والفواتير')" :subtitle="__('باقتك الحالية، مدة الاشتراك، وسجل المدفوعات.')" />
+    <x-founding-offer class="mb-6" />
+    @if($company->founding_discount)
+        <p class="mb-6 rounded-2xl bg-emerald-50 px-5 py-3 text-sm font-semibold text-emerald-800 ring-1 ring-emerald-600/20">{{ __('أنت من الشركات المؤسِّسة: خصم :percent% على كل تجديد، مدى الحياة.', ['percent' => $company->founding_discount]) }}</p>
+    @endif
 
     <div class="grid gap-6 lg:grid-cols-3">
         <div class="card overflow-hidden lg:col-span-2">

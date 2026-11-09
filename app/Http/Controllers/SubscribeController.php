@@ -11,7 +11,9 @@ use App\Models\SystemSetting;
 use App\Models\User;
 use App\Notifications\AccountNotice;
 use App\Services\PaymentGateway;
+use App\Support\FoundingOffer;
 use App\Support\Phone;
+use App\Support\Referral;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -115,7 +117,8 @@ class SubscribeController extends Controller
         }
         abort_if($this->belowTrialPlan($user?->company, $plan), 422, __('يمكنك الترقية فقط، لا الانتقال لباقة أقل.'));
 
-        $subscription = DB::transaction(function () use ($user, $data, $plan): Subscription {
+        $referrer = $user ? null : Referral::referrerFrom($request);
+        $subscription = DB::transaction(function () use ($user, $data, $plan, $referrer): Subscription {
             $company = $user?->company;
             if (! $company) {
                 // Account exists but cannot be used until the first payment is confirmed
@@ -127,6 +130,7 @@ class SubscribeController extends Controller
                     'plan_id' => $plan->id,
                     'status' => 'expired',
                 ]);
+                $company->forceFill(['referred_by_id' => $referrer?->id])->save();
                 $owner = User::create([
                     'company_id' => $company->id,
                     'name' => $data['name'],
@@ -140,10 +144,13 @@ class SubscribeController extends Controller
                 $owner->sendEmailVerificationNotification();
             }
 
+            $discount = FoundingOffer::discountFor($company);
+
             return $company->subscriptions()->create([
                 'plan_id' => $plan->id,
                 'cycle' => $data['cycle'],
-                'amount' => $plan->priceFor($data['cycle']),
+                'amount' => FoundingOffer::price($plan, $data['cycle'], $discount),
+                'discount_percent' => $discount,
                 'currency' => 'AED',
                 'status' => 'pending',
                 'payment_method' => $data['payment_method'],

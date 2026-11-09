@@ -9,6 +9,7 @@ use App\Http\Controllers\Developer;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\InterestController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\NotificationController;
@@ -60,7 +61,7 @@ Route::get('/sitemap.xml', function () {
 
     $posts = Blog::all('en')->pluck('slug');
 
-    return response()->view('sitemap', ['pages' => $pages + ['blog.index' => '0.8'], 'posts' => $posts], 200)->header('Content-Type', 'application/xml');
+    return response()->view('sitemap', ['pages' => $pages + ['blog.index' => '0.8', 'tools.reminder' => '0.8'], 'posts' => $posts], 200)->header('Content-Type', 'application/xml');
 })->name('sitemap');
 Route::post('/locale/{locale}', [PreferenceController::class, 'locale'])->whereIn('locale', ['ar', 'en'])->name('locale');
 Route::post('/theme/{theme}', [PreferenceController::class, 'theme'])->whereIn('theme', ['light', 'dark'])->name('theme');
@@ -89,6 +90,9 @@ Route::middleware('guest')->group(function () {
 // The beta has its own terms and privacy notice (free testing, limits, no payment)
 Route::get('/terms', fn () => view(Edition::isBeta() ? 'legal.beta-terms' : 'legal.terms'))->middleware('track')->name('legal.terms');
 Route::get('/privacy', fn () => view(Edition::isBeta() ? 'legal.beta-privacy' : 'legal.privacy'))->middleware('track')->name('legal.privacy');
+// Referral share link: remembers who sent the visitor, then shows the landing page
+Route::get('/r/{code}', [ReferralController::class, 'visit'])->where('code', '[A-Za-z0-9]{6,12}')->middleware('throttle:30,1')->name('referral');
+Route::view('/tools/payment-reminder', 'tools.payment-reminder')->middleware('track')->name('tools.reminder');
 Route::get('/blog', [BlogController::class, 'index'])->middleware('track')->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->where('slug', '[a-z0-9-]+')->middleware('track')->name('blog.show');
 Route::post('/interest', [InterestController::class, 'store'])->middleware(['throttle:3,10', 'recaptcha:interest'])->name('interest.store');
@@ -165,6 +169,7 @@ Route::middleware(['auth', 'verified', 'role:owner'])->prefix('owner')->name('ow
     Route::put('settings/reminders', [Owner\SettingsController::class, 'updateReminders'])->name('settings.reminders');
     Route::put('settings/templates', [Owner\SettingsController::class, 'updateTemplates'])->middleware('feature:custom_templates')->name('settings.templates');
     Route::get('activity', [Owner\DashboardController::class, 'activity'])->middleware('feature:activity_log')->name('activity');
+    Route::get('referrals', [ReferralController::class, 'index'])->middleware(['live', 'nodemo'])->name('referrals');
 });
 
 // Platform area: developer and platform owner see every subscriber

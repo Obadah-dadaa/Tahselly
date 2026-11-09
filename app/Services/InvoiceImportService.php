@@ -19,20 +19,24 @@ use Throwable;
 class InvoiceImportService
 {
     /**
-     * Accepted header aliases (English & Arabic) mapped to internal field names.
+     * Accepted header aliases (English & Arabic) mapped to internal field names. Besides our template they
+     * cover the invoice exports of Zoho Books, QuickBooks and Tally (Bills Receivable / outstanding report).
+     * The import page shows the last two aliases of each field, so the Arabic ones stay last.
      *
      * @var array<string, list<string>>
      */
     public const COLUMNS = [
-        'number' => ['invoice_number', 'invoice no', 'invoice', 'number', 'رقم الفاتورة'],
-        'client_name' => ['client_name', 'client', 'customer', 'العميل', 'اسم العميل'],
-        'client_email' => ['client_email', 'email', 'البريد', 'البريد الإلكتروني'],
-        'client_phone' => ['client_phone', 'phone', 'mobile', 'الهاتف', 'الجوال'],
-        'issue_date' => ['issue_date', 'invoice date', 'date', 'تاريخ الإصدار', 'تاريخ الفاتورة'],
-        'due_date' => ['due_date', 'due', 'تاريخ الاستحقاق'],
-        'amount' => ['amount', 'total', 'المبلغ', 'الإجمالي'],
-        'paid_amount' => ['paid_amount', 'paid', 'المدفوع'],
-        'description' => ['description', 'notes', 'الوصف', 'ملاحظات'],
+        'number' => ['invoice_number', 'invoice no', 'invoice', 'number', 'invoice number', 'invoice#', 'invoice #', 'invoice no.', 'num', 'no.', 'bill no', 'bill no.', 'ref. no.', 'ref no', 'ref no.', 'voucher no', 'voucher no.', 'reference', 'رقم المرجع', 'رقم الفاتورة'],
+        'client_name' => ['client_name', 'client', 'customer', 'customer name', 'customer display name', 'customer full name', 'client name', "party's name", 'party name', 'party', 'company name', 'name', 'اسم الطرف', 'العميل', 'اسم العميل'],
+        'client_email' => ['client_email', 'email', 'e-mail', 'email id', 'customer email', 'email address', 'البريد', 'البريد الإلكتروني'],
+        'client_phone' => ['client_phone', 'phone', 'mobile', 'mobile phone', 'phone number', 'customer phone', 'contact number', 'الهاتف', 'الجوال'],
+        'issue_date' => ['issue_date', 'invoice date', 'date', 'bill date', 'voucher date', 'transaction date', 'تاريخ الإصدار', 'تاريخ الفاتورة'],
+        'due_date' => ['due_date', 'due', 'due date', 'due on', 'payment due date', 'تاريخ الاستحقاق'],
+        'amount' => ['amount', 'total', 'invoice amount', 'total amount', 'bill amount', 'grand total', 'invoice total', 'total (aed)', 'amount (aed)', 'opening amount', 'المبلغ', 'الإجمالي'],
+        'paid_amount' => ['paid_amount', 'paid', 'amount paid', 'paid amount', 'payment made', 'payments', 'المدفوع'],
+        // What is still owed; with a total it gives the paid part, alone it is the amount (Tally's "Pending Amount")
+        'balance' => ['balance', 'balance due', 'open balance', 'pending amount', 'outstanding', 'outstanding amount', 'amount due', 'المتبقي', 'الرصيد المستحق'],
+        'description' => ['description', 'notes', 'subject', 'narration', 'memo', 'الوصف', 'ملاحظات'],
     ];
 
     public function import(UploadedFile $file, User $user): ImportBatch
@@ -46,8 +50,10 @@ class InvoiceImportService
             'filename' => $file->getClientOriginalName(),
         ]);
 
-        $header = array_shift($rows) ?? [];
-        $map = $this->mapHeader($header);
+        // Accounting exports often start with a title block (company name, report dates): use the first row that looks like headers
+        $headerIndex = $this->headerRowIndex($rows);
+        $map = $this->mapHeader($rows[$headerIndex] ?? []);
+        $rows = array_slice($rows, $headerIndex + 1, preserve_keys: true);
         $errors = [];
         $imported = 0;
         $total = 0;
@@ -56,7 +62,7 @@ class InvoiceImportService
         $room = $company?->openInvoiceRoom();
         $dataRows = count(array_filter($rows, fn ($row) => array_filter($row, fn ($v) => $v !== null && $v !== '')));
 
-        if (! isset($map['number'], $map['client_name'], $map['due_date'], $map['amount'])) {
+        if (! isset($map['number'], $map['client_name'], $map['due_date']) || ! (isset($map['amount']) || isset($map['balance']))) {
             $errors[] = ['row' => 1, 'message' => 'الأعمدة المطلوبة: رقم الفاتورة، العميل، تاريخ الاستحقاق، المبلغ'];
         } elseif (Edition::isBeta() && $dataRows > Edition::limit('import_rows')) {
             $total = $dataRows;
@@ -72,7 +78,7 @@ class InvoiceImportService
                     continue;
                 }
                 $total++;
-                $rowNumber = $index + 2;
+                $rowNumber = $index + 1; // keys are the sheet's own row positions
                 try {
                     $this->importRow($this->extract($row, $map), $user, $batch, $room);
                     $imported++;
@@ -96,11 +102,30 @@ class InvoiceImportService
      * @param  array<int, mixed>  $header
      * @return array<string, int>
      */
+    /**
+     * The index of the header row among the first rows: the one that names the most known columns.
+     *
+     * @param  array<int, array<int, mixed>>  $rows
+     */
+    private function headerRowIndex(array $rows): int
+    {
+        $best = 0;
+        $bestCount = 0;
+        foreach (array_slice($rows, 0, 15, true) as $index => $row) {
+            $count = count($this->mapHeader($row));
+            if ($count > $bestCount) {
+                [$best, $bestCount] = [$index, $count];
+            }
+        }
+
+        return $best;
+    }
+
     private function mapHeader(array $header): array
     {
         $map = [];
         foreach ($header as $i => $label) {
-            $normalized = mb_strtolower(trim((string) $label));
+            $normalized = rtrim(preg_replace('/\s+/u', ' ', mb_strtolower(trim((string) $label))), ':');
             foreach (self::COLUMNS as $field => $aliases) {
                 if (! isset($map[$field]) && in_array($normalized, $aliases, true)) {
                     $map[$field] = $i;
@@ -135,13 +160,17 @@ class InvoiceImportService
         if (! $data['number'] || ! $data['client_name']) {
             throw new \InvalidArgumentException('رقم الفاتورة واسم العميل مطلوبان');
         }
-        $amount = $this->number($data['amount']);
+        $amount = $this->number($data['amount'] ?? null) ?: $this->number($data['balance'] ?? null);
         if ($amount <= 0) {
             throw new \InvalidArgumentException('المبلغ غير صالح');
         }
         $dueDate = $this->date($data['due_date']) ?? throw new \InvalidArgumentException('تاريخ الاستحقاق غير صالح');
         $issueDate = $this->date($data['issue_date']) ?? $dueDate->copy()->subDays(30);
         $paid = min($this->number($data['paid_amount']), $amount);
+        if ($data['paid_amount'] === null && $data['balance'] !== null && $data['balance'] !== '') {
+            // Exports with a total and the balance still due (Zoho Books, QuickBooks)
+            $paid = max(0, $amount - min($this->number($data['balance']), $amount));
+        }
 
         // Updating an existing invoice is always allowed; a new open one needs room in the plan
         if ($room !== null && ($paid < $amount || Edition::isBeta()) && ! Invoice::query()->where('company_id', $user->company_id)->where('number', (string) $data['number'])->exists()) {

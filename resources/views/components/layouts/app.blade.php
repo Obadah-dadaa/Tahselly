@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <x-google-tag />
 </head>
 @php
     $user = auth()->user();
@@ -27,6 +28,9 @@
                 ['owner.settings.edit', __('الإعدادات والقوالب'), 'cog', 'owner.settings.*'],
                 ['owner.activity', __('سجل النشاط'), 'list', 'owner.activity', 'activity_log'],
             ];
+            if (\App\Support\Referral::enabled() && ! $user->company?->isDemo()) {
+                $nav[__('المالك')][] = ['owner.referrals', __('ادعُ شركة واربح شهراً'), 'users', 'owner.referrals'];
+            }
         }
         $nav[__('التحصيل')] = [
             ['dashboard', __('لوحة المدير'), 'home', 'dashboard'],

@@ -6,7 +6,9 @@
             <p class="mx-auto mt-3 max-w-2xl text-slate-600">{{ __('مقالات عملية عن تحصيل الفواتير المتأخرة، ورسائل تذكير العملاء بالدفع، وإدارة الذمم المدينة للشركات في الإمارات.') }}</p>
         </div>
 
-        <div class="mt-10 grid gap-6 md:grid-cols-2">
+        <x-tool-banner class="mt-8" />
+
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
             @forelse($posts as $i => $post)
                 <a href="{{ route('blog.show', $post['slug']) }}" class="card group flex flex-col p-7 transition hover:-translate-y-0.5 hover:shadow-lg {{ $i === 0 ? 'md:col-span-2' : '' }}">
                     <p class="text-sm text-slate-500"><time datetime="{{ $post['date'] }}">{{ \Illuminate\Support\Carbon::parse($post['date'])->translatedFormat('j F Y') }}</time> · {{ __(':count دقائق قراءة', ['count' => $post['minutes']]) }}</p>

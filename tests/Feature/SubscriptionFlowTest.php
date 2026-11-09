@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Models\Company;
 use App\Models\Plan;
 use App\Models\Subscription;
+use App\Models\SystemSetting;
 use App\Models\User;
 use Database\Seeders\PlatformSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,6 +20,9 @@ class SubscriptionFlowTest extends TestCase
     {
         parent::setUp();
         $this->seed(PlatformSeeder::class);
+        // List prices here; the founding discount has its own tests (GrowthFeaturesTest)
+        SystemSetting::query()->where('key', 'founding_offer_enabled')->update(['value' => '0']);
+        SystemSetting::flush();
         config(['services.payment_sandbox' => true, 'services.stripe.secret' => null]);
     }
 

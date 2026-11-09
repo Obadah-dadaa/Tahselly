@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Services\Telegram;
 use App\Support\Edition;
 use App\Support\Phone;
+use App\Support\Referral;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -53,8 +54,13 @@ class TrialController extends Controller
         $data['phone'] = Phone::normalize($request->input('phone_country'), $data['phone']);
         $plan = isset($data['plan']) ? Plan::query()->where('code', $data['plan'])->first() : null;
         $days = Edition::isBeta() ? Edition::limit('trial_days') : max(1, (int) SystemSetting::get('default_trial_days', 14));
+        // Came through a customer's referral link: a longer trial
+        $referrer = Referral::referrerFrom($request);
+        if ($referrer) {
+            $days = max($days, Referral::trialDays());
+        }
 
-        $owner = DB::transaction(function () use ($data, $plan, $days): User {
+        $owner = DB::transaction(function () use ($data, $plan, $days, $referrer): User {
             $company = Company::create([
                 'name' => $data['company_name'],
                 'category' => $plan?->category,
@@ -64,6 +70,7 @@ class TrialController extends Controller
                 'status' => 'trial',
                 'trial_ends_at' => today()->addDays($days),
             ]);
+            $company->forceFill(['referred_by_id' => $referrer?->id])->save();
 
             return User::create([
                 'company_id' => $company->id,
@@ -84,6 +91,7 @@ class TrialController extends Controller
             'الجوال' => $owner->phone,
             'التجربة حتى' => $owner->company->trial_ends_at->format('Y-m-d'),
             'الباقة المختارة' => $plan?->name_en,
+            'عن طريق إحالة من' => $referrer?->name,
         ], route('developer.companies.show', $owner->company_id));
         ActivityLog::record('trial.started', "بدء تجربة مجانية ({$days} يوم)".($plan ? ": {$plan->name}" : ''), [], $owner->company_id);
         $owner->sendEmailVerificationNotification();
@@ -93,7 +101,7 @@ class TrialController extends Controller
         $welcome = __('أهلاً بك! تجربتك المجانية فعّالة حتى :date. ابدأ بإضافة عملائك أو استيراد فواتيرك.', ['date' => $owner->company->trial_ends_at->format('Y-m-d')]);
 
         // No plan yet: show the plans once, with "skip for now"
-        return redirect()->route('home')->with('success', $welcome);
+        return redirect()->route('home')->with('success', $welcome)->with('conversion', 'sign_up');
     }
 
     public function choosePlan(Request $request): View|RedirectResponse
@@ -109,7 +117,10 @@ class TrialController extends Controller
         return view('owner.choose-plan', [
             'company' => $company,
             'plans' => $this->plansFor($company),
-            'totalDays' => (int) SystemSetting::get('default_trial_days', 14),
+            // Referred companies get a longer trial than the default
+            'totalDays' => $company->trial_ends_at
+                ? max(1, (int) $company->created_at->copy()->startOfDay()->diffInDays($company->trial_ends_at))
+                : (int) SystemSetting::get('default_trial_days', 14),
         ]);
     }
 

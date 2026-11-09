@@ -26,6 +26,8 @@
 
         <div class="article mt-8">{!! $post['html'] !!}</div>
 
+        <x-tool-banner class="mt-10" />
+
         <div class="mt-12 rounded-3xl bg-night p-8 text-white sm:p-10">
             <div class="flex items-center gap-3"><x-brand-mark variant="plain" class="size-10 text-white" /><span class="text-xl font-bold">{{ __(\App\Models\SystemSetting::get('app_name', 'تحصيلي')) }}</span></div>
             <p class="mt-4 text-2xl font-bold leading-snug">{{ __('دع النظام يتابع فواتيرك ويذكّر عملاءك بالدفع، بالبريد وواتساب.') }}</p>

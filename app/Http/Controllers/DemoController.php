@@ -26,7 +26,7 @@ class DemoController extends Controller
             'جاء من' => parse_url((string) $request->headers->get('referer'), PHP_URL_QUERY) ?: '—',
         ]);
 
-        return redirect()->route('home')->with('success', __('هذا حساب تجريبي فيه بيانات وهمية. جرّب كل شيء بحرية — لن تُرسل أي رسالة حقيقية.'));
+        return redirect()->route('home')->with('success', __('هذا حساب تجريبي فيه بيانات وهمية. جرّب كل شيء بحرية — لن تُرسل أي رسالة حقيقية.'))->with('conversion', 'demo_start');
     }
 
     /**

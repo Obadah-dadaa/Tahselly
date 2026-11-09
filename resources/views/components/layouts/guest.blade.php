@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <x-google-tag />
 </head>
 <body class="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased">
     <header class="border-b border-slate-200/70 bg-surface">

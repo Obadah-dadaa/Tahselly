@@ -31,7 +31,7 @@ class Company extends Model
 
     protected function casts(): array
     {
-        return ['reminder_settings' => 'array', 'trial_ends_at' => 'date'];
+        return ['reminder_settings' => 'array', 'trial_ends_at' => 'date', 'referral_rewarded_at' => 'datetime', 'referral_credit_days' => 'integer', 'founding_discount' => 'integer'];
     }
 
     /**
@@ -45,6 +45,17 @@ class Company extends Model
     public function plan(): BelongsTo
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    /** The company whose referral link brought this one */
+    public function referrer(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'referred_by_id');
+    }
+
+    public function referrals(): HasMany
+    {
+        return $this->hasMany(self::class, 'referred_by_id');
     }
 
     public function users(): HasMany

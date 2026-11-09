@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Referral;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * A paid (or pending) period of a company on a plan. Platform-level: not tenant-scoped.
  */
-#[Fillable(['company_id', 'plan_id', 'cycle', 'amount', 'currency', 'status', 'payment_method', 'gateway_ref', 'paid_at', 'starts_at', 'ends_at', 'notes'])]
+#[Fillable(['company_id', 'plan_id', 'cycle', 'amount', 'currency', 'status', 'payment_method', 'gateway_ref', 'paid_at', 'starts_at', 'ends_at', 'notes', 'discount_percent'])]
 class Subscription extends Model
 {
     /** @var array<string, int> */
@@ -20,6 +21,7 @@ class Subscription extends Model
     {
         return [
             'amount' => 'decimal:2',
+            'discount_percent' => 'integer',
             'paid_at' => 'datetime',
             'starts_at' => 'datetime',
             'ends_at' => 'datetime',
@@ -81,11 +83,22 @@ class Subscription extends Model
             'ends_at' => $start->copy()->addMonths(self::CYCLE_MONTHS[$this->cycle])->addDays($creditDays),
         ])->save();
 
-        $this->company->forceFill([
+        $company = $this->company;
+        // Free days earned from referrals while the company had no running period
+        if ($company->referral_credit_days > 0) {
+            $this->forceFill(['ends_at' => $this->ends_at->copy()->addDays($company->referral_credit_days)])->save();
+        }
+
+        $company->forceFill([
             'plan_id' => $this->plan_id,
             'status' => 'active',
             'trial_ends_at' => null,
+            'referral_credit_days' => 0,
+            // A founding discount paid once stays for every renewal
+            'founding_discount' => $company->founding_discount ?: ($this->discount_percent ?: null),
         ])->save();
-        $this->company->users()->update(['is_active' => true]);
+        $company->users()->update(['is_active' => true]);
+
+        Referral::rewardFor($this);
     }
 }

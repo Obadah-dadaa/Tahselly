@@ -37,6 +37,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <x-google-tag />
 </head>
 <body class="bg-surface font-sans text-slate-800 antialiased" x-data="{ player: null }" @keydown.escape.window="player = null">
 <header class="absolute inset-x-0 top-0 z-10">
@@ -249,6 +250,7 @@
                    fmt(n) { return Number(n).toLocaleString('en-US') } }">
     <h2 class="text-center text-3xl font-bold text-ink">{{ __('باقة تناسب نوع عملك') }}</h2>
     <p class="mt-3 text-center text-slate-500">{{ __('بدون رسوم إعداد. ادفع شهرياً أو وفّر مع الاشتراك السنوي.') }}</p>
+    <x-founding-offer class="mx-auto mt-6 max-w-3xl" />
     @if($trialOn)
         <p class="mx-auto mt-4 w-fit rounded-full bg-amber-50 px-4 py-1.5 text-center text-sm font-semibold text-amber-800">{{ __('كل الباقات: تجربة مجانية :days يوماً بدون بطاقة، ثم يتطلب الاستمرار الدفع.', ['days' => $trialDays]) }}</p>
     @endif
@@ -303,6 +305,7 @@
 <footer class="border-t border-slate-100 py-10 text-center text-sm text-slate-500">
     © {{ date('Y') }} {{ $appName }}
     <span class="mx-2">·</span><a href="{{ route('blog.index') }}" class="hover:text-brand-700">{{ __('المدوّنة') }}</a>
+    <span class="mx-2">·</span><a href="{{ route('tools.reminder') }}" class="hover:text-brand-700">{{ __('مولّد رسائل التذكير') }}</a>
     <span class="mx-2">·</span><a href="{{ route('contact') }}" class="hover:text-brand-700">{{ __('تواصل معنا') }}</a>
     <span class="mx-2">·</span><a href="{{ route('legal.terms') }}" class="hover:text-brand-700">{{ __('شروط الاستخدام') }}</a>
     <span class="mx-2">·</span><a href="{{ route('legal.privacy') }}" class="hover:text-brand-700">{{ __('سياسة الخصوصية') }}</a>

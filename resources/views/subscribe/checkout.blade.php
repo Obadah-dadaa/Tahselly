@@ -1,5 +1,8 @@
 @php
-    $prices = collect(array_keys(\App\Models\Subscription::CYCLE_MONTHS))->mapWithKeys(fn ($c) => [$c => $plan->priceFor($c)]);
+    // Founding customers pay the discounted price; the list price is shown struck through
+    $discount = \App\Support\FoundingOffer::discountFor(auth()->user()?->company);
+    $listPrices = collect(array_keys(\App\Models\Subscription::CYCLE_MONTHS))->mapWithKeys(fn ($c) => [$c => $plan->priceFor($c)]);
+    $prices = $listPrices->map(fn ($price, $c) => \App\Support\FoundingOffer::price($plan, $c, $discount));
 @endphp
 <x-layouts.guest :title="__('الاشتراك')">
     <div class="mb-8">
@@ -21,6 +24,7 @@
                                @unless($available) title="{{ __('غير متاح: اختر مدة أطول من اشتراكك الحالي') }}" @endunless>
                             <input type="radio" name="cycle" value="{{ $c }}" x-model="cycle" class="sr-only" @disabled(! $available)>
                             <span class="block font-semibold text-ink">{{ \App\Models\Plan::cycleLabel($c) }}</span>
+                            @if($discount)<s class="num block text-xs text-slate-400">{{ number_format($listPrices[$c]) }}</s>@endif
                             <span class="num mt-1 block text-xl font-bold">{{ number_format($prices[$c]) }} <span class="text-sm font-medium text-slate-400">AED</span></span>
                             <span class="mt-1 block text-xs text-slate-500">
                                 @if($c === 'yearly') {{ __('شهران مجاناً') }} @elseif($c === 'quarterly') {{ __('خصم 5%') }} @else {{ __('ادفع شهرياً') }} @endif
@@ -74,6 +78,9 @@
                     <h3 class="mt-1 text-2xl font-bold">{{ $plan->localizedName() }}</h3>
                     <p class="num mt-4 text-4xl font-bold"><span x-text="Number(prices[cycle]).toLocaleString('en-US')"></span> <span class="text-base font-medium text-slate-400">AED</span></p>
                     <p class="text-sm text-slate-400" x-text="{ monthly: @js(__('لكل شهر')), quarterly: @js(__('لكل 3 أشهر')), yearly: @js(__('لكل سنة')) }[cycle]"></p>
+                    @if($discount)
+                        <p class="mt-4 rounded-xl bg-emerald-400/15 px-3 py-2 text-sm font-semibold text-emerald-300 ring-1 ring-emerald-400/30">{{ __('خصم المؤسسين :percent% — يبقى معك في كل تجديد.', ['percent' => $discount]) }}</p>
+                    @endif
                 </div>
                 <ul class="space-y-2.5 p-6 text-sm">
                     @foreach($plan->localizedFeatures() as $feature)

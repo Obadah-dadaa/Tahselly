@@ -31,6 +31,7 @@ class AccountNotice extends Notification
         'interest_requested' => ['طلب اشتراك جديد', ':name (:company) يريد الاشتراك. للتواصل: :email · :phone', 'cash'],
         'access_extended' => ['تم تفعيل حسابك', 'أصبح حسابك فعّالاً حتى :date.', 'check'],
         'subscription_cancelled' => ['تم إلغاء اشتراكك', 'أُلغي اشتراكك في باقة :plan. اختر باقة للعودة إلى حسابك.', 'alert'],
+        'referral_rewarded' => ['حصلت على :days يوماً مجاناً', 'اشتركت :company عن طريق رابطك — شكراً لك! أُضيفت :days يوماً لحسابك (حتى :date).', 'check'],
     ];
 
     /**

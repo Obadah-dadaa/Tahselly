@@ -21,6 +21,9 @@ class StripePaymentTest extends TestCase
     {
         parent::setUp();
         $this->seed(PlatformSeeder::class);
+        // List prices here; the founding discount has its own tests (GrowthFeaturesTest)
+        SystemSetting::query()->where('key', 'founding_offer_enabled')->update(['value' => '0']);
+        SystemSetting::flush();
         config([
             'services.stripe.secret' => 'sk_test_dummy',
             'services.stripe.webhook_secret' => self::WEBHOOK_SECRET,

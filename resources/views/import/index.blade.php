@@ -28,6 +28,7 @@
         <div class="card p-6 lg:col-span-2">
             <h2 class="font-semibold text-ink">{{ __('الأعمدة المدعومة') }}</h2>
             <p class="mt-1 text-sm text-slate-500">{{ __('يتعرف النظام على العناوين بالعربية أو الإنجليزية.') }}</p>
+            <p class="mt-2 rounded-lg bg-brand-50 px-3 py-2 text-xs text-brand-800">{{ __('يقبل أيضاً ملفات التصدير من Zoho Books وQuickBooks وتقرير الذمم في Tally كما هي، دون تعديل.') }}</p>
             <ul class="mt-4 space-y-2 text-sm">
                 @foreach($columns as $field => $aliases)
                     <li class="flex items-start justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2">

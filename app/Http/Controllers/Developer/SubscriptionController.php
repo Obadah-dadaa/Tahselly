@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Notifications\AccountNotice;
+use App\Support\FoundingOffer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -104,8 +105,11 @@ class SubscriptionController extends Controller
             'cycle' => ['required', Rule::in(array_keys(Subscription::CYCLE_MONTHS))],
         ]);
         $plan = Plan::query()->findOrFail($data['plan_id']);
+        // Manual records keep a founding discount the company already has, but don't start a new one
+        $discount = (int) Company::query()->whereKey($data['company_id'])->value('founding_discount');
         $subscription = Subscription::create($data + [
-            'amount' => $plan->priceFor($data['cycle']),
+            'amount' => FoundingOffer::price($plan, $data['cycle'], $discount),
+            'discount_percent' => $discount,
             'status' => 'pending',
             'payment_method' => 'manual',
         ]);

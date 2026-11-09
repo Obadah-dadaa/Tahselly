@@ -34,6 +34,8 @@
         </section>
 
         {{-- Plans: same or higher than the one already chosen --}}
+        <x-founding-offer />
+
         <section id="plans" class="scroll-mt-6">
             <div class="flex flex-wrap items-end justify-between gap-3">
                 <div>
