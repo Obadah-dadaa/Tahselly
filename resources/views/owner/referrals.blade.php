@@ -22,7 +22,7 @@
             <h3 class="mt-8 font-semibold text-ink">{{ __('كيف يعمل؟') }}</h3>
             <ol class="mt-3 space-y-3 text-sm text-slate-600">
                 <li class="flex gap-3"><span class="grid size-7 shrink-0 place-items-center rounded-full bg-brand-50 font-bold text-brand-700">1</span> {{ __('ترسل رابطك لصاحب شركة أو محاسب تعرفه.') }}</li>
-                <li class="flex gap-3"><span class="grid size-7 shrink-0 place-items-center rounded-full bg-brand-50 font-bold text-brand-700">2</span> {{ __('يحصل على تجربة مجانية لمدة :days يوماً بدلاً من المدة العادية.', ['days' => $trialDays]) }}</li>
+                <li class="flex gap-3"><span class="grid size-7 shrink-0 place-items-center rounded-full bg-brand-50 font-bold text-brand-700">2</span> {{ __('يحصل على تجربة مجانية لمدة :days يوماً.', ['days' => $trialDays]) }}</li>
                 <li class="flex gap-3"><span class="grid size-7 shrink-0 place-items-center rounded-full bg-brand-50 font-bold text-brand-700">3</span> {{ __('عندما يدفع أول اشتراك له، نضيف :days يوماً مجاناً لاشتراكك تلقائياً.', ['days' => $rewardDays]) }}</li>
             </ol>
         </div>

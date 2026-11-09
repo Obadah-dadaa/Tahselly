@@ -110,7 +110,7 @@
                                     <span class="block font-semibold text-ink">{{ $plan->localizedName() }}</span>
                                     <span class="text-xs text-slate-500">{{ $plan->audience() }}</span>
                                 </span>
-                                <span class="num text-end font-bold">{{ (int) $plan->price }}<span class="block text-[11px] font-normal text-slate-400">{{ __('درهم / شهر') }}</span></span>
+                                <span class="text-end"><x-plan-price :plan="$plan" size="text-base" class="justify-end" /><span class="block text-[11px] font-normal text-slate-400">{{ __('درهم / شهر') }}</span></span>
                             </a>
                         @endforeach
                     </div>
@@ -130,7 +130,7 @@
                             <span class="block font-semibold text-ink">{{ $plan->localizedName() }}</span>
                             <span class="text-xs text-slate-500">{{ \App\Models\Plan::categoryLabel($plan->category) }}</span>
                         </span>
-                        <span class="num text-end font-bold">{{ (int) $plan->price }}<span class="block text-[11px] font-normal text-slate-400">{{ __('درهم / شهر') }}</span></span>
+                        <span class="text-end"><x-plan-price :plan="$plan" size="text-base" class="justify-end" /><span class="block text-[11px] font-normal text-slate-400">{{ __('درهم / شهر') }}</span></span>
                     </a>
                 @endforeach
             </div>

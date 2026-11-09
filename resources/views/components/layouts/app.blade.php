@@ -28,7 +28,7 @@
                 ['owner.settings.edit', __('الإعدادات والقوالب'), 'cog', 'owner.settings.*'],
                 ['owner.activity', __('سجل النشاط'), 'list', 'owner.activity', 'activity_log'],
             ];
-            if (\App\Support\Referral::enabled() && ! $user->company?->isDemo()) {
+            if (! $user->company?->isDemo()) {
                 $nav[__('المالك')][] = ['owner.referrals', __('ادعُ شركة واربح شهراً'), 'users', 'owner.referrals'];
             }
         }

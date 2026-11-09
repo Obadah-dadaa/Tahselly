@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Support\FoundingOffer;
 use Database\Seeders\PlatformSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 /**
@@ -122,11 +123,23 @@ class GrowthFeaturesTest extends TestCase
         $this->get('/')->assertDontSee(__('عرض المؤسسين: خصم :percent% مدى الحياة', ['percent' => 50]));
     }
 
-    public function test_the_beta_has_no_founding_offer_or_referrals(): void
+    public function test_the_beta_shows_the_live_founding_offer_and_rewards_referrals_when_access_is_granted(): void
     {
-        config(['tahselly.edition' => 'beta']);
+        config(['tahselly.edition' => 'beta', 'tahselly.live_url' => 'https://live.test']);
+        Http::fake(['live.test/founding-offer.json' => Http::response(['open' => true, 'percent' => 50, 'seats' => 20, 'left' => 17])]);
 
-        $this->assertFalse(FoundingOffer::open());
-        $this->get('/r/ABCDEFGH')->assertRedirect()->assertCookieMissing('tahselly_ref');
+        $this->get('/')->assertOk()->assertSee('باقي 17 مكاناً')->assertSee('id="free"', false)->assertSee('id="integrations"', false);
+        $this->assertSame(0, FoundingOffer::discountFor(null)); // nothing is sold on the beta
+
+        $referrer = Company::factory()->create(['status' => 'trial', 'trial_ends_at' => today()->addDays(5), 'referral_code' => 'ABCDEFGH']);
+        $this->get('/r/abcdefgh')->assertCookie('tahselly_ref', 'ABCDEFGH');
+        $this->post(route('trial.store'), $this->signup('beta-friend@co.test'))->assertRedirect(route('home'));
+        $friend = User::query()->where('email', 'beta-friend@co.test')->first()->company;
+        $this->assertSame($referrer->id, $friend->referred_by_id);
+
+        // Granting the friend full access (the beta's "subscription") rewards the referrer
+        $interest = \App\Models\InterestRequest::query()->create(['company_id' => $friend->id, 'name' => 'Friend', 'company_name' => $friend->name, 'email' => 'beta-friend@co.test', 'phone' => '+971501234567', 'status' => 'new']);
+        $this->actingAs(User::factory()->create(['role' => Role::Platform]))->post(route('developer.interest.extend', $interest), ['days' => 90]);
+        $this->assertTrue($referrer->fresh()->trial_ends_at->isSameDay(today()->addDays(35)));
     }
 }

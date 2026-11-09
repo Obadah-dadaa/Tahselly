@@ -31,6 +31,7 @@
             <div class="card p-6 lg:col-span-3">
                 <h2 class="text-xl font-bold text-ink">{{ __('مهتم بالاشتراك؟') }}</h2>
                 <p class="mt-1 text-sm text-slate-500">{{ __('اترك بياناتك وسنتواصل معك لتفعيل حسابك دون حدود.') }}</p>
+                <x-founding-offer class="mt-4" />
                 @if($requested)
                     <p class="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{{ __('أرسلت طلباً بتاريخ :date، وسنتواصل معك قريباً.', ['date' => $requested->created_at->format('Y-m-d')]) }}</p>
                 @endif

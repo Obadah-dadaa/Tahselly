@@ -8,7 +8,7 @@
         <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-amber-500 text-lg font-bold text-white">%</span>
         <div class="min-w-0 flex-1">
             <p class="font-bold">{{ __('عرض المؤسسين: خصم :percent% مدى الحياة', ['percent' => \App\Support\FoundingOffer::percent()]) }}</p>
-            <p class="text-sm">{{ __('لأول :seats شركة تشترك فقط، والخصم يبقى معك في كل تجديد. يُطبَّق تلقائياً عند الدفع.', ['seats' => (int) \App\Models\SystemSetting::get('founding_offer_seats', 20)]) }}</p>
+            <p class="text-sm">{{ __('لأول :seats شركة تشترك فقط، والخصم يبقى معك في كل تجديد. يُطبَّق تلقائياً عند الدفع.', ['seats' => \App\Support\FoundingOffer::seats()]) }}</p>
         </div>
         <span class="shrink-0 rounded-full bg-white px-3 py-1 text-sm font-bold shadow-sm ring-1 ring-amber-300 dark:bg-white/10">{{ __('باقي :count مكاناً', ['count' => \App\Support\FoundingOffer::seatsLeft()]) }}</span>
     </div>

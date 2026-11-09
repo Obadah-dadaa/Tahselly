@@ -90,6 +90,8 @@ Route::middleware('guest')->group(function () {
 // The beta has its own terms and privacy notice (free testing, limits, no payment)
 Route::get('/terms', fn () => view(Edition::isBeta() ? 'legal.beta-terms' : 'legal.terms'))->middleware('track')->name('legal.terms');
 Route::get('/privacy', fn () => view(Edition::isBeta() ? 'legal.beta-privacy' : 'legal.privacy'))->middleware('track')->name('legal.privacy');
+// Founding offer status for the beta site, which shows the offer without selling
+Route::get('/founding-offer.json', fn () => response()->json(App\Support\FoundingOffer::status()))->middleware('throttle:60,1')->name('founding.status');
 // Referral share link: remembers who sent the visitor, then shows the landing page
 Route::get('/r/{code}', [ReferralController::class, 'visit'])->where('code', '[A-Za-z0-9]{6,12}')->middleware('throttle:30,1')->name('referral');
 Route::view('/tools/payment-reminder', 'tools.payment-reminder')->middleware('track')->name('tools.reminder');
@@ -169,7 +171,7 @@ Route::middleware(['auth', 'verified', 'role:owner'])->prefix('owner')->name('ow
     Route::put('settings/reminders', [Owner\SettingsController::class, 'updateReminders'])->name('settings.reminders');
     Route::put('settings/templates', [Owner\SettingsController::class, 'updateTemplates'])->middleware('feature:custom_templates')->name('settings.templates');
     Route::get('activity', [Owner\DashboardController::class, 'activity'])->middleware('feature:activity_log')->name('activity');
-    Route::get('referrals', [ReferralController::class, 'index'])->middleware(['live', 'nodemo'])->name('referrals');
+    Route::get('referrals', [ReferralController::class, 'index'])->middleware('nodemo')->name('referrals');
 });
 
 // Platform area: developer and platform owner see every subscriber

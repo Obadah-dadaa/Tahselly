@@ -60,7 +60,7 @@
                         @endif
                         <h3 class="text-xl font-bold">{{ $plan->localizedName() }}</h3>
                         <p class="mt-1 min-h-10 text-sm {{ $plan->is_featured ? 'text-slate-300' : 'text-slate-500' }}">{{ $plan->audience() }}</p>
-                        <p class="mt-4"><span class="num text-4xl font-bold">{{ number_format((float) $plan->price) }}</span> <span class="text-sm {{ $plan->is_featured ? 'text-slate-400' : 'text-slate-500' }}">{{ __('درهم / شهرياً') }}</span></p>
+                        <p class="mt-4"><x-plan-price :plan="$plan" /> <span class="text-sm {{ $plan->is_featured ? 'text-slate-400' : 'text-slate-500' }}">{{ __('درهم / شهرياً') }}</span></p>
                         <ul class="mt-5 flex-1 space-y-2 text-sm">
                             <li class="flex items-start gap-2 font-semibold"><x-icon name="check" class="mt-0.5 size-4 shrink-0 text-brand-500" /> {{ $plan->max_users == 1 ? __('مستخدم واحد') : __('حتى :count مستخدمين', ['count' => $plan->max_users]) }}</li>
                             <li class="flex items-start gap-2 font-semibold"><x-icon name="check" class="mt-0.5 size-4 shrink-0 text-brand-500" /> {{ __('حتى :count فاتورة مفتوحة', ['count' => number_format($plan->max_invoices)]) }}</li>

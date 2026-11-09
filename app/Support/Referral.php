@@ -4,7 +4,6 @@ namespace App\Support;
 
 use App\Models\ActivityLog;
 use App\Models\Company;
-use App\Models\Subscription;
 use App\Models\SystemSetting;
 use App\Notifications\AccountNotice;
 use App\Services\Telegram;
@@ -12,8 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 /**
- * Referral program (live site only): tahselly.com/r/{code} marks the visitor for 30 days. A company that
- * signs up through it gets a longer trial; when it pays for the first time, the referrer gets free days.
+ * Referral program: /r/{code} marks the visitor for 30 days. A company that signs up through it gets the
+ * referral trial; when it becomes a customer (first payment on the live site, access granted on the beta),
+ * the referrer gets free days.
  */
 class Referral
 {
@@ -21,7 +21,7 @@ class Referral
 
     public static function enabled(): bool
     {
-        return ! Edition::isBeta();
+        return true;
     }
 
     public static function rewardDays(): int
@@ -66,11 +66,10 @@ class Referral
     }
 
     /**
-     * Called when a subscription is paid: rewards the referrer once, on the referred company's first payment.
+     * Called when a company becomes a customer: rewards its referrer once.
      */
-    public static function rewardFor(Subscription $subscription): void
+    public static function rewardFor(Company $company): void
     {
-        $company = $subscription->company;
         $referrer = $company->referred_by_id ? Company::query()->find($company->referred_by_id) : null;
         if (! $referrer || $company->referral_rewarded_at || self::rewardDays() === 0) {
             return;

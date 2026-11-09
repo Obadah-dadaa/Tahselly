@@ -99,6 +99,6 @@ class Subscription extends Model
         ])->save();
         $company->users()->update(['is_active' => true]);
 
-        Referral::rewardFor($this);
+        Referral::rewardFor($company);
     }
 }

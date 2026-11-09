@@ -13,13 +13,15 @@
     $trialDays = $beta ? \App\Support\Edition::limit('trial_days') : (int) \App\Models\SystemSetting::get('default_trial_days', 14);
     // Each plan adds features on top of the cheaper ones; every card lists them all, ticked or not
     $allFeatures = $plans->flatMap(fn ($p) => $p->localizedFeatures())->unique()->values();
-    $planData = $plans->values()->map(function ($p, $i) use ($plans, $allFeatures) {
+    // Founding customers: the plan cards show the discounted price while seats are left
+    $founding = \App\Support\FoundingOffer::discountFor(null);
+    $planData = $plans->values()->map(function ($p, $i) use ($plans, $allFeatures, $founding) {
         $included = $plans->take($i + 1)->flatMap(fn ($q) => $q->localizedFeatures());
 
         return [
             'code' => $p->code, 'name' => $p->localizedName(), 'audience' => $p->audience(), 'featured' => $p->is_featured,
             'monthly' => (float) $p->price,
-            'totals' => ['monthly' => $p->priceFor('monthly'), 'quarterly' => $p->priceFor('quarterly'), 'yearly' => $p->priceFor('yearly')],
+            'totals' => collect(['monthly', 'quarterly', 'yearly'])->mapWithKeys(fn ($c) => [$c => \App\Support\FoundingOffer::price($p, $c, $founding)])->all(),
             'users' => $p->max_users == 1 ? __('مستخدم واحد') : __('حتى :count مستخدمين', ['count' => $p->max_users]),
             'invoices' => __('حتى :count فاتورة مفتوحة', ['count' => number_format($p->max_invoices)]),
             'features' => $allFeatures->map(fn ($f) => ['text' => $f, 'on' => $included->contains($f)])->all(),
@@ -46,7 +48,8 @@
         <nav class="hidden gap-7 whitespace-nowrap text-sm text-slate-300 lg:flex">
             <a href="#video" class="hover:text-white">{{ __('شاهد العرض') }}</a>
             <a href="#features" class="hover:text-white">{{ __('المزايا') }}</a>
-            <a href="#how" class="hover:text-white">{{ __('كيف يعمل') }}</a>
+            <a href="#integrations" class="hover:text-white">{{ __('يعمل مع برنامجك') }}</a>
+            <a href="#free" class="hover:text-white">{{ __('مجاناً لك') }}</a>
             @beta<a href="#interest" class="hover:text-white">{{ __('اطلب الاشتراك') }}</a>@else<a href="#pricing" class="hover:text-white">{{ __('الأسعار') }}</a>@endbeta
             <a href="{{ route('blog.index') }}" class="hover:text-white">{{ __('المدوّنة') }}</a>
             <a href="{{ route('contact') }}" class="hover:text-white">{{ __('تواصل معنا') }}</a>
@@ -64,6 +67,12 @@
     <div class="absolute -bottom-40 -start-20 size-[30rem] rounded-full bg-sky-500/15 blur-3xl"></div>
     <div class="relative mx-auto grid max-w-6xl items-center gap-14 px-6 lg:grid-cols-2">
         <div>
+            @if(\App\Support\FoundingOffer::open())
+                <a href="#@beta{{ 'interest' }}@else{{ 'pricing' }}@endbeta" class="mb-4 flex w-fit items-center gap-2 rounded-full bg-amber-400/15 px-3 py-1 text-sm font-semibold text-amber-200 ring-1 ring-amber-400/40 hover:bg-amber-400/25">
+                    <span class="rounded-full bg-amber-400 px-2 py-0.5 text-xs font-bold text-night">-{{ \App\Support\FoundingOffer::percent() }}%</span>
+                    {{ __('خصم المؤسسين مدى الحياة · باقي :count مكاناً', ['count' => \App\Support\FoundingOffer::seatsLeft()]) }}
+                </a>
+            @endif
             <span class="inline-flex rounded-full bg-brand-500/15 px-3 py-1 text-sm text-brand-200 ring-1 ring-brand-500/30">{{ __('لوكالات التسويق · شركات الخدمات · المستقلين · مكاتب المحاسبة') }}</span>
             <h1 class="mt-6 text-4xl font-bold leading-[1.25] sm:text-5xl">{{ __('فواتيرك غير المدفوعة') }}<br><span class="text-brand-400">{{ __('تُتابَع تلقائياً.') }}</span></h1>
             <p class="mt-6 max-w-lg text-lg leading-relaxed text-slate-300">{{ __(':app يستورد فواتيرك من Excel، يرسل تذكيرات ذكية لعملائك قبل وبعد الاستحقاق عبر البريد وواتساب، ويعرض لك المستحق والمتأخر وأعمار الديون في لوحة واحدة.', ['app' => $appName]) }}</p>
@@ -97,6 +106,11 @@
                     <p class="mt-4 text-sm text-slate-400">{{ __('بدون بطاقة ائتمان · مجاناً لمدة :days يوماً فقط، ثم اشتراك مدفوع من :price درهم شهرياً للاستمرار.', ['days' => $trialDays, 'price' => (int) $plans->min('price')]) }}</p>
                 @endbeta
             @endif
+            <ul class="mt-6 grid gap-x-6 gap-y-2 text-sm text-slate-300 sm:grid-cols-2">
+                @foreach([__('ديمو فوري بدون تسجيل'), __('نجهّز حسابك مجاناً خلال يوم'), __('يقرأ ملفات Zoho وQuickBooks وTally'), __('رسائل بالعربية والإنجليزية')] as $perk)
+                    <li class="flex items-center gap-2"><x-icon name="check" class="size-4 shrink-0 text-brand-400" /> {{ $perk }}</li>
+                @endforeach
+            </ul>
         </div>
         <div class="rounded-3xl bg-white/5 p-3 ring-1 ring-white/10 backdrop-blur">
             <div class="rounded-2xl bg-surface p-5 text-slate-800 shadow-2xl">
@@ -161,9 +175,13 @@
     <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         @foreach([
             ['upload', __('استيراد Excel'), __('ارفع ملف فواتيرك كما هو — يتعرف على الأعمدة بالعربية والإنجليزية وينشئ العملاء تلقائياً.')],
-            ['clock', __('مواعيد الاستحقاق'), __('تابع ما يستحق اليوم، هذا الأسبوع، وما تأخر — بفلاتر واضحة لكل فاتورة.')],
+            ['doc', __('ملفات Zoho وQuickBooks وTally'), __('صدّر الفواتير من برنامج المحاسبة وارفعها مباشرة، بدون إعادة ترتيب أو نسخ يدوي.')],
             ['bell', __('تذكيرات آلية + سجل كامل'), __('قبل الاستحقاق، يومه، وبعده بـ 7 و14 و30 يوم، وإنذار نهائي. كل رسالة محفوظة في السجل.')],
+            ['whatsapp', __('واتساب بنقرة'), __('رسالة تذكير جاهزة باسم العميل والمبلغ، تفتح في واتساب وترسلها بنقرة واحدة.')],
+            ['clock', __('مواعيد الاستحقاق'), __('تابع ما يستحق اليوم، هذا الأسبوع، وما تأخر — بفلاتر واضحة لكل فاتورة.')],
             ['chart', __('تقارير أعمار الديون'), __('تقسيم الذمم إلى 0-30، 31-60، 61-90، +90 يوم لكل عميل مع تصدير Excel بنقرة.')],
+            ['trend', __('لوحة المالك'), __('المستحق والمتأخر والمحصّل ونسبة التحصيل، وأكثر العملاء تأخراً — في صفحة واحدة.')],
+            ['users', __('فريق وصلاحيات'), __('أضف المحاسب أو مدير الحسابات، وحدّد ما يراه ويفعله كل شخص.')],
         ] as [$icon, $title, $text])
             <div class="rounded-2xl border border-slate-100 bg-surface p-6 shadow-sm">
                 <span class="grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-700"><x-icon :name="$icon" class="size-6" /></span>
@@ -181,6 +199,79 @@
             @foreach([['1', __('ارفع فواتيرك'), __('من Excel أو أدخلها يدوياً في ثوانٍ.')], ['2', __('اضبط الجدول'), __('حدد متى وكيف يتم تذكير العملاء، وخصص نص الرسائل.')], ['3', __('استلم أموالك'), __('النظام يتابع يومياً وأنت تراقب التحصيل من لوحة المالك.')]] as [$n, $t, $d])
                 <div class="text-center"><span class="mx-auto grid size-14 place-items-center rounded-full bg-night text-xl font-bold text-white">{{ $n }}</span><h3 class="mt-5 text-lg font-bold text-ink">{{ $t }}</h3><p class="mt-2 text-slate-500">{{ $d }}</p></div>
             @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- Works with the accounting software they already use: exports are read as they are --}}
+<section id="integrations" class="mx-auto max-w-6xl px-6 py-24">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+            <span class="inline-flex rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700 ring-1 ring-brand-600/20">{{ __('بدون إعادة إدخال') }}</span>
+            <h2 class="mt-4 text-3xl font-bold leading-snug text-ink">{{ __('يعمل مع برنامج المحاسبة الذي تستخدمه') }}</h2>
+            <p class="mt-4 leading-relaxed text-slate-600">{{ __('لا تحتاج لتغيير طريقة عملك. صدّر تقرير الفواتير أو الذمم من برنامجك وارفعه كما هو — يتعرّف النظام على الأعمدة، ويحسب المدفوع والمتبقي، ويتجاهل أسطر العنوان في أعلى التقرير.') }}</p>
+            <ul class="mt-6 space-y-3 text-slate-700">
+                @foreach([
+                    __('Zoho Books: صدّر الفواتير، ويُحسب المدفوع من الإجمالي والرصيد المتبقي.'),
+                    __('QuickBooks: ملف الفواتير أو تقرير الأرصدة المفتوحة.'),
+                    __('Tally: تقرير الذمم المدينة (Bills Receivable) كما يخرج من البرنامج.'),
+                    __('أي ملف Excel أو CSV بأعمدة عربية أو إنجليزية.'),
+                ] as $line)
+                    <li class="flex gap-3"><x-icon name="check" class="mt-1 size-5 shrink-0 text-brand-600" /> <span>{{ $line }}</span></li>
+                @endforeach
+            </ul>
+            <p class="mt-6 rounded-2xl bg-slate-50 px-5 py-4 text-sm text-slate-600 ring-1 ring-slate-200">{{ __('النتيجة: كل فواتيرك المفتوحة داخل النظام خلال دقائق، والتذكيرات تبدأ من صباح اليوم التالي.') }}</p>
+        </div>
+        <div class="relative rounded-3xl bg-slate-50 p-8 ring-1 ring-slate-200 dark:bg-white/5 dark:ring-white/10">
+            <div class="grid grid-cols-2 gap-4">
+                @foreach([['Zoho Books', 'bg-amber-50 text-amber-700'], ['QuickBooks', 'bg-emerald-50 text-emerald-700'], ['Tally', 'bg-sky-50 text-sky-700'], ['Excel / CSV', 'bg-violet-50 text-violet-700']] as [$name, $tone])
+                    <div class="flex items-center gap-3 rounded-2xl bg-surface p-4 shadow-sm ring-1 ring-slate-100 dark:ring-white/10">
+                        <span class="grid size-10 shrink-0 place-items-center rounded-xl {{ $tone }}"><x-icon name="doc" class="size-5" /></span>
+                        <span class="font-semibold text-ink" dir="ltr">{{ $name }}</span>
+                    </div>
+                @endforeach
+            </div>
+            <div class="my-5 flex justify-center text-brand-600"><svg class="size-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg></div>
+            <div class="flex items-center gap-3 rounded-2xl bg-night p-5 text-white shadow-xl">
+                <x-brand-mark class="size-10" />
+                <div><p class="font-bold">{{ $appName }}</p><p class="text-sm text-slate-300">{{ __('العملاء والفواتير والتذكيرات — جاهزة') }}</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- Everything a visitor gets without paying --}}
+<section id="free" class="bg-slate-50 py-24">
+    <div class="mx-auto max-w-6xl px-6">
+        <h2 class="text-center text-3xl font-bold text-ink">{{ __('ابدأ بدون أي التزام') }}</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-center text-slate-500">{{ __('جرّب، واستفد من أدواتنا المجانية، وادعُ غيرك — قبل أن تدفع أي درهم.') }}</p>
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+            <div class="flex flex-col rounded-3xl bg-surface p-7 shadow-sm ring-1 ring-slate-100 dark:ring-white/10">
+                <span class="grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-700"><x-icon name="bolt" class="size-6" /></span>
+                <h3 class="mt-5 text-lg font-bold text-ink">{{ __('ديمو فوري') }}</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-500">{{ __('ادخل حساباً تجريبياً جاهزاً بعملاء وفواتير وتقارير، وجرّب كل شيء بنفسك. بدون تسجيل، ولا تُرسل أي رسالة حقيقية.') }}</p>
+                @guest
+                    <form method="POST" action="{{ route('demo.start') }}" class="mt-5">
+                        @csrf
+                        <button class="btn-primary w-full">{{ __('افتح الديمو الآن') }}</button>
+                        <x-recaptcha action="demo" class="mt-2" />
+                    </form>
+                @else
+                    <a href="{{ route('home') }}" class="btn-primary mt-5 w-full">{{ __('لوحة التحكم') }}</a>
+                @endguest
+            </div>
+            <div class="flex flex-col rounded-3xl bg-surface p-7 shadow-sm ring-1 ring-slate-100 dark:ring-white/10">
+                <span class="grid size-12 place-items-center rounded-xl bg-sky-50 text-sky-600"><x-icon name="mail" class="size-6" /></span>
+                <h3 class="mt-5 text-lg font-bold text-ink">{{ __('مولّد رسائل التذكير') }}</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-500">{{ __('أداة مجانية تكتب لك رسالة تذكير بالدفع مهذّبة بالعربية أو الإنجليزية، حسب مدة التأخير، جاهزة للنسخ أو الإرسال بواتساب.') }}</p>
+                <a href="{{ route('tools.reminder') }}" class="btn-secondary mt-5 w-full">{{ __('جرّب الأداة') }}</a>
+            </div>
+            <div class="flex flex-col rounded-3xl bg-surface p-7 shadow-sm ring-1 ring-slate-100 dark:ring-white/10">
+                <span class="grid size-12 place-items-center rounded-xl bg-violet-50 text-violet-600"><x-icon name="users" class="size-6" /></span>
+                <h3 class="mt-5 text-lg font-bold text-ink">{{ __('ادعُ شركة واربح شهراً') }}</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-500">{{ __('لكل حساب رابط دعوة خاص. الشركة التي تسجّل من رابطك تحصل على تجربة :trial يوماً، وأنت تحصل على :days يوماً مجاناً عندما تشترك.', ['trial' => \App\Support\Referral::trialDays(), 'days' => \App\Support\Referral::rewardDays()]) }}</p>
+                <a href="{{ $trialOn ? route('trial.create') : route('landing').'#interest' }}" class="btn-secondary mt-5 w-full">{{ __('احصل على رابطك') }}</a>
+            </div>
         </div>
     </div>
 </section>
@@ -232,6 +323,7 @@
                 <li class="flex items-center gap-2"><x-icon name="check" class="size-4 text-brand-600" /> {{ __('كل المزايا مفتوحة، بدون بطاقة') }}</li>
                 <li class="flex items-center gap-2"><x-icon name="check" class="size-4 text-brand-600" /> {{ __('نرد خلال يوم عمل') }}</li>
             </ul>
+            <x-founding-offer class="mt-6" />
         </div>
         <div class="card p-6 lg:col-span-3 lg:p-8">
             <x-interest-form />
@@ -241,12 +333,12 @@
 @else
 {{-- Pricing: one ladder of plans, cheapest first; every card shows all features so the differences are visible --}}
 <section id="pricing" class="mx-auto max-w-7xl px-6 py-24"
-         x-data="{ cycle: 'monthly', plans: @js($planData),
+         x-data="{ cycle: 'monthly', plans: @js($planData), founding: @js($founding),
                    months: { monthly: 1, quarterly: 3, yearly: 12 },
                    billed: { monthly: @js(__('يُدفع شهرياً')), quarterly: @js(__('يُدفع :amount درهم كل 3 أشهر')), yearly: @js(__('يُدفع :amount درهم سنوياً')) },
                    saveLabel: @js(__('وفّر :percent%')),
                    perMonth(p) { return Math.round(p.totals[this.cycle] / this.months[this.cycle]) },
-                   saving(p) { return Math.round((1 - p.totals[this.cycle] / (p.monthly * this.months[this.cycle])) * 100) },
+                   saving(p) { return this.cycle === 'monthly' && this.founding ? this.founding : Math.round((1 - p.totals[this.cycle] / (p.monthly * this.months[this.cycle])) * 100) },
                    fmt(n) { return Number(n).toLocaleString('en-US') } }">
     <h2 class="text-center text-3xl font-bold text-ink">{{ __('باقة تناسب نوع عملك') }}</h2>
     <p class="mt-3 text-center text-slate-500">{{ __('بدون رسوم إعداد. ادفع شهرياً أو وفّر مع الاشتراك السنوي.') }}</p>
@@ -271,7 +363,7 @@
                 <p class="mt-1 min-h-10 text-sm" :class="plan.featured ? 'text-slate-300' : 'text-slate-500'" x-text="plan.audience"></p>
 
                 <div class="mt-5 flex h-6 items-center gap-2 text-sm">
-                    <template x-if="cycle !== 'monthly'">
+                    <template x-if="cycle !== 'monthly' || founding">
                         <span class="flex items-center gap-2">
                             <s class="num text-slate-400" x-text="fmt(plan.monthly)"></s>
                             <span class="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-bold text-emerald-700" x-text="saveLabel.replace(':percent', saving(plan))"></span>
@@ -280,6 +372,7 @@
                 </div>
                 <p class="mt-1"><span class="num text-4xl font-bold" x-text="fmt(perMonth(plan))"></span> <span class="text-sm" :class="plan.featured ? 'text-slate-400' : 'text-slate-500'">{{ __('درهم / شهرياً') }}</span></p>
                 <p class="mt-1 text-xs" :class="plan.featured ? 'text-slate-400' : 'text-slate-500'" x-text="billed[cycle].replace(':amount', fmt(plan.totals[cycle]))"></p>
+                <p x-show="founding" class="mt-2 w-fit rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-bold text-amber-800">{{ __('سعر المؤسسين — مدى الحياة') }}</p>
 
                 <a :href="`{{ url('/subscribe') }}/${plan.code}?cycle=${cycle}`" class="mt-6 w-full" :class="plan.featured ? 'btn-primary bg-brand-500' : 'btn-secondary'">{{ __('اشترك الآن') }}</a>
                 @if($trialOn)

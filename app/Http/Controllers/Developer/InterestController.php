@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\InterestRequest;
 use App\Notifications\AccountNotice;
+use App\Support\Referral;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -38,7 +39,10 @@ class InterestController extends Controller
         $company = $interest->company ?? abort(404);
 
         $from = $company->trial_ends_at && $company->trial_ends_at->isFuture() ? $company->trial_ends_at : today();
-        $company->update(['status' => 'trial', 'trial_ends_at' => $from->copy()->addDays($days)]);
+        // Days earned from referrals while the account was closed come on top
+        $company->update(['status' => 'trial', 'trial_ends_at' => $from->copy()->addDays($days + $company->referral_credit_days)]);
+        $company->forceFill(['referral_credit_days' => 0])->save();
+        Referral::rewardFor($company);
         $interest->update(['status' => 'handled', 'handled_at' => now()]);
         ActivityLog::record('company.extended', "تفعيل حساب {$company->name} لمدة {$days} يوم", [], $company->id);
         AccountNotice::send(AccountNotice::owners($company), 'access_extended', ['date' => $company->trial_ends_at->format('Y-m-d')], route('home'));
