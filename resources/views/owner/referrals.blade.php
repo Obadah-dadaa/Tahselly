@@ -16,7 +16,7 @@
             <div class="mt-4 flex flex-wrap gap-2">
                 <a href="https://wa.me/?text={{ rawurlencode($share) }}" target="_blank" rel="noopener" class="btn-whatsapp"><x-icon name="whatsapp" class="size-4" /> {{ __('مشاركة على واتساب') }}</a>
                 <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ rawurlencode($link) }}" target="_blank" rel="noopener" class="btn-secondary">{{ __('مشاركة على لينكد إن') }}</a>
-                <a href="mailto:?subject={{ rawurlencode(__('جرّب تحصيلي لمتابعة الفواتير')) }}&body={{ rawurlencode($share) }}" class="btn-secondary">{{ __('إرسال بالبريد') }}</a>
+                <x-email-menu :subject="\Illuminate\Support\Js::from(__('جرّب تحصيلي لمتابعة الفواتير'))" :body="\Illuminate\Support\Js::from($share)" :label="__('إرسال بالبريد')" />
             </div>
 
             <h3 class="mt-8 font-semibold text-ink">{{ __('كيف يعمل؟') }}</h3>

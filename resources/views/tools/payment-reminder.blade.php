@@ -125,7 +125,7 @@
                         <button type="button" @click="copy('body')" class="btn-primary"><span x-text="copied==='body' ? @js(__('تم النسخ ✓')) : @js(__('نسخ الرسالة'))"></span></button>
                         <button type="button" @click="copy('all')" class="btn-secondary"><span x-text="copied==='all' ? @js(__('تم النسخ ✓')) : @js(__('نسخ مع الموضوع'))"></span></button>
                         <a :href="'https://wa.me/?text=' + encodeURIComponent(body)" target="_blank" rel="noopener" class="btn-whatsapp"><x-icon name="whatsapp" class="size-4" /> {{ __('إرسال بواتساب') }}</a>
-                        <a :href="'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body)" class="btn-secondary">{{ __('فتح في البريد') }}</a>
+                        <x-email-menu subject="subject" body="body" />
                     </div>
                 </div>
 

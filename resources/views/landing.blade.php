@@ -5,8 +5,11 @@
     $beta = \App\Support\Edition::isBeta();
     // The beta plays the v2 promo (no prices) and skips the tutorial (it walks through billing)
     $video = $beta ? 'videos/tahselly-promo-v2-'.($locale === 'en' ? 'en' : 'ar').'.mp4' : \App\Models\SystemSetting::get($locale === 'en' ? 'promo_video_en' : 'promo_video_ar');
-    // The v2 promo (no prices) has its own posters; older videos keep theirs
-    $poster = str_contains((string) $video, 'promo-v2') ? 'videos/poster-v2-'.($locale === 'en' ? 'en' : 'ar').'.jpg' : 'videos/poster-'.($beta ? 'beta-' : '').($locale === 'en' ? 'en' : 'ar').'.jpg';
+    // Each video has a poster of the same name (tahselly-promo-v2-live-ar.mp4 → poster-v2-live-ar.jpg); older ones fall back
+    $poster = str_replace(['tahselly-promo-', '.mp4'], ['poster-', '.jpg'], (string) $video);
+    if (! is_file(public_path($poster))) {
+        $poster = 'videos/poster-'.($beta ? 'beta-' : '').($locale === 'en' ? 'en' : 'ar').'.jpg';
+    }
     $tutorial = $beta ? null : \App\Models\SystemSetting::get('tutorial_video');
     $trialOn = (bool) \App\Models\SystemSetting::get('allow_signups', true);
     // Posters and videos keep their file names when replaced; the file's time in the URL makes browsers fetch the new one
