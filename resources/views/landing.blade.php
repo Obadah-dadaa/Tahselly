@@ -8,6 +8,7 @@
     $tutorial = $beta ? null : \App\Models\SystemSetting::get('tutorial_video');
     $trialOn = (bool) \App\Models\SystemSetting::get('allow_signups', true);
     // Posters and videos keep their file names when replaced; the file's time in the URL makes browsers fetch the new one
+    $setupWhatsapp = \App\Support\SupportWhatsapp::url(__('مرحباً، أريد أن تجهّزوا لي حساب تحصيلي مجاناً. سأرسل لكم ملف الفواتير.'));
     $fresh = fn (string $path) => asset($path).'?v='.(@filemtime(public_path($path)) ?: 1);
     $trialDays = $beta ? \App\Support\Edition::limit('trial_days') : (int) \App\Models\SystemSetting::get('default_trial_days', 14);
     // Each plan adds features on top of the cheaper ones; every card lists them all, ticked or not
@@ -57,7 +58,7 @@
     </div>
 </header>
 
-<section class="relative overflow-hidden bg-night pb-28 pt-36 text-white">
+<section id="hero" class="relative overflow-hidden bg-night pb-28 pt-36 text-white">
     <div class="absolute -end-40 top-0 size-[40rem] rounded-full bg-brand-600/25 blur-3xl"></div>
     <div class="absolute -bottom-40 -start-20 size-[30rem] rounded-full bg-sky-500/15 blur-3xl"></div>
     <div class="relative mx-auto grid max-w-6xl items-center gap-14 px-6 lg:grid-cols-2">
@@ -71,6 +72,16 @@
                 @else
                     <a href="#@beta{{ 'interest' }}@else{{ 'pricing' }}@endbeta" class="btn-primary bg-brand-500 px-6 py-3 text-base hover:bg-brand-600">@beta{{ __('مهتم بالاشتراك؟') }}@else{{ __('اختر باقتك') }}@endbeta</a>
                 @endif
+                @guest
+                    {{-- Instant demo: straight into a sample account, no form --}}
+                    <form method="POST" action="{{ route('demo.start') }}" class="contents">
+                        @csrf
+                        <button class="btn bg-white px-6 py-3 text-base font-semibold text-night hover:bg-slate-100">
+                            <x-icon name="bolt" class="size-5 text-brand-600" /> {{ __('جرّب النظام الآن — بدون تسجيل') }}
+                        </button>
+                        <x-recaptcha action="demo" class="order-last w-full" />
+                    </form>
+                @endguest
                 @if($video)
                     <button @click="player = 'promo'" class="btn px-6 py-3 text-base text-white ring-1 ring-white/20 hover:bg-white/10">
                         <span class="grid size-7 place-items-center rounded-full bg-white text-night"><svg class="size-3.5 translate-x-px" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
@@ -173,6 +184,40 @@
     </div>
 </section>
 
+{{-- Done-for-you setup: the visitor sends their Excel on WhatsApp and we set the account up --}}
+<section id="setup" class="mx-auto max-w-6xl px-6 py-24">
+    <div class="relative overflow-hidden rounded-[2rem] bg-night px-6 py-12 text-white sm:px-12">
+        <div class="absolute -end-24 -top-24 size-80 rounded-full bg-brand-600/30 blur-3xl"></div>
+        <div class="relative grid items-center gap-10 lg:grid-cols-2">
+            <div>
+                <span class="inline-flex rounded-full bg-emerald-400/15 px-3 py-1 text-sm font-bold text-emerald-300 ring-1 ring-emerald-400/30">{{ __('مجاناً') }}</span>
+                <h2 class="mt-5 text-3xl font-bold leading-snug">{{ __('ليس لديك وقت؟ نجهّز النظام لك بأنفسنا') }}</h2>
+                <p class="mt-4 leading-relaxed text-slate-300">{{ __('أرسل لنا ملف Excel بفواتيرك المفتوحة بأي شكل كان. نستورد الفواتير، نضبط مواعيد التذكير ونصوص الرسائل، ونسلّمك الحساب جاهزاً خلال يوم عمل واحد — دون أي تكلفة.') }}</p>
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <a href="{{ $setupWhatsapp ?? route('contact') }}" @if($setupWhatsapp) target="_blank" rel="noopener" @endif class="btn bg-[#25D366] px-6 py-3 text-base font-bold text-white hover:bg-[#1ebe5b]">
+                        <x-icon name="whatsapp" class="size-5" /> {{ __('أرسل ملفك على واتساب') }}
+                    </a>
+                    @guest
+                        <a href="#hero" class="btn px-6 py-3 text-base text-white ring-1 ring-white/20 hover:bg-white/10">{{ __('أو جرّب الديمو أولاً') }}</a>
+                    @endguest
+                </div>
+            </div>
+            <ol class="space-y-4">
+                @foreach([
+                    ['1', __('أرسل الملف'), __('ملف Excel أو PDF أو حتى صورة لكشف الحساب — كما هو عندك.')],
+                    ['2', __('نجهّز حسابك'), __('نستورد العملاء والفواتير ونضبط التذكيرات بالعربية والإنجليزية.')],
+                    ['3', __('تبدأ التحصيل'), __('تصل أول التذكيرات لعملائك من صباح اليوم التالي، وأنت تتابع من لوحة واحدة.')],
+                ] as [$n, $t, $d])
+                    <li class="flex gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
+                        <span class="grid size-10 shrink-0 place-items-center rounded-full bg-brand-500 font-bold">{{ $n }}</span>
+                        <span><span class="block font-bold">{{ $t }}</span><span class="mt-1 block text-sm text-slate-300">{{ $d }}</span></span>
+                    </li>
+                @endforeach
+            </ol>
+        </div>
+    </div>
+</section>
+
 @beta
 {{-- Beta: no prices or plans; visitors who want to subscribe leave their details --}}
 <section id="interest" class="mx-auto max-w-5xl px-6 py-24">
@@ -262,5 +307,6 @@
     <span class="mx-2">·</span><a href="{{ route('legal.terms') }}" class="hover:text-brand-700">{{ __('شروط الاستخدام') }}</a>
     <span class="mx-2">·</span><a href="{{ route('legal.privacy') }}" class="hover:text-brand-700">{{ __('سياسة الخصوصية') }}</a>
 </footer>
+<x-whatsapp-float />
 </body>
 </html>

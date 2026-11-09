@@ -47,7 +47,7 @@ class SubscriptionController extends Controller
             ],
             'byPlan' => $active->groupBy('plan_id')->map->count(),
             'byCycle' => $active->groupBy('cycle')->map->count(),
-            'companies' => Company::query()->orderBy('name')->get(['id', 'name']),
+            'companies' => Company::query()->where('status', '!=', 'demo')->orderBy('name')->get(['id', 'name']),
         ]);
     }
 

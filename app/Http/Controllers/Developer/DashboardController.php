@@ -16,7 +16,7 @@ class DashboardController extends Controller
 {
     public function __invoke(): View
     {
-        $companies = Company::query()->with('plan')->withCount(['users', 'invoices', 'clients'])->latest()->get();
+        $companies = Company::query()->where('status', '!=', 'demo')->with('plan')->withCount(['users', 'invoices', 'clients'])->latest()->get();
         $mrr = (float) Subscription::query()->current()->get()->sum(fn ($s) => $s->monthlyValue());
 
         $reminders30 = Reminder::query()->whereDate('created_at', '>=', today()->subDays(30));

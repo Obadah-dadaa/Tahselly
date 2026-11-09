@@ -358,6 +358,8 @@ class ReminderService
         if (Edition::isBeta() && $this->sentToday($invoice->company_id) >= Edition::limit('daily_reminders')) {
             $status = 'failed';
             $error = __('وصلت للحد اليومي للتذكيرات في النسخة التجريبية (:limit). يُستأنف الإرسال غداً.', ['limit' => Edition::limit('daily_reminders')]);
+        } elseif ($invoice->company?->isDemo()) {
+            // Instant demo: the reminder is logged as sent but nothing leaves the server
         } elseif (! $recipient) {
             $status = 'failed';
             $error = $channel === 'email' ? __('لا يوجد بريد إلكتروني للعميل') : __('لا يوجد رقم هاتف للعميل');
@@ -410,6 +412,10 @@ class ReminderService
         $number = $invoice->client->whatsappNumber();
         if (! $number) {
             return null;
+        }
+        // The demo's clients are made up: open WhatsApp with the message and no recipient
+        if ($invoice->company->isDemo()) {
+            $number = '';
         }
         $text = $customBody
             ? (new ReminderTemplate(['body' => $customBody]))->render($invoice)['body']

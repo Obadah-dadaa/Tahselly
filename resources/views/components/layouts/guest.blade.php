@@ -43,5 +43,6 @@
         @endif
         {{ $slot }}
     </main>
+    <x-whatsapp-float />
 </body>
 </html>

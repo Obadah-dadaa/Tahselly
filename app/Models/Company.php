@@ -83,12 +83,20 @@ class Company extends Model
     }
 
     /**
+     * A throwaway company from the landing page's instant demo (see DemoAccount).
+     */
+    public function isDemo(): bool
+    {
+        return $this->status === 'demo';
+    }
+
+    /**
      * Free trials open every feature; paid companies get what their plan includes.
      */
     public function canUse(string $feature): bool
     {
         // The beta has no plans: every feature is open, within the beta limits
-        if ($this->onTrial() || Edition::isBeta()) {
+        if ($this->onTrial() || $this->isDemo() || Edition::isBeta()) {
             return true;
         }
 
@@ -140,6 +148,10 @@ class Company extends Model
     {
         if ($this->status === 'trial') {
             return ! $this->trial_ends_at || $this->trial_ends_at->endOfDay()->isFuture();
+        }
+
+        if ($this->isDemo()) {
+            return $this->created_at->addHours(\App\Services\DemoAccount::HOURS)->isFuture();
         }
 
         return $this->status === 'active';

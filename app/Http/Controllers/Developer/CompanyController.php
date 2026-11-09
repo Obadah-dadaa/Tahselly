@@ -22,7 +22,7 @@ class CompanyController extends Controller
     public function index(Request $request): View
     {
         return view('developer.companies.index', [
-            'companies' => Company::query()->with('plan')->withCount(['users', 'invoices', 'clients'])
+            'companies' => Company::query()->where('status', '!=', 'demo')->with('plan')->withCount(['users', 'invoices', 'clients'])
                 ->when($request->q, fn ($q, $term) => $q->where('name', 'like', "%{$term}%"))
                 ->when($request->status, fn ($q, $s) => $q->where('status', $s))
                 ->latest()->paginate(20)->withQueryString(),

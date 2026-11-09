@@ -28,6 +28,10 @@ Artisan::command('subscriptions:expire', function () {
     $this->info("Expired subscriptions: {$expired} | Companies locked: {$companies} | Trials ended: {$trials}");
 })->purpose('Expire finished subscription periods and lock companies without a paid period');
 
+Artisan::command('demo:purge', function (App\Services\DemoAccount $demo) {
+    $this->info('Demo companies removed: '.$demo->purge());
+})->purpose('Delete instant-demo companies older than a day');
+
 Artisan::command('reminders:dispatch', function (ReminderService $reminders) {
     $this->info('Scheduled reminders sent: '.$reminders->dispatchScheduled());
 })->purpose('Send manual reminders whose scheduled time has arrived');
@@ -53,7 +57,8 @@ Artisan::command('telegram:digest', function () {
     Telegram::notify('📊', 'ملخص اليوم '.$today->format('Y-m-d'), [
         'زوار جدد' => DB::table('site_visits')->whereDate('day', $today)->count(),
         'من غوغل' => DB::table('site_visits')->whereDate('day', $today)->where('referrer', 'like', '%google%')->count(),
-        'تسجيلات جديدة' => Company::query()->whereDate('created_at', $today)->count(),
+        'تسجيلات جديدة' => Company::query()->where('status', '!=', 'demo')->whereDate('created_at', $today)->count(),
+        'فتحوا الديمو الفوري' => Company::query()->where('status', 'demo')->whereDate('created_at', $today)->count(),
         'شركات في التجربة' => Company::query()->where('status', 'trial')->count(),
         'مشتركون فعّالون' => Company::query()->where('status', 'active')->count(),
         'طلبات اشتراك بانتظارك' => Subscription::query()->where('status', 'pending')->count() + InterestRequest::query()->where('status', 'new')->count(),
@@ -101,6 +106,7 @@ Artisan::command('telegram:partners', function () {
 // Proof that the server cron runs this site's scheduler (checked from the server with tinker)
 Schedule::call(fn () => \Illuminate\Support\Facades\Cache::forever('scheduler:heartbeat', now()->toDateTimeString()))->everyMinute()->name('heartbeat');
 Schedule::command('subscriptions:expire')->hourly();
+Schedule::command('demo:purge')->hourly();
 Schedule::command('mail:watch')->everyTwoMinutes()->withoutOverlapping();
 Schedule::command('telegram:digest')->dailyAt('21:00')->timezone('Asia/Dubai');
 Schedule::command('trials:notify')->dailyAt('10:00')->timezone('Asia/Dubai');

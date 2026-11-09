@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Developer;
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\InterestController;
 use App\Http\Controllers\InvoiceController;
@@ -68,7 +69,7 @@ Route::post('/theme/{theme}', [PreferenceController::class, 'theme'])->whereIn('
 // Plans, checkout and payment: live site only (the beta has none)
 Route::middleware('live')->group(function () {
     Route::get('/subscribe/{plan:code}', [SubscribeController::class, 'show'])->middleware('track')->name('subscribe.show');
-    Route::post('/subscribe/{plan:code}', [SubscribeController::class, 'store'])->middleware(['throttle:10,1', 'recaptcha:checkout'])->name('subscribe.store');
+    Route::post('/subscribe/{plan:code}', [SubscribeController::class, 'store'])->middleware(['throttle:10,1', 'recaptcha:checkout', 'nodemo'])->name('subscribe.store');
     Route::get('/checkout/{subscription}/pay', [SubscribeController::class, 'sandbox'])->name('subscribe.sandbox');
     Route::post('/checkout/{subscription}/pay', [SubscribeController::class, 'sandboxPay'])->middleware('throttle:10,1')->name('subscribe.sandbox.pay');
     Route::get('/checkout/{subscription}/return', [SubscribeController::class, 'stripeReturn'])->name('subscribe.return');
@@ -82,6 +83,8 @@ Route::middleware('live')->group(function () {
 Route::middleware('guest')->group(function () {
     Route::get('/start', [TrialController::class, 'create'])->middleware('track')->name('trial.create');
     Route::post('/start', [TrialController::class, 'store'])->middleware(['throttle:5,1', 'recaptcha:signup'])->name('trial.store');
+    // Instant demo: a throwaway company with sample data, no sign-up
+    Route::post('/demo', [DemoController::class, 'store'])->middleware(['throttle:3,10', 'recaptcha:demo'])->name('demo.start');
 });
 // The beta has its own terms and privacy notice (free testing, limits, no payment)
 Route::get('/terms', fn () => view(Edition::isBeta() ? 'legal.beta-terms' : 'legal.terms'))->middleware('track')->name('legal.terms');
@@ -107,11 +110,12 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/email/verify', [EmailVerificationController::class, 'notice'])->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
-    Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])->middleware('throttle:3,1')->name('verification.send');
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])->middleware(['throttle:3,1', 'nodemo'])->name('verification.send');
 });
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
+    Route::post('/demo/leave', [DemoController::class, 'leave'])->name('demo.leave');
     Route::get('/home', [AuthController::class, 'home'])->name('home');
     Route::get('/notifications/{id}', [NotificationController::class, 'open'])->name('notifications.open');
     Route::post('/notifications/read', [NotificationController::class, 'readAll'])->name('notifications.read');
@@ -152,7 +156,7 @@ Route::middleware(['auth', 'verified', 'role:owner'])->prefix('owner')->name('ow
     Route::get('/', Owner\DashboardController::class)->middleware('feature:owner_analytics')->name('dashboard');
     Route::get('billing', Owner\BillingController::class)->name('billing');
     Route::get('plan', [TrialController::class, 'choosePlan'])->name('plan');
-    Route::post('plan', [TrialController::class, 'storePlan'])->middleware('live')->name('plan.choose');
+    Route::post('plan', [TrialController::class, 'storePlan'])->middleware(['live', 'nodemo'])->name('plan.choose');
     Route::get('team', [Owner\TeamController::class, 'index'])->name('team.index');
     Route::post('team', [Owner\TeamController::class, 'store'])->name('team.store');
     Route::patch('team/{user}', [Owner\TeamController::class, 'update'])->middleware('feature:team_permissions')->name('team.update');

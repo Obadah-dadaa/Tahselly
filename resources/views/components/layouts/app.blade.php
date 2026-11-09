@@ -103,6 +103,26 @@
     <div x-show="menu" x-cloak @click="menu=false" class="fixed inset-0 z-30 bg-black/40 lg:hidden"></div>
 
     <div class="flex min-w-0 flex-1 flex-col">
+        @if($user->company?->isDemo())
+            {{-- Instant demo bar: sample data, nothing is sent, and the way to a real account --}}
+            <div class="border-b border-brand-800 bg-night px-4 py-2.5 text-white">
+                <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2">
+                    <div class="min-w-0 text-sm">
+                        <p class="font-semibold">{{ __('أنت في الحساب التجريبي — بيانات وهمية لتجرّب كل شيء') }}</p>
+                        <p class="text-xs text-slate-300">{{ __('لن تُرسل أي رسالة حقيقية لأي عميل، والحساب يُحذف تلقائياً خلال 24 ساعة.') }}</p>
+                    </div>
+                    <div class="flex shrink-0 items-center gap-2">
+                        @if($demoWhatsapp = \App\Support\SupportWhatsapp::url(__('مرحباً، جرّبت ديمو تحصيلي وعندي سؤال')))
+                            <a href="{{ $demoWhatsapp }}" target="_blank" rel="noopener" class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-white/90 hover:bg-white/10"><x-icon name="whatsapp" class="size-4" /> {{ __('اسألنا على واتساب') }}</a>
+                        @endif
+                        <form method="POST" action="{{ route('demo.leave') }}">
+                            @csrf
+                            <button class="rounded-lg bg-brand-500 px-4 py-1.5 text-sm font-bold text-white shadow-sm hover:bg-brand-600">{{ __('أنشئ حسابك المجاني') }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
         @if($user->company?->status === 'trial' && $user->company->trial_ends_at)
             @php
                 $trialDays = max(0, (int) today()->diffInDays($user->company->trial_ends_at, false));
