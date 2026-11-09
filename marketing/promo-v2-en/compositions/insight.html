@@ -1,0 +1,68 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #ffffff; }
+    .k { color: #0f766e; }
+    #in-t1 { position: absolute; inset-inline-start: 140px; top: 62px; font-size: 84px; font-weight: 700; color: #0b1220; line-height: 1.3; white-space: nowrap; }
+    #in-aging { position: absolute; inset: 0; background: #ffffff; }
+    #in-bar { position: absolute; left: 140px; right: 140px; top: 500px; height: 130px; display: flex; gap: 8px; }
+    .sg { position: relative; height: 100%; border-radius: 14px; transform-origin: 0% 50%; }
+    .lb { position: absolute; bottom: 160px; inset-inline-start: 0; white-space: nowrap; }
+    .lb .l { font-size: 32px; font-weight: 600; color: #475569; display: flex; align-items: center; gap: 12px; }
+    .lb .l i { width: 20px; height: 20px; border-radius: 50%; display: inline-block; }
+    .lb .v { font-size: 60px; font-weight: 700; color: #0b1220; direction: ltr; text-align: start; font-variant-numeric: tabular-nums; }
+    #in-total { position: absolute; inset-inline-start: 140px; top: 690px; font-size: 36px; color: #475569; }
+    #in-total b { color: #0b1220; direction: ltr; unicode-bidi: isolate; }
+    #in-call { position: absolute; inset-inline-end: 140px; top: 680px; font-size: 40px; font-weight: 700; color: #be123c; background: #fff1f2; border: 3px solid #fecdd3; border-radius: 18px; padding: 8px 30px 14px; }
+    #in-dash { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; }
+    #in-shot { position: absolute; left: 0; top: 0; width: 1920px; height: 924px; }
+    #in-t2 { position: absolute; inset-inline-start: 120px; bottom: 70px; font-size: 80px; font-weight: 700; color: #0b1220; background: #ffffff; padding: 6px 40px 20px; border-radius: 24px; box-shadow: 0 30px 60px rgba(15,23,42,.18); line-height: 1.3; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="insight" data-width="1920" data-height="1080">
+    <div id="in-aging" class="clip" data-start="0" data-duration="4.6">
+      <div id="in-t1"><span class="k">Aging</span>: who's late, and by how much</div>
+      <div id="in-bar">
+        <div class="sg" id="in-s1" style="flex: 94750; background:#14b8a6"><div class="lb"><div class="l"><i style="background:#14b8a6"></i>Not yet due</div><div class="v" id="in-v1">94,750</div></div></div>
+        <div class="sg" id="in-s2" style="flex: 77650; background:#eab308"><div class="lb"><div class="l"><i style="background:#eab308"></i>1 - 30 days</div><div class="v" id="in-v2">77,650</div></div></div>
+        <div class="sg" id="in-s3" style="flex: 56160; background:#f97316"><div class="lb"><div class="l"><i style="background:#f97316"></i>31 - 60 days</div><div class="v" id="in-v3">56,160</div></div></div>
+        <div class="sg" id="in-s4" style="flex: 45810; background:#fb7185"><div class="lb"><div class="l"><i style="background:#fb7185"></i>61 - 90 days</div><div class="v" id="in-v4">45,810</div></div></div>
+        <div class="sg" id="in-s5" style="flex: 37850; background:#be123c"><div class="lb"><div class="l"><i style="background:#be123c"></i>Over 90 days</div><div class="v" id="in-v5">37,850</div></div></div>
+      </div>
+      <div id="in-total">Total receivables: <b>312,220.00 AED</b></div>
+      <div id="in-call">90+ days? Start here</div>
+    </div>
+    <div id="in-dash" class="clip" data-start="4.2" data-duration="4.2">
+      <img id="in-shot" src="assets/screens/owner-dashboard.png" alt="owner dashboard" />
+      <div id="in-t2">Every dirham, <span class="k">one screen</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const S = 1;
+    tl.fromTo("#in-t1", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 0.1);
+    const vals = [94750, 77650, 56160, 45810, 37850];
+    vals.forEach((v, i) => {
+      const t = 0.35 + i * 0.32;
+      tl.fromTo("#in-s" + (i + 1), { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, t);
+      tl.fromTo("#in-s" + (i + 1) + " .lb", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, t + 0.1);
+      const o = { v: 0 };
+      tl.fromTo(o, { v: 0 }, { v, duration: 0.6, ease: "power2.out", onUpdate: () => { document.getElementById("in-v" + (i + 1)).textContent = Math.round(o.v).toLocaleString("en-US"); } }, t + 0.1);
+    });
+    tl.fromTo("#in-total", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.1);
+    // the oldest debt steps forward
+    tl.to(["#in-s1", "#in-s2", "#in-s3", "#in-s4"], { opacity: 0.3, duration: 0.3 }, 2.6);
+    tl.fromTo("#in-s5", { y: 0 }, { y: -14, duration: 0.3, ease: "power3.out" }, 2.6);
+    tl.fromTo("#in-call", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, 2.7);
+    // the owner's dashboard rises over it, then the camera settles on the numbers
+    tl.fromTo("#in-dash", { yPercent: 100 }, { yPercent: 0, duration: 0.45, ease: "power3.inOut" }, 4.2);
+    tl.fromTo("#in-shot", { scale: 1.0, y: 78, transformOrigin: "50% 0%" }, { scale: 1.0, y: 78, duration: 0.01 }, 4.2);
+    tl.to("#in-shot", { scale: 1.45, y: -60, x: -250 * S, duration: 0.8, ease: "expo.inOut" }, 5.0);
+    tl.fromTo("#in-t2", { opacity: 0, scale: 1.25, rotation: -3 }, { opacity: 1, scale: 1, rotation: -1.5, duration: 0.35, ease: "back.out(1.6)" }, 5.6);
+    window.__timelines["insight"] = tl;
+  </script>
+</template>

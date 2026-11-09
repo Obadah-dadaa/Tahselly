@@ -1,0 +1,2429 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#em-b\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#em-b",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\admin\\Desktop\\Obadah Dadaa\\Projects\\tahselly\\marketing\\promo-v2\\compositions\\email.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 1.9s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      }
+    ],
+    "filesScanned": 13
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 9,
+    "warningCount": 0,
+    "infoCount": 16,
+    "findings": [
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 21.111,
+        "selector": "#im-t-zoho > div:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1052.49,
+          "top": 526.34,
+          "right": 1275.31,
+          "bottom": 612.35,
+          "width": 222.82,
+          "height": 86.01
+        },
+        "containerSelector": "#im-t-qb > div:nth-of-type(1)",
+        "text": "Zoho Books",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.56,
+        "lifetime": {
+          "start": 17.7,
+          "end": 21.5
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/import.html",
+        "bbox": {
+          "x": 1052.49,
+          "y": 526.34,
+          "width": 222.82,
+          "height": 86.01
+        },
+        "firstSeen": 21.111,
+        "lastSeen": 21.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.111
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 21.111,
+        "selector": "#im-t-zoho > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1042.5,
+          "top": 625.59,
+          "right": 1318.64,
+          "bottom": 700.56,
+          "width": 276.15,
+          "height": 74.96
+        },
+        "containerSelector": "#im-t-qb",
+        "text": "Invoices export · .xlsx",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.44,
+        "lifetime": {
+          "start": 17.7,
+          "end": 21.5
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/import.html",
+        "bbox": {
+          "x": 1042.5,
+          "y": 625.59,
+          "width": 276.15,
+          "height": 74.96
+        },
+        "firstSeen": 21.111,
+        "lastSeen": 21.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.111
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 21.111,
+        "selector": "#im-t-qb > div:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 772.55,
+          "top": 511.73,
+          "right": 996.76,
+          "bottom": 579.45,
+          "width": 224.21,
+          "height": 67.72
+        },
+        "containerSelector": "#im-t-tally > div:nth-of-type(1)",
+        "text": "QuickBooks",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.52,
+        "lifetime": {
+          "start": 17.7,
+          "end": 21.5
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/import.html",
+        "bbox": {
+          "x": 772.55,
+          "y": 511.73,
+          "width": 224.21,
+          "height": 67.72
+        },
+        "firstSeen": 21.111,
+        "lastSeen": 21.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.111
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 21.111,
+        "selector": "#im-t-qb > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 776.04,
+          "top": 610.92,
+          "right": 1021.08,
+          "bottom": 661.4,
+          "width": 245.04,
+          "height": 50.48
+        },
+        "containerSelector": "#im-t-tally",
+        "text": "Open balance · .csv",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.52,
+        "lifetime": {
+          "start": 17.7,
+          "end": 21.5
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/import.html",
+        "bbox": {
+          "x": 776.04,
+          "y": 610.92,
+          "width": 245.04,
+          "height": 50.48
+        },
+        "firstSeen": 21.111,
+        "lastSeen": 21.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.111
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 21.111,
+        "selector": "#im-t-zoho > div:nth-of-type(2)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 1042.5,
+          "top": 625.59,
+          "right": 1318.64,
+          "bottom": 700.56,
+          "width": 276.14,
+          "height": 74.97
+        },
+        "containerSelector": "#im-t-qb > div:nth-of-type(3)",
+        "text": "Invoices export · .xlsx",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply. Decoration nobody needs to read can take data-layout-ignore.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/import.html",
+        "bbox": {
+          "x": 1042.5,
+          "y": 625.59,
+          "width": 276.14,
+          "height": 74.97
+        },
+        "firstSeen": 19.106,
+        "lastSeen": 21.229,
+        "occurrences": 7,
+        "heldMs": 2122.9999999999977,
+        "times": [
+          19.106,
+          19.531,
+          19.955,
+          20.38,
+          20.804,
+          21.111,
+          21.229
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 46.444,
+        "selector": "div.role.o",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 798,
+          "top": 377.5,
+          "right": 878.34,
+          "bottom": 422.5,
+          "width": 80.34,
+          "height": 45
+        },
+        "containerSelector": "#tm-log",
+        "text": "المالك",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.67,
+        "lifetime": {
+          "start": 43,
+          "end": 47.3
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/team.html",
+        "bbox": {
+          "x": 798,
+          "y": 377.5,
+          "width": 80.34,
+          "height": 45
+        },
+        "firstSeen": 46.444,
+        "lastSeen": 46.444,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          46.444
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 46.444,
+        "selector": "#tm-m2 > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 798,
+          "top": 505.5,
+          "right": 869.5,
+          "bottom": 550.5,
+          "width": 71.5,
+          "height": 45
+        },
+        "containerSelector": "#tm-log",
+        "text": "المدير",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "lifetime": {
+          "start": 43,
+          "end": 47.3
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/team.html",
+        "bbox": {
+          "x": 798,
+          "y": 505.5,
+          "width": 71.5,
+          "height": 45
+        },
+        "firstSeen": 46.444,
+        "lastSeen": 46.444,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          46.444
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 46.444,
+        "selector": "#tm-m3 > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 798,
+          "top": 633.5,
+          "right": 869.5,
+          "bottom": 678.5,
+          "width": 71.5,
+          "height": 45
+        },
+        "containerSelector": "#tm-log",
+        "text": "المدير",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "lifetime": {
+          "start": 43,
+          "end": 47.3
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/team.html",
+        "bbox": {
+          "x": 798,
+          "y": 633.5,
+          "width": 71.5,
+          "height": 45
+        },
+        "firstSeen": 46.444,
+        "lastSeen": 46.444,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          46.444
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 54.889,
+        "selector": "#su-stamp > div:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 643.66,
+          "top": 759.81,
+          "right": 1272.61,
+          "bottom": 912.28,
+          "width": 628.95,
+          "height": 152.47
+        },
+        "containerSelector": "div.c",
+        "text": "إعداد مجاني بالكامل",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply. Decoration nobody needs to read can take data-layout-ignore.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/setup.html",
+        "bbox": {
+          "x": 643.66,
+          "y": 759.81,
+          "width": 628.95,
+          "height": 152.47
+        },
+        "firstSeen": 54.346,
+        "lastSeen": 56.469,
+        "occurrences": 7,
+        "heldMs": 2123.0000000000045,
+        "times": [
+          54.346,
+          54.771,
+          54.889,
+          55.196,
+          55.62,
+          56.045,
+          56.469
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 5.52,
+        "selector": "#hk-b2 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 297.09,
+          "top": 500.5,
+          "right": 981.75,
+          "bottom": 563.5,
+          "width": 684.66,
+          "height": 63
+        },
+        "containerSelector": "#hk-num-val",
+        "text": "صباح الخير، هل من جديد بخصوص الدفعة؟",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply. Decoration nobody needs to read can take data-layout-ignore.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/hook.html",
+        "bbox": {
+          "x": 297.09,
+          "y": 500.5,
+          "width": 684.66,
+          "height": 63
+        },
+        "firstSeen": 5.52,
+        "lastSeen": 5.52,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5.52
+        ]
+      },
+      {
+        "code": "canvas_covered",
+        "severity": "info",
+        "time": 29.556,
+        "selector": "#bg",
+        "message": "An opaque element covers the canvas above every other visible clip, so the frame shows only it.",
+        "rect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "fixHint": "Move the full-frame element below the content (earlier in the DOM or a lower z-index / track), or mark a deliberate full-frame card with data-layout-allow-occlusion.",
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "76",
+          "data-track-index": "0"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "firstSeen": 29.556,
+        "lastSeen": 29.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          29.556
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 29.556,
+        "selector": "#wa-cur",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 440,
+          "top": 1150,
+          "right": 524,
+          "bottom": 1234,
+          "width": 84,
+          "height": 84
+        },
+        "containerSelector": "#whatsapp > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "bottom": 154
+        },
+        "dataAttributes": {
+          "data-start": "0.5",
+          "data-duration": "4.0"
+        },
+        "sourceFile": "compositions/whatsapp.html",
+        "bbox": {
+          "x": 440,
+          "y": 1150,
+          "width": 84,
+          "height": 84
+        },
+        "firstSeen": 29.556,
+        "lastSeen": 29.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          29.556
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 29.556,
+        "selector": "#wa-shot",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -152.46,
+          "top": 17.76,
+          "right": 3188.53,
+          "bottom": 2333.84,
+          "width": 3340.99,
+          "height": 2316.07
+        },
+        "containerSelector": "#wa-shot-wrap",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 152.46,
+          "right": 1268.53,
+          "bottom": 1253.84
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "wa-shot",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/whatsapp.html",
+        "bbox": {
+          "x": -152.46,
+          "y": 17.76,
+          "width": 3340.99,
+          "height": 2316.07
+        },
+        "firstSeen": 29.556,
+        "lastSeen": 29.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          29.556
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 29.556,
+        "selector": "#wa-shot",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": -152.46,
+          "top": 17.76,
+          "right": 3188.53,
+          "bottom": 2333.84,
+          "width": 3340.99,
+          "height": 2316.07
+        },
+        "containerSelector": "#wa-shot-wrap",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "wa-shot",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/whatsapp.html",
+        "bbox": {
+          "x": -152.46,
+          "y": 17.76,
+          "width": 3340.99,
+          "height": 2316.07
+        },
+        "firstSeen": 29.556,
+        "lastSeen": 29.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          29.556
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-s1 > div:nth-of-type(1) > div:nth-of-type(1)",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 1558.58,
+          "top": 407,
+          "right": 1748,
+          "bottom": 452,
+          "width": 189.42,
+          "height": 45
+        },
+        "containerSelector": "#in-s1",
+        "text": "غير مستحقة بعد",
+        "fixHint": "Text is 189px x 45px inside 488px x 130px and overflows by up to 153px; increase the container height to at least ~283px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 1292.02,
+          "top": 560,
+          "right": 1780,
+          "bottom": 690,
+          "width": 487.98,
+          "height": 130
+        },
+        "overflow": {
+          "top": 153
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 1558.58,
+          "y": 407,
+          "width": 189.42,
+          "height": 45
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-v1",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 1558.58,
+          "top": 452,
+          "right": 1730.7,
+          "bottom": 530,
+          "width": 172.12,
+          "height": 78
+        },
+        "containerSelector": "#in-s1",
+        "text": "94,750",
+        "fixHint": "Text is 172px x 78px inside 488px x 130px and overflows by up to 108px; increase the container height to at least ~238px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 1292.02,
+          "top": 560,
+          "right": 1780,
+          "bottom": 690,
+          "width": 487.98,
+          "height": 130
+        },
+        "overflow": {
+          "top": 108
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 1558.58,
+          "y": 452,
+          "width": 172.12,
+          "height": 78
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-s2 > div:nth-of-type(1) > div:nth-of-type(1)",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 1123.92,
+          "top": 407,
+          "right": 1252.02,
+          "bottom": 452,
+          "width": 128.1,
+          "height": 45
+        },
+        "containerSelector": "#in-s2",
+        "text": "1 - 30 يوم",
+        "fixHint": "Text is 128px x 45px inside 400px x 130px and overflows by up to 153px; increase the container height to at least ~283px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 884.11,
+          "top": 560,
+          "right": 1284.02,
+          "bottom": 690,
+          "width": 399.91,
+          "height": 130
+        },
+        "overflow": {
+          "top": 153
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 1123.92,
+          "y": 407,
+          "width": 128.1,
+          "height": 45
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-v2",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 1111.89,
+          "top": 452,
+          "right": 1284.02,
+          "bottom": 530,
+          "width": 172.13,
+          "height": 78
+        },
+        "containerSelector": "#in-s2",
+        "text": "77,650",
+        "fixHint": "Text is 172px x 78px inside 400px x 130px and overflows by up to 108px; increase the container height to at least ~238px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 884.11,
+          "top": 560,
+          "right": 1284.02,
+          "bottom": 690,
+          "width": 399.91,
+          "height": 130
+        },
+        "overflow": {
+          "top": 108
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 1111.89,
+          "y": 452,
+          "width": 172.13,
+          "height": 78
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-s3 > div:nth-of-type(1) > div:nth-of-type(1)",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 698.02,
+          "top": 407,
+          "right": 844.11,
+          "bottom": 452,
+          "width": 146.09,
+          "height": 45
+        },
+        "containerSelector": "#in-s3",
+        "text": "31 - 60 يوم",
+        "fixHint": "Text is 146px x 45px inside 289px x 130px and overflows by up to 153px; increase the container height to at least ~283px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 586.88,
+          "top": 560,
+          "right": 876.11,
+          "bottom": 690,
+          "width": 289.23,
+          "height": 130
+        },
+        "overflow": {
+          "top": 153
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 698.02,
+          "y": 407,
+          "width": 146.09,
+          "height": 45
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-v3",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 698.02,
+          "top": 452,
+          "right": 870.14,
+          "bottom": 530,
+          "width": 172.12,
+          "height": 78
+        },
+        "containerSelector": "#in-s3",
+        "text": "56,160",
+        "fixHint": "Text is 172px x 78px inside 289px x 130px and overflows by up to 108px; increase the container height to at least ~238px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 586.88,
+          "top": 560,
+          "right": 876.11,
+          "bottom": 690,
+          "width": 289.23,
+          "height": 130
+        },
+        "overflow": {
+          "top": 108
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 698.02,
+          "y": 452,
+          "width": 172.12,
+          "height": 78
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-s4 > div:nth-of-type(1) > div:nth-of-type(1)",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 400.78,
+          "top": 407,
+          "right": 546.88,
+          "bottom": 452,
+          "width": 146.1,
+          "height": 45
+        },
+        "containerSelector": "#in-s4",
+        "text": "61 - 90 يوم",
+        "fixHint": "Text is 146px x 45px inside 236px x 130px and overflows by up to 153px; increase the container height to at least ~283px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 342.94,
+          "top": 560,
+          "right": 578.88,
+          "bottom": 690,
+          "width": 235.94,
+          "height": 130
+        },
+        "overflow": {
+          "top": 153
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 400.78,
+          "y": 407,
+          "width": 146.1,
+          "height": 45
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-v4",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 400.78,
+          "top": 452,
+          "right": 572.91,
+          "bottom": 530,
+          "width": 172.13,
+          "height": 78
+        },
+        "containerSelector": "#in-s4",
+        "text": "45,810",
+        "fixHint": "Text is 172px x 78px inside 236px x 130px and overflows by up to 108px; increase the container height to at least ~238px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 342.94,
+          "top": 560,
+          "right": 578.88,
+          "bottom": 690,
+          "width": 235.94,
+          "height": 130
+        },
+        "overflow": {
+          "top": 108
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 400.78,
+          "y": 452,
+          "width": 172.13,
+          "height": 78
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-s5 > div:nth-of-type(1) > div:nth-of-type(1)",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 126.94,
+          "top": 393,
+          "right": 302.94,
+          "bottom": 438,
+          "width": 176,
+          "height": 45
+        },
+        "containerSelector": "#in-s5",
+        "text": "أكثر من 90 يوم",
+        "fixHint": "Text is 176px x 45px inside 195px x 130px and overflows by up to 153px; resize the container to at least ~208px x 283px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 140,
+          "top": 546,
+          "right": 334.94,
+          "bottom": 676,
+          "width": 194.94,
+          "height": 130
+        },
+        "overflow": {
+          "left": 13.06,
+          "top": 153
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 126.94,
+          "y": 393,
+          "width": 176,
+          "height": 45
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-v5",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 126.94,
+          "top": 438,
+          "right": 299.06,
+          "bottom": 516,
+          "width": 172.12,
+          "height": 78
+        },
+        "containerSelector": "#in-s5",
+        "text": "37,850",
+        "fixHint": "Text is 172px x 78px inside 195px x 130px and overflows by up to 108px; resize the container to at least ~208px x 238px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 140,
+          "top": 546,
+          "right": 334.94,
+          "bottom": 676,
+          "width": 194.94,
+          "height": 130
+        },
+        "overflow": {
+          "left": 13.06,
+          "top": 108
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 126.94,
+          "y": 438,
+          "width": 172.12,
+          "height": 78
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 38,
+        "selector": "#in-s5 > div:nth-of-type(1)",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": 126.94,
+          "top": 393,
+          "right": 334.94,
+          "bottom": 516,
+          "width": 208,
+          "height": 123
+        },
+        "containerSelector": "#in-s5",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 140,
+          "top": 546,
+          "right": 334.94,
+          "bottom": 676,
+          "width": 194.94,
+          "height": 130
+        },
+        "overflow": {
+          "left": 13.06
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/insight.html",
+        "bbox": {
+          "x": 126.94,
+          "y": 393,
+          "width": 208,
+          "height": 123
+        },
+        "firstSeen": 38,
+        "lastSeen": 38,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          38
+        ]
+      }
+    ],
+    "duration": 76,
+    "samples": [
+      4.222,
+      12.667,
+      21.111,
+      29.556,
+      38,
+      46.444,
+      54.889,
+      63.333,
+      71.778
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 25,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 6,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.92:1; WCAG AA requires 3:1.",
+        "text": "✓✓",
+        "fg": "rgb(83,189,235)",
+        "bg": "rgb(217,253,211)",
+        "ratio": 1.92,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(66,150,187)",
+        "large": true,
+        "selector": "div > div:nth-of-type(2) > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(2) > b",
+        "dataAttributes": {},
+        "sourceFile": "compositions/hook.html",
+        "bbox": {
+          "x": 232.140625,
+          "y": 323,
+          "width": 38.953125,
+          "height": 39
+        },
+        "time": 4.222,
+        "times": [
+          4.222
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.92:1; WCAG AA requires 3:1.",
+        "text": "✓✓",
+        "fg": "rgb(83,189,235)",
+        "bg": "rgb(217,253,211)",
+        "ratio": 1.92,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(66,150,187)",
+        "large": true,
+        "selector": "div > div:nth-of-type(2) > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > span:nth-of-type(2) > b",
+        "dataAttributes": {},
+        "sourceFile": "compositions/hook.html",
+        "bbox": {
+          "x": 232.140625,
+          "y": 535,
+          "width": 38.953125,
+          "height": 39
+        },
+        "time": 4.222,
+        "times": [
+          4.222
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.92:1; WCAG AA requires 3:1.",
+        "text": "✓✓",
+        "fg": "rgb(83,189,235)",
+        "bg": "rgb(217,253,211)",
+        "ratio": 1.92,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(66,150,187)",
+        "large": true,
+        "selector": "div > div:nth-of-type(2) > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > span:nth-of-type(2) > b",
+        "dataAttributes": {},
+        "sourceFile": "compositions/hook.html",
+        "bbox": {
+          "x": 232.140625,
+          "y": 747,
+          "width": 38.953125,
+          "height": 39
+        },
+        "time": 4.222,
+        "times": [
+          4.222
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.92:1; WCAG AA requires 3:1.",
+        "text": "✓✓",
+        "fg": "rgb(83,189,235)",
+        "bg": "rgb(217,253,211)",
+        "ratio": 1.92,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(66,150,187)",
+        "large": true,
+        "selector": "div > div:nth-of-type(2) > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(7) > span:nth-of-type(2) > b",
+        "dataAttributes": {},
+        "sourceFile": "compositions/hook.html",
+        "bbox": {
+          "x": 232.140625,
+          "y": 881,
+          "width": 38.953125,
+          "height": 39
+        },
+        "time": 4.222,
+        "times": [
+          4.222
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.92:1; WCAG AA requires 3:1.",
+        "text": "✓✓",
+        "fg": "rgb(83,189,235)",
+        "bg": "rgb(217,253,211)",
+        "ratio": 1.92,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(66,150,187)",
+        "large": true,
+        "selector": "div > div:nth-of-type(10) > div > div:nth-of-type(1) > div:nth-of-type(2) > span > b",
+        "dataAttributes": {},
+        "sourceFile": "compositions/setup.html",
+        "bbox": {
+          "x": 536.515625,
+          "y": 350.875,
+          "width": 38.953125,
+          "height": 39
+        },
+        "time": 54.889,
+        "times": [
+          54.889
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.98:1; WCAG AA requires 3:1.",
+        "text": "واتساب +971 56 864 0530",
+        "fg": "rgb(255,255,255)",
+        "bg": "rgb(37,211,102)",
+        "ratio": 1.98,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(99,99,99)",
+        "large": true,
+        "selector": "#ec-wa",
+        "dataAttributes": {},
+        "sourceFile": "compositions/endcard.html",
+        "bbox": {
+          "x": 380.546875,
+          "y": 800,
+          "width": 605.734375,
+          "height": 94
+        },
+        "time": 71.778,
+        "times": [
+          71.778
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      4.222,
+      21.111,
+      38,
+      54.889,
+      71.778
+    ],
+    "checked": 72,
+    "passed": 66
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 13,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 4 text elements stay under it for 0.5 s or more, the smallest \"16:20\" at 25 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "16:20",
+        "selector": "#hk-b4 > span:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/hook.html",
+        "bbox": {
+          "x": 142.55,
+          "y": 883.19,
+          "width": 72.99,
+          "height": 37.39
+        },
+        "time": 3.426,
+        "times": [
+          0.508,
+          1.649,
+          2.791,
+          3.426
+        ],
+        "fontPx": 24.92,
+        "floorPx": 28,
+        "seconds": 2.284,
+        "elements": [
+          {
+            "selector": "#hk-b4 > span:nth-of-type(2)",
+            "text": "16:20",
+            "fontPx": 24.92,
+            "time": 3.426,
+            "seconds": 2.284
+          },
+          {
+            "selector": "#hk-b1 > span:nth-of-type(2)",
+            "text": "10:02",
+            "fontPx": 26,
+            "time": 0.508,
+            "seconds": 5.202
+          },
+          {
+            "selector": "#hk-b2 > span:nth-of-type(2)",
+            "text": "09:15",
+            "fontPx": 26,
+            "time": 1.649,
+            "seconds": 4.061
+          },
+          {
+            "selector": "#hk-b3 > span:nth-of-type(2)",
+            "text": "11:40",
+            "fontPx": 26,
+            "time": 2.791,
+            "seconds": 2.919
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 9 text elements stay under it for 0.5 s or more, the smallest \"✓ تم الاستيراد\" at 13 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "✓ تم الاستيراد",
+        "selector": "#im-r4 > span:nth-of-type(4)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/import.html",
+        "bbox": {
+          "x": 429.99,
+          "y": 762.38,
+          "width": 69.82,
+          "height": 19.24
+        },
+        "time": 16.621,
+        "times": [
+          13.957,
+          15.606,
+          15.606,
+          15.606,
+          15.606,
+          15.987,
+          16.367,
+          16.494,
+          16.621
+        ],
+        "fontPx": 12.82,
+        "floorPx": 28,
+        "seconds": 1.015,
+        "elements": [
+          {
+            "selector": "#im-r4 > span:nth-of-type(4)",
+            "text": "✓ تم الاستيراد",
+            "fontPx": 12.82,
+            "time": 16.621,
+            "seconds": 1.015
+          },
+          {
+            "selector": "#im-r3 > span:nth-of-type(4)",
+            "text": "✓ تم الاستيراد",
+            "fontPx": 19.38,
+            "time": 16.494,
+            "seconds": 1.142
+          },
+          {
+            "selector": "#im-file > div:nth-of-type(1)",
+            "text": "XLSX",
+            "fontPx": 21.53,
+            "time": 13.957,
+            "seconds": 1.522
+          },
+          {
+            "selector": "#im-r2 > span:nth-of-type(4)",
+            "text": "✓ تم الاستيراد",
+            "fontPx": 23.96,
+            "time": 16.367,
+            "seconds": 1.269
+          },
+          {
+            "selector": "#im-r0 > span:nth-of-type(1)",
+            "text": "رقم الفاتورة",
+            "fontPx": 26,
+            "time": 15.606,
+            "seconds": 2.03
+          },
+          {
+            "selector": "#im-r0 > span:nth-of-type(2)",
+            "text": "العميل",
+            "fontPx": 26,
+            "time": 15.606,
+            "seconds": 2.03
+          },
+          {
+            "selector": "#im-r0 > span:nth-of-type(3)",
+            "text": "المبلغ (AED)",
+            "fontPx": 26,
+            "time": 15.606,
+            "seconds": 2.03
+          },
+          {
+            "selector": "#im-r0 > span:nth-of-type(4)",
+            "text": "الحالة",
+            "fontPx": 26,
+            "time": 15.606,
+            "seconds": 2.03
+          },
+          {
+            "selector": "#im-r1 > span:nth-of-type(4)",
+            "text": "✓ تم الاستيراد",
+            "fontPx": 26,
+            "time": 15.987,
+            "seconds": 1.649
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"تذكير ودّي: الفاتورة CH-2443 تستحق في 2026-07-12\" (10 words) is on screen 2.30 s (±0.01 s), under its 2.63 s floor: hold it about 0.5 s + 0.3 s a word (3.50 s here) before it leaves or changes; see references/motion.md.",
+        "text": "تذكير ودّي: الفاتورة CH-2443 تستحق في 2026-07-12",
+        "selector": "div.rtl > h4:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/email.html",
+        "bbox": {
+          "x": 737.97,
+          "y": 666.04,
+          "width": 826.03,
+          "height": 57
+        },
+        "time": 23.504,
+        "words": 10,
+        "seconds": 2.3,
+        "floorSeconds": 2.625,
+        "measured": [
+          {
+            "time": 23.219,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 23.346,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 23.472,
+            "opacity": 0.4,
+            "heightPx": 57
+          },
+          {
+            "time": 23.599,
+            "opacity": 0.76,
+            "heightPx": 57
+          },
+          {
+            "time": 23.726,
+            "opacity": 0.96,
+            "heightPx": 57
+          },
+          {
+            "time": 23.853,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 23.98,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 25.376,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 25.503,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 25.629,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 25.756,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 25.883,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 26.01,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 26.137,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"نود تذكيركم بأن الفاتورة رقم CH-2443 بمبلغ 11,500.00 AED ...\" (18 words) is on screen 2.30 s (±0.01 s), under its 4.42 s floor: hold it about 0.5 s + 0.3 s a word (5.90 s here) before it leaves or changes; see references/motion.md.",
+        "text": "نود تذكيركم بأن الفاتورة رقم CH-2443 بمبلغ 11,500.00 AED تستحق السداد بتاريخ 2026-07-12.",
+        "selector": "div.rtl > p:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/email.html",
+        "bbox": {
+          "x": 400.28,
+          "y": 804.52,
+          "width": 1163.72,
+          "height": 99.19000000000005
+        },
+        "time": 23.504,
+        "words": 18,
+        "seconds": 2.3,
+        "floorSeconds": 4.425,
+        "measured": [
+          {
+            "time": 23.219,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 23.346,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 23.472,
+            "opacity": 0.4,
+            "heightPx": 99
+          },
+          {
+            "time": 23.599,
+            "opacity": 0.76,
+            "heightPx": 99
+          },
+          {
+            "time": 23.726,
+            "opacity": 0.96,
+            "heightPx": 99
+          },
+          {
+            "time": 23.853,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 23.98,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 25.376,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 25.503,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 25.629,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 25.756,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 25.883,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 26.01,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 26.137,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 7 text elements stay under it for 0.5 s or more, the smallest \"to: accounts@pearl-beauty-lounge.ae\" at 24 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "to: accounts@pearl-beauty-lounge.ae",
+        "selector": "div.to",
+        "dataAttributes": {},
+        "sourceFile": "compositions/email.html",
+        "bbox": {
+          "x": 1079.72,
+          "y": 578.54,
+          "width": 406.28,
+          "height": 36
+        },
+        "time": 23.599,
+        "times": [
+          22.077,
+          22.584,
+          22.965,
+          23.346,
+          23.599,
+          23.726,
+          24.107
+        ],
+        "fontPx": 24,
+        "floorPx": 28,
+        "seconds": 5.456,
+        "elements": [
+          {
+            "selector": "div.to",
+            "text": "to: accounts@pearl-beauty-lounge.ae",
+            "fontPx": 24,
+            "time": 23.599,
+            "seconds": 5.456
+          },
+          {
+            "selector": "#em-n1 > div:nth-of-type(3)",
+            "text": "09:00 ✓",
+            "fontPx": 26,
+            "time": 22.077,
+            "seconds": 6.978
+          },
+          {
+            "selector": "#em-n2 > div:nth-of-type(3)",
+            "text": "09:00 ✓",
+            "fontPx": 26,
+            "time": 22.584,
+            "seconds": 6.471
+          },
+          {
+            "selector": "#em-n3 > div:nth-of-type(3)",
+            "text": "09:00 ✓",
+            "fontPx": 26,
+            "time": 22.965,
+            "seconds": 6.09
+          },
+          {
+            "selector": "#em-n4 > div:nth-of-type(3)",
+            "text": "09:00 ✓",
+            "fontPx": 26,
+            "time": 23.346,
+            "seconds": 5.709
+          },
+          {
+            "selector": "#em-n5 > div:nth-of-type(3)",
+            "text": "09:00 ✓",
+            "fontPx": 26,
+            "time": 23.726,
+            "seconds": 5.329
+          },
+          {
+            "selector": "#em-n6 > div:nth-of-type(3)",
+            "text": "09:00 ✓",
+            "fontPx": 26,
+            "time": 24.107,
+            "seconds": 4.948
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"This is a friendly reminder that invoice CH-2443 for 11,5...\" (20 words) is on screen 3.04 s (±0.01 s), under its 4.88 s floor: hold it about 0.5 s + 0.3 s a word (6.50 s here) before it leaves or changes; see references/motion.md.",
+        "text": "This is a friendly reminder that invoice CH-2443 for 11,500.00 AED is due on 2026-07-12.",
+        "selector": "div.ltr > p:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/email.html",
+        "bbox": {
+          "x": 356,
+          "y": 771.48,
+          "width": 1192.88,
+          "height": 99.19000000000005
+        },
+        "time": 25.97,
+        "words": 20,
+        "seconds": 3.037,
+        "floorSeconds": 4.875,
+        "measured": [
+          {
+            "time": 25.629,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 25.756,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 25.883,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 26.01,
+            "opacity": 0.75,
+            "heightPx": 99
+          },
+          {
+            "time": 26.137,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 26.264,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 26.391,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 28.548,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 28.674,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 28.801,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 28.928,
+            "opacity": 1,
+            "heightPx": 99
+          },
+          {
+            "time": 29.055,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 29.182,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 29.309,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"مرحباً Pearl Beauty Lounge، الفاتورة CH-2443 بمبلغ 7,130....\" (24 words) is on screen 3.77 s (±0.01 s), under its 5.77 s floor: hold it about 0.5 s + 0.3 s a word (7.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "مرحباً Pearl Beauty Lounge، الفاتورة CH-2443 بمبلغ 7,130.00 AED متأخرة 120 يوم. نرجو ترتيب السداد أو التواصل معنا. Creative Hub Marketing",
+        "selector": "#wa-input",
+        "dataAttributes": {},
+        "sourceFile": "compositions/whatsapp.html",
+        "bbox": {
+          "x": 334.55,
+          "y": 845.73,
+          "width": 1457.44,
+          "height": 112.36000000000001
+        },
+        "time": 30.839,
+        "words": 24,
+        "seconds": 3.767,
+        "floorSeconds": 5.775,
+        "measured": [
+          {
+            "time": 30.578,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 30.705,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 30.831,
+            "opacity": 0.42,
+            "heightPx": 115
+          },
+          {
+            "time": 30.958,
+            "opacity": 0.94,
+            "heightPx": 112
+          },
+          {
+            "time": 31.085,
+            "opacity": 1,
+            "heightPx": 112
+          },
+          {
+            "time": 31.212,
+            "opacity": 1,
+            "heightPx": 112
+          },
+          {
+            "time": 31.339,
+            "opacity": 1,
+            "heightPx": 112
+          },
+          {
+            "time": 34.13,
+            "opacity": 1,
+            "heightPx": 112
+          },
+          {
+            "time": 34.257,
+            "opacity": 1,
+            "heightPx": 112
+          },
+          {
+            "time": 34.384,
+            "opacity": 1,
+            "heightPx": 112
+          },
+          {
+            "time": 34.511,
+            "opacity": 1,
+            "heightPx": 112
+          },
+          {
+            "time": 34.638,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 34.765,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 34.891,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"مرحباً Pearl Beauty Lounge، الفاتورة CH-2443 بمبلغ 7,130....\" (26 words) is on screen 2.57 s (±0.01 s), under its 6.23 s floor: hold it about 0.5 s + 0.3 s a word (8.30 s here) before it leaves or changes; see references/motion.md.",
+        "text": "مرحباً Pearl Beauty Lounge، الفاتورة CH-2443 بمبلغ 7,130.00 AED متأخرة 120 يوم. نرجو ترتيب السداد أو التواصل معنا. Creative Hub Marketing 09:41 ✓✓",
+        "selector": "#wa-bubble",
+        "dataAttributes": {},
+        "sourceFile": "compositions/whatsapp.html",
+        "bbox": {
+          "x": 173.43,
+          "y": 597.47,
+          "width": 1203.86,
+          "height": 111.63
+        },
+        "time": 32.037,
+        "words": 26,
+        "seconds": 2.57,
+        "floorSeconds": 6.225,
+        "measured": [
+          {
+            "time": 31.72,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 31.846,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 31.973,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 32.1,
+            "opacity": 0.79,
+            "heightPx": 112
+          },
+          {
+            "time": 32.227,
+            "opacity": 0.97,
+            "heightPx": 114
+          },
+          {
+            "time": 32.354,
+            "opacity": 1,
+            "heightPx": 114
+          },
+          {
+            "time": 32.481,
+            "opacity": 1,
+            "heightPx": 114
+          },
+          {
+            "time": 34.13,
+            "opacity": 1,
+            "heightPx": 114
+          },
+          {
+            "time": 34.257,
+            "opacity": 1,
+            "heightPx": 114
+          },
+          {
+            "time": 34.384,
+            "opacity": 1,
+            "heightPx": 114
+          },
+          {
+            "time": 34.511,
+            "opacity": 1,
+            "heightPx": 114
+          },
+          {
+            "time": 34.638,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 34.765,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 34.891,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"09:41\" renders at 25 px for 2.54 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "09:41",
+        "selector": "#wa-bubble > span:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/whatsapp.html",
+        "bbox": {
+          "x": 1264.59,
+          "y": 709.1,
+          "width": 74.56,
+          "height": 38.19
+        },
+        "time": 32.1,
+        "times": [
+          32.1
+        ],
+        "fontPx": 25.46,
+        "floorPx": 28,
+        "seconds": 2.538,
+        "elements": [
+          {
+            "selector": "#wa-bubble > span:nth-of-type(2)",
+            "text": "09:41",
+            "fontPx": 25.46,
+            "time": 32.1,
+            "seconds": 2.538
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 18 text elements stay under it for 0.5 s or more, the smallest \"مُرسل\" at 22 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "مُرسل",
+        "selector": "#tm-l5 > div:nth-of-type(2) > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/team.html",
+        "bbox": {
+          "x": 348.38,
+          "y": 935.55,
+          "width": 51.55,
+          "height": 33
+        },
+        "time": 44.661,
+        "times": [
+          43.139,
+          43.139,
+          43.139,
+          44.661,
+          44.661,
+          44.661,
+          44.788,
+          44.788,
+          44.788,
+          44.915,
+          44.915,
+          44.915,
+          45.042,
+          45.042,
+          45.042,
+          45.169,
+          45.169,
+          45.169
+        ],
+        "fontPx": 22,
+        "floorPx": 28,
+        "seconds": 2.665,
+        "elements": [
+          {
+            "selector": "#tm-l5 > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "مُرسل",
+            "fontPx": 22,
+            "time": 44.661,
+            "seconds": 2.665
+          },
+          {
+            "selector": "#tm-l4 > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "مُرسل",
+            "fontPx": 22,
+            "time": 44.788,
+            "seconds": 2.538
+          },
+          {
+            "selector": "#tm-l3 > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "مُرسل",
+            "fontPx": 22,
+            "time": 44.915,
+            "seconds": 2.411
+          },
+          {
+            "selector": "#tm-l2 > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "مُرسل",
+            "fontPx": 22,
+            "time": 45.042,
+            "seconds": 2.284
+          },
+          {
+            "selector": "#tm-l1 > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "مُرسل",
+            "fontPx": 22,
+            "time": 45.169,
+            "seconds": 2.157
+          },
+          {
+            "selector": "#tm-l5 > div:nth-of-type(2)",
+            "text": "2026-07-09",
+            "fontPx": 24,
+            "time": 44.661,
+            "seconds": 2.665
+          },
+          {
+            "selector": "#tm-l4 > div:nth-of-type(2)",
+            "text": "2026-07-12",
+            "fontPx": 24,
+            "time": 44.788,
+            "seconds": 2.538
+          },
+          {
+            "selector": "#tm-l3 > div:nth-of-type(2)",
+            "text": "2026-08-11",
+            "fontPx": 24,
+            "time": 44.915,
+            "seconds": 2.411
+          },
+          {
+            "selector": "#tm-l2 > div:nth-of-type(2)",
+            "text": "2026-10-28",
+            "fontPx": 24,
+            "time": 45.042,
+            "seconds": 2.284
+          },
+          {
+            "selector": "#tm-l1 > div:nth-of-type(2)",
+            "text": "2026-10-28",
+            "fontPx": 24,
+            "time": 45.169,
+            "seconds": 2.157
+          },
+          {
+            "selector": "#tm-m1 > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "owner@demo.test",
+            "fontPx": 26,
+            "time": 43.139,
+            "seconds": 4.187
+          },
+          {
+            "selector": "#tm-m2 > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "manager@demo.test",
+            "fontPx": 26,
+            "time": 43.139,
+            "seconds": 4.187
+          },
+          {
+            "selector": "#tm-m3 > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "accounts@demo.test",
+            "fontPx": 26,
+            "time": 43.139,
+            "seconds": 4.187
+          },
+          {
+            "selector": "#tm-l5 > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "· بريد · آلي",
+            "fontPx": 26,
+            "time": 44.661,
+            "seconds": 2.665
+          },
+          {
+            "selector": "#tm-l4 > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "· بريد · آلي",
+            "fontPx": 26,
+            "time": 44.788,
+            "seconds": 2.538
+          },
+          {
+            "selector": "#tm-l3 > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "· بريد · آلي",
+            "fontPx": 26,
+            "time": 44.915,
+            "seconds": 2.411
+          },
+          {
+            "selector": "#tm-l2 > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "· بريد · آلي",
+            "fontPx": 26,
+            "time": 45.042,
+            "seconds": 2.284
+          },
+          {
+            "selector": "#tm-l1 > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "· بريد · سارة المنصوري",
+            "fontPx": 26,
+            "time": 45.169,
+            "seconds": 2.157
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"أنت في الحساب التجريبي — بيانات وهمية لتجرّب كل شيء\" (9 words) is on screen 1.63 s (±0.01 s), under its 2.40 s floor: hold it about 0.5 s + 0.3 s a word (3.20 s here) before it leaves or changes; see references/motion.md.",
+        "text": "أنت في الحساب التجريبي — بيانات وهمية لتجرّب كل شيء",
+        "selector": "#dm-banner",
+        "dataAttributes": {},
+        "sourceFile": "compositions/demo.html",
+        "bbox": {
+          "x": 538.91,
+          "y": 0,
+          "width": 842.2000000000002,
+          "height": 53.37
+        },
+        "time": 49.173,
+        "words": 9,
+        "seconds": 1.633,
+        "floorSeconds": 2.4,
+        "measured": [
+          {
+            "time": 48.848,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 48.975,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 49.102,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 49.229,
+            "opacity": 1,
+            "heightPx": 53
+          },
+          {
+            "time": 49.356,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 49.482,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 49.609,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 50.371,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 50.497,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 50.624,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 50.751,
+            "opacity": 1,
+            "heightPx": 57
+          },
+          {
+            "time": 50.878,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 51.005,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 51.132,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 5 text elements stay under it for 0.5 s or more, the smallest \"10:16\" at 22 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "10:16",
+        "selector": "#su-r1 > span:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/setup.html",
+        "bbox": {
+          "x": 1732.6,
+          "y": 506.23,
+          "width": 60.39,
+          "height": 33.65
+        },
+        "time": 52.274,
+        "times": [
+          51.259,
+          51.259,
+          51.259,
+          52.274,
+          53.289
+        ],
+        "fontPx": 22.43,
+        "floorPx": 28,
+        "seconds": 4.314,
+        "elements": [
+          {
+            "selector": "#su-r1 > span:nth-of-type(2)",
+            "text": "10:16",
+            "fontPx": 22.43,
+            "time": 52.274,
+            "seconds": 4.314
+          },
+          {
+            "selector": "#su-r2 > span:nth-of-type(2)",
+            "text": "اليوم التالي · 11:30",
+            "fontPx": 22.43,
+            "time": 53.289,
+            "seconds": 3.299
+          },
+          {
+            "selector": "div.fr > div:nth-of-type(1)",
+            "text": "XLSX",
+            "fontPx": 23.82,
+            "time": 51.259,
+            "seconds": 5.329
+          },
+          {
+            "selector": "div.fs",
+            "text": "Excel",
+            "fontPx": 25.81,
+            "time": 51.259,
+            "seconds": 5.329
+          },
+          {
+            "selector": "#su-file > span:nth-of-type(1)",
+            "text": "10:14",
+            "fontPx": 25.81,
+            "time": 51.259,
+            "seconds": 5.329
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"لكل شركة تشترك عن طريق رابطك، تحصل على 30 يوماً مجاناً.\" (11 words) is on screen 2.73 s (±0.01 s), under its 2.85 s floor: hold it about 0.5 s + 0.3 s a word (3.80 s here) before it leaves or changes; see references/motion.md.",
+        "text": "لكل شركة تشترك عن طريق رابطك، تحصل على 30 يوماً مجاناً.",
+        "selector": "#tl-card > p:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tools.html",
+        "bbox": {
+          "x": 0,
+          "y": 362,
+          "width": 630,
+          "height": 51
+        },
+        "time": 59.474,
+        "words": 11,
+        "seconds": 2.728,
+        "floorSeconds": 2.85,
+        "measured": [
+          {
+            "time": 59.125,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 59.252,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 59.379,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 59.506,
+            "opacity": 1,
+            "heightPx": 51
+          },
+          {
+            "time": 59.633,
+            "opacity": 1,
+            "heightPx": 51
+          },
+          {
+            "time": 59.76,
+            "opacity": 1,
+            "heightPx": 51
+          },
+          {
+            "time": 59.886,
+            "opacity": 1,
+            "heightPx": 51
+          },
+          {
+            "time": 61.79,
+            "opacity": 1,
+            "heightPx": 51
+          },
+          {
+            "time": 61.917,
+            "opacity": 1,
+            "heightPx": 51
+          },
+          {
+            "time": 62.043,
+            "opacity": 1,
+            "heightPx": 51
+          },
+          {
+            "time": 62.17,
+            "opacity": 1,
+            "heightPx": 51
+          },
+          {
+            "time": 62.297,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 62.424,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 62.551,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.1269999999999989,
+    "samples": 599
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

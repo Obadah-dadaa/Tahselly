@@ -128,7 +128,8 @@ class GrowthFeaturesTest extends TestCase
         config(['tahselly.edition' => 'beta', 'tahselly.live_url' => 'https://live.test']);
         Http::fake(['live.test/founding-offer.json' => Http::response(['open' => true, 'percent' => 50, 'seats' => 20, 'left' => 17])]);
 
-        $this->get('/')->assertOk()->assertSee('باقي 17 مكاناً')->assertSee('id="free"', false)->assertSee('id="integrations"', false);
+        $this->get('/?lang=ar')->assertOk()->assertSee('باقي 17 مكاناً')->assertSee('id="free"', false)->assertSee('id="integrations"', false)
+            ->assertSee('tahselly-promo-v2-ar.mp4', false);
         $this->assertSame(0, FoundingOffer::discountFor(null)); // nothing is sold on the beta
 
         $referrer = Company::factory()->create(['status' => 'trial', 'trial_ends_at' => today()->addDays(5), 'referral_code' => 'ABCDEFGH']);

@@ -1,0 +1,84 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: rtl; font-family: "Plex Arabic"; background: #ffffff; }
+    .k { color: #0f766e; }
+    #em-t { position: absolute; inset-inline-start: 140px; top: 62px; font-size: 84px; font-weight: 700; color: #0b1220; line-height: 1.3; white-space: nowrap; }
+    #em-tl { position: absolute; left: 140px; right: 140px; top: 250px; height: 190px; }
+    #em-base, #em-fill { position: absolute; top: 30px; inset-inline-start: 100px; inset-inline-end: 100px; height: 10px; border-radius: 10px; background: #e2e8f0; }
+    #em-fill { background: #14b8a6; transform-origin: 100% 50%; }
+    #em-nodes { position: absolute; inset: 0; display: flex; justify-content: space-between; }
+    .nd { width: 220px; display: flex; flex-direction: column; align-items: center; }
+    .nd .dot { width: 70px; height: 70px; border-radius: 50%; background: #ffffff; border: 6px solid #cbd5e1; display: grid; place-items: center; }
+    .nd .dot svg { opacity: 0; }
+    .nd .l { margin-top: 14px; font-size: 32px; font-weight: 700; color: #0b1220; white-space: nowrap; }
+    .nd .s { margin-top: 2px; font-size: 28px; font-weight: 600; color: #0f766e; direction: ltr; opacity: 0; }
+    .nd.last .l { color: #be123c; }
+    #em-card { position: absolute; left: 300px; right: 300px; top: 480px; height: 560px; background: #ffffff; border: 2px solid #e2e8f0; border-radius: 28px; box-shadow: 0 30px 60px rgba(15,23,42,.12); overflow: hidden; }
+    #em-card .top { height: 120px; border-bottom: 2px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; }
+    #em-card .from { display: flex; align-items: center; gap: 20px; }
+    #em-card .av { width: 68px; height: 68px; border-radius: 50%; background: #0f766e; color: #fff; font-size: 28px; font-weight: 700; display: grid; place-items: center; direction: ltr; }
+    #em-card .fn { font-size: 30px; font-weight: 700; color: #0b1220; direction: ltr; }
+    #em-card .to { font-size: 28px; color: #64748b; direction: ltr; text-align: start; }
+    #em-tog { position: relative; width: 340px; height: 72px; border-radius: 18px; background: #f1f5f9; display: flex; direction: ltr; }
+    #em-knob { position: absolute; top: 6px; left: 6px; width: 164px; height: 60px; border-radius: 14px; background: #ffffff; box-shadow: 0 4px 10px rgba(15,23,42,.12); }
+    #em-tog span { position: relative; flex: 1; display: grid; place-items: center; font-size: 28px; font-weight: 700; color: #334155; }
+    .msg { position: absolute; opacity: 1; top: 120px; left: 0; right: 0; bottom: 0; padding: 34px 54px; }
+    .msg h4 { font-size: 38px; font-weight: 700; color: #0b1220; margin-bottom: 20px; line-height: 1.35; }
+    .msg p { font-size: 32px; color: #334155; line-height: 1.6; margin-bottom: 12px; }
+    .msg .ltr { direction: ltr; text-align: left; }
+    .msg .rtl { direction: rtl; text-align: right; }
+    .msg bdi { white-space: nowrap; }
+    .cur { position: absolute; left: 0; top: 0; width: 84px; height: 84px; z-index: 20; }
+  </style>
+  <div id="root" data-composition-id="email" data-width="1920" data-height="1080">
+    <div id="em-t" class="clip" data-start="0" data-duration="7.5">تذكيرات بالبريد… <span class="k">وحدها</span></div>
+    <div id="em-tl" class="clip" data-start="0" data-duration="7.5">
+      <div id="em-base"></div><div id="em-fill"></div>
+      <div id="em-nodes">
+        <div class="nd" id="em-n1"><div class="dot"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div><div class="l">قبل 3 أيام</div><div class="s">09:00 ✓</div></div>
+        <div class="nd" id="em-n2"><div class="dot"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div><div class="l">يوم الاستحقاق</div><div class="s">09:00 ✓</div></div>
+        <div class="nd" id="em-n3"><div class="dot"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div><div class="l">بعد 7 أيام</div><div class="s">09:00 ✓</div></div>
+        <div class="nd" id="em-n4"><div class="dot"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div><div class="l">بعد 14 يوماً</div><div class="s">09:00 ✓</div></div>
+        <div class="nd" id="em-n5"><div class="dot"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div><div class="l">بعد 30 يوماً</div><div class="s">09:00 ✓</div></div>
+        <div class="nd last" id="em-n6"><div class="dot"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div><div class="l">إشعار نهائي</div><div class="s">09:00 ✓</div></div>
+      </div>
+    </div>
+    <div id="em-card" class="clip" data-start="1.9" data-duration="5.6">
+      <div class="top">
+        <div class="from"><div class="av">CH</div><div><div class="fn">Creative Hub Marketing</div><div class="to">to: accounts@pearl-beauty-lounge.ae</div></div></div>
+        <div id="em-tog"><div id="em-knob"></div><span>العربية</span><span>English</span></div>
+      </div>
+      <div class="msg" id="em-a"><div class="rtl"><h4>تذكير ودّي: الفاتورة CH-2443 تستحق في <bdi dir="ltr">2026-07-12</bdi></h4><p>مرحباً Pearl Beauty Lounge،</p><p>نود تذكيركم بأن الفاتورة رقم CH-2443 بمبلغ 11,500.00 AED تستحق السداد بتاريخ <bdi dir="ltr">2026-07-12</bdi>.</p><p>مع التحية، Creative Hub Marketing</p></div></div>
+      <div class="msg" id="em-b"><div class="ltr"><h4>Friendly reminder: invoice CH-2443 is due on 2026-07-12</h4><p>Hello Pearl Beauty Lounge,</p><p>This is a friendly reminder that invoice CH-2443 for 11,500.00 AED is due on 2026-07-12.</p><p>Kind regards, Creative Hub Marketing</p></div></div>
+    </div>
+    <svg id="em-cur" class="cur clip" data-start="3.4" data-duration="4.1" viewBox="0 0 24 24"><path d="M3 2l17 10-7.5 1.6L9 21z" fill="#ffffff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const S = -1;
+    tl.fromTo("#em-t", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 0.1);
+    tl.fromTo("#em-fill", { scaleX: 0 }, { scaleX: 1, duration: 2.0, ease: "none" }, 0.35);
+    ["#em-n1", "#em-n2", "#em-n3", "#em-n4", "#em-n5", "#em-n6"].forEach((id, i) => {
+      const t = 0.35 + i * 0.4;
+      tl.fromTo(id + " .dot", { scale: 0.8, backgroundColor: "#ffffff", borderColor: "#cbd5e1" }, { scale: 1, backgroundColor: i === 5 ? "#e11d48" : "#14b8a6", borderColor: i === 5 ? "#e11d48" : "#14b8a6", duration: 0.3, ease: "back.out(2)" }, t);
+      tl.fromTo(id + " .dot svg", { opacity: 0 }, { opacity: 1, duration: 0.15 }, t + 0.1);
+      tl.fromTo(id + " .s", { opacity: 0 }, { opacity: 1, duration: 0.2 }, t + 0.15);
+    });
+    // the email itself
+    tl.fromTo("#em-card", { y: 140, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 1.9);
+    // the cursor flips the language toggle: same reminder, other language
+    const KX = S > 0 ? 1488 : 596, KY = 545;
+    tl.fromTo("#em-cur", { x: KX + 300 * S, y: 1150 }, { x: KX, y: KY, duration: 0.7, ease: "power2.out" }, 4.0);
+    tl.fromTo("#em-knob", { x: 0 }, { x: 164, duration: 0.3, ease: "power3.inOut" }, 4.85);
+    tl.to("#em-a", { opacity: 0, filter: "blur(6px)", duration: 0.15 }, 4.85);
+    tl.fromTo("#em-b", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 5.0);
+    tl.to("#em-cur", { x: KX + 120 * S, y: KY + 260, duration: 0.6, ease: "power2.inOut" }, 5.4);
+    window.__timelines["email"] = tl;
+  </script>
+</template>

@@ -1,0 +1,48 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #fef3c7; }
+    #fd-field { position: absolute; inset: 0; background: #fef3c7; }
+    #fd-lbl { position: absolute; left: 0; right: 0; top: 110px; text-align: center; }
+    #fd-lbl span { display: inline-block; font-size: 46px; font-weight: 700; color: #92400e; background: #fde68a; border-radius: 999px; padding: 6px 40px 12px; }
+    #fd-num { position: absolute; left: 0; right: 0; top: 200px; text-align: center; direction: ltr; font-size: 400px; font-weight: 700; color: #0b1220; line-height: 1.05; font-variant-numeric: tabular-nums; }
+    #fd-num small { font-size: 220px; color: #d97706; }
+    #fd-t { position: absolute; left: 0; right: 0; top: 640px; text-align: center; font-size: 100px; font-weight: 700; color: #b45309; line-height: 1.25; }
+    #fd-seats { position: absolute; left: 0; right: 0; top: 840px; display: flex; justify-content: center; gap: 14px; }
+    .seat { width: 52px; height: 52px; border-radius: 12px; background: #ffffff; border: 4px solid #fcd34d; }
+    #fd-cap { position: absolute; left: 0; right: 0; top: 920px; text-align: center; font-size: 40px; font-weight: 600; color: #78350f; }
+  </style>
+  <div id="root" data-composition-id="founding" data-width="1920" data-height="1080">
+    <div id="fd-field" class="clip" data-start="0" data-duration="5.4"></div>
+    <div id="fd-lbl" class="clip" data-start="0" data-duration="5.4"><span>Founding customers</span></div>
+    <div id="fd-num" class="clip" data-start="0" data-duration="5.4"><span id="fd-val">0</span><small>%</small></div>
+    <div id="fd-t" class="clip" data-start="0" data-duration="5.4">off — for life</div>
+    <div id="fd-seats" class="clip" data-start="0" data-duration="5.4">
+      <div class="seat"></div><div class="seat"></div><div class="seat"></div><div class="seat"></div><div class="seat"></div>
+      <div class="seat"></div><div class="seat"></div><div class="seat"></div><div class="seat"></div><div class="seat"></div>
+      <div class="seat"></div><div class="seat"></div><div class="seat"></div><div class="seat"></div><div class="seat"></div>
+      <div class="seat"></div><div class="seat"></div><div class="seat"></div><div class="seat"></div><div class="seat"></div>
+    </div>
+    <div id="fd-cap" class="clip" data-start="0" data-duration="5.4">Only for the first 20 companies to subscribe — kept on every renewal</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const S = 1;
+    tl.fromTo("#fd-field", { clipPath: "circle(0% at 50% 45%)" }, { clipPath: "circle(80% at 50% 45%)", duration: 0.45, ease: "power3.inOut" }, 0);
+    tl.fromTo("#fd-lbl span", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0.25);
+    const o = { v: 0 };
+    tl.fromTo(o, { v: 0 }, { v: 50, duration: 1.0, ease: "power3.out", onUpdate: () => { document.getElementById("fd-val").textContent = Math.round(o.v); } }, 0.35);
+    tl.fromTo("#fd-num", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.0, ease: "power3.out" }, 0.35);
+    tl.fromTo("#fd-t", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 1.5);
+    gsap.utils.toArray("#fd-seats .seat").forEach((el, i) => {
+      tl.fromTo(el, { scale: 0, backgroundColor: "#ffffff" }, { scale: 1, backgroundColor: "#f59e0b", duration: 0.2, ease: "back.out(2)" }, 2.0 + i * 0.045);
+    });
+    tl.fromTo("#fd-cap", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.2);
+    window.__timelines["founding"] = tl;
+  </script>
+</template>

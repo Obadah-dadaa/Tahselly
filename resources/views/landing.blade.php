@@ -3,8 +3,10 @@
     $locale = app()->getLocale();
     $plans = \App\Models\Plan::query()->where('is_active', true)->ordered()->get();
     $beta = \App\Support\Edition::isBeta();
-    // The beta plays its own promo cut (no prices) and skips the tutorial (it walks through billing)
-    $video = $beta ? 'videos/tahselly-promo-beta-'.($locale === 'en' ? 'en' : 'ar').'.mp4' : \App\Models\SystemSetting::get($locale === 'en' ? 'promo_video_en' : 'promo_video_ar');
+    // The beta plays the v2 promo (no prices) and skips the tutorial (it walks through billing)
+    $video = $beta ? 'videos/tahselly-promo-v2-'.($locale === 'en' ? 'en' : 'ar').'.mp4' : \App\Models\SystemSetting::get($locale === 'en' ? 'promo_video_en' : 'promo_video_ar');
+    // The v2 promo (no prices) has its own posters; older videos keep theirs
+    $poster = str_contains((string) $video, 'promo-v2') ? 'videos/poster-v2-'.($locale === 'en' ? 'en' : 'ar').'.jpg' : 'videos/poster-'.($beta ? 'beta-' : '').($locale === 'en' ? 'en' : 'ar').'.jpg';
     $tutorial = $beta ? null : \App\Models\SystemSetting::get('tutorial_video');
     $trialOn = (bool) \App\Models\SystemSetting::get('allow_signups', true);
     // Posters and videos keep their file names when replaced; the file's time in the URL makes browsers fetch the new one
@@ -135,7 +137,7 @@
 <section id="video" class="relative -mt-16 px-6">
     <div class="mx-auto max-w-5xl">
         <button @click="player = 'promo'" class="group relative block w-full overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-20px_rgba(2,6,23,.45)] ring-1 ring-black/5">
-            <img src="{{ $fresh('videos/poster-'.($beta ? 'beta-' : '').($locale === 'en' ? 'en' : 'ar').'.jpg') }}" alt="{{ __('فيديو تعريفي') }}" class="aspect-video w-full object-cover transition duration-700 group-hover:scale-[1.03]">
+            <img src="{{ $fresh($poster) }}" alt="{{ __('فيديو تعريفي') }}" class="aspect-video w-full object-cover transition duration-700 group-hover:scale-[1.03]">
             <span class="absolute inset-0 bg-gradient-to-t from-night/80 via-night/10 to-transparent"></span>
             <span class="absolute inset-0 grid place-items-center">
                 <span class="relative grid size-24 place-items-center rounded-full bg-white/95 text-brand-700 shadow-2xl transition group-hover:scale-110">

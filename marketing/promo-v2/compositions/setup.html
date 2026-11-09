@@ -1,0 +1,51 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: rtl; font-family: "Plex Arabic"; background: #efeae2; }
+    #su-chat { position: absolute; inset: 0; background: #efeae2; }
+    #su-head { position: absolute; top: 0; left: 0; right: 0; height: 150px; background: #008069; color: #fff; display: flex; align-items: center; gap: 30px; padding: 0 90px; }
+    #su-head img { width: 96px; height: 96px; border-radius: 50%; background: #fff; }
+    #su-head .nm { font-size: 46px; font-weight: 700; line-height: 1.2; }
+    #su-head .st { font-size: 30px; opacity: .85; direction: ltr; text-align: start; }
+    .b { position: absolute; padding: 22px 32px 14px; border-radius: 24px; font-size: 48px; line-height: 1.45; color: #111b21; box-shadow: 0 1px 2px rgba(0,0,0,.1); white-space: nowrap; }
+    .b .mt { display: block; text-align: end; font-size: 28px; color: #667781; direction: ltr; }
+    .b .mt b { color: #53bdeb; }
+    .b.out { inset-inline-end: 120px; background: #d9fdd3; }
+    .b.in { inset-inline-start: 120px; background: #ffffff; }
+    #su-file { top: 200px; display: flex; flex-direction: column; gap: 4px; }
+    #su-file .fr { display: flex; align-items: center; gap: 22px; background: #c8f2c0; border-radius: 16px; padding: 18px 26px; direction: ltr; }
+    .xl { width: 88px; height: 88px; border-radius: 16px; background: #107c41; color: #fff; font-size: 28px; font-weight: 700; display: grid; place-items: center; }
+    #su-file .fn { font-size: 42px; font-weight: 600; }
+    #su-file .fs { font-size: 28px; color: #4b5563; }
+    #su-r1 { top: 440px; }
+    #su-r2 { top: 600px; }
+    #su-r2 .ok { color: #059669; font-weight: 700; }
+    #su-stamp { position: absolute; left: 0; top: 0; background: #0f766e; color: #fff; border-radius: 30px; padding: 26px 60px 34px; box-shadow: 0 30px 60px rgba(4,47,46,.35); text-align: center; white-space: nowrap; }
+    #su-stamp .a { font-size: 80px; font-weight: 700; line-height: 1.5; }
+    #su-stamp .c { font-size: 42px; font-weight: 600; color: #ccfbf1; }
+  </style>
+  <div id="root" data-composition-id="setup" data-width="1920" data-height="1080">
+    <div id="su-chat" class="clip" data-start="0" data-duration="5.7">
+      <div id="su-head"><img src="assets/mark.png" alt="Tahselly" /><div><div class="nm">تحصيلي</div><div class="st">+971 56 864 0530</div></div></div>
+      <div class="b out" id="su-file"><div class="fr"><div class="xl">XLSX</div><div><div class="fn">فواتير-مفتوحة.xlsx</div><div class="fs">Excel</div></div></div><span class="mt">10:14 <b>✓✓</b></span></div>
+      <div class="b in" id="su-r1"><span>وصل الملف، نجهّز حسابك الآن</span><span class="mt">10:16</span></div>
+      <div class="b in" id="su-r2"><span><span class="ok">✓</span> حسابك جاهز — التذكيرات تبدأ صباح الغد</span><span class="mt">اليوم التالي · 11:30</span></div>
+    </div>
+    <div id="su-stamp-c" class="clip" data-start="3.1" data-duration="2.6"><div id="su-stamp" data-layout-allow-overlap><div class="a">إعداد مجاني بالكامل</div><div class="c">أرسل ملفك… وحسابك جاهز خلال يوم عمل</div></div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const S = -1;
+    tl.fromTo("#su-chat", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0);
+    tl.fromTo("#su-file", { opacity: 0, scale: 0.6, x: 60 * S, transformOrigin: S > 0 ? "100% 100%" : "0% 100%" }, { opacity: 1, scale: 1, x: 0, duration: 0.35, ease: "back.out(1.5)" }, 0.3);
+    tl.fromTo("#su-r1", { opacity: 0, scale: 0.6, x: -60 * S, transformOrigin: S > 0 ? "0% 100%" : "100% 100%" }, { opacity: 1, scale: 1, x: 0, duration: 0.35, ease: "back.out(1.5)" }, 1.4);
+    tl.fromTo("#su-r2", { opacity: 0, scale: 0.6, x: -60 * S, transformOrigin: S > 0 ? "0% 100%" : "100% 100%" }, { opacity: 1, scale: 1, x: 0, duration: 0.35, ease: "back.out(1.5)" }, 2.4);
+    tl.fromTo("#su-stamp", { x: 960, y: 805, xPercent: -50, scale: 1.6, rotation: -8, opacity: 0 }, { x: 960, y: 805, xPercent: -50, scale: 1, rotation: -3, opacity: 1, duration: 0.35, ease: "back.out(1.5)" }, 3.1);
+    window.__timelines["setup"] = tl;
+  </script>
+</template>

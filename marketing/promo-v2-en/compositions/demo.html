@@ -1,0 +1,44 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #0b1220; }
+    #dm-stage { position: absolute; inset: 0; background: #0b1220; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 70px; }
+    #dm-h { font-size: 150px; font-weight: 700; color: #ffffff; line-height: 1.2; }
+    #dm-h b { color: #2dd4bf; }
+    #dm-btn { display: flex; align-items: center; gap: 22px; background: #ffffff; color: #0b1220; font-size: 56px; font-weight: 700; padding: 30px 70px 38px; border-radius: 28px; }
+    #dm-app { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; }
+    #dm-shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; }
+    #dm-banner { position: absolute; left: 0; right: 0; top: 0; height: 110px; background: #fef3c7; border-bottom: 3px solid #fcd34d; color: #92400e; font-size: 38px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 20px; }
+    .cur { position: absolute; left: 0; top: 0; width: 84px; height: 84px; z-index: 20; }
+  </style>
+  <div id="root" data-composition-id="demo" data-width="1920" data-height="1080">
+    <div id="dm-stage" class="clip" data-start="0" data-duration="1.7">
+      <div id="dm-h">Live demo. <b>Right now.</b></div>
+      <div id="dm-btn"><svg width="56" height="56" viewBox="0 0 24 24" fill="#0f766e"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Try it now — no sign-up</div>
+    </div>
+    <div id="dm-app" class="clip" data-start="1.15" data-duration="2.35">
+      <img id="dm-shot" src="assets/screens/dashboard.png" alt="demo dashboard" />
+      <div id="dm-banner">You're in the demo account — sample data to try everything</div>
+    </div>
+    <svg id="dm-cur" class="cur clip" data-start="0.2" data-duration="1.3" viewBox="0 0 24 24"><path d="M3 2l17 10-7.5 1.6L9 21z" fill="#ffffff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const S = 1;
+    tl.fromTo("#dm-h", { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, 0);
+    tl.fromTo("#dm-btn", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.15);
+    tl.fromTo("#dm-cur", { x: 960 + 500 * S, y: 1150 }, { x: 990, y: 700, duration: 0.6, ease: "power2.out" }, 0.25);
+    tl.to("#dm-btn", { scale: 0.94, duration: 0.08 }, 0.9);
+    tl.to("#dm-btn", { scale: 1, duration: 0.12 }, 0.98);
+    // the button opens straight into the live demo account
+    tl.fromTo("#dm-app", { clipPath: "circle(0% at 50% 66%)" }, { clipPath: "circle(120% at 50% 66%)", duration: 0.5, ease: "power3.in" }, 1.15);
+    tl.fromTo("#dm-shot", { scale: 1.12 }, { scale: 1, duration: 0.9, ease: "power3.out" }, 1.15);
+    tl.fromTo("#dm-banner", { yPercent: -100 }, { yPercent: 0, duration: 0.35, ease: "power3.out" }, 1.45);
+    window.__timelines["demo"] = tl;
+  </script>
+</template>

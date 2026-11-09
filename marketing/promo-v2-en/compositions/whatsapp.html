@@ -1,0 +1,73 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+    @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF, U+2700-27BF; }
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #ffffff; }
+    .k { color: #0f766e; }
+    #wa-shot-wrap { position: absolute; inset: 0; overflow: hidden; background: #ffffff; }
+    #wa-shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1331px; }
+    #wa-grow { position: absolute; inset: 0; background: #25d366; }
+    #wa-chat { position: absolute; inset: 0; background: #efeae2; }
+    #wa-head { position: absolute; top: 0; left: 0; right: 0; height: 150px; background: #008069; color: #fff; display: flex; align-items: center; gap: 30px; padding: 0 90px; }
+    #wa-head .av { width: 96px; height: 96px; border-radius: 50%; background: #f9a8d4; color: #831843; font-size: 40px; font-weight: 700; display: grid; place-items: center; direction: ltr; }
+    #wa-head .nm { font-size: 46px; font-weight: 700; line-height: 1.2; }
+    #wa-head .st { font-size: 30px; opacity: .85; }
+    #wa-compose { position: absolute; left: 0; right: 0; bottom: 0; height: 300px; background: #f0f2f5; display: flex; align-items: center; gap: 30px; padding: 0 90px; }
+    #wa-input { flex: 1; height: 220px; border-radius: 34px; background: #fff; padding: 26px 40px; font-size: 38px; line-height: 1.45; color: #111b21; }
+    #wa-send { width: 110px; height: 110px; border-radius: 50%; background: #00a884; display: grid; place-items: center; flex: none; }
+    #wa-bubble { position: absolute; inset-inline-end: 120px; bottom: 340px; width: 1320px; padding: 26px 36px 18px; border-radius: 26px; background: #d9fdd3; font-size: 38px; line-height: 1.5; color: #111b21; box-shadow: 0 1px 2px rgba(0,0,0,.1); }
+    #wa-bubble .mt { display: block; text-align: end; font-size: 28px; color: #667781; direction: ltr; }
+    #wa-bubble .mt b { color: #53bdeb; }
+    #wa-t { position: absolute; inset-inline-start: 150px; bottom: 70px; font-size: 84px; font-weight: 700; color: #0b1220; background: #ffffff; padding: 6px 40px 20px; border-radius: 24px; box-shadow: 0 30px 60px rgba(15,23,42,.16); line-height: 1.3; white-space: nowrap; }
+    .old { position: absolute; top: 180px; left: 0; right: 0; display: flex; justify-content: center; }
+    .hk-date { height: 60px; padding: 0 26px; border-radius: 14px; background: #ffffff; color: #54656f; font-size: 30px; font-weight: 600; display: flex; align-items: center; }
+    .ob { position: absolute; inset-inline-end: 120px; height: 110px; display: flex; align-items: center; gap: 26px; padding: 0 30px; border-radius: 22px; background: #d9fdd3; color: #111b21; font-size: 42px; opacity: .55; }
+    .ob .mt { font-size: 28px; color: #667781; direction: ltr; align-self: flex-end; padding-bottom: 12px; }
+    .ob .mt b { color: #53bdeb; }
+    #wa-o2 { top: 200px; }
+    #wa-o3 { top: 330px; }
+    .cur { position: absolute; left: 0; top: 0; width: 84px; height: 84px; z-index: 20; }
+  </style>
+  <div id="root" data-composition-id="whatsapp" data-width="1920" data-height="1080">
+    <div id="wa-shot-wrap" class="clip" data-start="0" data-duration="2.0">
+      <img id="wa-shot" src="assets/screens/invoice-detail.png" alt="invoice" />
+    </div>
+    <div id="wa-grow" class="clip" data-start="1.3" data-duration="1.0"></div>
+    <div id="wa-chat" class="clip" data-start="1.75" data-duration="3.85">
+      <div id="wa-head"><div class="av">PB</div><div><div class="nm">Pearl Beauty Lounge</div><div class="st">WhatsApp</div></div></div>
+      <div class="ob" id="wa-o2"><span>A full month overdue now…</span><span class="mt">11:40 <b>✓✓</b></span></div><div class="ob" id="wa-o3"><span>?</span><span class="mt">16:20 <b>✓✓</b></span></div>
+      <div id="wa-bubble"><span>Hello Pearl Beauty Lounge, invoice CH-2443 for 7,130.00 AED is 120 days overdue. Please arrange payment or get in touch. Creative Hub Marketing</span><span class="mt">09:41 <b>✓✓</b></span></div>
+      <div id="wa-compose"><div id="wa-input">Hello Pearl Beauty Lounge, invoice CH-2443 for 7,130.00 AED is 120 days overdue. Please arrange payment or get in touch. Creative Hub Marketing</div><div id="wa-send"><svg width="54" height="54" viewBox="0 0 24 24" style="transform: scaleX(1)"><path d="M3 20l18-8L3 4v6l12 2-12 2z" fill="#fff"/></svg></div></div>
+      <div id="wa-t">One click. <span class="k">Already written.</span></div>
+    </div>
+    <svg id="wa-cur" class="cur clip" data-start="0.5" data-duration="4.0" viewBox="0 0 24 24"><path d="M3 2l17 10-7.5 1.6L9 21z" fill="#ffffff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const S = 1;
+    const BX = 1372, BY = 138, BW = 224, BH = 43;   // the real "WhatsApp reminder" button in the 1920-wide screenshot
+    const TX = 1220, TY = 300, Z = 2;
+    // push in on the WhatsApp reminder button
+    tl.fromTo("#wa-shot", { scale: 1, x: 0, y: 0, transformOrigin: BX + "px " + BY + "px" }, { scale: Z, x: TX - BX, y: TY - BY, duration: 0.7, ease: "expo.inOut" }, 0.15);
+    tl.fromTo("#wa-cur", { x: TX + 260 * S, y: 1150 }, { x: TX + 10, y: TY + 10, duration: 0.6, ease: "power2.out" }, 0.55);
+    // the button's green becomes the chat
+    const w = BW * Z, h = BH * Z;
+    const ins = (TY - h / 2) + "px " + (1920 - TX - w / 2) + "px " + (1080 - TY - h / 2) + "px " + (TX - w / 2) + "px";
+    tl.fromTo("#wa-grow", { clipPath: "inset(" + ins + " round 18px)" }, { clipPath: "inset(0px 0px 0px 0px round 0px)", duration: 0.45, ease: "power3.in" }, 1.3);
+    tl.fromTo("#wa-chat", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 1.75);
+    // send
+    const SX = S > 0 ? 1775 : 145, SY = 930;
+    tl.to("#wa-cur", { x: SX, y: SY, duration: 0.55, ease: "power2.inOut" }, 2.25);
+    tl.to("#wa-send", { scale: 0.88, duration: 0.08 }, 2.85);
+    tl.to("#wa-send", { scale: 1, duration: 0.15 }, 2.93);
+    tl.fromTo("#wa-input", { color: "#111b21" }, { color: "rgba(17,27,33,0)", duration: 0.12 }, 2.95);
+    tl.fromTo("#wa-bubble", { opacity: 0, y: 120, scale: 0.9, transformOrigin: S > 0 ? "100% 100%" : "0% 100%" }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 2.97);
+    tl.to("#wa-cur", { x: SX - 200 * S, y: 1150, duration: 0.5, ease: "power2.in" }, 3.4);
+    tl.fromTo("#wa-t", { opacity: 0, scale: 1.25, rotation: -4 }, { opacity: 1, scale: 1, rotation: -2, duration: 0.35, ease: "back.out(1.6)" }, 3.45);
+    window.__timelines["whatsapp"] = tl;
+  </script>
+</template>

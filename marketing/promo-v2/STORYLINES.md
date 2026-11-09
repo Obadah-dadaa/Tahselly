@@ -1,0 +1,5 @@
+# Storylines (no-stops run: the recommended one was built)
+
+1. **Same chat, new ending** (BUILT, recommended: the viewer recognises the WhatsApp thread they live in). Device: life before and after; form: object-to-object chain. The film opens in the owner's own WhatsApp thread — four reminders, read, no reply — and every later beat is caused by an object in the previous one (the Excel file, the WhatsApp button whose green becomes the chat, the demo button that irises into the app). The thread returns twice: with the message already written, and with Tahselly replying "your account is ready".
+2. **One invoice's life** — CH-2443 travels from a spreadsheet row through import, the reminder schedule, the WhatsApp nudge, the aging bucket and into "paid"; one continuous camera over a single desk. Rejected: hides the offers (demo, setup, referral, founding) which do not belong to one invoice.
+3. **The number lands** — kinetic type on colour fields cut on the beat around one figure (overdue AED), each feature a hard-cut "minus" on the counter. Rejected: would need result numbers we cannot claim.
