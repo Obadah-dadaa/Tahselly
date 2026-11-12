@@ -5,18 +5,19 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Developer;
 use App\Http\Controllers\EmailVerificationController;
-use App\Http\Controllers\DemoController;
 use App\Http\Controllers\ImportController;
-use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\InterestController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OutreachLinkController;
 use App\Http\Controllers\Owner;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PreferenceController;
+use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StripeWebhookController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TrialController;
 use App\Support\Blog;
 use App\Support\Edition;
+use App\Support\FoundingOffer;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->middleware('track')->name('landing');
@@ -35,9 +37,9 @@ Disallow: /
 '
         : collect(config('tahselly.ai_training_bots'))->map(fn ($bot) => "User-agent: {$bot}
 Disallow: /
-")->implode("
-")."
-".'User-agent: *
+")->implode('
+').'
+'.'User-agent: *
 Allow: /
 Disallow: /owner
 Disallow: /developer
@@ -91,7 +93,7 @@ Route::middleware('guest')->group(function () {
 Route::get('/terms', fn () => view(Edition::isBeta() ? 'legal.beta-terms' : 'legal.terms'))->middleware('track')->name('legal.terms');
 Route::get('/privacy', fn () => view(Edition::isBeta() ? 'legal.beta-privacy' : 'legal.privacy'))->middleware('track')->name('legal.privacy');
 // Founding offer status for the beta site, which shows the offer without selling
-Route::get('/founding-offer.json', fn () => response()->json(App\Support\FoundingOffer::status()))->middleware('throttle:60,1')->name('founding.status');
+Route::get('/founding-offer.json', fn () => response()->json(FoundingOffer::status()))->middleware('throttle:60,1')->name('founding.status');
 // Referral share link: remembers who sent the visitor, then shows the landing page
 Route::get('/r/{code}', [ReferralController::class, 'visit'])->where('code', '[A-Za-z0-9]{6,12}')->middleware('throttle:30,1')->name('referral');
 Route::view('/tools/payment-reminder', 'tools.payment-reminder')->middleware('track')->name('tools.reminder');
@@ -100,8 +102,8 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->where('slug', '[a-z
 Route::post('/interest', [InterestController::class, 'store'])->middleware(['throttle:3,10', 'recaptcha:interest'])->name('interest.store');
 Route::get('/contact', [ContactController::class, 'show'])->middleware('track')->name('contact');
 // Personal links in outreach emails
-Route::get('/go/{ref}', [App\Http\Controllers\OutreachLinkController::class, 'show'])->where('ref', '[a-z0-9-]{2,80}')->name('go');
-Route::get('/go/{ref}/hit', [App\Http\Controllers\OutreachLinkController::class, 'hit'])->where('ref', '[a-z0-9-]{2,80}')->middleware('throttle:20,1')->name('go.hit');
+Route::get('/go/{ref}', [OutreachLinkController::class, 'show'])->where('ref', '[a-z0-9-]{2,80}')->name('go');
+Route::get('/go/{ref}/hit', [OutreachLinkController::class, 'hit'])->where('ref', '[a-z0-9-]{2,80}')->middleware('throttle:20,1')->name('go.hit');
 Route::post('/contact', [ContactController::class, 'store'])->middleware(['throttle:3,10', 'recaptcha:contact'])->name('contact.store');
 
 Route::middleware('guest')->group(function () {
@@ -172,6 +174,12 @@ Route::middleware(['auth', 'verified', 'role:owner'])->prefix('owner')->name('ow
     Route::put('settings/templates', [Owner\SettingsController::class, 'updateTemplates'])->middleware('feature:custom_templates')->name('settings.templates');
     Route::get('activity', [Owner\DashboardController::class, 'activity'])->middleware('feature:activity_log')->name('activity');
     Route::get('referrals', [ReferralController::class, 'index'])->middleware('nodemo')->name('referrals');
+    Route::get('sync', [Owner\SyncController::class, 'index'])->name('sync');
+    Route::put('sync', [Owner\SyncController::class, 'update'])->name('sync.update');
+    Route::put('sync/mapping', [Owner\SyncController::class, 'mapping'])->name('sync.mapping');
+    Route::post('sync/token', [Owner\SyncController::class, 'token'])->name('sync.token');
+    Route::post('sync/upload', [Owner\SyncController::class, 'upload'])->middleware('throttle:20,1')->name('sync.upload');
+    Route::post('sync/runs/{run}/apply', [Owner\SyncController::class, 'apply'])->name('sync.apply');
 });
 
 // Platform area: developer and platform owner see every subscriber

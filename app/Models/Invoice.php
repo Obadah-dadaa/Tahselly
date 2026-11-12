@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['company_id', 'client_id', 'import_batch_id', 'number', 'issue_date', 'due_date', 'amount', 'paid_amount', 'currency', 'status', 'description', 'paid_at', 'last_reminded_at', 'reminders_count', 'reminders_paused'])]
+#[Fillable(['company_id', 'client_id', 'import_batch_id', 'number', 'issue_date', 'due_date', 'amount', 'paid_amount', 'currency', 'status', 'description', 'paid_at', 'last_reminded_at', 'reminders_count', 'reminders_paused', 'synced_at'])]
 class Invoice extends Model
 {
     use BelongsToCompany, HasBetaLimit, HasFactory;
@@ -42,6 +42,7 @@ class Invoice extends Model
             'due_date' => 'date',
             'paid_at' => 'datetime',
             'last_reminded_at' => 'datetime',
+            'synced_at' => 'datetime',
             'amount' => 'decimal:2',
             'paid_amount' => 'decimal:2',
             'reminders_paused' => 'boolean',

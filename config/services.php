@@ -51,6 +51,14 @@ return [
     ],
 
     // New mail in the business inbox is announced on Telegram (read-only IMAP); off while the password is empty
+    // Mailbox that receives the companies' scheduled accounting reports; {token} is each company's private part
+    'sync_inbox' => [
+        'host' => env('SYNC_INBOX_HOST', 'imap.hostinger.com'),
+        'username' => env('SYNC_INBOX_USERNAME', 'sync@tahselly.com'),
+        'password' => env('SYNC_INBOX_PASSWORD'),
+        'address' => env('SYNC_INBOX_ADDRESS', 'sync-{token}@tahselly.com'),
+    ],
+
     'mailwatch' => [
         'host' => env('MAILWATCH_HOST', 'imap.hostinger.com'),
         'username' => env('MAILWATCH_USERNAME', 'obadah@tahselly.com'),

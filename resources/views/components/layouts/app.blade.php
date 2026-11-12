@@ -24,6 +24,7 @@
             $nav[__('المالك')] = [
                 ['owner.dashboard', __('لوحة المالك'), 'trend', 'owner.dashboard', 'owner_analytics'],
                 ['owner.billing', \App\Support\Edition::isBeta() ? __('طلب الاشتراك') : __('الاشتراك والفواتير'), 'tag', 'owner.billing'],
+                ['owner.sync', __('ربط نظام المحاسبة'), 'bolt', 'owner.sync'],
                 ['owner.team.index', __('فريق العمل'), 'users', 'owner.team.*'],
                 ['owner.settings.edit', __('الإعدادات والقوالب'), 'cog', 'owner.settings.*'],
                 ['owner.activity', __('سجل النشاط'), 'list', 'owner.activity', 'activity_log'],

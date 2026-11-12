@@ -32,6 +32,9 @@ class AccountNotice extends Notification
         'access_extended' => ['تم تفعيل حسابك', 'أصبح حسابك فعّالاً حتى :date.', 'check'],
         'subscription_cancelled' => ['تم إلغاء اشتراكك', 'أُلغي اشتراكك في باقة :plan. اختر باقة للعودة إلى حسابك.', 'alert'],
         'referral_rewarded' => ['حصلت على :days يوماً مجاناً', 'اشتركت :company عن طريق رابطك — شكراً لك! أُضيفت :days يوماً لحسابك (حتى :date).', 'check'],
+        'sync_applied' => ['وصل تقرير نظام المحاسبة', 'تمت المزامنة: :added فاتورة جديدة، و:closed أُغلقت لأنها دُفعت في نظامكم، و:failed صف لم يُقرأ.', 'check'],
+        'sync_problem' => ['تقرير نظام المحاسبة يحتاج مراجعتك', ':company: :message', 'alert'],
+        'sync_stale' => ['توقف وصول تقرير نظام المحاسبة', 'آخر تقرير وصل من :company كان بتاريخ :date. تأكد أن الإرسال المجدول ما زال يعمل في نظامكم.', 'alert'],
     ];
 
     /**
@@ -43,7 +46,7 @@ class AccountNotice extends Notification
      * Notify without ever breaking the action that triggered it (e.g. when SMTP is down).
      */
     /** Notices that are news for the platform owner, mirrored to Telegram */
-    public const TELEGRAM = ['subscription_requested' => '🏦', 'subscription_paid' => '💳', 'interest_requested' => '🙋'];
+    public const TELEGRAM = ['subscription_requested' => '🏦', 'subscription_paid' => '💳', 'interest_requested' => '🙋', 'sync_problem' => '⚠️', 'sync_stale' => '⚠️'];
 
     public static function send(mixed $users, string $kind, array $params, string $url): void
     {

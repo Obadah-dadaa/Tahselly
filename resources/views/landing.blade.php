@@ -213,10 +213,11 @@
     <div class="grid items-center gap-12 lg:grid-cols-2">
         <div>
             <span class="inline-flex rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700 ring-1 ring-brand-600/20">{{ __('بدون إعادة إدخال') }}</span>
-            <h2 class="mt-4 text-3xl font-bold leading-snug text-ink">{{ __('يعمل مع برنامج المحاسبة الذي تستخدمه') }}</h2>
-            <p class="mt-4 leading-relaxed text-slate-600">{{ __('لا تحتاج لتغيير طريقة عملك. صدّر تقرير الفواتير أو الذمم من برنامجك وارفعه كما هو — يتعرّف النظام على الأعمدة، ويحسب المدفوع والمتبقي، ويتجاهل أسطر العنوان في أعلى التقرير.') }}</p>
+            <h2 class="mt-4 text-3xl font-bold leading-snug text-ink">{{ __('لا تغيّر نظامك — تحصيلي يعمل فوقه') }}</h2>
+            <p class="mt-4 leading-relaxed text-slate-600">{{ __('عندك ERP أو برنامج محاسبة؟ اجعله يرسل تقرير الفواتير المفتوحة يومياً إلى عنوانك الخاص في تحصيلي، ونحن نضيف الفواتير الجديدة، ونسجّل الدفعات، ونغلق ما دُفع، ونرسل التذكيرات. بدون مبرمج، وبدون إدخال أي شيء مرتين.') }}</p>
             <ul class="mt-6 space-y-3 text-slate-700">
                 @foreach([
+                    __('أي نظام ERP (SAP وOracle وDynamics وOdoo والأنظمة الخاصة): تقرير مجدول بالبريد، يُفعَّل في 10 دقائق.'),
                     __('Zoho Books: صدّر الفواتير، ويُحسب المدفوع من الإجمالي والرصيد المتبقي.'),
                     __('QuickBooks: ملف الفواتير أو تقرير الأرصدة المفتوحة.'),
                     __('Tally: تقرير الذمم المدينة (Bills Receivable) كما يخرج من البرنامج.'),
@@ -225,11 +226,11 @@
                     <li class="flex gap-3"><x-icon name="check" class="mt-1 size-5 shrink-0 text-brand-600" /> <span>{{ $line }}</span></li>
                 @endforeach
             </ul>
-            <p class="mt-6 rounded-2xl bg-slate-50 px-5 py-4 text-sm text-slate-600 ring-1 ring-slate-200">{{ __('النتيجة: كل فواتيرك المفتوحة داخل النظام خلال دقائق، والتذكيرات تبدأ من صباح اليوم التالي.') }}</p>
+            <p class="mt-6 rounded-2xl bg-slate-50 px-5 py-4 text-sm text-slate-600 ring-1 ring-slate-200">{{ __('فريقك يبقى في نظامه كما هو. تحصيلي يتزامن معه كل يوم ويتابع التحصيل وحده، ويرسل لك ملخصاً بما تغيّر.') }}</p>
         </div>
         <div class="relative rounded-3xl bg-slate-50 p-8 ring-1 ring-slate-200 dark:bg-white/5 dark:ring-white/10">
             <div class="grid grid-cols-2 gap-4">
-                @foreach([['Zoho Books', 'bg-amber-50 text-amber-700'], ['QuickBooks', 'bg-emerald-50 text-emerald-700'], ['Tally', 'bg-sky-50 text-sky-700'], ['Excel / CSV', 'bg-violet-50 text-violet-700']] as [$name, $tone])
+                @foreach([['ERP', 'bg-rose-50 text-rose-700'], ['Zoho Books', 'bg-amber-50 text-amber-700'], ['QuickBooks', 'bg-emerald-50 text-emerald-700'], ['Tally', 'bg-sky-50 text-sky-700'], ['Odoo', 'bg-fuchsia-50 text-fuchsia-700'], ['Excel / CSV', 'bg-violet-50 text-violet-700']] as [$name, $tone])
                     <div class="flex items-center gap-3 rounded-2xl bg-surface p-4 shadow-sm ring-1 ring-slate-100 dark:ring-white/10">
                         <span class="grid size-10 shrink-0 place-items-center rounded-xl {{ $tone }}"><x-icon name="doc" class="size-5" /></span>
                         <span class="font-semibold text-ink" dir="ltr">{{ $name }}</span>
@@ -239,7 +240,7 @@
             <div class="my-5 flex justify-center text-brand-600"><svg class="size-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg></div>
             <div class="flex items-center gap-3 rounded-2xl bg-night p-5 text-white shadow-xl">
                 <x-brand-mark class="size-10" />
-                <div><p class="font-bold">{{ $appName }}</p><p class="text-sm text-slate-300">{{ __('العملاء والفواتير والتذكيرات — جاهزة') }}</p></div>
+                <div><p class="font-bold">{{ $appName }}</p><p class="text-sm text-slate-300">{{ __('مزامنة يومية تلقائية — والتذكيرات تعمل وحدها') }}</p></div>
             </div>
         </div>
     </div>

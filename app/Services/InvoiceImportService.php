@@ -41,8 +41,7 @@ class InvoiceImportService
 
     public function import(UploadedFile $file, User $user): ImportBatch
     {
-        $spreadsheet = IOFactory::load($file->getRealPath());
-        $rows = $spreadsheet->getActiveSheet()->toArray(null, true, false, false);
+        ['map' => $map, 'rows' => $rows] = $this->readSheet($file->getRealPath());
 
         $batch = ImportBatch::create([
             'company_id' => $user->company_id,
@@ -50,10 +49,6 @@ class InvoiceImportService
             'filename' => $file->getClientOriginalName(),
         ]);
 
-        // Accounting exports often start with a title block (company name, report dates): use the first row that looks like headers
-        $headerIndex = $this->headerRowIndex($rows);
-        $map = $this->mapHeader($rows[$headerIndex] ?? []);
-        $rows = array_slice($rows, $headerIndex + 1, preserve_keys: true);
         $errors = [];
         $imported = 0;
         $total = 0;
@@ -62,7 +57,7 @@ class InvoiceImportService
         $room = $company?->openInvoiceRoom();
         $dataRows = count(array_filter($rows, fn ($row) => array_filter($row, fn ($v) => $v !== null && $v !== '')));
 
-        if (! isset($map['number'], $map['client_name'], $map['due_date']) || ! (isset($map['amount']) || isset($map['balance']))) {
+        if (! self::hasRequiredColumns($map)) {
             $errors[] = ['row' => 1, 'message' => 'الأعمدة المطلوبة: رقم الفاتورة، العميل، تاريخ الاستحقاق، المبلغ'];
         } elseif (Edition::isBeta() && $dataRows > Edition::limit('import_rows')) {
             $total = $dataRows;
@@ -80,7 +75,7 @@ class InvoiceImportService
                 $total++;
                 $rowNumber = $index + 1; // keys are the sheet's own row positions
                 try {
-                    $this->importRow($this->extract($row, $map), $user, $batch, $room);
+                    $this->upsertRow($this->extract($row, $map), $user, $batch, $room);
                     $imported++;
                 } catch (Throwable $e) {
                     $errors[] = ['row' => $rowNumber, 'message' => $e->getMessage()];
@@ -99,20 +94,54 @@ class InvoiceImportService
     }
 
     /**
-     * @param  array<int, mixed>  $header
-     * @return array<string, int>
+     * Read a spreadsheet: the column map, the labels of its header row and the data rows below it
+     * (keyed by their sheet position). $labels names a header for fields its own label does not reveal.
+     *
+     * @param  array<string, string>  $labels  field => header label
+     * @return array{map: array<string, int>, headers: list<string>, rows: array<int, array<int, mixed>>}
      */
+    public function readSheet(string $path, array $labels = []): array
+    {
+        $rows = IOFactory::load($path)->getActiveSheet()->toArray(null, true, false, false);
+
+        // Accounting exports often start with a title block (company name, report dates): use the first row that looks like headers
+        $headerIndex = $this->headerRowIndex($rows, $labels);
+        $header = $rows[$headerIndex] ?? [];
+
+        return [
+            'map' => $this->mapHeader($header, $labels),
+            'headers' => array_values(array_filter(array_map(fn ($label) => trim((string) $label), $header), fn ($label) => $label !== '')),
+            'rows' => array_slice($rows, $headerIndex + 1, preserve_keys: true),
+        ];
+    }
+
+    /**
+     * Whether a column map has what an invoice needs.
+     *
+     * @param  array<string, int>  $map
+     */
+    public static function hasRequiredColumns(array $map): bool
+    {
+        return isset($map['number'], $map['client_name'], $map['due_date']) && (isset($map['amount']) || isset($map['balance']));
+    }
+
+    public static function normalize(mixed $label): string
+    {
+        return rtrim(preg_replace('/\s+/u', ' ', mb_strtolower(trim((string) $label))), ':');
+    }
+
     /**
      * The index of the header row among the first rows: the one that names the most known columns.
      *
      * @param  array<int, array<int, mixed>>  $rows
+     * @param  array<string, string>  $labels
      */
-    private function headerRowIndex(array $rows): int
+    private function headerRowIndex(array $rows, array $labels = []): int
     {
         $best = 0;
         $bestCount = 0;
         foreach (array_slice($rows, 0, 15, true) as $index => $row) {
-            $count = count($this->mapHeader($row));
+            $count = count($this->mapHeader($row, $labels));
             if ($count > $bestCount) {
                 [$best, $bestCount] = [$index, $count];
             }
@@ -121,13 +150,28 @@ class InvoiceImportService
         return $best;
     }
 
-    private function mapHeader(array $header): array
+    /**
+     * @param  array<int, mixed>  $header
+     * @param  array<string, string>  $labels
+     * @return array<string, int>
+     */
+    private function mapHeader(array $header, array $labels = []): array
     {
         $map = [];
-        foreach ($header as $i => $label) {
-            $normalized = rtrim(preg_replace('/\s+/u', ' ', mb_strtolower(trim((string) $label))), ':');
+        $normalized = array_map(self::normalize(...), $header);
+        // Columns the owner pointed out by hand come first
+        foreach ($labels as $field => $label) {
+            $index = array_search(self::normalize($label), $normalized, true);
+            if ($label !== '' && $index !== false && isset(self::COLUMNS[$field])) {
+                $map[$field] = $index;
+            }
+        }
+        foreach ($normalized as $i => $label) {
+            if (in_array($i, $map, true)) {
+                continue;
+            }
             foreach (self::COLUMNS as $field => $aliases) {
-                if (! isset($map[$field]) && in_array($normalized, $aliases, true)) {
+                if (! isset($map[$field]) && in_array($label, $aliases, true)) {
                     $map[$field] = $i;
                 }
             }
@@ -141,7 +185,7 @@ class InvoiceImportService
      * @param  array<string, int>  $map
      * @return array<string, mixed>
      */
-    private function extract(array $row, array $map): array
+    public function extract(array $row, array $map): array
     {
         $data = [];
         foreach (array_keys(self::COLUMNS) as $field) {
@@ -153,9 +197,11 @@ class InvoiceImportService
     }
 
     /**
+     * Add or update one invoice (matched by number) and record what was paid since; true when it is new.
+     *
      * @param  array<string, mixed>  $data
      */
-    private function importRow(array $data, User $user, ImportBatch $batch, ?int &$room): void
+    public function upsertRow(array $data, User $user, ?ImportBatch $batch, ?int &$room, string $reference = 'Excel import', bool $synced = false): bool
     {
         if (! $data['number'] || ! $data['client_name']) {
             throw new \InvalidArgumentException('رقم الفاتورة واسم العميل مطلوبان');
@@ -180,7 +226,7 @@ class InvoiceImportService
             $room--;
         }
 
-        DB::transaction(function () use ($data, $user, $batch, $amount, $dueDate, $issueDate, $paid): void {
+        return DB::transaction(function () use ($data, $user, $batch, $amount, $dueDate, $issueDate, $paid, $reference, $synced): bool {
             $client = Client::firstOrCreate(
                 ['company_id' => $user->company_id, 'name' => (string) $data['client_name']],
                 ['email' => $data['client_email'] ?: null, 'phone' => $data['client_phone'] ? (string) $data['client_phone'] : null],
@@ -188,15 +234,16 @@ class InvoiceImportService
 
             $invoice = Invoice::updateOrCreate(
                 ['company_id' => $user->company_id, 'number' => (string) $data['number']],
-                [
+                array_filter([
                     'client_id' => $client->id,
-                    'import_batch_id' => $batch->id,
+                    'import_batch_id' => $batch?->id,
                     'issue_date' => $issueDate,
                     'due_date' => $dueDate,
                     'amount' => $amount,
                     'currency' => $user->company?->currency ?? 'AED',
                     'description' => $data['description'] ?: null,
-                ],
+                    'synced_at' => $synced ? now() : null,
+                ], fn ($value, $key) => $value !== null || ! in_array($key, ['import_batch_id', 'synced_at'], true), ARRAY_FILTER_USE_BOTH),
             );
 
             $alreadyPaid = (float) $invoice->payments()->sum('amount');
@@ -207,10 +254,12 @@ class InvoiceImportService
                     'amount' => $paid - $alreadyPaid,
                     'paid_on' => today(),
                     'method' => 'bank_transfer',
-                    'reference' => 'Excel import',
+                    'reference' => $reference,
                 ]);
             }
             $invoice->refreshPaymentStatus();
+
+            return $invoice->wasRecentlyCreated;
         });
     }
 

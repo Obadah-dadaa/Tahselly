@@ -5,9 +5,14 @@ use App\Models\Company;
 use App\Models\InterestRequest;
 use App\Models\Reminder;
 use App\Models\Subscription;
+use App\Services\DemoAccount;
+use App\Services\InboxWatcher;
+use App\Services\InvoiceSyncService;
 use App\Services\ReminderService;
+use App\Services\SyncInbox;
 use App\Services\Telegram;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schedule;
@@ -28,7 +33,7 @@ Artisan::command('subscriptions:expire', function () {
     $this->info("Expired subscriptions: {$expired} | Companies locked: {$companies} | Trials ended: {$trials}");
 })->purpose('Expire finished subscription periods and lock companies without a paid period');
 
-Artisan::command('demo:purge', function (App\Services\DemoAccount $demo) {
+Artisan::command('demo:purge', function (DemoAccount $demo) {
     $this->info('Demo companies removed: '.$demo->purge());
 })->purpose('Delete instant-demo companies older than a day');
 
@@ -67,9 +72,17 @@ Artisan::command('telegram:digest', function () {
     $this->info('Digest sent');
 })->purpose('Post the daily summary to the Telegram channel');
 
-Artisan::command('mail:watch', function (\App\Services\InboxWatcher $watcher) {
+Artisan::command('mail:watch', function (InboxWatcher $watcher) {
     $this->info('New emails announced: '.$watcher->check());
 })->purpose('Announce new emails in the business inbox on Telegram');
+
+Artisan::command('sync:inbox', function (SyncInbox $inbox) {
+    $this->info('Accounting reports handled: '.$inbox->check());
+})->purpose('Apply the accounting reports companies email to their private sync address');
+
+Artisan::command('sync:stale', function (InvoiceSyncService $sync) {
+    $this->info('Companies warned: '.$sync->alertStale());
+})->purpose('Warn owners whose daily accounting report stopped arriving');
 
 Artisan::command('telegram:linkedin', function () {
     // Daily LinkedIn prospects (JSON on stdin), one Telegram post each so they are easy to copy
@@ -104,10 +117,12 @@ Artisan::command('telegram:partners', function () {
 })->purpose('Post the daily accounting-office partners to the Telegram channel');
 
 // Proof that the server cron runs this site's scheduler (checked from the server with tinker)
-Schedule::call(fn () => \Illuminate\Support\Facades\Cache::forever('scheduler:heartbeat', now()->toDateTimeString()))->everyMinute()->name('heartbeat');
+Schedule::call(fn () => Cache::forever('scheduler:heartbeat', now()->toDateTimeString()))->everyMinute()->name('heartbeat');
 Schedule::command('subscriptions:expire')->hourly();
 Schedule::command('demo:purge')->hourly();
 Schedule::command('mail:watch')->everyTwoMinutes()->withoutOverlapping();
+Schedule::command('sync:inbox')->everyFiveMinutes()->withoutOverlapping();
+Schedule::command('sync:stale')->dailyAt('11:00')->timezone('Asia/Dubai');
 Schedule::command('telegram:digest')->dailyAt('21:00')->timezone('Asia/Dubai');
 Schedule::command('trials:notify')->dailyAt('10:00')->timezone('Asia/Dubai');
 Schedule::command('reminders:dispatch')->everyMinute();

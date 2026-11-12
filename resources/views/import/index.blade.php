@@ -29,6 +29,9 @@
             <h2 class="font-semibold text-ink">{{ __('الأعمدة المدعومة') }}</h2>
             <p class="mt-1 text-sm text-slate-500">{{ __('يتعرف النظام على العناوين بالعربية أو الإنجليزية.') }}</p>
             <p class="mt-2 rounded-lg bg-brand-50 px-3 py-2 text-xs text-brand-800">{{ __('يقبل أيضاً ملفات التصدير من Zoho Books وQuickBooks وتقرير الذمم في Tally كما هي، دون تعديل.') }}</p>
+            @if(auth()->user()->role->value === 'owner')
+                <a href="{{ route('owner.sync') }}" class="mt-2 block rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800 hover:underline">{{ __('تريد ذلك تلقائياً كل يوم؟ اربط نظام المحاسبة ليرسل التقرير بنفسه ←') }}</a>
+            @endif
             <ul class="mt-4 space-y-2 text-sm">
                 @foreach($columns as $field => $aliases)
                     <li class="flex items-start justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2">
