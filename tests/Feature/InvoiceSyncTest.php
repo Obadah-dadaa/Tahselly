@@ -9,6 +9,7 @@ use App\Models\SyncFeed;
 use App\Models\SyncRun;
 use App\Models\User;
 use App\Services\SyncInbox;
+use App\Support\MimeMessage;
 use Database\Seeders\PlatformSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -36,12 +37,15 @@ class InvoiceSyncTest extends TestCase
     }
 
     /** A raw email with a CSV report attached, base64 encoded like a real mail client does */
-    private function email(string $csv, string $from = 'erp@acme.ae', ?string $to = null, string $filename = 'open-invoices.csv'): string
+    private function email(string $csv, string $from = 'erp@acme.ae', ?string $to = null, string $filename = 'open-invoices.csv', ?string $auth = null): string
     {
         $to ??= $this->feed->address();
         $body = chunk_split(base64_encode($csv), 76, "\r\n");
+        $domain = substr($from, strpos($from, '@') + 1);
+        // What Hostinger's receiving server stamps on top of an authenticated message
+        $auth ??= "de-fra-smtpin12.hostinger.io; dkim=pass header.d={$domain} header.s=default header.b=eYi1m5wU; dmarc=pass (policy=none) header.from={$domain}; spf=pass smtp.mailfrom={$from}";
 
-        return "From: \"ACME ERP\" <{$from}>\r\nTo: {$to}\r\nSubject: =?UTF-8?B?".base64_encode('تقرير الفواتير')."?=\r\nMIME-Version: 1.0\r\n"
+        return "Authentication-Results: {$auth}\r\nFrom: \"ACME ERP\" <{$from}>\r\nTo: {$to}\r\nSubject: =?UTF-8?B?".base64_encode('تقرير الفواتير')."?=\r\nMIME-Version: 1.0\r\n"
             ."Content-Type: multipart/mixed;\r\n boundary=\"XYZ\"\r\n\r\npreamble\r\n--XYZ\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nDaily report\r\n"
             ."--XYZ\r\nContent-Type: text/csv; name=\"{$filename}\"\r\nContent-Disposition: attachment; filename=\"{$filename}\"\r\nContent-Transfer-Encoding: base64\r\n\r\n{$body}--XYZ--\r\n";
     }
@@ -113,11 +117,22 @@ class InvoiceSyncTest extends TestCase
         // Without the private token the sender alone (which can be forged) is never enough
         $this->assertSame([], $inbox->handle($this->email($this->report([['P-1', 'Palm', '2026-10-01', 10, 10]]), 'owner@acme.ae', 'sync@tahselly.com')));
 
-        // A forged allowed sender, or one hidden in the display name, waits for the owner
-        $forged = str_replace('MIME-Version', "Authentication-Results: mx.hostinger.com; dmarc=fail header.from=acme.ae\r\nMIME-Version", $this->email($this->report([['P-1', 'Palm', '2026-10-01', 10, 10]]), 'owner@acme.ae'));
-        $this->assertSame('rejected', $inbox->handle($forged)[0]->status);
-        $trick = str_replace('"ACME ERP" <owner@acme.ae>', '"owner@acme.ae" <attacker@evil.test>', $this->email($this->report([['P-1', 'Palm', '2026-10-01', 10, 10]]), 'owner@acme.ae'));
-        $this->assertSame('attacker@evil.test', $inbox->handle($trick)[0]->sender);
+        // An allowed address the server did not authenticate waits for the owner (fails closed)
+        $report = $this->report([['P-1', 'Palm', '2026-10-01', 10, 10]]);
+        foreach ([
+            'de-fra-smtpin12.hostinger.io; dkim=fail header.d=acme.ae; dmarc=fail header.from=acme.ae',
+            'de-fra-smtpin12.hostinger.io; dkim=pass header.d=evil.test; spf=pass smtp.mailfrom=x@evil.test',
+            'mx.evil.test; dkim=pass header.d=acme.ae; dmarc=pass header.from=acme.ae',
+        ] as $auth) {
+            $run = $inbox->handle($this->email($report, 'owner@acme.ae', auth: $auth))[0];
+            $this->assertSame(['rejected', null], [$run->status, $run->sender], $auth);
+        }
+        // An address hidden in the display name, comments, or a second mailbox never count as the sender
+        $base = $this->email($report, 'owner@acme.ae');
+        foreach (['"owner@acme.ae" <attacker@evil.test>', 'owner@acme.ae (x) <attacker@evil.test>', '<owner@acme.ae>, <attacker@evil.test>'] as $from) {
+            $this->assertNull($inbox->handle(str_replace('"ACME ERP" <owner@acme.ae>', $from, $base))[0]->sender, $from);
+        }
+        $this->assertSame('attacker@evil.test', MimeMessage::parse("From: \"owner@acme.ae\" <attacker@evil.test>\r\n\r\n")->from());
         SyncRun::query()->delete();
         $this->owner->notifications()->delete();
 

@@ -62,31 +62,47 @@ final class MimeMessage
         if (count($headers) !== 1) {
             return null;
         }
-        // Drop quoted display names and comments so an address written inside them cannot pose as the sender
-        $value = preg_replace(['/"(?:[^"\\\\]|\\\\.)*"/', '/\([^)]*\)/'], '', $headers[0]);
-        if (str_contains($value, ',')) {
+        // Comments and escapes make addresses ambiguous between parsers: refuse them instead of guessing
+        if (preg_match('/[()\\\\]/', $headers[0])) {
             return null;
         }
-        if (preg_match_all('/<([^<>]*)>/', $value, $m) > 1) {
+        // Drop a quoted display name so an address written inside it cannot pose as the sender
+        $value = preg_replace('/"[^"]*"/', '', $headers[0]);
+        if (str_contains($value, '"') || str_contains($value, ',') || preg_match_all('/<([^<>]*)>/', $value, $m) > 1) {
             return null;
         }
         $address = trim($m[1][0] ?? $value);
+        $outside = isset($m[0][0]) ? str_replace($m[0][0], '', $value) : '';
+        if (str_contains($outside, '@')) {
+            return null;
+        }
 
         return preg_match('/^[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}$/i', $address) ? strtolower($address) : null;
     }
 
     /**
-     * The receiving server found the sender forged (DMARC or SPF failed in its Authentication-Results).
+     * The sender, only when the receiving server vouches for it: its own (topmost) Authentication-Results
+     * header shows DMARC passing for the From domain, or DKIM passing for that same domain. Fails closed.
      */
-    public function spoofed(): bool
+    public function authenticatedFrom(string $authserv): ?string
     {
-        foreach ($this->headers['authentication-results'] ?? [] as $result) {
-            if (preg_match('/\b(dmarc|spf)=(fail|softfail)\b/i', $result)) {
-                return true;
+        $from = $this->from();
+        $result = $this->headers['authentication-results'][0] ?? '';
+        $server = strtolower(trim(explode(';', $result, 2)[0]));
+        if (! $from || $authserv === '' || ($server !== $authserv && ! str_ends_with($server, '.'.$authserv))) {
+            return null;
+        }
+        $domain = substr($from, strpos($from, '@') + 1);
+        $aligned = fn (string $d) => $d === $domain || str_ends_with($domain, '.'.$d);
+
+        preg_match_all('/\b(dmarc|dkim)=pass\b[^;]*?\bheader\.(?:from|d)=([a-z0-9.\-]+)/i', $result, $passes, PREG_SET_ORDER);
+        foreach ($passes as [, , $d]) {
+            if ($aligned(strtolower($d))) {
+                return $from;
             }
         }
 
-        return false;
+        return null;
     }
 
     public function subject(): string

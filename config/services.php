@@ -57,6 +57,8 @@ return [
         'username' => env('SYNC_INBOX_USERNAME', 'sync@tahselly.com'),
         'password' => env('SYNC_INBOX_PASSWORD'),
         'address' => env('SYNC_INBOX_ADDRESS', 'sync-{token}@tahselly.com'),
+        // The receiving server whose Authentication-Results we trust (Hostinger stamps *.hostinger.io)
+        'authserv' => env('SYNC_INBOX_AUTHSERV', 'hostinger.io'),
     ],
 
     'mailwatch' => [

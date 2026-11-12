@@ -91,8 +91,8 @@ class SyncInbox
         if (! $feed) {
             return []; // another edition's company, or not a report at all
         }
-        // A sender the receiving server could not authenticate is treated as unknown, so the owner decides
-        $sender = $message->spoofed() ? null : $message->from();
+        // Only a sender our mail server authenticated counts; anything else waits for the owner
+        $sender = $message->authenticatedFrom((string) config('services.sync_inbox.authserv'));
 
         $reports = array_filter($message->attachments(), fn (array $file) => in_array(strtolower(pathinfo($file['filename'], PATHINFO_EXTENSION)), InvoiceSyncService::EXTENSIONS, true));
         if (! $reports) {
