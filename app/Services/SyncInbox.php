@@ -88,16 +88,11 @@ class SyncInbox
                 break;
             }
         }
-        $sender = $message->from();
-        // Sent to the mailbox's own address: the company whose allowed senders name this exact address
-        if (! $feed && $sender && in_array(strtolower((string) config('services.sync_inbox.username')), $message->addresses('to', 'cc'), true)) {
-            $matches = SyncFeed::query()->with('company')->where('enabled', true)->where('senders', 'like', '%'.$sender.'%')->get()
-                ->filter(fn (SyncFeed $candidate) => in_array($sender, $candidate->senderList(), true));
-            $feed = $matches->count() === 1 ? $matches->first() : null;
-        }
         if (! $feed) {
             return []; // another edition's company, or not a report at all
         }
+        // A sender the receiving server could not authenticate is treated as unknown, so the owner decides
+        $sender = $message->spoofed() ? null : $message->from();
 
         $reports = array_filter($message->attachments(), fn (array $file) => in_array(strtolower(pathinfo($file['filename'], PATHINFO_EXTENSION)), InvoiceSyncService::EXTENSIONS, true));
         if (! $reports) {

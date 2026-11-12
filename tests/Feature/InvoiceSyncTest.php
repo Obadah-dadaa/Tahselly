@@ -110,12 +110,15 @@ class InvoiceSyncTest extends TestCase
         $inbox = app(SyncInbox::class);
         $this->assertSame([], $inbox->handle($this->email($this->report([['X-1', 'A', '2026-10-01', 10, 10]]), to: 'sync-zzzzzzzzzzzz@tahselly.com')));
 
-        // Sent to the plain mailbox address: recognised by an exactly allowed sender
-        $this->feed->allow('erp@acme.ae');
-        $this->assertSame('applied', $inbox->handle($this->email($this->report([['P-1', 'Palm', '2026-10-01', 10, 10]]), to: 'sync@tahselly.com'))[0]->status);
-        $this->assertSame([], $inbox->handle($this->email($this->report([['P-2', 'Palm', '2026-10-01', 10, 10]]), 'other@acme.ae', 'sync@tahselly.com')));
-        $this->feed->update(['senders' => 'owner@acme.ae']);
-        Invoice::withoutGlobalScopes()->delete();
+        // Without the private token the sender alone (which can be forged) is never enough
+        $this->assertSame([], $inbox->handle($this->email($this->report([['P-1', 'Palm', '2026-10-01', 10, 10]]), 'owner@acme.ae', 'sync@tahselly.com')));
+
+        // A forged allowed sender, or one hidden in the display name, waits for the owner
+        $forged = str_replace('MIME-Version', "Authentication-Results: mx.hostinger.com; dmarc=fail header.from=acme.ae\r\nMIME-Version", $this->email($this->report([['P-1', 'Palm', '2026-10-01', 10, 10]]), 'owner@acme.ae'));
+        $this->assertSame('rejected', $inbox->handle($forged)[0]->status);
+        $trick = str_replace('"ACME ERP" <owner@acme.ae>', '"owner@acme.ae" <attacker@evil.test>', $this->email($this->report([['P-1', 'Palm', '2026-10-01', 10, 10]]), 'owner@acme.ae'));
+        $this->assertSame('attacker@evil.test', $inbox->handle($trick)[0]->sender);
+        SyncRun::query()->delete();
         $this->owner->notifications()->delete();
 
         $run = $inbox->handle($this->email($this->report([['S-1', 'Gulf Events LLC', '2026-10-01', 5000, 5000]]), 'stranger@evil.test'))[0];

@@ -52,9 +52,41 @@ final class MimeMessage
         return array_values(array_unique($found));
     }
 
+    /**
+     * The single sender address (the one in angle brackets when there is a display name); null when the
+     * header is missing, ambiguous or names more than one mailbox.
+     */
     public function from(): ?string
     {
-        return $this->addresses('from')[0] ?? null;
+        $headers = $this->headers['from'] ?? [];
+        if (count($headers) !== 1) {
+            return null;
+        }
+        // Drop quoted display names and comments so an address written inside them cannot pose as the sender
+        $value = preg_replace(['/"(?:[^"\\\\]|\\\\.)*"/', '/\([^)]*\)/'], '', $headers[0]);
+        if (str_contains($value, ',')) {
+            return null;
+        }
+        if (preg_match_all('/<([^<>]*)>/', $value, $m) > 1) {
+            return null;
+        }
+        $address = trim($m[1][0] ?? $value);
+
+        return preg_match('/^[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}$/i', $address) ? strtolower($address) : null;
+    }
+
+    /**
+     * The receiving server found the sender forged (DMARC or SPF failed in its Authentication-Results).
+     */
+    public function spoofed(): bool
+    {
+        foreach ($this->headers['authentication-results'] ?? [] as $result) {
+            if (preg_match('/\b(dmarc|spf)=(fail|softfail)\b/i', $result)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function subject(): string
