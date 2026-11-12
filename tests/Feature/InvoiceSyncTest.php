@@ -123,6 +123,9 @@ class InvoiceSyncTest extends TestCase
             'de-fra-smtpin12.hostinger.io; dkim=fail header.d=acme.ae; dmarc=fail header.from=acme.ae',
             'de-fra-smtpin12.hostinger.io; dkim=pass header.d=evil.test; spf=pass smtp.mailfrom=x@evil.test',
             'mx.evil.test; dkim=pass header.d=acme.ae; dmarc=pass header.from=acme.ae',
+            'de-fra-smtpin12.hostinger.io; dkim=fail (dkim=pass header.d=acme.ae) header.d=evil.test; spf=pass smtp.mailfrom=acme.ae',
+            'de-fra-smtpin12.hostinger.io; dkim=pass header.d=acme.ae; dmarc=fail header.from=acme.ae',
+            "de-fra-smtpin12.hostinger.io; dkim=none\r\nAuthentication-Results: de-fra-smtpin3.hostinger.io; dkim=pass header.d=acme.ae; dmarc=pass header.from=acme.ae",
         ] as $auth) {
             $run = $inbox->handle($this->email($report, 'owner@acme.ae', auth: $auth))[0];
             $this->assertSame(['rejected', null], [$run->status, $run->sender], $auth);

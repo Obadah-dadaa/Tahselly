@@ -87,22 +87,77 @@ final class MimeMessage
     public function authenticatedFrom(string $authserv): ?string
     {
         $from = $this->from();
-        $result = $this->headers['authentication-results'][0] ?? '';
-        $server = strtolower(trim(explode(';', $result, 2)[0]));
-        if (! $from || $authserv === '' || ($server !== $authserv && ! str_ends_with($server, '.'.$authserv))) {
+        $results = array_map(self::authResults(...), $this->headers['authentication-results'] ?? []);
+        $trusted = fn (array $r) => $authserv !== '' && ($r['server'] === $authserv || str_ends_with($r['server'], '.'.$authserv));
+        // The receiving server prepends its own header, so it must be the topmost; a second header claiming
+        // to be from it can only have been written by the sender
+        if (! $from || ! $results || ! $trusted($results[0]) || count(array_filter($results, $trusted)) > 1) {
             return null;
         }
         $domain = substr($from, strpos($from, '@') + 1);
-        $aligned = fn (string $d) => $d === $domain || str_ends_with($domain, '.'.$d);
+        $aligned = fn (?string $d) => $d !== null && ($d === $domain || str_ends_with($domain, '.'.$d));
 
-        preg_match_all('/\b(dmarc|dkim)=pass\b[^;]*?\bheader\.(?:from|d)=([a-z0-9.\-]+)/i', $result, $passes, PREG_SET_ORDER);
-        foreach ($passes as [, , $d]) {
-            if ($aligned(strtolower($d))) {
-                return $from;
+        $verified = false;
+        foreach ($results[0]['methods'] as $method) {
+            if ($method['method'] === 'dmarc' && $method['result'] !== 'pass' && $method['result'] !== 'none') {
+                return null; // the server judged the From domain forged
+            }
+            $verified = $verified || ($method['result'] === 'pass' && match ($method['method']) {
+                'dmarc' => $aligned($method['props']['header.from'] ?? null),
+                'dkim' => $aligned($method['props']['header.d'] ?? null),
+                default => false,
+            });
+        }
+
+        return $verified ? $from : null;
+    }
+
+    /**
+     * Parse one Authentication-Results header (RFC 8601): the server id, then "method=result prop=value..."
+     * per ";"-separated statement. Comments are removed first; quoted values are kept whole.
+     *
+     * @return array{server: string, methods: list<array{method: string, result: string, props: array<string, string>}>}
+     */
+    private static function authResults(string $header): array
+    {
+        $plain = '';
+        $depth = 0;
+        $quoted = false;
+        foreach (mb_str_split($header) as $char) {
+            if ($char === '"' && $depth === 0) {
+                $quoted = ! $quoted;
+            } elseif (! $quoted && $char === '(') {
+                $depth++;
+
+                continue;
+            } elseif (! $quoted && $char === ')' && $depth > 0) {
+                $depth--;
+
+                continue;
+            }
+            if ($depth === 0) {
+                $plain .= $quoted && $char === ';' ? "\0" : $char;
             }
         }
 
-        return null;
+        $statements = array_map('trim', explode(';', strtolower($plain)));
+        $server = preg_split('/\s+/', array_shift($statements))[0] ?? '';
+        $methods = [];
+        foreach ($statements as $statement) {
+            $tokens = preg_split('/\s+/', $statement, -1, PREG_SPLIT_NO_EMPTY);
+            if (! $tokens || ! preg_match('/^([a-z0-9\-]+)=([a-z]+)$/', array_shift($tokens), $m)) {
+                continue;
+            }
+            $props = [];
+            foreach ($tokens as $token) {
+                if (preg_match('/^((?:header|body|smtp|policy)\.[a-z0-9\-]+)=(.+)$/', $token, $p)) {
+                    $props[$p[1]] ??= trim($p[2], '"');
+                }
+            }
+            $methods[] = ['method' => $m[1], 'result' => $m[2], 'props' => $props];
+        }
+
+        return ['server' => $server, 'methods' => $methods];
     }
 
     public function subject(): string
