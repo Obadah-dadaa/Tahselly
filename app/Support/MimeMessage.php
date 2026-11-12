@@ -120,6 +120,10 @@ final class MimeMessage
      */
     private static function authResults(string $header): array
     {
+        // Escapes or unbalanced quotes and comments read differently between parsers: trust nothing in them
+        if (str_contains($header, '\\') || substr_count($header, '"') % 2 || substr_count($header, '(') !== substr_count($header, ')')) {
+            return ['server' => '', 'methods' => []];
+        }
         $plain = '';
         $depth = 0;
         $quoted = false;
