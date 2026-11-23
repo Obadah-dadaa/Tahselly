@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -34,20 +33,6 @@ class TrackVisit
                 ]);
             } catch (Throwable) {
                 // Analytics must never break a page
-            }
-        }
-
-        // shortcut: one-week user-agent log to identify the unlabelled night-time traffic; stops by itself on 2026-11-30, then delete this block
-        if ($request->isMethod('GET') && ! $request->user() && today()->lt('2026-11-30')) {
-            try {
-                Log::build(['driver' => 'daily', 'path' => storage_path('logs/visitors.log'), 'days' => 10])->info('visit', [
-                    'counted' => $this->shouldCount($request, $response),
-                    'status' => $response->getStatusCode(),
-                    'path' => '/'.ltrim($request->path(), '/'),
-                    'referrer' => $this->referrerHost($request),
-                    'agent' => mb_substr((string) $request->userAgent(), 0, 300),
-                ]);
-            } catch (Throwable) {
             }
         }
 

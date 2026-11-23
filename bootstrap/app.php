@@ -4,6 +4,7 @@ use App\Http\Middleware\BlockAiTrainingBots;
 use App\Http\Middleware\BlockInDemo;
 use App\Http\Middleware\EnsureRole;
 use App\Http\Middleware\LiveOnly;
+use App\Http\Middleware\LogVisitors;
 use App\Http\Middleware\RequirePlanFeature;
 use App\Http\Middleware\RequireRecaptcha;
 use App\Http\Middleware\RequireStaff;
@@ -26,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo('/home');
         // Stripe calls this endpoint server-to-server; it is authenticated by its signature instead
         $middleware->validateCsrfTokens(except: ['stripe/webhook']);
+        $middleware->append(LogVisitors::class);
         $middleware->web(prepend: [BlockAiTrainingBots::class], append: [SetPreferences::class]);
         // Shared hosting / load balancers terminate HTTPS in front of the app
         $middleware->trustProxies(at: '*');
