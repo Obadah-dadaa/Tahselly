@@ -24,7 +24,8 @@ class LogVisitors
                 Log::build(['driver' => 'daily', 'path' => storage_path('logs/visitors.log'), 'days' => 10])->info('visit', [
                     'method' => $request->method(),
                     'status' => $response->getStatusCode(),
-                    'path' => mb_substr($request->getRequestUri(), 0, 300),
+                    // No query string, and long tokens (password reset, signed links) are masked
+                    'path' => mb_substr(preg_replace('/[A-Za-z0-9_\-]{32,}/', '***', $request->getPathInfo()), 0, 300),
                     'user' => (bool) $request->user(),
                     'referrer' => $referrer && $referrer !== $request->getHost() ? $referrer : null,
                     'agent' => mb_substr((string) $request->userAgent(), 0, 300),
