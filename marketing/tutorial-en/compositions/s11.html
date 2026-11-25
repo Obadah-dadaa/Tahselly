@@ -8,8 +8,8 @@
 @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
 
     #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #e2e8f0; }
-    #s11-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; transform-origin: 0 0; }
-    #s11-cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; }
+    #s11-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1331px; transform-origin: 0 0; }
+    #s11-cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1331px; }
     .ring { position: absolute; border: 5px solid #14b8a6; border-radius: 20px; box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.32), 0 0 0 10px rgba(20, 184, 166, 0.25); opacity: 0; }
     #s11-cap { position: absolute; left: 70px; bottom: 56px; display: flex; align-items: center; gap: 26px; padding: 22px 44px 22px 36px; background: #ffffff; border-radius: 28px; box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28); }
     #s11-cap .n { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 22px; background: #0f766e; color: #fff; font-size: 44px; font-weight: 700; }
@@ -17,20 +17,23 @@
     #s11-cap .t { font-size: 50px; font-weight: 700; color: #0b1220; line-height: 1.2; }
   </style>
   <div id="root" data-composition-id="s11" data-width="1920" data-height="1080">
-    <div id="s11-stage" class="clip" data-start="0" data-duration="7.42" data-layout-allow-overflow data-layout-ignore>
-      <div id="s11-cam"><img src="assets/screens/billing.png" alt="Subscription & renewal" /><div id="s11-ring0" class="ring" style="left:354.8px;top:201.2px;width:1021.6px;height:506.0px"></div></div>
+    <div id="s11-stage" class="clip" data-start="0" data-duration="17.85" data-layout-allow-overflow data-layout-ignore>
+      <div id="s11-cam"><img src="assets/screens/invoice-pay.png" alt="Record a payment" /><div id="s11-ring0" class="ring" style="left:1385.2px;top:179.6px;width:506.4px;height:539.6px"></div><div id="s11-ring1" class="ring" style="left:1385.2px;top:899.6px;width:506.4px;height:226.4px"></div></div>
     </div>
-    <div id="s11-cap" class="clip" data-start="0" data-duration="7.42">
+    <div id="s11-cap" class="clip" data-start="0" data-duration="17.85">
       <div class="n">11</div>
-      <div><div class="k">Step 11 of 12</div><div class="t">Subscription & renewal</div></div>
+      <div><div class="k">Step 11 of 19 · Manager</div><div class="t">Record a payment</div></div>
     </div>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
     tl.fromTo("#s11-cam", { x: 0, y: 0, scale: 1 }, { x: 0, y: 0, scale: 1, duration: 0.01 }, 0);
     tl.fromTo("#s11-cap", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.2);
-    tl.to("#s11-cam", { x: -286.7, y: -224.2, scale: 1.44, duration: 0.9, ease: "expo.inOut" }, 1.10);
+    tl.to("#s11-cam", { x: -666.6, y: -175.4, scale: 1.347, duration: 0.9, ease: "expo.inOut" }, 1.10);
     tl.fromTo("#s11-ring0", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 1.85);
+    tl.to("#s11-cam", { x: -1536.0, y: -1315.4, scale: 1.8, duration: 0.9, ease: "expo.inOut" }, 9.33);
+    tl.fromTo("#s11-ring1", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 10.08);
+    tl.to("#s11-ring0", { opacity: 0, duration: 0.3 }, 9.33);
     window.__timelines["s11"] = tl;
   </script>
 </template>

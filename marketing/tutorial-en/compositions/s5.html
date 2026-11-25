@@ -8,8 +8,8 @@
 @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
 
     #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #e2e8f0; }
-    #s5-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1231px; transform-origin: 0 0; }
-    #s5-cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1231px; }
+    #s5-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; transform-origin: 0 0; }
+    #s5-cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; }
     .ring { position: absolute; border: 5px solid #14b8a6; border-radius: 20px; box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.32), 0 0 0 10px rgba(20, 184, 166, 0.25); opacity: 0; }
     #s5-cap { position: absolute; left: 70px; bottom: 56px; display: flex; align-items: center; gap: 26px; padding: 22px 44px 22px 36px; background: #ffffff; border-radius: 28px; box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28); }
     #s5-cap .n { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 22px; background: #0f766e; color: #fff; font-size: 44px; font-weight: 700; }
@@ -17,23 +17,23 @@
     #s5-cap .t { font-size: 50px; font-weight: 700; color: #0b1220; line-height: 1.2; }
   </style>
   <div id="root" data-composition-id="s5" data-width="1920" data-height="1080">
-    <div id="s5-stage" class="clip" data-start="0" data-duration="11.07" data-layout-allow-overflow data-layout-ignore>
-      <div id="s5-cam"><img src="assets/screens/import.png" alt="Import from Excel" /><div id="s5-ring0" class="ring" style="left:384.8px;top:231.2px;width:858.6px;height:327.2px"></div><div id="s5-ring1" class="ring" style="left:384.8px;top:562.4px;width:288.2px;height:65.6px"></div></div>
+    <div id="s5-stage" class="clip" data-start="0" data-duration="15.54" data-layout-allow-overflow data-layout-ignore>
+      <div id="s5-cam"><img src="assets/screens/client-new.png" alt="Add a client" /><div id="s5-ring0" class="ring" style="left:384.8px;top:202.4px;width:881.6px;height:662.0px"></div><div id="s5-ring1" class="ring" style="left:384.8px;top:868.4px;width:404.0px;height:98.0px"></div></div>
     </div>
-    <div id="s5-cap" class="clip" data-start="0" data-duration="11.07">
+    <div id="s5-cap" class="clip" data-start="0" data-duration="15.54">
       <div class="n">5</div>
-      <div><div class="k">Step 5 of 12</div><div class="t">Import from Excel</div></div>
+      <div><div class="k">Step 5 of 19 · Manager</div><div class="t">Add a client</div></div>
     </div>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
     tl.fromTo("#s5-cam", { x: 0, y: 0, scale: 1 }, { x: 0, y: 0, scale: 1, duration: 0.01 }, 0);
     tl.fromTo("#s5-cap", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.2);
-    tl.to("#s5-cam", { x: -505.3, y: -280.6, scale: 1.8, duration: 0.9, ease: "expo.inOut" }, 1.10);
+    tl.to("#s5-cam", { x: 0, y: -151.6, scale: 1.09, duration: 0.9, ease: "expo.inOut" }, 1.10);
     tl.fromTo("#s5-ring0", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 1.85);
-    tl.to("#s5-cam", { x: 0, y: -641.4, scale: 1.8, duration: 0.9, ease: "expo.inOut" }, 5.94);
-    tl.fromTo("#s5-ring1", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 6.69);
-    tl.to("#s5-ring0", { opacity: 0, duration: 0.3 }, 5.94);
+    tl.to("#s5-cam", { x: -96.2, y: -1080.0, scale: 1.8, duration: 0.9, ease: "expo.inOut" }, 8.17);
+    tl.fromTo("#s5-ring1", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 8.92);
+    tl.to("#s5-ring0", { opacity: 0, duration: 0.3 }, 8.17);
     window.__timelines["s5"] = tl;
   </script>
 </template>

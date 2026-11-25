@@ -1,0 +1,38 @@
+<template>
+  <style>
+    @font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 400; src: url("assets/fonts/plex-arabic-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/plex-arabic-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-arabic.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/plex-arabic-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; direction: ltr; font-family: "Plex Arabic"; background: #0f766e; }
+    #roles-box { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; }
+    #roles-k { font-size: 34px; font-weight: 600; color: #99f6e4; }
+    #roles-t { margin-top: 8px; font-size: 88px; font-weight: 700; }
+    #roles-row { margin-top: 56px; display: flex; gap: 48px; }
+    .role { width: 700px; padding: 44px 52px; border-radius: 36px; background: #ffffff; color: #0b1220; box-shadow: 0 30px 70px rgba(2, 6, 23, 0.3); }
+    .rk { font-size: 28px; font-weight: 600; color: #0f766e; }
+    .rn { margin-top: 4px; font-size: 64px; font-weight: 700; }
+    .role ul { margin-top: 24px; padding-left: 34px; font-size: 34px; line-height: 1.7; color: #334155; }
+    #roles-l { margin-top: 48px; font-size: 36px; color: #ccfbf1; }
+  </style>
+  <div id="root" data-composition-id="roles" data-width="1920" data-height="1080">
+    <div id="roles-box" class="clip" data-start="0" data-duration="22.72">
+      <div id="roles-k">How you'll work together</div>
+      <div id="roles-t">One account, two teams</div>
+      <div id="roles-row"><div id="roles-c0" class="role"><div class="rk">Your service partner</div><div class="rn">Manager</div><ul><li>Adds clients and invoices</li><li>Imports from Excel</li><li>Sends reminders</li><li>Records payments</li></ul></div><div id="roles-c1" class="role"><div class="rk">Your company</div><div class="rn">Owner</div><ul><li>Follows the dashboard and reports</li><li>Sets the schedule and messages</li><li>Manages the team</li><li>Manages the subscription</li></ul></div></div>
+      <div id="roles-l">Each person signs in with their own login.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#roles-k", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.2);
+    tl.fromTo("#roles-t", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.35);
+    tl.fromTo("#roles-c0", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 1.2);
+    tl.fromTo("#roles-c1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 8.6);
+    tl.fromTo("#roles-l", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 16.5);
+    window.__timelines["roles"] = tl;
+  </script>
+</template>
