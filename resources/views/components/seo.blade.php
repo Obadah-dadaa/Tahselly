@@ -7,7 +7,7 @@
     $public = ! \App\Support\Edition::isBeta() && request()->routeIs('landing', 'contact', 'legal.terms', 'legal.privacy', 'trial.create', 'blog.index', 'blog.show');
     // The home page is https://tahselly.com/ (with the slash) so its language URLs read /?lang=ar
     $base = request()->is('/') ? url('/').'/' : url()->current();
-    $description ??= __('تحصيلي يتابع فواتيرك غير المدفوعة ويذكّر عملاءك بالدفع تلقائياً عبر البريد وواتساب، قبل الاستحقاق وبعده. للشركات والوكالات والمستقلين في الإمارات. جرّبه مجاناً 14 يوماً.');
+    $description ??= __('تحصيلي يتابع فواتيرك غير المدفوعة ويذكّر عملاءك بالدفع تلقائياً عبر البريد وواتساب، قبل الاستحقاق وبعده. للشركات والوكالات والمستقلين في الإمارات. جرّبه مجاناً 30 يوماً.');
     $title ??= $appName;
 @endphp
 <meta name="description" content="{{ $description }}">

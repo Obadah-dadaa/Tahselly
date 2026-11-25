@@ -15,7 +15,7 @@
     // Posters and videos keep their file names when replaced; the file's time in the URL makes browsers fetch the new one
     $setupWhatsapp = \App\Support\SupportWhatsapp::url(__('مرحباً، أريد أن تجهّزوا لي حساب تحصيلي مجاناً. سأرسل لكم ملف الفواتير.'));
     $fresh = fn (string $path) => asset($path).'?v='.(@filemtime(public_path($path)) ?: 1);
-    $trialDays = $beta ? \App\Support\Edition::limit('trial_days') : (int) \App\Models\SystemSetting::get('default_trial_days', 14);
+    $trialDays = $beta ? \App\Support\Edition::limit('trial_days') : (int) \App\Models\SystemSetting::get('default_trial_days', 30);
     // Each plan adds features on top of the cheaper ones; every card lists them all, ticked or not
     $allFeatures = $plans->flatMap(fn ($p) => $p->localizedFeatures())->unique()->values();
     // Founding customers: the plan cards show the discounted price while seats are left
@@ -51,10 +51,8 @@
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
         <a href="/" class="flex items-center gap-2 text-white"><x-brand-mark class="size-9" /><span class="text-xl font-bold">{{ $appName }}</span><x-beta-badge tone="dark" /></a>
         <nav class="hidden gap-7 whitespace-nowrap text-sm text-slate-300 lg:flex">
-            <a href="#video" class="hover:text-white">{{ __('شاهد العرض') }}</a>
             <a href="#features" class="hover:text-white">{{ __('المزايا') }}</a>
             <a href="#integrations" class="hover:text-white">{{ __('يعمل مع برنامجك') }}</a>
-            <a href="#free" class="hover:text-white">{{ __('مجاناً لك') }}</a>
             @beta<a href="#interest" class="hover:text-white">{{ __('اطلب الاشتراك') }}</a>@else<a href="#pricing" class="hover:text-white">{{ __('الأسعار') }}</a>@endbeta
             <a href="{{ route('blog.index') }}" class="hover:text-white">{{ __('المدوّنة') }}</a>
             <a href="{{ route('contact') }}" class="hover:text-white">{{ __('تواصل معنا') }}</a>
@@ -97,12 +95,6 @@
                         <x-recaptcha action="demo" class="order-last w-full" />
                     </form>
                 @endguest
-                @if($video)
-                    <button @click="player = 'promo'" class="btn px-6 py-3 text-base text-white ring-1 ring-white/20 hover:bg-white/10">
-                        <span class="grid size-7 place-items-center rounded-full bg-white text-night"><svg class="size-3.5 translate-x-px" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-                        {{ __('شاهد الفيديو (دقيقة)') }}
-                    </button>
-                @endif
             </div>
             @if($trialOn)
                 @beta
@@ -111,11 +103,6 @@
                     <p class="mt-4 text-sm text-slate-400">{{ __('بدون بطاقة ائتمان · مجاناً لمدة :days يوماً فقط، ثم اشتراك مدفوع من :price درهم شهرياً للاستمرار.', ['days' => $trialDays, 'price' => (int) $plans->min('price')]) }}</p>
                 @endbeta
             @endif
-            <ul class="mt-6 grid gap-x-6 gap-y-2 text-sm text-slate-300 sm:grid-cols-2">
-                @foreach([__('ديمو فوري بدون تسجيل'), __('نجهّز حسابك مجاناً خلال يوم'), __('يقرأ ملفات Zoho وQuickBooks وTally'), __('رسائل بالعربية والإنجليزية')] as $perk)
-                    <li class="flex items-center gap-2"><x-icon name="check" class="size-4 shrink-0 text-brand-400" /> {{ $perk }}</li>
-                @endforeach
-            </ul>
         </div>
         <div class="rounded-3xl bg-white/5 p-3 ring-1 ring-white/10 backdrop-blur">
             <div class="rounded-2xl bg-surface p-5 text-slate-800 shadow-2xl">
@@ -197,17 +184,6 @@
     </div>
 </section>
 
-<section id="how" class="bg-slate-50 py-24">
-    <div class="mx-auto max-w-6xl px-6">
-        <h2 class="text-center text-3xl font-bold text-ink">{{ __('ثلاث خطوات فقط') }}</h2>
-        <div class="mt-14 grid gap-8 md:grid-cols-3">
-            @foreach([['1', __('ارفع فواتيرك'), __('من Excel أو أدخلها يدوياً في ثوانٍ.')], ['2', __('اضبط الجدول'), __('حدد متى وكيف يتم تذكير العملاء، وخصص نص الرسائل.')], ['3', __('استلم أموالك'), __('النظام يتابع يومياً وأنت تراقب التحصيل من لوحة المالك.')]] as [$n, $t, $d])
-                <div class="text-center"><span class="mx-auto grid size-14 place-items-center rounded-full bg-night text-xl font-bold text-white">{{ $n }}</span><h3 class="mt-5 text-lg font-bold text-ink">{{ $t }}</h3><p class="mt-2 text-slate-500">{{ $d }}</p></div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
 {{-- Works with the accounting software they already use: exports are read as they are --}}
 <section id="integrations" class="mx-auto max-w-6xl px-6 py-24">
     <div class="grid items-center gap-12 lg:grid-cols-2">
@@ -226,7 +202,6 @@
                     <li class="flex gap-3"><x-icon name="check" class="mt-1 size-5 shrink-0 text-brand-600" /> <span>{{ $line }}</span></li>
                 @endforeach
             </ul>
-            <p class="mt-6 rounded-2xl bg-slate-50 px-5 py-4 text-sm text-slate-600 ring-1 ring-slate-200">{{ __('فريقك يبقى في نظامه كما هو. تحصيلي يتزامن معه كل يوم ويتابع التحصيل وحده، ويرسل لك ملخصاً بما تغيّر.') }}</p>
         </div>
         <div class="relative rounded-3xl bg-slate-50 p-8 ring-1 ring-slate-200 dark:bg-white/5 dark:ring-white/10">
             <div class="grid grid-cols-2 gap-4">
@@ -241,42 +216,6 @@
             <div class="flex items-center gap-3 rounded-2xl bg-night p-5 text-white shadow-xl">
                 <x-brand-mark class="size-10" />
                 <div><p class="font-bold">{{ $appName }}</p><p class="text-sm text-slate-300">{{ __('مزامنة يومية تلقائية — والتذكيرات تعمل وحدها') }}</p></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- Everything a visitor gets without paying --}}
-<section id="free" class="bg-slate-50 py-24">
-    <div class="mx-auto max-w-6xl px-6">
-        <h2 class="text-center text-3xl font-bold text-ink">{{ __('ابدأ بدون أي التزام') }}</h2>
-        <p class="mx-auto mt-3 max-w-2xl text-center text-slate-500">{{ __('جرّب، واستفد من أدواتنا المجانية، وادعُ غيرك — قبل أن تدفع أي درهم.') }}</p>
-        <div class="mt-12 grid gap-6 md:grid-cols-3">
-            <div class="flex flex-col rounded-3xl bg-surface p-7 shadow-sm ring-1 ring-slate-100 dark:ring-white/10">
-                <span class="grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-700"><x-icon name="bolt" class="size-6" /></span>
-                <h3 class="mt-5 text-lg font-bold text-ink">{{ __('ديمو فوري') }}</h3>
-                <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-500">{{ __('ادخل حساباً تجريبياً جاهزاً بعملاء وفواتير وتقارير، وجرّب كل شيء بنفسك. بدون تسجيل، ولا تُرسل أي رسالة حقيقية.') }}</p>
-                @guest
-                    <form method="POST" action="{{ route('demo.start') }}" class="mt-5">
-                        @csrf
-                        <button class="btn-primary w-full">{{ __('افتح الديمو الآن') }}</button>
-                        <x-recaptcha action="demo" class="mt-2" />
-                    </form>
-                @else
-                    <a href="{{ route('home') }}" class="btn-primary mt-5 w-full">{{ __('لوحة التحكم') }}</a>
-                @endguest
-            </div>
-            <div class="flex flex-col rounded-3xl bg-surface p-7 shadow-sm ring-1 ring-slate-100 dark:ring-white/10">
-                <span class="grid size-12 place-items-center rounded-xl bg-sky-50 text-sky-600"><x-icon name="mail" class="size-6" /></span>
-                <h3 class="mt-5 text-lg font-bold text-ink">{{ __('مولّد رسائل التذكير') }}</h3>
-                <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-500">{{ __('أداة مجانية تكتب لك رسالة تذكير بالدفع مهذّبة بالعربية أو الإنجليزية، حسب مدة التأخير، جاهزة للنسخ أو الإرسال بواتساب.') }}</p>
-                <a href="{{ route('tools.reminder') }}" class="btn-secondary mt-5 w-full">{{ __('جرّب الأداة') }}</a>
-            </div>
-            <div class="flex flex-col rounded-3xl bg-surface p-7 shadow-sm ring-1 ring-slate-100 dark:ring-white/10">
-                <span class="grid size-12 place-items-center rounded-xl bg-violet-50 text-violet-600"><x-icon name="users" class="size-6" /></span>
-                <h3 class="mt-5 text-lg font-bold text-ink">{{ __('ادعُ شركة واربح شهراً') }}</h3>
-                <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-500">{{ __('لكل حساب رابط دعوة خاص. الشركة التي تسجّل من رابطك تحصل على تجربة :trial يوماً، وأنت تحصل على :days يوماً مجاناً عندما تشترك.', ['trial' => \App\Support\Referral::trialDays(), 'days' => \App\Support\Referral::rewardDays()]) }}</p>
-                <a href="{{ $trialOn ? route('trial.create') : route('landing').'#interest' }}" class="btn-secondary mt-5 w-full">{{ __('احصل على رابطك') }}</a>
             </div>
         </div>
     </div>
@@ -381,8 +320,6 @@
                 <p x-show="founding" class="mt-2 w-fit rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-bold text-amber-800">{{ __('سعر المؤسسين — مدى الحياة') }}</p>
 
                 <a :href="`{{ url('/subscribe') }}/${plan.code}?cycle=${cycle}`" class="mt-6 w-full" :class="plan.featured ? 'btn-primary bg-brand-500' : 'btn-secondary'">{{ __('اشترك الآن') }}</a>
-                @if($trialOn)
-                @endif
 
                 <ul class="mt-6 space-y-2.5 border-t pt-6 text-sm" :class="plan.featured ? 'border-white/10' : 'border-slate-100'">
                     <li class="flex items-start gap-2 font-semibold"><x-icon name="check" class="mt-0.5 size-4 shrink-0 text-brand-500" /> <span x-text="plan.users"></span></li>

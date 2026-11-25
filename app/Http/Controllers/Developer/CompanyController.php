@@ -41,7 +41,7 @@ class CompanyController extends Controller
             'trial_days' => ['nullable', 'integer', 'min:0', 'max:90'],
         ]);
 
-        $trialDays = (int) ($data['trial_days'] ?? 14);
+        $trialDays = (int) ($data['trial_days'] ?? 30);
         $company = Company::create([
             'name' => $data['name'],
             'email' => $data['owner_email'],

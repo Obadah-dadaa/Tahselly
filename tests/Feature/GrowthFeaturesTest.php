@@ -104,6 +104,7 @@ class GrowthFeaturesTest extends TestCase
 
     public function test_founding_customers_pay_the_discount_for_life_until_the_seats_run_out(): void
     {
+        $this->setting('founding_offer_enabled', '1');
         $this->setting('founding_offer_seats', '1');
         $plan = Plan::query()->where('code', 'freelancer')->first();
 
@@ -128,7 +129,7 @@ class GrowthFeaturesTest extends TestCase
         config(['tahselly.edition' => 'beta', 'tahselly.live_url' => 'https://live.test']);
         Http::fake(['live.test/founding-offer.json' => Http::response(['open' => true, 'percent' => 50, 'seats' => 20, 'left' => 17])]);
 
-        $this->get('/?lang=ar')->assertOk()->assertSee('باقي 17 مكاناً')->assertSee('id="free"', false)->assertSee('id="integrations"', false)
+        $this->get('/?lang=ar')->assertOk()->assertSee('باقي 17 مكاناً')->assertSee('id="integrations"', false)
             ->assertSee('tahselly-promo-v2-ar.mp4', false);
         $this->assertSame(0, FoundingOffer::discountFor(null)); // nothing is sold on the beta
 

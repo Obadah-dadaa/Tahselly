@@ -35,7 +35,7 @@
             <h2 class="font-semibold text-ink">{{ __('إضافة شركة (عميل جديد)') }}</h2>
             <div><label class="label">{{ __('اسم الشركة') }}</label><input name="name" required class="input"></div>
             <div><label class="label">{{ __('الباقة') }}</label><select name="plan_id" class="input">@foreach($plans as $p)<option value="{{ $p->id }}">{{ $p->localizedName() }} — {{ (int) $p->price }} {{ __('درهم') }}</option>@endforeach</select></div>
-            <div><label class="label">{{ __('أيام التجربة') }}</label><input type="number" name="trial_days" value="{{ \App\Models\SystemSetting::get('default_trial_days', 14) }}" class="input num"></div>
+            <div><label class="label">{{ __('أيام التجربة') }}</label><input type="number" name="trial_days" value="{{ \App\Models\SystemSetting::get('default_trial_days', 30) }}" class="input num"></div>
             <hr class="border-slate-100">
             <div><label class="label">{{ __('اسم المالك') }}</label><input name="owner_name" required class="input"></div>
             <div><label class="label">{{ __('بريد المالك') }}</label><input type="email" name="owner_email" required class="input" dir="ltr"></div>

@@ -119,6 +119,6 @@ class SubscriptionFlowTest extends TestCase
     {
         $this->post(route('locale', 'en'));
 
-        $this->get(route('landing'))->assertOk()->assertSee('Try free for 14 days')->assertSee('dir="ltr"', false);
+        $this->get(route('landing'))->assertOk()->assertSee('Try free for 30 days')->assertSee('dir="ltr"', false);
     }
 }

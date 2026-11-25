@@ -1,4 +1,4 @@
-{{-- Full-page trial welcome (no sidebar): the 14-day access, what it includes, and upgrade-only plans. --}}
+{{-- Full-page trial welcome (no sidebar): the trial access, what it includes, and upgrade-only plans. --}}
 @php
     $trialEnds = $company->trial_ends_at;
     $daysLeft = $trialEnds ? max(0, (int) today()->diffInDays($trialEnds, false)) : null;

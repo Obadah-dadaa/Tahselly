@@ -34,7 +34,7 @@ class TrialController extends Controller
         return view('subscribe.trial', [
             // A plan picked on the pricing page is kept; otherwise the plan is chosen after sign-up (the beta has no plans)
             'selected' => $request->plan && ! Edition::isBeta() ? Plan::query()->where('is_active', true)->where('code', $request->plan)->first() : null,
-            'days' => Edition::isBeta() ? Edition::limit('trial_days') : (int) SystemSetting::get('default_trial_days', 14),
+            'days' => Edition::isBeta() ? Edition::limit('trial_days') : (int) SystemSetting::get('default_trial_days', 30),
         ]);
     }
 
@@ -53,7 +53,7 @@ class TrialController extends Controller
 
         $data['phone'] = Phone::normalize($request->input('phone_country'), $data['phone']);
         $plan = isset($data['plan']) ? Plan::query()->where('code', $data['plan'])->first() : null;
-        $days = Edition::isBeta() ? Edition::limit('trial_days') : max(1, (int) SystemSetting::get('default_trial_days', 14));
+        $days = Edition::isBeta() ? Edition::limit('trial_days') : max(1, (int) SystemSetting::get('default_trial_days', 30));
         // Came through a customer's referral link: a longer trial
         $referrer = Referral::referrerFrom($request);
         if ($referrer) {
@@ -120,7 +120,7 @@ class TrialController extends Controller
             // Referred companies get a longer trial than the default
             'totalDays' => $company->trial_ends_at
                 ? max(1, (int) $company->created_at->copy()->startOfDay()->diffInDays($company->trial_ends_at))
-                : (int) SystemSetting::get('default_trial_days', 14),
+                : (int) SystemSetting::get('default_trial_days', 30),
         ]);
     }
 

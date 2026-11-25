@@ -42,13 +42,13 @@ class FreeTrialTest extends TestCase
 
     public function test_visitor_starts_a_trial_without_a_card(): void
     {
-        $this->get(route('trial.create'))->assertOk()->assertSee('14');
+        $this->get(route('trial.create'))->assertOk()->assertSee('30');
 
         $this->post(route('trial.store'), $this->signup())->assertRedirect(route('home'));
 
         $company = Company::query()->where('name', 'Trial Agency')->firstOrFail();
         $this->assertSame('trial', $company->status);
-        $this->assertSame(today()->addDays(14)->toDateString(), $company->trial_ends_at->toDateString());
+        $this->assertSame(today()->addDays(30)->toDateString(), $company->trial_ends_at->toDateString());
         $this->assertSame(0, $company->subscriptions()->count());
         $this->assertAuthenticatedAs(User::query()->where('email', 'trial@agency.test')->first());
     }

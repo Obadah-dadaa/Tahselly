@@ -52,7 +52,7 @@ class PlatformSeeder extends Seeder
             ['feature_whatsapp', '1', 'bool', 'features', 'تفعيل تذكيرات واتساب'],
             ['feature_excel_import', '1', 'bool', 'features', 'تفعيل استيراد Excel'],
             ['allow_signups', '1', 'bool', 'features', 'السماح بالتسجيل الذاتي والتجربة المجانية'],
-            ['default_trial_days', '14', 'int', 'billing', 'أيام التجربة المجانية'],
+            ['default_trial_days', '30', 'int', 'billing', 'أيام التجربة المجانية'],
             ['announcement', '', 'text', 'general', 'إعلان يظهر لكل المستخدمين (اتركه فارغاً للإخفاء)'],
             ['card_payments', '1', 'bool', 'billing', 'إظهار الدفع بالبطاقة (Stripe) في صفحة الاشتراك'],
             ['bank_name', 'Emirates NBD', 'string', 'billing', 'اسم البنك (للتحويل البنكي)'],
