@@ -99,7 +99,7 @@
                 </div>
                 <ul class="divide-y divide-slate-100 text-sm">
                     @foreach($activity as $log)
-                        <li class="px-5 py-3"><p>{{ $log->description }}</p><p class="text-xs text-slate-500">{{ $log->user?->name ?? __('النظام') }} · {{ $log->created_at->locale(app()->getLocale())->diffForHumans() }}</p></li>
+                        <li class="px-5 py-3"><p>{{ $log->localizedDescription() }}</p><p class="text-xs text-slate-500">{{ $log->user?->name ?? __('النظام') }} · {{ $log->created_at->locale(app()->getLocale())->diffForHumans() }}</p></li>
                     @endforeach
                 </ul>
             </div>

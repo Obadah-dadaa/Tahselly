@@ -109,7 +109,7 @@
         <h2 class="border-b border-slate-100 px-5 py-4 font-semibold text-ink">{{ __('النشاط') }}</h2>
         <ul class="divide-y divide-slate-100 text-sm">
             @forelse($activity as $log)
-                <li class="flex justify-between px-5 py-3"><span>{{ $log->description }}</span><span class="text-xs text-slate-500">{{ $log->user?->name }} · {{ $log->created_at->format('Y-m-d H:i') }}</span></li>
+                <li class="flex justify-between px-5 py-3"><span>{{ $log->localizedDescription() }}</span><span class="text-xs text-slate-500">{{ $log->user?->name }} · {{ $log->created_at->format('Y-m-d H:i') }}</span></li>
             @empty
                 <li class="px-5 py-6 text-center text-slate-400">{{ __('لا يوجد نشاط') }}</li>
             @endforelse

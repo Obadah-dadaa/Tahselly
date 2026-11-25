@@ -158,7 +158,7 @@
         <ul class="divide-y divide-slate-100 text-sm">
             @foreach($activity as $log)
                 <li class="flex items-center justify-between gap-4 px-5 py-3">
-                    <span><b class="font-semibold">{{ $log->company?->name ?? __('المنصة') }}</b> — {{ $log->description }}</span>
+                    <span><b class="font-semibold">{{ $log->company?->name ?? __('المنصة') }}</b> — {{ $log->localizedDescription() }}</span>
                     <span class="whitespace-nowrap text-xs text-slate-500">{{ $log->user?->name }} · {{ $log->created_at->locale(app()->getLocale())->diffForHumans() }}</span>
                 </li>
             @endforeach

@@ -23,7 +23,7 @@
                 <tr>
                     <td class="num whitespace-nowrap text-slate-500">{{ $log->created_at->format('Y-m-d H:i') }}</td>
                     <td>{{ $log->user?->name ?? __('النظام') }}</td>
-                    <td><span class="me-2 rounded-full px-2 py-0.5 text-[11px] font-semibold {{ $tones[explode('.', $log->action)[0]] ?? 'bg-slate-100 text-slate-600' }}">{{ $types[collect(\App\Http\Controllers\Owner\DashboardController::ACTIVITY_TYPES)->search(fn ($ps) => collect($ps)->contains(fn ($p) => \Illuminate\Support\Str::is(str_replace('%', '*', $p), $log->action))) ?: ''] ?? '' }}</span>{{ $log->description }}</td>
+                    <td><span class="me-2 rounded-full px-2 py-0.5 text-[11px] font-semibold {{ $tones[explode('.', $log->action)[0]] ?? 'bg-slate-100 text-slate-600' }}">{{ $types[collect(\App\Http\Controllers\Owner\DashboardController::ACTIVITY_TYPES)->search(fn ($ps) => collect($ps)->contains(fn ($p) => \Illuminate\Support\Str::is(str_replace('%', '*', $p), $log->action))) ?: ''] ?? '' }}</span>{{ $log->localizedDescription() }}</td>
                     <td class="num text-xs text-slate-400">{{ $log->ip }}</td>
                 </tr>
             @empty

@@ -9,7 +9,7 @@
                     <td class="num whitespace-nowrap text-slate-500">{{ $log->created_at->format('Y-m-d H:i') }}</td>
                     <td>{{ $log->company?->name ?? '—' }}</td>
                     <td>{{ $log->user?->name ?? __('النظام') }}</td>
-                    <td>{{ $log->description }}</td>
+                    <td>{{ $log->localizedDescription() }}</td>
                     <td><code class="text-xs text-slate-400" dir="ltr">{{ $log->action }}</code></td>
                     <td class="num text-xs text-slate-400">{{ $log->ip }}</td>
                 </tr>
